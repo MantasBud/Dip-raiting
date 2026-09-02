@@ -1,0 +1,28 @@
+name: Dip reitingo atnaujinimas
+
+on:
+  schedule:
+    - cron: "*/5 6-16 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Įdiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+      - name: Surinkti duomenis ir sudėlioti puslapį
+        run: python dip_reitingas.py --out docs --no-browser
+      - name: Įrašyti pakeitimus
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git diff --cached --quiet || (git commit -m "Duomenų atnaujinimas" && git push)
