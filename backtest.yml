@@ -1,0 +1,49 @@
+name: Backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "Kiek menesiu istorijos"
+        required: false
+        default: "12"
+      target:
+        description: "Tikslas procentais"
+        required: false
+        default: "2"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Patikrinti ar failai vietoje
+        run: |
+          echo "Repozitorijos turinys:"
+          ls -la
+          test -f backtest.py || (echo "KLAIDA: backtest.py nerastas repozitorijoje" && exit 1)
+          test -f dip_reitingas.py || (echo "KLAIDA: dip_reitingas.py nerastas" && exit 1)
+
+      - name: Idiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+
+      - name: Paleisti backtesta
+        env:
+          MONTHS: ${{ github.event.inputs.months || '12' }}
+          TARGET: ${{ github.event.inputs.target || '2' }}
+        run: |
+          echo "Parametrai: menesiai=$MONTHS tikslas=$TARGET"
+          python backtest.py --months "$MONTHS" --target "$TARGET" | tee rezultatas.txt
+
+      - name: Issaugoti rezultata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-rezultatas
+          path: rezultatas.txt
+          if-no-files-found: ignore
