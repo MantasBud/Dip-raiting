@@ -1,61 +1,5 @@
 [
  {
-  "tag": "ADYEN",
-  "sym": "ADYEN.AS",
-  "name": "Adyen NV",
-  "price": 1043.4000244140625,
-  "dayHigh": 1063.5999755859375,
-  "dayLow": 1036.4000244140625,
-  "vwap": 1048.8749855919252,
-  "rsi": 43.16407010907005,
-  "atrPct": 3.4474737964970026,
-  "support": 1019.0,
-  "resistance": 1095.0,
-  "rvol": 0.6284927258931812,
-  "sma20": 1026.3849975585938,
-  "sma50": 921.6059997558593,
-  "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": 3.6352837768031367,
-  "avgVolume": 142611.75,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 4.712326537528539,
-  "chg3d": -4.310344731077563,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 72.1749104058959,
-  "grade": "B",
-  "flags": [
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5217 EUR) — reali rizika 137 EUR"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.76 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
-   ]
-  ],
-  "dip": 1.8992056821688852,
-  "rng": 25.735340316485804,
-  "room": 4.945368447246708,
-  "sup_d": 2.3385110066261223,
-  "vw_d": -0.5219841499769363,
-  "stop": 1015.943,
-  "tp": 1064.2680249023438,
-  "rr": 0.760024107987223,
-  "shares": 5,
-  "sector_chg": 1.8862648536381037,
-  "pos_value": 5217.0001220703125,
-  "gross": 104.34000244140626,
-  "net": 100.34000244140626,
-  "real_risk": 137.28512207031258
- },
- {
   "tag": "ASM",
   "sym": "ASM.AS",
   "name": "ASM International",
@@ -80,12 +24,18 @@
   "dd5": 9.00328827985093,
   "chg3d": -6.248483452251372,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 71.1150051787557,
-  "grade": "B",
+  "score": 58.000500971174944,
+  "grade": "C",
+  "tradeable": false,
+  "blocking": [],
   "flags": [
    [
     "info",
     "Kiekis apribotas iki 30% portfelio (4645 EUR) — reali rizika 82 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 1.13 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ],
    [
     "warn",
@@ -106,6 +56,184 @@
   "gross": 92.90400146484374,
   "net": 88.90400146484374,
   "real_risk": 82.13054626464827
+ },
+ {
+  "tag": "ADYEN",
+  "sym": "ADYEN.AS",
+  "name": "Adyen NV",
+  "price": 1043.4000244140625,
+  "dayHigh": 1063.5999755859375,
+  "dayLow": 1036.4000244140625,
+  "vwap": 1048.8749855919252,
+  "rsi": 43.16407010907005,
+  "atrPct": 3.4474737964970026,
+  "support": 1019.0,
+  "resistance": 1095.0,
+  "rvol": 0.6284927258931812,
+  "sma20": 1026.3849975585938,
+  "sma50": 921.6059997558593,
+  "earnings": false,
+  "sector": "programinė įranga",
+  "day_chg": 3.6352837768031367,
+  "avgVolume": 142611.75,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 4.712326537528539,
+  "chg3d": -4.310344731077563,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 55.533044002568325,
+  "grade": "C",
+  "tradeable": false,
+  "blocking": [],
+  "flags": [
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5217 EUR) — reali rizika 137 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.76 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
+   ],
+   [
+    "warn",
+    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
+   ]
+  ],
+  "dip": 1.8992056821688852,
+  "rng": 25.735340316485804,
+  "room": 4.945368447246708,
+  "sup_d": 2.3385110066261223,
+  "vw_d": -0.5219841499769363,
+  "stop": 1015.943,
+  "tp": 1064.2680249023438,
+  "rr": 0.760024107987223,
+  "shares": 5,
+  "sector_chg": 1.8862648536381037,
+  "pos_value": 5217.0001220703125,
+  "gross": 104.34000244140626,
+  "net": 100.34000244140626,
+  "real_risk": 137.28512207031258
+ },
+ {
+  "tag": "ASML",
+  "sym": "ASML.AS",
+  "name": "ASML Holding NV",
+  "price": 1424.4000244140625,
+  "dayHigh": 1452.800048828125,
+  "dayLow": 1393.4000244140625,
+  "vwap": 1418.4973797233467,
+  "rsi": 59.72730460082073,
+  "atrPct": 3.5186406807437627,
+  "support": 1414.3333740234375,
+  "resistance": 1444.4666748046875,
+  "rvol": 1.1940549541490348,
+  "sma20": 1515.0500122070312,
+  "sma50": 1530.7880102539064,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": -0.7663368965379707,
+  "avgVolume": 498960.25,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 7.5665136655378,
+  "chg3d": -4.684154099063684,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.4% — 2.0% tikslas netelpa"
+  ],
+  "flags": [
+   [
+    "stop",
+    "Iki pasipriešinimo tik 1.4% — 2.0% tikslas netelpa"
+   ],
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (4273 EUR) — reali rizika 53 EUR"
+   ],
+   [
+    "warn",
+    "Nuo 5 d. maksimumo nukritusi 7.6% — kritimas prasidėjo ne šiandien"
+   ]
+  ],
+  "dip": 1.9548474297595784,
+  "rng": 52.18853073848398,
+  "room": 1.4087791383519221,
+  "sup_d": 0.7067291644259829,
+  "vw_d": 0.41611953431080495,
+  "stop": 1406.8581928636174,
+  "tp": 1452.888024902344,
+  "rr": 1.6240037653057156,
+  "shares": 3,
+  "sector_chg": -0.4904536356015481,
+  "pos_value": 4273.2000732421875,
+  "gross": 85.46400146484375,
+  "net": 81.46400146484375,
+  "real_risk": 52.6254946513352
+ },
+ {
+  "tag": "BESI",
+  "sym": "BESI.AS",
+  "name": "BE Semiconductor",
+  "price": 191.39999389648438,
+  "dayHigh": 193.6999969482422,
+  "dayLow": 187.85000610351562,
+  "vwap": 190.98484574968143,
+  "rsi": 60.212307248563675,
+  "atrPct": 4.9513535750106525,
+  "support": 187.9499969482422,
+  "resistance": 191.63333129882812,
+  "rvol": 0.9469805579908205,
+  "sma20": 212.4375,
+  "sma50": 228.99400085449219,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 1.1895321557511398,
+  "avgVolume": 391921.35,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 4.633783354842879,
+  "chg3d": -3.088610685324367,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 0.1% — 2.0% tikslas netelpa"
+  ],
+  "flags": [
+   [
+    "stop",
+    "Iki pasipriešinimo tik 0.1% — 2.0% tikslas netelpa"
+   ],
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5359 EUR) — reali rizika 112 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.95 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
+   ]
+  ],
+  "dip": 1.187404795041059,
+  "rng": 60.683646986710485,
+  "room": 0.12191087240574668,
+  "sup_d": 1.8025063000305337,
+  "vw_d": 0.2173722973534099,
+  "stop": 187.38614695739747,
+  "tp": 195.22799377441407,
+  "rr": 0.9536985181603655,
+  "shares": 28,
+  "sector_chg": -0.4904536356015481,
+  "pos_value": 5359.1998291015625,
+  "gross": 107.18399658203126,
+  "net": 103.18399658203126,
+  "real_risk": 112.3877142944333
  },
  {
   "tag": "IFX",
@@ -132,8 +260,12 @@
   "dd5": 5.2379282001079766,
   "chg3d": -3.0133166880302182,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 67.54266879718605,
-  "grade": "B",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.1% — 2.0% tikslas netelpa"
+  ],
   "flags": [
    [
     "stop",
@@ -142,6 +274,10 @@
    [
     "info",
     "Kiekis apribotas iki 30% portfelio (5370 EUR) — reali rizika 96 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 1.11 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ]
   ],
   "dip": 1.7743080006573517,
@@ -158,6 +294,66 @@
   "gross": 107.39840118408203,
   "net": 103.39840118408203,
   "real_risk": 96.37840725708006
+ },
+ {
+  "tag": "KER",
+  "sym": "KER.PA",
+  "name": "Kering SA",
+  "price": 244.60000610351562,
+  "dayHigh": 248.89999389648438,
+  "dayLow": 241.39999389648438,
+  "vwap": 243.32684757110474,
+  "rsi": 60.02486396826653,
+  "atrPct": 3.1520663536806937,
+  "support": 243.86666870117188,
+  "resistance": 248.63333129882812,
+  "rvol": 2.1621045358077096,
+  "sma20": 262.21499862670896,
+  "sma50": 259.59099853515625,
+  "earnings": false,
+  "sector": "prabangos prekės",
+  "day_chg": -1.0517762446699945,
+  "avgVolume": 275522.4,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 5.009706367566748,
+  "chg3d": -3.7765503383075263,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.6% — 2.0% tikslas netelpa"
+  ],
+  "flags": [
+   [
+    "stop",
+    "Iki pasipriešinimo tik 1.6% — 2.0% tikslas netelpa"
+   ],
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5381 EUR) — reali rizika 59 EUR"
+   ],
+   [
+    "warn",
+    "Visas sektorius krenta (-3.5%) — tai ne šios akcijos problema"
+   ]
+  ],
+  "dip": 1.7275965843362304,
+  "rng": 42.666829427083336,
+  "room": 1.6489472995375078,
+  "sup_d": 0.29981086837479426,
+  "vw_d": 0.5232297813083893,
+  "stop": 241.90152203079418,
+  "tp": 249.49200622558595,
+  "rr": 1.8128697410234142,
+  "shares": 22,
+  "sector_chg": -3.460672785726826,
+  "pos_value": 5381.200134277344,
+  "gross": 107.62400268554687,
+  "net": 103.62400268554687,
+  "real_risk": 59.36664959987172
  },
  {
   "tag": "LR",
@@ -184,8 +380,12 @@
   "dd5": 3.3886254852058144,
   "chg3d": -2.005003877797691,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 67.31734411769295,
-  "grade": "B",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 0.6% — 2.0% tikslas netelpa"
+  ],
   "flags": [
    [
     "stop",
@@ -236,8 +436,12 @@
   "dd5": 9.785726135558184,
   "chg3d": -7.379174863453263,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 66.64752606805911,
-  "grade": "B",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.4% — 2.0% tikslas netelpa"
+  ],
   "flags": [
    [
     "stop",
@@ -268,224 +472,65 @@
   "real_risk": 73.46739664285792
  },
  {
-  "tag": "ASML",
-  "sym": "ASML.AS",
-  "name": "ASML Holding NV",
-  "price": 1424.4000244140625,
-  "dayHigh": 1452.800048828125,
-  "dayLow": 1393.4000244140625,
-  "vwap": 1418.4973797233467,
-  "rsi": 59.72730460082073,
-  "atrPct": 3.5186406807437627,
-  "support": 1414.3333740234375,
-  "resistance": 1444.4666748046875,
-  "rvol": 1.1940549541490348,
-  "sma20": 1515.0500122070312,
-  "sma50": 1530.7880102539064,
+  "tag": "SAP",
+  "sym": "SAP.DE",
+  "name": "SAP SE",
+  "price": 185.67999267578125,
+  "dayHigh": 187.55999755859375,
+  "dayLow": 182.0,
+  "vwap": 185.4532284082739,
+  "rsi": 49.545678198781616,
+  "atrPct": 3.2067359373222,
+  "support": 185.14666748046875,
+  "resistance": 186.97332763671875,
+  "rvol": 0.7496402137795833,
+  "sma20": 182.6320007324219,
+  "sma50": 159.25679992675782,
   "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": -0.7663368965379707,
-  "avgVolume": 498960.25,
+  "sector": "programinė įranga",
+  "day_chg": 0.7706491974809168,
+  "avgVolume": 2330352.75,
   "cur": "EUR",
   "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 7.5665136655378,
-  "chg3d": -4.684154099063684,
+  "down_days": 3,
+  "dd5": 3.352072977868878,
+  "chg3d": -2.9479481666962823,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 63.74429321216997,
-  "grade": "C",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 0.7% — 2.0% tikslas netelpa",
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "stop",
-    "Iki pasipriešinimo tik 1.4% — 2.0% tikslas netelpa"
+    "Iki pasipriešinimo tik 0.7% — 2.0% tikslas netelpa"
    ],
    [
     "info",
-    "Kiekis apribotas iki 30% portfelio (4273 EUR) — reali rizika 53 EUR"
+    "Kiekis apribotas iki 30% portfelio (5385 EUR) — reali rizika 60 EUR"
    ],
-   [
-    "warn",
-    "Nuo 5 d. maksimumo nukritusi 7.6% — kritimas prasidėjo ne šiandien"
-   ]
-  ],
-  "dip": 1.9548474297595784,
-  "rng": 52.18853073848398,
-  "room": 1.4087791383519221,
-  "sup_d": 0.7067291644259829,
-  "vw_d": 0.41611953431080495,
-  "stop": 1406.8581928636174,
-  "tp": 1452.888024902344,
-  "rr": 1.6240037653057156,
-  "shares": 3,
-  "sector_chg": -0.4904536356015481,
-  "pos_value": 4273.2000732421875,
-  "gross": 85.46400146484375,
-  "net": 81.46400146484375,
-  "real_risk": 52.6254946513352
- },
- {
-  "tag": "KER",
-  "sym": "KER.PA",
-  "name": "Kering SA",
-  "price": 244.60000610351562,
-  "dayHigh": 248.89999389648438,
-  "dayLow": 241.39999389648438,
-  "vwap": 243.32684757110474,
-  "rsi": 60.02486396826653,
-  "atrPct": 3.1520663536806937,
-  "support": 243.86666870117188,
-  "resistance": 248.63333129882812,
-  "rvol": 2.1621045358077096,
-  "sma20": 262.21499862670896,
-  "sma50": 259.59099853515625,
-  "earnings": false,
-  "sector": "prabangos prekės",
-  "day_chg": -1.0517762446699945,
-  "avgVolume": 275522.4,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 5.009706367566748,
-  "chg3d": -3.7765503383075263,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 62.22382587144684,
-  "grade": "C",
-  "flags": [
    [
     "stop",
-    "Iki pasipriešinimo tik 1.6% — 2.0% tikslas netelpa"
-   ],
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5381 EUR) — reali rizika 59 EUR"
-   ],
-   [
-    "warn",
-    "Visas sektorius krenta (-3.5%) — tai ne šios akcijos problema"
+    "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
    ]
   ],
-  "dip": 1.7275965843362304,
-  "rng": 42.666829427083336,
-  "room": 1.6489472995375078,
-  "sup_d": 0.29981086837479426,
-  "vw_d": 0.5232297813083893,
-  "stop": 241.90152203079418,
-  "tp": 249.49200622558595,
-  "rr": 1.8128697410234142,
-  "shares": 22,
-  "sector_chg": -3.460672785726826,
-  "pos_value": 5381.200134277344,
-  "gross": 107.62400268554687,
-  "net": 103.62400268554687,
-  "real_risk": 59.36664959987172
- },
- {
-  "tag": "BESI",
-  "sym": "BESI.AS",
-  "name": "BE Semiconductor",
-  "price": 191.39999389648438,
-  "dayHigh": 193.6999969482422,
-  "dayLow": 187.85000610351562,
-  "vwap": 190.98484574968143,
-  "rsi": 60.212307248563675,
-  "atrPct": 4.9513535750106525,
-  "support": 187.9499969482422,
-  "resistance": 191.63333129882812,
-  "rvol": 0.9469805579908205,
-  "sma20": 212.4375,
-  "sma50": 228.99400085449219,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 1.1895321557511398,
-  "avgVolume": 391921.35,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 4.633783354842879,
-  "chg3d": -3.088610685324367,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 54.43140581704935,
-  "grade": "C",
-  "flags": [
-   [
-    "stop",
-    "Iki pasipriešinimo tik 0.1% — 2.0% tikslas netelpa"
-   ],
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5359 EUR) — reali rizika 112 EUR"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.95 — rizikuoji daugiau nei sieki"
-   ]
-  ],
-  "dip": 1.187404795041059,
-  "rng": 60.683646986710485,
-  "room": 0.12191087240574668,
-  "sup_d": 1.8025063000305337,
-  "vw_d": 0.2173722973534099,
-  "stop": 187.38614695739747,
-  "tp": 195.22799377441407,
-  "rr": 0.9536985181603655,
-  "shares": 28,
-  "sector_chg": -0.4904536356015481,
-  "pos_value": 5359.1998291015625,
-  "gross": 107.18399658203126,
-  "net": 103.18399658203126,
-  "real_risk": 112.3877142944333
- },
- {
-  "tag": "AMD",
-  "sym": "AMD.DE",
-  "name": "Advanced Micro Devices",
-  "price": 393.25,
-  "dayHigh": 395.95001220703125,
-  "dayLow": 379.3999938964844,
-  "vwap": 390.07070474727317,
-  "rsi": 64.53203217719042,
-  "atrPct": 5.000159855665012,
-  "support": 390.0,
-  "resistance": 397.8833312988281,
-  "rvol": 0.824536071447671,
-  "sma20": 411.6875,
-  "sma50": 436.69099853515627,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": -0.6568159816664795,
-  "avgVolume": 23617.15,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 6.591448931116389,
-  "chg3d": -3.8861039065558685,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 53.3341005607595,
-  "grade": "C",
-  "flags": [
-   [
-    "stop",
-    "Iki pasipriešinimo tik 1.2% — 2.0% tikslas netelpa"
-   ],
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5112 EUR) — reali rizika 89 EUR"
-   ]
-  ],
-  "dip": 0.6819073427934353,
-  "rng": 83.68574489545666,
-  "room": 1.178215206313573,
-  "sup_d": 0.8264462809917356,
-  "vw_d": 0.8150561459842766,
-  "stop": 386.36790497865906,
-  "tp": 401.115,
-  "rr": 1.1428206055875627,
-  "shares": 13,
-  "sector_chg": -0.4904536356015481,
-  "pos_value": 5112.25,
-  "gross": 102.245,
-  "net": 98.245,
-  "real_risk": 89.46723527743228
+  "dip": 1.0023485323543933,
+  "rng": 66.18694769196992,
+  "room": 0.6965397522369642,
+  "sup_d": 0.2872281432301365,
+  "vw_d": 0.12227571849443844,
+  "stop": 183.59599920703823,
+  "tp": 189.39359252929688,
+  "rr": 1.7819632878962566,
+  "shares": 29,
+  "sector_chg": 1.8862648536381037,
+  "pos_value": 5384.719787597656,
+  "gross": 107.69439575195312,
+  "net": 103.69439575195312,
+  "real_risk": 60.4358105935475
  },
  {
   "tag": "SIE",
@@ -512,8 +557,12 @@
   "dd5": 7.45629039760312,
   "chg3d": -6.865617898030124,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 52.63724988790897,
-  "grade": "C",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "warn",
@@ -548,116 +597,64 @@
   "real_risk": 67.0443658447266
  },
  {
-  "tag": "YDX",
-  "sym": "YDX.DE",
-  "name": "Nebius Group NV",
-  "price": 179.83999633789062,
-  "dayHigh": 180.05999755859375,
-  "dayLow": 170.55999755859375,
-  "vwap": 175.23026036893623,
-  "rsi": 66.62990316401563,
-  "atrPct": 8.570296662632892,
-  "support": 171.59332784016928,
-  "resistance": 245.89999389648438,
-  "rvol": 1.1586095064355935,
-  "sma20": 190.28000106811524,
-  "sma50": 185.86760009765624,
+  "tag": "MC",
+  "sym": "MC.PA",
+  "name": "LVMH Moet Hennessy",
+  "price": 429.6000061035156,
+  "dayHigh": 437.54998779296875,
+  "dayLow": 425.3500061035156,
+  "vwap": 428.60111581286327,
+  "rsi": 59.82354726425571,
+  "atrPct": 2.512305767187529,
+  "support": null,
+  "resistance": 447.4500020345052,
+  "rvol": 2.3102939704712693,
+  "sma20": 457.9050003051758,
+  "sma50": 473.64899963378906,
   "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": 4.001849550208979,
-  "avgVolume": 10961.15,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 2.557434592078724,
-  "chg3d": 2.5547420802612653,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 50.15778294711055,
-  "grade": "C",
-  "flags": [
-   [
-    "warn",
-    "Plona akcija: dienos apyvarta ~2.0 mln. EUR — įėjimas ir išėjimas gali kainuoti brangiau nei mokesčiai"
-   ],
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5395 EUR) — reali rizika 162 EUR"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ]
-  ],
-  "dip": 0.1221821746562747,
-  "rng": 97.68419767680922,
-  "room": 36.73265063600066,
-  "sup_d": 4.585558644155649,
-  "vw_d": 2.6306734688682702,
-  "stop": 174.4447964477539,
-  "tp": 183.43679626464845,
-  "rr": 0.6666666666666684,
-  "shares": 30,
-  "sector_chg": 1.8862648536381037,
-  "pos_value": 5395.199890136719,
-  "gross": 107.90399780273438,
-  "net": 103.90399780273438,
-  "real_risk": 161.8559967041017
- },
- {
-  "tag": "SAP",
-  "sym": "SAP.DE",
-  "name": "SAP SE",
-  "price": 185.67999267578125,
-  "dayHigh": 187.55999755859375,
-  "dayLow": 182.0,
-  "vwap": 185.4532284082739,
-  "rsi": 49.545678198781616,
-  "atrPct": 3.2067359373222,
-  "support": 185.14666748046875,
-  "resistance": 186.97332763671875,
-  "rvol": 0.7496402137795833,
-  "sma20": 182.6320007324219,
-  "sma50": 159.25679992675782,
-  "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": 0.7706491974809168,
-  "avgVolume": 2330352.75,
+  "sector": "prabangos prekės",
+  "day_chg": -3.460672785726826,
+  "avgVolume": 438968.6,
   "cur": "EUR",
   "cur_sym": "€",
   "down_days": 3,
-  "dd5": 3.352072977868878,
-  "chg3d": -2.9479481666962823,
+  "dd5": 6.841589116458032,
+  "chg3d": -6.231580961107555,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 49.380266859999374,
+  "score": 44.98567711294038,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
-    "stop",
-    "Iki pasipriešinimo tik 0.7% — 2.0% tikslas netelpa"
-   ],
-   [
     "info",
-    "Kiekis apribotas iki 30% portfelio (5385 EUR) — reali rizika 60 EUR"
+    "Kiekis apribotas iki 30% portfelio (5155 EUR) — reali rizika 66 EUR"
    ],
    [
     "stop",
     "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+   ],
+   [
+    "warn",
+    "Visas sektorius krenta (-3.5%) — tai ne šios akcijos problema"
    ]
   ],
-  "dip": 1.0023485323543933,
-  "rng": 66.18694769196992,
-  "room": 0.6965397522369642,
-  "sup_d": 0.2872281432301365,
-  "vw_d": 0.12227571849443844,
-  "stop": 183.59599920703823,
-  "tp": 189.39359252929688,
-  "rr": 1.7819632878962566,
-  "shares": 29,
-  "sector_chg": 1.8862648536381037,
-  "pos_value": 5384.719787597656,
-  "gross": 107.69439575195312,
-  "net": 103.69439575195312,
-  "real_risk": 60.4358105935475
+  "dip": 1.816931073305101,
+  "rng": 34.836117858063034,
+  "room": 4.155026926766025,
+  "sup_d": 0.9892923509353786,
+  "vw_d": 0.2330582571531364,
+  "stop": 424.07395608520505,
+  "tp": 438.19200622558594,
+  "rr": 1.5548176534053653,
+  "shares": 12,
+  "sector_chg": -3.460672785726826,
+  "pos_value": 5155.2000732421875,
+  "gross": 103.10400146484375,
+  "net": 99.10400146484375,
+  "real_risk": 66.31260021972685
  },
  {
   "tag": "RMS",
@@ -684,8 +681,12 @@
   "dd5": 8.781086889775867,
   "chg3d": -7.0400500625782225,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 47.7834332314346,
+  "score": 44.49369656797775,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "info",
@@ -720,60 +721,64 @@
   "real_risk": 61.22550000000001
  },
  {
-  "tag": "MC",
-  "sym": "MC.PA",
-  "name": "LVMH Moet Hennessy",
-  "price": 429.6000061035156,
-  "dayHigh": 437.54998779296875,
-  "dayLow": 425.3500061035156,
-  "vwap": 428.60111581286327,
-  "rsi": 59.82354726425571,
-  "atrPct": 2.512305767187529,
-  "support": null,
-  "resistance": 447.4500020345052,
-  "rvol": 2.3102939704712693,
-  "sma20": 457.9050003051758,
-  "sma50": 473.64899963378906,
+  "tag": "AMD",
+  "sym": "AMD.DE",
+  "name": "Advanced Micro Devices",
+  "price": 393.25,
+  "dayHigh": 395.95001220703125,
+  "dayLow": 379.3999938964844,
+  "vwap": 390.07070474727317,
+  "rsi": 64.53203217719042,
+  "atrPct": 5.000159855665012,
+  "support": 390.0,
+  "resistance": 397.8833312988281,
+  "rvol": 0.824536071447671,
+  "sma20": 411.6875,
+  "sma50": 436.69099853515627,
   "earnings": false,
-  "sector": "prabangos prekės",
-  "day_chg": -3.460672785726826,
-  "avgVolume": 438968.6,
+  "sector": "puslaidininkiai",
+  "day_chg": -0.6568159816664795,
+  "avgVolume": 23617.15,
   "cur": "EUR",
   "cur_sym": "€",
-  "down_days": 3,
-  "dd5": 6.841589116458032,
-  "chg3d": -6.231580961107555,
+  "down_days": 0,
+  "dd5": 6.591448931116389,
+  "chg3d": -3.8861039065558685,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 47.30536520230378,
+  "score": 43.809179690847444,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.2% — 2.0% tikslas netelpa"
+  ],
   "flags": [
    [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5155 EUR) — reali rizika 66 EUR"
+    "stop",
+    "Iki pasipriešinimo tik 1.2% — 2.0% tikslas netelpa"
    ],
    [
-    "stop",
-    "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5112 EUR) — reali rizika 89 EUR"
    ],
    [
     "warn",
-    "Visas sektorius krenta (-3.5%) — tai ne šios akcijos problema"
+    "Rizika/nauda 1.14 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ]
   ],
-  "dip": 1.816931073305101,
-  "rng": 34.836117858063034,
-  "room": 4.155026926766025,
-  "sup_d": 0.9892923509353786,
-  "vw_d": 0.2330582571531364,
-  "stop": 424.07395608520505,
-  "tp": 438.19200622558594,
-  "rr": 1.5548176534053653,
-  "shares": 12,
-  "sector_chg": -3.460672785726826,
-  "pos_value": 5155.2000732421875,
-  "gross": 103.10400146484375,
-  "net": 99.10400146484375,
-  "real_risk": 66.31260021972685
+  "dip": 0.6819073427934353,
+  "rng": 83.68574489545666,
+  "room": 1.178215206313573,
+  "sup_d": 0.8264462809917356,
+  "vw_d": 0.8150561459842766,
+  "stop": 386.36790497865906,
+  "tp": 401.115,
+  "rr": 1.1428206055875627,
+  "shares": 13,
+  "sector_chg": -0.4904536356015481,
+  "pos_value": 5112.25,
+  "gross": 102.245,
+  "net": 98.245,
+  "real_risk": 89.46723527743228
  },
  {
   "tag": "PTX",
@@ -800,8 +805,13 @@
   "dd5": 2.430599810644177,
   "chg3d": -2.4065123751925945,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 46.03251684620439,
+  "score": 40.61371853866041,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 0.3% — 2.0% tikslas netelpa",
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "stop",
@@ -810,6 +820,10 @@
    [
     "info",
     "Kiekis apribotas iki 30% portfelio (5377 EUR) — reali rizika 85 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 1.26 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ],
    [
     "stop",
@@ -830,62 +844,6 @@
   "gross": 107.54880249023438,
   "net": 103.54880249023438,
   "real_risk": 85.04796117991071
- },
- {
-  "tag": "ENR",
-  "sym": "ENR.DE",
-  "name": "Siemens Energy AG",
-  "price": 145.72000122070312,
-  "dayHigh": 145.72000122070312,
-  "dayLow": 141.47999572753906,
-  "vwap": 143.72482936324107,
-  "rsi": 66.72815017669183,
-  "atrPct": 4.1903776901586305,
-  "support": 141.12666829427084,
-  "resistance": 165.86000061035156,
-  "rvol": 1.1273607920274766,
-  "sma20": 152.94599990844728,
-  "sma50": 153.30079986572267,
-  "earnings": false,
-  "sector": "pramonė ir gynyba",
-  "day_chg": 3.2889136159814507,
-  "avgVolume": 1714624.25,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "down_days": 0,
-  "dd5": 7.042608875347583,
-  "chg3d": -2.6586478347859424,
-  "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 44.61491866193088,
-  "grade": "D",
-  "flags": [
-   [
-    "info",
-    "Kiekis apribotas iki 30% portfelio (5392 EUR) — reali rizika 162 EUR"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "warn",
-    "Nuo 5 d. maksimumo nukritusi 7.0% — kritimas prasidėjo ne šiandien"
-   ]
-  ],
-  "dip": 0.0,
-  "rng": 100.0,
-  "room": 13.821026091775144,
-  "sup_d": 3.1521636617854254,
-  "vw_d": 1.3881887119306178,
-  "stop": 141.34840118408204,
-  "tp": 148.6344012451172,
-  "rr": 0.666666666666671,
-  "shares": 37,
-  "sector_chg": 0.4298911460848247,
-  "pos_value": 5391.640045166016,
-  "gross": 107.83280090332032,
-  "net": 103.83280090332032,
-  "real_risk": 161.7492013549803
  },
  {
   "tag": "PRX",
@@ -912,8 +870,13 @@
   "dd5": 4.823151125401929,
   "chg3d": -4.368050366231656,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 43.823888769564455,
+  "score": 40.4071982102555,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.2% — 2.0% tikslas netelpa",
+   "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "stop",
@@ -944,6 +907,122 @@
   "real_risk": 76.08960735321048
  },
  {
+  "tag": "YDX",
+  "sym": "YDX.DE",
+  "name": "Nebius Group NV",
+  "price": 179.83999633789062,
+  "dayHigh": 180.05999755859375,
+  "dayLow": 170.55999755859375,
+  "vwap": 175.23026036893623,
+  "rsi": 66.62990316401563,
+  "atrPct": 8.570296662632892,
+  "support": 171.59332784016928,
+  "resistance": 245.89999389648438,
+  "rvol": 1.1586095064355935,
+  "sma20": 190.28000106811524,
+  "sma50": 185.86760009765624,
+  "earnings": false,
+  "sector": "programinė įranga",
+  "day_chg": 4.001849550208979,
+  "avgVolume": 10961.15,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 2.557434592078724,
+  "chg3d": 2.5547420802612653,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 36.388979785158675,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [],
+  "flags": [
+   [
+    "warn",
+    "Plona akcija: dienos apyvarta ~2.0 mln. EUR — įėjimas ir išėjimas gali kainuoti brangiau nei mokesčiai"
+   ],
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5395 EUR) — reali rizika 162 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.67 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
+   ]
+  ],
+  "dip": 0.1221821746562747,
+  "rng": 97.68419767680922,
+  "room": 36.73265063600066,
+  "sup_d": 4.585558644155649,
+  "vw_d": 2.6306734688682702,
+  "stop": 174.4447964477539,
+  "tp": 183.43679626464845,
+  "rr": 0.6666666666666684,
+  "shares": 30,
+  "sector_chg": 1.8862648536381037,
+  "pos_value": 5395.199890136719,
+  "gross": 107.90399780273438,
+  "net": 103.90399780273438,
+  "real_risk": 161.8559967041017
+ },
+ {
+  "tag": "ENR",
+  "sym": "ENR.DE",
+  "name": "Siemens Energy AG",
+  "price": 145.72000122070312,
+  "dayHigh": 145.72000122070312,
+  "dayLow": 141.47999572753906,
+  "vwap": 143.72482936324107,
+  "rsi": 66.72815017669183,
+  "atrPct": 4.1903776901586305,
+  "support": 141.12666829427084,
+  "resistance": 165.86000061035156,
+  "rvol": 1.1273607920274766,
+  "sma20": 152.94599990844728,
+  "sma50": 153.30079986572267,
+  "earnings": false,
+  "sector": "pramonė ir gynyba",
+  "day_chg": 3.2889136159814507,
+  "avgVolume": 1714624.25,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "down_days": 0,
+  "dd5": 7.042608875347583,
+  "chg3d": -2.6586478347859424,
+  "asOf": "2026-09-03 17:25:00+02:00",
+  "score": 32.36768608806759,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [],
+  "flags": [
+   [
+    "info",
+    "Kiekis apribotas iki 30% portfelio (5392 EUR) — reali rizika 162 EUR"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.67 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
+   ],
+   [
+    "warn",
+    "Nuo 5 d. maksimumo nukritusi 7.0% — kritimas prasidėjo ne šiandien"
+   ]
+  ],
+  "dip": 0.0,
+  "rng": 100.0,
+  "room": 13.821026091775144,
+  "sup_d": 3.1521636617854254,
+  "vw_d": 1.3881887119306178,
+  "stop": 141.34840118408204,
+  "tp": 148.6344012451172,
+  "rr": 0.666666666666671,
+  "shares": 37,
+  "sector_chg": 0.4298911460848247,
+  "pos_value": 5391.640045166016,
+  "gross": 107.83280090332032,
+  "net": 103.83280090332032,
+  "real_risk": 161.7492013549803
+ },
+ {
   "tag": "NVD",
   "sym": "NVD.DE",
   "name": "Nvidia Corp",
@@ -968,8 +1047,12 @@
   "dd5": 0.45708172899056865,
   "chg3d": 1.6808495463249042,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 43.08282188300533,
+  "score": 31.256164895513738,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 0.5% — 2.0% tikslas netelpa"
+  ],
   "flags": [
    [
     "stop",
@@ -981,7 +1064,7 @@
    ],
    [
     "warn",
-    "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+    "Rizika/nauda 0.67 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ]
   ],
   "dip": 0.6085177316494295,
@@ -1024,8 +1107,13 @@
   "dd5": 0.6334814011241516,
   "chg3d": 0.3197863072405013,
   "asOf": "2026-09-03 17:25:00+02:00",
-  "score": 33.950267139854475,
+  "score": 24.630585964208194,
   "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Iki pasipriešinimo tik 1.9% — 2.0% tikslas netelpa",
+   "4 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
+  ],
   "flags": [
    [
     "stop",
@@ -1037,7 +1125,7 @@
    ],
    [
     "warn",
-    "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+    "Rizika/nauda 0.67 — už 2.0% tikslą rizikuoji beveik tiek pat arba daugiau"
    ],
    [
     "stop",
