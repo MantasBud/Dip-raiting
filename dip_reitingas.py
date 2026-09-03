@@ -70,15 +70,27 @@ WATCHLIST = [
 MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 
 CRITERIA = [
-    ("dip",     "Kritimo gylis",            20),
-    ("room",    "Vieta iki pasipriešinimo", 16),
-    ("atr",     "Judrumas (ATR)",           16),
-    ("rsi",     "RSI (5 min)",              12),
-    ("vwap",    "Padėtis prieš VWAP",       10),
-    ("rvol",    "Apyvarta (RVOL)",          10),
-    ("trend",   "Trendas (20/50 SMA)",      10),
-    ("support", "Atstumas iki atramos",      6),
+    ("dip",      "Kritimo gylis",            18),
+    ("multiday", "Vienadienis ar tęstinis",  14),
+    ("room",     "Vieta iki pasipriešinimo", 14),
+    ("atr",      "Judrumas (ATR)",           14),
+    ("rsi",      "RSI (5 min)",              10),
+    ("vwap",     "Padėtis prieš VWAP",       10),
+    ("rvol",     "Apyvarta (RVOL)",           8),
+    ("trend",    "Trendas (20/50 SMA)",       8),
+    ("support",  "Atstumas iki atramos",      4),
 ]
+
+# Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
+SECTORS = {
+    "ASML.AS": "puslaidininkiai", "ASM.AS": "puslaidininkiai", "BESI.AS": "puslaidininkiai",
+    "IFX.DE": "puslaidininkiai", "AMD.DE": "puslaidininkiai", "NVD.DE": "puslaidininkiai",
+    "MC.PA": "prabangos prekės", "RMS.PA": "prabangos prekės", "KER.PA": "prabangos prekės",
+    "RHM.DE": "pramonė ir gynyba", "SIE.DE": "pramonė ir gynyba",
+    "ENR.DE": "pramonė ir gynyba", "LR.PA": "pramonė ir gynyba",
+    "SAP.DE": "programinė įranga", "ADYEN.AS": "programinė įranga", "PRX.AS": "programinė įranga",
+    "PTX.DE": "programinė įranga", "YDX.DE": "programinė įranga", "CAP.PA": "programinė įranga",
+}
 
 # ----------------------------- SKAIČIAVIMAI -----------------------------
 
@@ -147,7 +159,28 @@ def relative_volume(intraday, today_mask):
     return today_vol / base if base > 0 else None
 
 
-def score_stock(d, target=TARGET_PCT, market="neutral"):
+def multiday_context(daily, price):
+    """Ar tai vienos dienos kritimas, ar tęstinis kelių dienų slydimas."""
+    closes = daily["Close"].tail(6).tolist()
+    highs = daily["High"].tail(5).tolist()
+    if len(closes) < 4:
+        return dict(down_days=0, dd5=None, chg3d=None)
+
+    # kiek dienų iš eilės uždaryta žemyn (neįskaitant šiandienos, nes ji dar nebaigta)
+    down_days = 0
+    for i in range(len(closes) - 1, 0, -1):
+        if closes[i] < closes[i - 1]:
+            down_days += 1
+        else:
+            break
+
+    hi5 = max(highs) if highs else None
+    dd5 = (hi5 - price) / hi5 * 100 if hi5 else None          # kritimas nuo 5 d. maksimumo
+    chg3d = (price - closes[-4]) / closes[-4] * 100 if len(closes) >= 4 else None
+    return dict(down_days=down_days, dd5=dd5, chg3d=chg3d)
+
+
+def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
     """d — surinktų rodiklių žodynas. Grąžina balą, dedamąsias, planą, įspėjimus."""
     price = d["price"]
     high, low = d["dayHigh"], d["dayLow"]
@@ -179,8 +212,22 @@ def score_stock(d, target=TARGET_PCT, market="neutral"):
         else:
             trend = 18.0
 
+    # Vienadienis kritimas ar tęstinis slydimas
+    down_days = d.get("down_days", 0) or 0
+    dd5 = d.get("dd5")
+    chg3d = d.get("chg3d")
+    # dd5 = kritimas nuo 5 d. maksimumo. Sveikas dip: 1.5-4%. Tęstinis slydimas: 7%+
+    multiday_part = curve(dd5, [(0, 25), (1, 60), (2, 95), (4, 100), (6, 65), (9, 30), (14, 8)])
+    if down_days >= 3:
+        multiday_part *= 0.45
+    elif down_days == 2:
+        multiday_part *= 0.75
+    if chg3d is not None and chg3d < -6:
+        multiday_part *= 0.7
+
     parts = {
         "dip":  curve(dip,  [(0, 5), (0.5, 35), (1.2, 85), (1.8, 100), (4, 100), (6, 55), (9, 18), (15, 5)]),
+        "multiday": multiday_part,
         "room": curve(None if room is None else room / target,
                       [(0.3, 5), (1, 45), (1.5, 70), (2, 90), (3, 100), (6, 95)]),
         "atr":  curve(None if a_pct is None else a_pct / target,
@@ -225,6 +272,16 @@ def score_stock(d, target=TARGET_PCT, market="neutral"):
         flags.append(("warn", f"Rizika/nauda {rr:.2f} — rizikuoji daugiau nei sieki"))
     if dip is not None and dip > 8:
         flags.append(("warn", "Kritimas gilus — gali būti krentantis peilis"))
+    if down_days >= 3:
+        mult *= 0.8
+        flags.append(("stop", f"{down_days} kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"))
+    elif down_days == 2:
+        flags.append(("warn", "Antra kritimo diena iš eilės — palauk stabilizacijos ženklo"))
+    if dd5 is not None and dd5 > 7:
+        flags.append(("warn", f"Nuo 5 d. maksimumo nukritusi {dd5:.1f}% — kritimas prasidėjo ne šiandien"))
+    if sector_chg is not None and sector_chg < -1.5:
+        mult *= 0.9
+        flags.append(("warn", f"Visas sektorius krenta ({sector_chg:+.1f}%) — tai ne šios akcijos problema"))
     if rv is not None and rv < 0.7:
         flags.append(("warn", "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"))
     if rng is not None and rng < 6:
@@ -236,7 +293,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral"):
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     return dict(score=score, grade=grade, parts=parts, flags=flags, dip=dip, rng=rng,
-                room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares)
+                room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
+                down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg)
 
 
 # ----------------------------- DUOMENŲ SURINKIMAS -----------------------------
@@ -321,10 +379,15 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     c = daily["Close"]
     sma20 = float(c.tail(20).mean())
     sma50 = float(c.tail(50).mean())
+    ctx = multiday_context(daily, price)
+    prev_close = float(c.iloc[-2]) if len(c) > 1 else None
+    day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
 
     return dict(tag=tag, sym=sym, name=name, price=price, dayHigh=high, dayLow=low,
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
+                sector=SECTORS.get(sym, "kita"), day_chg=day_chg,
+                down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
                 asOf=str(intra.index[-1]))
 
 
@@ -353,8 +416,86 @@ def print_table(rows):
     print()
 
 
-def write_html(rows, market, path, refresh_seconds=None):
+def market_overview(rows, market, sector_state, target):
+    """Bendra dienos apžvalga tekstu — kokia diena, kur dėmesys, ko saugotis."""
+    scores = [s["score"] for _, s in rows]
+    strong = [r for r in rows if r[1]["score"] >= 64]
+    weak = [r for r in rows if r[1]["score"] < 50]
+    mkt = {"bull": "kylanti", "bear": "krentanti", "neutral": "šoninė"}[market]
+
+    p = []
+    if not strong:
+        p.append(f"Rinka {mkt}, bet nė viena iš {len(rows)} stebimų akcijų šiuo metu nesudaro "
+                 f"aiškaus kritimo pirkimo vaizdo. Tokia diena dažniausiai tinka praleisti — "
+                 f"geriausias balas tik {max(scores):.0f} iš 100.")
+    else:
+        best_sec = strong[0][0]["sector"]
+        same = sum(1 for r in strong if r[0]["sector"] == best_sec)
+        p.append(f"Rinka {mkt}. Iš {len(rows)} akcijų {len(strong)} atitinka kritimo pirkimo "
+                 f"kriterijus bent gerai, {len(weak)} šiandien geriau nevertos dėmesio.")
+        if same >= 3:
+            p.append(f"Svarbu: {same} iš stipriausių pozicijų yra tas pats sektorius "
+                     f"({best_sec}). Perkant kelias iš jų, rizika nepasiskirsto — "
+                     f"tai iš esmės viena pozicija keliais tikeriais.")
+
+    falling = [sec for sec, chg in sector_state.items() if chg < -1.5]
+    rising = [sec for sec, chg in sector_state.items() if chg > 1.0]
+    if falling:
+        p.append(f"Ištisai krenta: {', '.join(falling)} — čia kritimas dažniau tęsiasi nei atšoka.")
+    if rising:
+        p.append(f"Laikosi tvirtai: {', '.join(rising)}.")
+
+    slides = [r[0]["tag"] for r in rows if (r[1].get("down_days") or 0) >= 3]
+    if slides:
+        p.append(f"Kelias dienas iš eilės krenta: {', '.join(slides[:6])} — šioms balas "
+                 f"sąmoningai sumažintas, nes tai nebe vienadienis kritimas.")
+
+    return " ".join(p)
+
+
+def explain(d, s, target, rows):
+    """Kodėl būtent ši, o ne kitos — palyginimas su likusiu sąrašu."""
+    others = [x for x in rows if x[0]["sym"] != d["sym"]]
+    med = float(np.median([x[1]["score"] for x in others])) if others else 0
+
+    reasons = []
+    if s["parts"]["multiday"] >= 70 and (s.get("down_days") or 0) <= 1:
+        reasons.append("kritimas prasidėjo šiandien, o ne tęsiasi kelias dienas — "
+                       "būtent toks vienadienis nuosmukis dažniausiai ir atšoka")
+    if s["parts"]["trend"] >= 85:
+        reasons.append("bendra akcijos kryptis vis dar kylanti, tad perki nuolaidą "
+                       "augančioje akcijoje, o ne bandai gaudyti krentančią")
+    if s["parts"]["room"] >= 80:
+        reasons.append(f"virš kainos yra pakankamai laisvos erdvės — {target}% tikslas "
+                       f"telpa neatsimušant į pasipriešinimą")
+    if s["parts"]["atr"] >= 80:
+        reasons.append("akcija juda pakankamai gyvai, kad toks judesys realiai įvyktų per dieną")
+    if s["parts"]["rvol"] >= 85:
+        reasons.append("apyvarta didesnė nei įprastai — kritimą pastebėjo ir kiti")
+    if s["parts"]["vwap"] >= 85:
+        reasons.append("kaina nusileidusi kiek žemiau dienos vidurkio, iš kur dažnai grįžtama")
+
+    if not reasons:
+        reasons.append("nė vienas rodiklis nėra išskirtinis, bet ir silpnų vietų nedaug — "
+                       "balą surinko tolygumu")
+
+    lead = ("Stipriausia šiandienos pozicija" if s["score"] == max(x[1]["score"] for x in rows)
+            else "Viena iš stipresnių pozicijų")
+    diff = s["score"] - med
+    comp = (f"{lead}: balas {s['score']:.0f} prieš sąrašo medianą {med:.0f} "
+            f"({diff:+.0f}). ")
+
+    body = comp + "Ją į priekį kelia tai, kad " + "; ".join(reasons[:3]) + "."
+
+    risks = [t for lvl, t in s["flags"] if lvl in ("warn", "stop")]
+    if risks:
+        body += " Prieš perkant verta žinoti: " + risks[0].lower() + "."
+    return body
+
+
+def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "neutral": "šoninė"}[market]
+    overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
     refresh_tag = (f'<meta http-equiv="refresh" content="{refresh_seconds}">'
                    if refresh_seconds else "")
 
@@ -376,6 +517,7 @@ def write_html(rows, market, path, refresh_seconds=None):
             <span class="gr g{s['grade']}">{s['grade']}</span></summary>
           <div class="in">
             <div class="nm">{d['name']} · {d['sym']}</div>
+            {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
             <div class="tags">
               <span>kaina {d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
@@ -401,7 +543,9 @@ def write_html(rows, market, path, refresh_seconds=None):
 *{{box-sizing:border-box}}body{{margin:0;padding:22px 16px 50px;background:var(--bg);color:var(--ink);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:760px;margin:0 auto}}
 h1{{font-family:Georgia,serif;font-size:27px;margin:0 0 6px;font-weight:600}}
-.meta{{font-size:12px;color:var(--ink2);margin-bottom:20px}}
+.meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
+.overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
+border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
 .card{{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:7px;overflow:hidden}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
@@ -415,6 +559,8 @@ display:flex;align-items:center;justify-content:center}}
 .gA{{background:var(--up)}}.gB{{background:#3F7FA8}}.gC{{background:var(--warn)}}.gD{{background:var(--stop)}}
 .in{{padding:0 12px 14px;border-top:1px solid var(--line)}}
 .nm{{font-size:12px;color:var(--ink2);margin:10px 0}}
+.why{{font-size:12.5px;line-height:1.55;color:var(--ink);background:var(--bg);border-left:3px solid var(--up);
+padding:9px 11px;border-radius:5px;margin:0 0 12px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}}
 .tags span{{font-size:11px;background:var(--bg);padding:4px 7px;border-radius:4px;color:var(--ink2);
 font-family:ui-monospace,Menlo,monospace}}
@@ -437,6 +583,7 @@ font-family:ui-monospace,Menlo,monospace}}
 <h1>Kurią pirkti dabar</h1>
 <div class="meta">{datetime.now():%Y-%m-%d %H:%M} · tikslas {TARGET_PCT}% ·
 rinka: {market_lt} · {len(rows)} akcijos</div>
+<div class="overview">{overview}</div>
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
@@ -469,12 +616,24 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
     market = market_bias(yf)
 
     rows, failed = [], []
+    collected = []
     for tag, sym, name in WATCHLIST:
         try:
-            d = build_row(yf, tag, sym, name, intraday_all, daily_all)
-            rows.append((d, score_stock(d, TARGET_PCT, market)))
+            collected.append(build_row(yf, tag, sym, name, intraday_all, daily_all))
         except Exception as e:
             failed.append((tag, sym, str(e)[:60]))
+
+    # Sektoriaus būsena — mediana iš to paties sąrašo bendraamžių
+    sector_state = {}
+    for sec in set(x["sector"] for x in collected):
+        chgs = [x["day_chg"] for x in collected
+                if x["sector"] == sec and x["day_chg"] is not None]
+        if len(chgs) >= 2:
+            sector_state[sec] = float(np.median(chgs))
+
+    for d in collected:
+        rows.append((d, score_stock(d, TARGET_PCT, market,
+                                    sector_chg=sector_state.get(d["sector"]))))
 
     if not rows:
         print("Nepavyko gauti nė vienos akcijos duomenų šį kartą. Bandysiu vėl.")
@@ -486,7 +645,8 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
         print("Nepavyko:", ", ".join(f"{t} ({m})" for t, _, m in failed), "\n")
 
     html_path = os.path.join(out_dir, "index.html")
-    write_html(rows, market, html_path, refresh_seconds=refresh_seconds)
+    write_html(rows, market, html_path, refresh_seconds=refresh_seconds,
+               sector_state=sector_state)
 
     with open(os.path.join(out_dir, "dip_reitingas.json"), "w", encoding="utf-8") as f:
         json.dump([{**d, **{k: v for k, v in s.items() if k != "parts"}}
