@@ -84,6 +84,12 @@ MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 
 # Valiuta pagal biržos galūnę. Portfelis laikomas ACCOUNT_CURRENCY valiuta.
 ACCOUNT_CURRENCY = "EUR"
+
+# Laikymo horizontas valandomis. Tikslas turi buti pasiektas per si laika.
+#   1-2  = "triuksmo" gaudymas per kelias valandas
+#   8    = visa prekybos diena (numatyta)
+#   16   = laikymas iki kitos dienos uzdarymo
+HOLD_HOURS = 8.0
 CURRENCY_BY_SUFFIX = {
     "DE": ("EUR", "\u20ac"), "AS": ("EUR", "\u20ac"), "PA": ("EUR", "\u20ac"),
     "MI": ("EUR", "\u20ac"), "MC": ("EUR", "\u20ac"), "BR": ("EUR", "\u20ac"),
@@ -228,6 +234,23 @@ def new_intl_now():
         return None
 
 
+def intraday_vol(today_bars):
+    """Tipinis 5 min. baro diapazonas procentais — realus intraday judrumo matas."""
+    if today_bars is None or len(today_bars) < 6:
+        return None
+    rng = (today_bars["High"] - today_bars["Low"]) / today_bars["Close"] * 100
+    v = float(rng.median())
+    return v if math.isfinite(v) and v > 0 else None
+
+
+def expected_move(vol_5m, hours):
+    """Tikėtinas kainos judesys per N valandų. Svyravimas auga ~sqrt(laiko)."""
+    if not vol_5m:
+        return None
+    bars = max(1.0, hours * 12)          # 12 penkiaminučių valandoje
+    return vol_5m * math.sqrt(bars)
+
+
 def multiday_context(daily, price):
     """Ar tai vienos dienos kritimas, ar tęstinis kelių dienų slydimas."""
     closes = daily["Close"].tail(6).tolist()
@@ -253,8 +276,16 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     """d — surinktų rodiklių žodynas. Grąžina balą, dedamąsias, planą, įspėjimus."""
     price = d["price"]
     high, low = d["dayHigh"], d["dayLow"]
-    support = d.get("support") or low
-    resistance = d.get("resistance") or high
+    # Atrama: dienos sandoriui stop dedamas po šios dienos dugnu
+    support = d.get("sup_intra") or d.get("support") or low
+
+    # Pasipriešinimas dviem sluoksniais: artimiausios lubos (dažnai dienos maksimumas,
+    # kuris per dieną pramušamas) ir tolimesnės (pivotas, 20 d. viršūnė). Sandoris
+    # beprasmis tik tada, kai net tolimesnės lubos arčiau nei tikslas.
+    res_list = d.get("res_list") or []
+    res_near = res_list[0] if res_list else (d.get("resistance") or high)
+    res_far = res_list[-1] if len(res_list) > 1 else res_near
+    resistance = res_far
     vwap = d.get("vwap")
     a_pct = d.get("atrPct")
 
@@ -286,6 +317,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     dd5 = d.get("dd5")
     chg3d = d.get("chg3d")
     # dd5 = kritimas nuo 5 d. maksimumo. Sveikas dip: 1.5-4%. Tęstinis slydimas: 7%+
+    # Tikėtinas judesys per laikymo horizontą prieš tikslą
+    exp_mv = d.get("exp_move")
+    if exp_mv is None and a_pct:
+        exp_mv = a_pct * math.sqrt(min(HOLD_HOURS, 8.5) / 8.5)   # atsarginis variantas
+    move_ratio = exp_mv / target if (exp_mv and target) else None
+
     multiday_part = curve(dd5, [(0, 25), (1, 60), (2, 95), (4, 100), (6, 65), (9, 30), (14, 8)])
     if down_days >= 3:
         multiday_part *= 0.45
@@ -299,8 +336,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         "multiday": multiday_part,
         "room": curve(None if room is None else room / target,
                       [(0.3, 5), (1, 45), (1.5, 70), (2, 90), (3, 100), (6, 95)]),
-        "atr":  curve(None if a_pct is None else a_pct / target,
-                      [(0.5, 5), (1, 30), (1.5, 60), (2, 90), (3, 100), (5, 85), (8, 55)]),
+        # Judrumas matuojamas tavo laikymo horizonte: ar per HOLD_HOURS realiai
+        # tikėtinas judesys pasiekia tikslą
+        "atr":  curve(None if move_ratio is None else move_ratio,
+                      [(0.3, 5), (0.6, 30), (0.9, 65), (1.2, 92), (1.8, 100), (3.5, 90)]),
         "rsi":  curve(d.get("rsi"), [(10, 25), (20, 55), (28, 85), (35, 100), (45, 85), (55, 55), (65, 30), (80, 10)]),
         "vwap": curve(vw_d, [(-4, 20), (-2, 45), (-0.8, 85), (-0.2, 100), (0.3, 90), (1.5, 60), (3, 35), (6, 15)]),
         "rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
@@ -343,13 +382,20 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", "Rinka krenta — pirkimas prieš srovę"))
     elif market == "bull":
         mult *= 1.05
+    room_near = (res_near - price) / price * 100 if res_near else None
     if room is not None and room < target:
-        flags.append(("stop", f"Iki pasipriešinimo tik {room:.1f}% — {target}% tikslas netelpa"))
+        flags.append(("stop", f"Net iki tolimesnių lubų tik {room:.1f}% — "
+                              f"{target}% tikslas netelpa niekur"))
+    elif room_near is not None and room_near < target:
+        flags.append(("warn", f"Kelyje dienos maksimumas ({room_near:.1f}% aukščiau) — "
+                              f"jį reikės pramušti, kad tikslas būtų pasiektas"))
     if a_pct is None:
         flags.append(("warn", "ATR nepavyko suskaičiuoti — judrumo kriterijus neįvertintas, "
                               "balas mažiau patikimas"))
-    if a_pct is not None and a_pct < target * 1.2:
-        flags.append(("warn", "Akcija per rami tokiam tikslui per vieną dieną"))
+    if exp_mv and exp_mv < target * 0.9:
+        flags.append(("warn", f"Per {HOLD_HOURS:.1f} val. tikėtinas judesys ~{exp_mv:.1f}%, "
+                              f"o tikslas {target}% — realistiškesnis tikslas šiai akcijai "
+                              f"būtų ~{exp_mv:.1f}% arba ilgesnis laikymas"))
     # --- Laiko biudžetas: ar likusio laiko realiai užtenka tikslui pasiekti? ---
     # Kainos svyravimas auga proporcingai laiko šaknims, todėl tikėtinas likęs
     # judesys = dienos ATR * sqrt(likusi sesijos dalis).
@@ -431,7 +477,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                 parts=parts, flags=flags, dip=dip, rng=rng,
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
-                pos_value=pos_value, gross=gross, net=net, real_risk=real_risk)
+                pos_value=pos_value, gross=gross, net=net, real_risk=real_risk,
+                exp_move=exp_mv, move_ratio=move_ratio)
 
 
 # ----------------------------- DUOMENŲ SURINKIMAS -----------------------------
@@ -519,6 +566,14 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     sma50 = float(c.tail(50).mean())
     ctx = multiday_context(daily, price)
     avg_vol = float(daily["Volume"].tail(20).mean())
+    v5 = intraday_vol(today)
+    # Valandos sandoriui svarbios šios dienos lubos, ne 20 d. swing lygiai
+    res_intra = high if high > price * 1.001 else None
+    sup_intra = low if low < price * 0.999 else None
+    # Visos lubos virs kainos, nuo artimiausios: dienos max, pivotas, 20 d. virsune.
+    # Dienos maksimumas dazniausiai pramusamas, todel jis - ispejimas, ne kliutis.
+    cands = sorted(x for x in (res_intra, res, float(daily["High"].tail(20).max()))
+                   if x and x > price * 1.001)
     prev_close = float(c.iloc[-2]) if len(c) > 1 else None
     day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
 
@@ -527,6 +582,8 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1],
+                vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
+                exp_move=expected_move(v5, HOLD_HOURS),
                 down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
                 asOf=str(intra.index[-1]))
 
@@ -584,6 +641,15 @@ def market_overview(rows, market, sector_state, target):
             p.append(f"Svarbu: {same} iš stipriausių pozicijų yra tas pats sektorius "
                      f"({best_sec}). Perkant kelias iš jų, rizika nepasiskirsto — "
                      f"tai iš esmės viena pozicija keliais tikeriais.")
+
+    moves = [s.get("exp_move") for _, s in rows if s.get("exp_move")]
+    if moves:
+        med_move = float(np.median(moves))
+        if med_move < target * 0.85:
+            p.append(f"Dėmesio: per tavo {HOLD_HOURS:.1f} val. laikymo laiką tipinis judesys "
+                     f"šiose akcijose yra ~{med_move:.1f}%, o tikslas nustatytas {target}%. "
+                     f"Arba laikyk ilgiau, arba sumažink tikslą iki ~{med_move:.1f}% — "
+                     f"kitaip dauguma sandorių nespės pasiekti tikslo.")
 
     falling = [sec for sec, chg in sector_state.items() if chg < -1.5]
     rising = [sec for sec, chg in sector_state.items() if chg > 1.0]
@@ -675,7 +741,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
               <span>kaina {cs}{d['price']:.2f} {cur}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>valiuta {cur}</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>valiuta {cur}</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span>
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
