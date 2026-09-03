@@ -151,11 +151,18 @@ def rsi(series, n=14):
 
 
 def atr_pct(daily, n=14):
+    daily = daily.dropna(subset=["High", "Low", "Close"])
+    if len(daily) < 3:
+        return None
     h, l, c = daily["High"], daily["Low"], daily["Close"]
     pc = c.shift(1)
     tr = pd.concat([h - l, (h - pc).abs(), (l - pc).abs()], axis=1).max(axis=1)
     a = tr.ewm(alpha=1 / n, adjust=False).mean().iloc[-1]
-    return float(a / c.iloc[-1] * 100)
+    last = c.iloc[-1]
+    if not (isinstance(a, float) or hasattr(a, "__float__")) or not last:
+        return None
+    val = float(a) / float(last) * 100
+    return val if math.isfinite(val) else None
 
 
 def levels(daily, price):
@@ -338,6 +345,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         mult *= 1.05
     if room is not None and room < target:
         flags.append(("stop", f"Iki pasipriešinimo tik {room:.1f}% — {target}% tikslas netelpa"))
+    if a_pct is None:
+        flags.append(("warn", "ATR nepavyko suskaičiuoti — judrumo kriterijus neįvertintas, "
+                              "balas mažiau patikimas"))
     if a_pct is not None and a_pct < target * 1.2:
         flags.append(("warn", "Akcija per rami tokiam tikslui per vieną dieną"))
     # --- Laiko biudžetas: ar likusio laiko realiai užtenka tikslui pasiekti? ---
@@ -473,6 +483,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
         raise ValueError("nėra duomenų")
 
     intra = intra.dropna(subset=["Close"])
+    daily = daily.dropna(subset=["Close", "High", "Low"])
     last_day = intra.index[-1].date()
     mask = pd.Series(intra.index.date == last_day, index=intra.index)
     today = intra[mask]
@@ -517,9 +528,10 @@ def print_table(rows):
           f"{'ATR':>6} {'RSI':>5} {'RVOL':>5} {'R:R':>5}")
     print("-" * 68)
     for i, (d, s) in enumerate(rows, 1):
+        atr_txt = f"{d['atrPct']:>5.1f}%" if d.get("atrPct") else "   n/a"
         print(f"{i:>2}. {d['tag']:<7} {s['score']:>6.1f} {s['grade']:>2} "
               f"{d.get('cur_sym','')}{d['price']:>8.2f} {(s['dip'] or 0):>6.1f}% "
-              f"{d['atrPct']:>5.1f}% {d['rsi']:>5.0f} {(d['rvol'] or 0):>5.2f} {s['rr']:>5.2f}")
+              f"{atr_txt} {d['rsi']:>5.0f} {(d['rvol'] or 0):>5.2f} {s['rr']:>5.2f}")
     best, bs = rows[0]
     print("-" * 68)
     if bs["score"] >= 50:
