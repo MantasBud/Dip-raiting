@@ -1,0 +1,26 @@
+name: Backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "Kiek menesiu istorijos"
+        required: false
+        default: "12"
+      target:
+        description: "Tikslas procentais"
+        required: false
+        default: "2"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Idiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+      - name: Paleisti backtesta
+        run: python backtest.py --months ${{ inputs.months }} --target ${{ inputs.target }}
