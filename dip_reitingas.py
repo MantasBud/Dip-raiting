@@ -82,6 +82,25 @@ WATCHLIST = [
 
 MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 
+# Valiuta pagal biržos galūnę. Portfelis laikomas ACCOUNT_CURRENCY valiuta.
+ACCOUNT_CURRENCY = "EUR"
+CURRENCY_BY_SUFFIX = {
+    "DE": ("EUR", "\u20ac"), "AS": ("EUR", "\u20ac"), "PA": ("EUR", "\u20ac"),
+    "MI": ("EUR", "\u20ac"), "MC": ("EUR", "\u20ac"), "BR": ("EUR", "\u20ac"),
+    "LS": ("EUR", "\u20ac"), "VI": ("EUR", "\u20ac"), "HE": ("EUR", "\u20ac"),
+    "IR": ("EUR", "\u20ac"), "F":  ("EUR", "\u20ac"),
+    "L":  ("GBP", "\u00a3"), "SW": ("CHF", "CHF "), "ST": ("SEK", "kr "),
+    "CO": ("DKK", "kr "), "OL": ("NOK", "kr "), "TO": ("CAD", "C$"),
+}
+
+
+def currency_of(sym):
+    """Valiuta pagal Yahoo simbolio galūnę. Be galūnės - JAV birža, USD."""
+    if "." in sym:
+        suffix = sym.rsplit(".", 1)[1].upper()
+        return CURRENCY_BY_SUFFIX.get(suffix, ("?", ""))
+    return ("USD", "$")
+
 CRITERIA = [
     ("dip",      "Kritimo gylis",            18),
     ("multiday", "Vienadienis ar tęstinis",  14),
@@ -352,6 +371,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
             flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
                                   f"gali tekti pildyti dalimis"))
 
+    if d.get("cur") and d["cur"] != ACCOUNT_CURRENCY:
+        flags.append(("warn", f"Ši akcija kotiruojama {d['cur']}, o portfelis "
+                              f"{ACCOUNT_CURRENCY} — pozicijos dydis ir pelnas rodomi "
+                              f"{d['cur']}, neperskaičiuoti į {ACCOUNT_CURRENCY}"))
     if capped and shares > 0:
         flags.append(("info", f"Kiekis apribotas iki {MAX_POSITION_PCT:.0f}% portfelio "
                               f"({pos_value:.0f} EUR) — reali rizika {real_risk:.0f} EUR"))
@@ -480,6 +503,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
+                cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1],
                 down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
                 asOf=str(intra.index[-1]))
 
@@ -494,14 +518,16 @@ def print_table(rows):
     print("-" * 68)
     for i, (d, s) in enumerate(rows, 1):
         print(f"{i:>2}. {d['tag']:<7} {s['score']:>6.1f} {s['grade']:>2} "
-              f"{d['price']:>9.2f} {(s['dip'] or 0):>6.1f}% {d['atrPct']:>5.1f}% "
-              f"{d['rsi']:>5.0f} {(d['rvol'] or 0):>5.2f} {s['rr']:>5.2f}")
+              f"{d.get('cur_sym','')}{d['price']:>8.2f} {(s['dip'] or 0):>6.1f}% "
+              f"{d['atrPct']:>5.1f}% {d['rsi']:>5.0f} {(d['rvol'] or 0):>5.2f} {s['rr']:>5.2f}")
     best, bs = rows[0]
     print("-" * 68)
     if bs["score"] >= 50:
         print(f"\nGERIAUSIAS: {best['tag']} ({best['name']})")
-        print(f"  Įėjimas {best['price']:.2f} | Stop {bs['stop']:.2f} | "
-              f"Tikslas {bs['tp']:.2f} | R:R {bs['rr']:.2f} | {bs['shares']} vnt.")
+        c = best.get('cur_sym', '')
+        print(f"  Įėjimas {c}{best['price']:.2f} | Stop {c}{bs['stop']:.2f} | "
+              f"Tikslas {c}{bs['tp']:.2f} | R:R {bs['rr']:.2f} | {bs['shares']} vnt. "
+              f"| pozicija {c}{bs['pos_value']:,.0f}")
         for lvl, txt in bs["flags"]:
             print(f"  {'!!' if lvl == 'stop' else ' !'} {txt}")
     else:
@@ -602,6 +628,8 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
     cards = []
     for i, (d, s) in enumerate(rows, 1):
         fl = "".join(f"<li class='{lvl}'>{txt}</li>" for lvl, txt in s["flags"])
+        cs = d.get("cur_sym", "")
+        cur = d.get("cur", "")
         cards.append(f"""
         <details class="card" {'open' if i == 1 else ''}>
           <summary><span class="rk">{i}</span><span class="tk">{d['tag']}</span>
@@ -609,22 +637,22 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
             <span class="sc">{s['score']:.0f}</span>
             <span class="gr g{s['grade']}">{s['grade']}</span></summary>
           <div class="in">
-            <div class="nm">{d['name']} · {d['sym']}</div>
+            <div class="nm">{d['name']} · {d['sym']} · kainos {cur}</div>
             {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
             <div class="tags">
-              <span>kaina {d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
+              <span>kaina {cs}{d['price']:.2f} {cur}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>valiuta {cur}</span>
             </div>
-            <div class="plan"><div><span>Įėjimas</span><b>{d['price']:.2f}</b></div>
-              <div><span>Stop</span><b>{s['stop']:.2f}</b></div>
-              <div><span>Tikslas</span><b>{s['tp']:.2f}</b></div>
+            <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
+              <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
+              <div><span>Tikslas</span><b>{cs}{s['tp']:.2f}</b></div>
               <div><span>R:R</span><b>{s['rr']:.2f}</b></div>
               <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
-              <div><span>Pozicija</span><b>{s['pos_value']:.0f} EUR</b></div>
-              <div><span>Pelnas neto</span><b>{s['net']:.0f} EUR</b></div>
-              <div><span>Rizikuoji</span><b>{s['real_risk']:.0f} EUR</b></div></div>
+              <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
+              <div><span>Pelnas neto</span><b>{cs}{s['net']:.0f}</b></div>
+              <div><span>Rizikuoji</span><b>{cs}{s['real_risk']:.0f}</b></div></div>
             {bars(s)}
             <ul class="fl">{fl}</ul>
           </div>
