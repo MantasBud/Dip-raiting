@@ -41,6 +41,8 @@ except Exception:
 TARGET_PCT = 2.0        # tikslinis pelnas procentais
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
+MAX_POSITION_PCT = 30.0 # daugiausia % portfelio į vieną poziciją
+FEE_PER_TRADE = 2.0     # brokerio mokestis vienam sandoriui (pirkimas ARBA pardavimas), EUR
 OPEN_BROWSER = True     # ar automatiškai atidaryti HTML ataskaitą
 LOOP_INTERVAL_SEC = 300     # kas kiek atsinaujina --loop režime (biržos valandomis)
 LOOP_INTERVAL_OFF_SEC = 1800  # kas kiek tikrina ne prekybos metu (kad netrukdytų Yahoo)
@@ -254,6 +256,17 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
     risk_cash = ACCOUNT * RISK_PCT / 100
     shares = int(risk_cash / (price - stop)) if price > stop else 0
 
+    # Lubos: viena pozicija negali viršyti MAX_POSITION_PCT portfelio dalies
+    max_shares = int((ACCOUNT * MAX_POSITION_PCT / 100) / price) if price > 0 else 0
+    capped = shares > max_shares
+    if capped:
+        shares = max_shares
+
+    pos_value = shares * price
+    gross = pos_value * target / 100
+    net = gross - 2 * FEE_PER_TRADE      # mokestis perkant ir parduodant
+    real_risk = shares * (price - stop)
+
     flags, mult = [], 1.0
     if d.get("earnings"):
         mult *= 0.35
@@ -267,6 +280,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
         flags.append(("stop", f"Iki pasipriešinimo tik {room:.1f}% — {target}% tikslas netelpa"))
     if a_pct is not None and a_pct < target * 1.2:
         flags.append(("warn", "Akcija per rami tokiam tikslui per vieną dieną"))
+    if capped and shares > 0:
+        flags.append(("info", f"Kiekis apribotas iki {MAX_POSITION_PCT:.0f}% portfelio "
+                              f"({pos_value:.0f} EUR) — reali rizika {real_risk:.0f} EUR"))
+    if shares > 0 and gross > 0 and net < gross * 0.75:
+        flags.append(("warn", f"Mokesčiai suvalgo dalį pelno: bruto {gross:.0f} EUR, "
+                              f"neto ~{net:.0f} EUR"))
     if 0 < rr < 1:
         mult *= 0.85
         flags.append(("warn", f"Rizika/nauda {rr:.2f} — rizikuoji daugiau nei sieki"))
@@ -294,7 +313,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
 
     return dict(score=score, grade=grade, parts=parts, flags=flags, dip=dip, rng=rng,
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
-                down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg)
+                down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
+                pos_value=pos_value, gross=gross, net=net, real_risk=real_risk)
 
 
 # ----------------------------- DUOMENŲ SURINKIMAS -----------------------------
@@ -528,8 +548,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
               <div><span>Stop</span><b>{s['stop']:.2f}</b></div>
               <div><span>Tikslas</span><b>{s['tp']:.2f}</b></div>
               <div><span>R:R</span><b>{s['rr']:.2f}</b></div>
-              <div><span>Kiekis</span><b>{s['shares']}</b></div>
-              <div><span>Atrama</span><b>{(d['support'] or 0):.2f}</b></div></div>
+              <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
+              <div><span>Pozicija</span><b>{s['pos_value']:.0f} EUR</b></div>
+              <div><span>Pelnas neto</span><b>{s['net']:.0f} EUR</b></div>
+              <div><span>Rizikuoji</span><b>{s['real_risk']:.0f} EUR</b></div></div>
             {bars(s)}
             <ul class="fl">{fl}</ul>
           </div>
