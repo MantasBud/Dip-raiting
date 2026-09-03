@@ -43,6 +43,17 @@ ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 MAX_POSITION_PCT = 30.0 # daugiausia % portfelio į vieną poziciją
 FEE_PER_TRADE = 2.0     # brokerio mokestis vienam sandoriui (pirkimas ARBA pardavimas), EUR
+
+# Prekybos laikas (Europe/Berlin). Sesija 9:00-17:30, po jos - Tradegate/LS iki 22:00.
+SESSION_OPEN_MIN = 9 * 60
+SESSION_CLOSE_MIN = 17 * 60 + 30
+EXTENDED_TRADING = True      # ar prekiauji ir po pagrindinės sesijos
+EXTENDED_CLOSE_MIN = 22 * 60
+EXTENDED_WEIGHT = 0.45       # po sesijos judesiai silpnesni, todėl laikas sveria mažiau
+
+# Likvidumas - liberalios ribos, taikomos tik realiai problemiškiems atvejams
+MAX_POS_OF_TURNOVER_PCT = 2.0    # pozicija kaip % dienos apyvartos
+MIN_DAILY_TURNOVER_EUR = 2_000_000
 OPEN_BROWSER = True     # ar automatiškai atidaryti HTML ataskaitą
 LOOP_INTERVAL_SEC = 300     # kas kiek atsinaujina --loop režime (biržos valandomis)
 LOOP_INTERVAL_OFF_SEC = 1800  # kas kiek tikrina ne prekybos metu (kad netrukdytų Yahoo)
@@ -161,6 +172,36 @@ def relative_volume(intraday, today_mask):
     return today_vol / base if base > 0 else None
 
 
+def time_budget(now_min=None):
+    """Kiek efektyvaus prekybos laiko liko iki uždarymo (minutėmis ir dalimi sesijos)."""
+    if now_min is None:
+        p = new_intl_now()
+        if p is None:
+            return None
+        now_min = p
+
+    session_len = SESSION_CLOSE_MIN - SESSION_OPEN_MIN
+    regular_left = max(0, SESSION_CLOSE_MIN - now_min)
+    ext_left = 0
+    if EXTENDED_TRADING:
+        start = max(now_min, SESSION_CLOSE_MIN)
+        ext_left = max(0, EXTENDED_CLOSE_MIN - start) * EXTENDED_WEIGHT
+
+    effective = regular_left + ext_left
+    return dict(now_min=now_min, regular_left=regular_left,
+                ext_left=ext_left / EXTENDED_WEIGHT if EXTENDED_WEIGHT else 0,
+                effective=effective, frac=effective / session_len if session_len else 0,
+                after_hours=now_min >= SESSION_CLOSE_MIN)
+
+
+def new_intl_now():
+    try:
+        now = datetime.now(_TZ) if _TZ else datetime.now()
+        return now.hour * 60 + now.minute
+    except Exception:
+        return None
+
+
 def multiday_context(daily, price):
     """Ar tai vienos dienos kritimas, ar tęstinis kelių dienų slydimas."""
     closes = daily["Close"].tail(6).tolist()
@@ -182,7 +223,7 @@ def multiday_context(daily, price):
     return dict(down_days=down_days, dd5=dd5, chg3d=chg3d)
 
 
-def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
+def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None):
     """d — surinktų rodiklių žodynas. Grąžina balą, dedamąsias, planą, įspėjimus."""
     price = d["price"]
     high, low = d["dayHigh"], d["dayLow"]
@@ -280,6 +321,37 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None):
         flags.append(("stop", f"Iki pasipriešinimo tik {room:.1f}% — {target}% tikslas netelpa"))
     if a_pct is not None and a_pct < target * 1.2:
         flags.append(("warn", "Akcija per rami tokiam tikslui per vieną dieną"))
+    # --- Laiko biudžetas: ar likusio laiko realiai užtenka tikslui pasiekti? ---
+    # Kainos svyravimas auga proporcingai laiko šaknims, todėl tikėtinas likęs
+    # judesys = dienos ATR * sqrt(likusi sesijos dalis).
+    if tb and a_pct:
+        exp_range = a_pct * math.sqrt(max(tb["frac"], 0.01))
+        ratio = exp_range / target if target else 0
+        hrs = tb["effective"] / 60
+        if ratio < 0.7:
+            mult *= 0.85
+            flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
+                                  f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo; "
+                                  f"realiau uždaryti rytoj"))
+        elif ratio < 1.1:
+            flags.append(("info", f"Liko ~{hrs:.1f} val. — tikslas pasiekiamas, bet be atsargos "
+                                  f"(tikėtinas judesys ~{exp_range:.1f}%)"))
+        if tb["after_hours"]:
+            flags.append(("info", "Pagrindinė sesija baigta — po sesijos prekyboje spread'as "
+                                  "platesnis, naudok limit pavedimus"))
+
+    # --- Likvidumas: ar pozicija realiai išpildoma ---
+    avg_vol = d.get("avgVolume")
+    if avg_vol and shares > 0:
+        turnover = avg_vol * price
+        share_pct = pos_value / turnover * 100 if turnover else 0
+        if turnover < MIN_DAILY_TURNOVER_EUR:
+            flags.append(("warn", f"Plona akcija: dienos apyvarta ~{turnover/1e6:.1f} mln. EUR — "
+                                  f"įėjimas ir išėjimas gali kainuoti brangiau nei mokesčiai"))
+        elif share_pct > MAX_POS_OF_TURNOVER_PCT:
+            flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
+                                  f"gali tekti pildyti dalimis"))
+
     if capped and shares > 0:
         flags.append(("info", f"Kiekis apribotas iki {MAX_POSITION_PCT:.0f}% portfelio "
                               f"({pos_value:.0f} EUR) — reali rizika {real_risk:.0f} EUR"))
@@ -400,13 +472,14 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     sma20 = float(c.tail(20).mean())
     sma50 = float(c.tail(50).mean())
     ctx = multiday_context(daily, price)
+    avg_vol = float(daily["Volume"].tail(20).mean())
     prev_close = float(c.iloc[-2]) if len(c) > 1 else None
     day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
 
     return dict(tag=tag, sym=sym, name=name, price=price, dayHigh=high, dayLow=low,
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
-                sector=SECTORS.get(sym, "kita"), day_chg=day_chg,
+                sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
                 asOf=str(intra.index[-1]))
 
@@ -653,9 +726,10 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
         if len(chgs) >= 2:
             sector_state[sec] = float(np.median(chgs))
 
+    tb = time_budget()
     for d in collected:
         rows.append((d, score_stock(d, TARGET_PCT, market,
-                                    sector_chg=sector_state.get(d["sector"]))))
+                                    sector_chg=sector_state.get(d["sector"]), tb=tb)))
 
     if not rows:
         print("Nepavyko gauti nė vienos akcijos duomenų šį kartą. Bandysiu vėl.")
