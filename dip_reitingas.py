@@ -39,7 +39,7 @@ except Exception:
 # ----------------------------- NUSTATYMAI -----------------------------
 
 TARGET_PCT = 2.0        # tikslinis pelnas procentais
-ACCOUNT = 10000.0       # sąskaitos dydis, EUR
+ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 OPEN_BROWSER = True     # ar automatiškai atidaryti HTML ataskaitą
 LOOP_INTERVAL_SEC = 300     # kas kiek atsinaujina --loop režime (biržos valandomis)
