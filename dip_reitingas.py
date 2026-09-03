@@ -391,9 +391,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if shares > 0 and gross > 0 and net < gross * 0.75:
         flags.append(("warn", f"Mokesčiai suvalgo dalį pelno: bruto {gross:.0f} EUR, "
                               f"neto ~{net:.0f} EUR"))
-    if 0 < rr < 1:
-        mult *= 0.85
-        flags.append(("warn", f"Rizika/nauda {rr:.2f} — rizikuoji daugiau nei sieki"))
+    # Rizika/nauda vertinama tolydžiai: 1.0 dar nėra geras sandoris, 2.0+ yra
+    if rr > 0:
+        mult *= curve(rr, [(0.5, 0.55), (1.0, 0.75), (1.3, 0.90), (1.8, 1.0), (3.0, 1.05)]) / 1.0
+    if 0 < rr < 1.3:
+        flags.append(("warn", f"Rizika/nauda {rr:.2f} — už {target}% tikslą rizikuoji "
+                              f"beveik tiek pat arba daugiau"))
     if dip is not None and dip > 8:
         flags.append(("warn", "Kritimas gilus — gali būti krentantis peilis"))
     if down_days >= 3:
@@ -414,9 +417,18 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("stop", "Kaina žemiau atramos — atrama pralaužta"))
 
     score = max(0.0, min(100.0, base * mult))
+
+    # Jei yra bent viena fatališka yda (tikslas netelpa, ataskaita, pralaužta atrama,
+    # neigiama naujiena) — sandoris netinkamas, kad ir kokie geri kiti rodikliai.
+    blocking = [t for lvl, t in flags if lvl == "stop"]
+    if blocking:
+        score = min(score, 45.0)
+
+    tradeable = (not blocking) and rr >= 1.3 and (room is None or room >= target * 1.2)
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
-    return dict(score=score, grade=grade, parts=parts, flags=flags, dip=dip, rng=rng,
+    return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
+                parts=parts, flags=flags, dip=dip, rng=rng,
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
                 pos_value=pos_value, gross=gross, net=net, real_risk=real_risk)
@@ -550,15 +562,19 @@ def print_table(rows):
 def market_overview(rows, market, sector_state, target):
     """Bendra dienos apžvalga tekstu — kokia diena, kur dėmesys, ko saugotis."""
     scores = [s["score"] for _, s in rows]
-    strong = [r for r in rows if r[1]["score"] >= 64]
+    strong = [r for r in rows if r[1]["score"] >= 64 and r[1].get("tradeable")]
+    blocked = [r for r in rows if r[1].get("blocking")]
     weak = [r for r in rows if r[1]["score"] < 50]
     mkt = {"bull": "kylanti", "bear": "krentanti", "neutral": "šoninė"}[market]
 
     p = []
     if not strong:
-        p.append(f"Rinka {mkt}, bet nė viena iš {len(rows)} stebimų akcijų šiuo metu nesudaro "
-                 f"aiškaus kritimo pirkimo vaizdo. Tokia diena dažniausiai tinka praleisti — "
-                 f"geriausias balas tik {max(scores):.0f} iš 100.")
+        p.append(f"Rinka {mkt}. Nė viena iš {len(rows)} akcijų šiuo metu neatitinka visų sąlygų: "
+                 f"reikia, kad tikslas tilptų iki pasipriešinimo, o rizika/nauda būtų bent 1,3. "
+                 f"Tokia diena tinka praleisti — tai irgi sprendimas.")
+        if blocked:
+            p.append(f"{len(blocked)} akcijos turi lemiamą kliūtį (tikslas netelpa, artėja "
+                     f"ataskaita ar pralaužta atrama), todėl jų balas apribotas.")
     else:
         best_sec = strong[0][0]["sector"]
         same = sum(1 for r in strong if r[0]["sector"] == best_sec)
@@ -650,6 +666,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
             <span class="gr g{s['grade']}">{s['grade']}</span></summary>
           <div class="in">
             <div class="nm">{d['name']} · {d['sym']} · kainos {cur}</div>
+            <div class="verdict {'ok' if s.get('tradeable') else 'no'}">{
+              'Atitinka visas sąlygas' if s.get('tradeable')
+              else 'NETINKAMA: ' + (s['blocking'][0] if s.get('blocking')
+                   else f"rizika/nauda {s['rr']:.2f} per maža")}</div>
             {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
             <div class="tags">
               <span>kaina {cs}{d['price']:.2f} {cur}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
@@ -693,7 +713,10 @@ summary::-webkit-details-marker{{display:none}}
 display:flex;align-items:center;justify-content:center}}
 .gA{{background:var(--up)}}.gB{{background:#3F7FA8}}.gC{{background:var(--warn)}}.gD{{background:var(--stop)}}
 .in{{padding:0 12px 14px;border-top:1px solid var(--line)}}
-.nm{{font-size:12px;color:var(--ink2);margin:10px 0}}
+.nm{{font-size:12px;color:var(--ink2);margin:10px 0 8px}}
+.verdict{{font-size:12px;font-weight:600;padding:7px 10px;border-radius:5px;margin-bottom:12px}}
+.verdict.ok{{background:#E6F2EC;color:#14543E}}
+.verdict.no{{background:#F3F0EC;color:#6B5E4E}}
 .why{{font-size:12.5px;line-height:1.55;color:var(--ink);background:var(--bg);border-left:3px solid var(--up);
 padding:9px 11px;border-radius:5px;margin:0 0 12px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}}
