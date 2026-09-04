@@ -55,9 +55,18 @@ def daily_score(hist, i, target):
     vol = window["Volume"]
     rv = float(vol.iloc[-1] / vol.tail(20).mean()) if vol.tail(20).mean() > 0 else None
 
+    prev_close = float(c.iloc[-2]) if len(c) > 1 else None
+    day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
+    hi20 = float(window["High"].tail(20).max())
+    res_intra = high if high > price * 1.001 else None
+    cands = sorted(x for x in (res_intra, res, hi20) if x and x > price * 1.001)
+
     d = dict(price=price, dayHigh=high, dayLow=low, vwap=None, rsi=None,
              atrPct=a, support=sup, resistance=res, rvol=rv,
+             sup_intra=low if low < price * 0.999 else None, res_intra=res_intra,
+             res_list=cands, day_chg=day_chg,
              sma20=sma20, sma50=sma50, earnings=False,
+             avgVolume=float(window["Volume"].tail(20).mean()),
              down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"])
     return d, dr.score_stock(d, target, "neutral")
 
