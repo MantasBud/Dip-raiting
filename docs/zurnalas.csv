@@ -1,0 +1,4 @@
+data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busena,rezultatas,baigties_laikas,baigties_kaina
+2026-09-04,15:06,PRX.AS,PRX,64.0,C,atsigavimas,taip,37.44,36.79,38.56,atviras,,,
+2026-09-04,15:06,AMD.DE,AMD,60.4,C,atsigavimas,taip,399.00,392.45,410.97,atviras,,,
+2026-09-04,15:06,ADYEN.AS,ADYEN,57.2,C,kritimas,taip,1042.00,1030.17,1073.26,atviras,,,
