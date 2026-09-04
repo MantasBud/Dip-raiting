@@ -50,6 +50,11 @@ MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas
 SIZING_MODE = "full"
 FEE_PER_TRADE = 2.0     # brokerio mokestis vienam sandoriui (pirkimas ARBA pardavimas), EUR
 
+# Stop turi buti UZ triuksmo ribu, kitaip ji ismus atsitiktinis svyravimas.
+# Backtestas parode: ankstus stop'ai (0.35 x ATR) buvo pagrindine nuostoliu priezastis.
+STOP_ATR_MULT = 0.55    # stop atstumas = tiek kartu dienos ATR
+STOP_MIN_PCT = 0.8      # bet ne arciau nei tiek procentu
+
 # Prekybos laikas (Europe/Berlin). Sesija 9:00-17:30, po jos - Tradegate/LS iki 22:00.
 SESSION_OPEN_MIN = 9 * 60
 SESSION_CLOSE_MIN = 17 * 60 + 30
@@ -119,7 +124,7 @@ def currency_of(sym):
 
 CRITERIA = [
     ("dip",      "Kritimo gylis",            16),
-    ("stab",     "Ar kritimas sustojo",      12),
+    ("stab",     "Ar kritimas sustojo",      15),
     ("multiday", "Vienadienis ar tęstinis",  12),
     ("room",     "Vieta iki pasipriešinimo", 12),
     ("atr",      "Judrumas (ATR)",           12),
@@ -127,7 +132,7 @@ CRITERIA = [
     ("vwap",     "Padėtis prieš VWAP",        8),
     ("rvol",     "Apyvarta (RVOL)",           7),
     ("trend",    "Trendas (20/50 SMA)",       7),
-    ("support",  "Atstumas iki atramos",      5),
+    ("support",  "Atstumas iki atramos",      2),
 ]
 
 # Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
@@ -466,13 +471,16 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
 
     base = sum(parts[k] * w / 100 for k, _, w in CRITERIA)
 
-    stop = support * 0.997 if support and support < price else price * 0.99
-    # stop negali būti nei per platus, nei per ankštas: per ankštą išmuš eilinis triukšmas
-    min_stop = max(0.4, target * 0.35, 0.35 * (a_pct or 0))
-    if (price - stop) / price * 100 > target * 1.5:
-        stop = price * (1 - target * 1.5 / 100)
-    if (price - stop) / price * 100 < min_stop:
-        stop = price * (1 - min_stop / 100)
+    # Stop dedamas pagal akcijos svyravimą, o ne pagal atramos artumą. Arti atramos
+    # esanti kaina yra geras ĮĖJIMAS, bet tai nereiškia, kad stop gali būti ankštas:
+    # judrioje akcijoje 1% stop yra triukšmo lygyje ir bus išmuštas.
+    min_stop = max(STOP_MIN_PCT, STOP_ATR_MULT * (a_pct or 2.0))
+    stop = price * (1 - min_stop / 100)
+    if support and support < price:
+        sup_stop = support * 0.997
+        stop = min(stop, sup_stop)      # jei atrama dar žemiau, stop dedam po ja
+    if (price - stop) / price * 100 > target * 1.8:
+        stop = price * (1 - target * 1.8 / 100)
     tp = price * (1 + target / 100)
     rr = (tp - price) / (price - stop) if price > stop else 0.0
     risk_cash = ACCOUNT * RISK_PCT / 100
@@ -572,12 +580,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if shares > 0 and gross > 0 and net < gross * 0.75:
         flags.append(("warn", f"Mokesčiai suvalgo dalį pelno: bruto {gross:.0f} EUR, "
                               f"neto ~{net:.0f} EUR"))
-    # Rizika/nauda vertinama tolydžiai: 1.0 dar nėra geras sandoris, 2.0+ yra
-    if rr > 0:
-        mult *= curve(rr, [(0.5, 0.55), (1.0, 0.75), (1.3, 0.90), (1.8, 1.0), (3.0, 1.05)]) / 1.0
-    if 0 < rr < 1.3:
-        flags.append(("warn", f"Rizika/nauda {rr:.2f} — už {target}% tikslą rizikuoji "
-                              f"beveik tiek pat arba daugiau"))
+    # R:R nebeduoda premijos: aukštas R:R pasiekiamas ankštu stop'u, o backtestas
+    # parodė, kad būtent ankšti stop'ai ir generuoja nuostolius. Lieka tik bauda,
+    # kai santykis tikrai blogas.
+    if 0 < rr < 1.0:
+        mult *= 0.8
+        flags.append(("warn", f"Rizika/nauda {rr:.2f} — rizikuoji daugiau nei sieki"))
     if dip is not None and dip > 8:
         flags.append(("warn", "Kritimas gilus — gali būti krentantis peilis"))
     if overextended:
@@ -620,7 +628,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if blocking:
         score = min(score, 45.0)
 
-    tradeable = (not blocking) and rr >= 1.3 and (room_far is None or room_far >= target * 1.2)
+    tradeable = (not blocking) and rr >= 1.0 and (room_far is None or room_far >= target * 1.2)
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
