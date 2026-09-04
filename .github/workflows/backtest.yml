@@ -16,8 +16,8 @@ jobs:
       - name: Idiegti bibliotekas
         run: pip install yfinance pandas numpy tzdata
 
-      - name: Intraday backtestas (tikras sandoris, 5 min. barai)
-        run: python backtest_intraday.py --target 3
+      - name: Intraday backtestas + parametru paieska
+        run: python backtest_intraday.py --target 3 --sweep
 
       - name: Dienos backtestas (ilgesne istorija, apytiksliai)
         if: always()
