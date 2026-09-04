@@ -32,16 +32,21 @@ import pandas as pd
 
 try:
     from zoneinfo import ZoneInfo
-    _TZ = ZoneInfo("Europe/Berlin")
+    _TZ = ZoneInfo("Europe/Berlin")       # birzos laikas
+    _DTZ = ZoneInfo("Europe/Vilnius")     # tavo laikas ekrane
 except Exception:
     _TZ = None
+    _DTZ = None
 
 # ----------------------------- NUSTATYMAI -----------------------------
 
 TARGET_PCT = 2.0        # tikslinis pelnas procentais
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
-MAX_POSITION_PCT = 30.0 # daugiausia % portfelio į vieną poziciją
+MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas)
+# "full" = perki uz visa MAX_POSITION_PCT dali, rizika tokia, kokia iseina pagal stop
+# "risk" = kiekis skaiciuojamas taip, kad stop kainuotu lygiai RISK_PCT portfelio
+SIZING_MODE = "full"
 FEE_PER_TRADE = 2.0     # brokerio mokestis vienam sandoriui (pirkimas ARBA pardavimas), EUR
 
 # Prekybos laikas (Europe/Berlin). Sesija 9:00-17:30, po jos - Tradegate/LS iki 22:00.
@@ -316,6 +321,25 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     down_days = d.get("down_days", 0) or 0
     dd5 = d.get("dd5")
     chg3d = d.get("chg3d")
+    # --- Du skirtingi scenarijai ---
+    # A) Kritimas: akcija šiandien nukrito nuo dienos maksimumo, perkam nuolaidą
+    # B) Atsigavimas: akcija buvo nukritusi kelias dienas, šiandien kyla nuo dugno
+    #    ir dar nepasiekė ankstesnės viršūnės — dar yra kur augti
+    day_chg = d.get("day_chg")
+    recovering = (day_chg is not None and day_chg > 0.2
+                  and dd5 is not None and 1.0 <= dd5 <= 9.0
+                  and rng is not None and rng >= 55)
+
+    dip_part = curve(dip, [(0, 5), (0.5, 35), (1.2, 85), (1.8, 100), (4, 100),
+                           (6, 55), (9, 18), (15, 5)])
+    if recovering:
+        # Čia "nuolaida" matuojama ne nuo šios dienos maksimumo, o nuo 5 d. viršūnės
+        rec_part = curve(dd5, [(0.5, 30), (1.5, 80), (3, 100), (5, 92), (8, 55), (12, 20)])
+        dip_part = max(dip_part, rec_part)
+        setup = "atsigavimas"
+    else:
+        setup = "kritimas"
+
     # dd5 = kritimas nuo 5 d. maksimumo. Sveikas dip: 1.5-4%. Tęstinis slydimas: 7%+
     # Tikėtinas judesys per laikymo horizontą prieš tikslą
     exp_mv = d.get("exp_move")
@@ -324,15 +348,19 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     move_ratio = exp_mv / target if (exp_mv and target) else None
 
     multiday_part = curve(dd5, [(0, 25), (1, 60), (2, 95), (4, 100), (6, 65), (9, 30), (14, 8)])
-    if down_days >= 3:
-        multiday_part *= 0.45
-    elif down_days == 2:
-        multiday_part *= 0.75
+    if not recovering:
+        if down_days >= 3:
+            multiday_part *= 0.45
+        elif down_days == 2:
+            multiday_part *= 0.75
+    else:
+        # Kritimas jau baigėsi ir kaina kyla — gylis tampa privalumu, ne rizika
+        multiday_part = max(multiday_part, 75.0)
     if chg3d is not None and chg3d < -6:
         multiday_part *= 0.7
 
     parts = {
-        "dip":  curve(dip,  [(0, 5), (0.5, 35), (1.2, 85), (1.8, 100), (4, 100), (6, 55), (9, 18), (15, 5)]),
+        "dip":  dip_part,
         "multiday": multiday_part,
         "room": curve(None if room is None else room / target,
                       [(0.3, 5), (1, 45), (1.5, 70), (2, 90), (3, 100), (6, 95)]),
@@ -340,7 +368,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # tikėtinas judesys pasiekia tikslą
         "atr":  curve(None if move_ratio is None else move_ratio,
                       [(0.3, 5), (0.6, 30), (0.9, 65), (1.2, 92), (1.8, 100), (3.5, 90)]),
-        "rsi":  curve(d.get("rsi"), [(10, 25), (20, 55), (28, 85), (35, 100), (45, 85), (55, 55), (65, 30), (80, 10)]),
+        # Kritimo scenarijuje ieškom išpardavimo zonos, atsigavimo - jau pakilusio,
+        # bet dar neperpirkto RSI
+        "rsi":  curve(d.get("rsi"),
+                      [(25, 20), (40, 60), (50, 90), (60, 100), (70, 70), (80, 25)]
+                      if recovering else
+                      [(10, 25), (20, 55), (28, 85), (35, 100), (45, 85), (55, 55), (65, 30), (80, 10)]),
         "vwap": curve(vw_d, [(-4, 20), (-2, 45), (-0.8, 85), (-0.2, 100), (0.3, 90), (1.5, 60), (3, 35), (6, 15)]),
         "rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
         "trend": trend,
@@ -360,13 +393,15 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     tp = price * (1 + target / 100)
     rr = (tp - price) / (price - stop) if price > stop else 0.0
     risk_cash = ACCOUNT * RISK_PCT / 100
-    shares = int(risk_cash / (price - stop)) if price > stop else 0
-
-    # Lubos: viena pozicija negali viršyti MAX_POSITION_PCT portfelio dalies
     max_shares = int((ACCOUNT * MAX_POSITION_PCT / 100) / price) if price > 0 else 0
-    capped = shares > max_shares
-    if capped:
-        shares = max_shares
+    risk_shares = int(risk_cash / (price - stop)) if price > stop else 0
+
+    if SIZING_MODE == "full":
+        shares = max_shares          # perkam visa numatyta dali, rizika = kiek iseina
+        capped = False
+    else:
+        shares = min(risk_shares, max_shares)
+        capped = risk_shares > max_shares
 
     pos_value = shares * price
     gross = pos_value * target / 100
@@ -431,9 +466,15 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", f"Ši akcija kotiruojama {d['cur']}, o portfelis "
                               f"{ACCOUNT_CURRENCY} — pozicijos dydis ir pelnas rodomi "
                               f"{d['cur']}, neperskaičiuoti į {ACCOUNT_CURRENCY}"))
-    if capped and shares > 0:
-        flags.append(("info", f"Kiekis apribotas iki {MAX_POSITION_PCT:.0f}% portfelio "
-                              f"({pos_value:.0f} EUR) — reali rizika {real_risk:.0f} EUR"))
+    if shares > 0:
+        risk_pct_real = real_risk / ACCOUNT * 100 if ACCOUNT else 0
+        stop_dist = (price - stop) / price * 100
+        flags.append(("info", f"Pozicija {pos_value:,.0f} EUR ({pos_value/ACCOUNT*100:.0f}% portfelio). "
+                              f"Stop {stop_dist:.1f}% žemiau → nuostolis {real_risk:.0f} EUR "
+                              f"({risk_pct_real:.1f}% portfelio), pelnas neto ~{net:.0f} EUR"))
+        if risk_pct_real > 2.5:
+            flags.append(("warn", f"Vienas nesėkmingas sandoris kainuotų {risk_pct_real:.1f}% portfelio "
+                                  f"— tiek pat, kiek duotų {risk_pct_real/2:.0f} sėkmingi"))
     if shares > 0 and gross > 0 and net < gross * 0.75:
         flags.append(("warn", f"Mokesčiai suvalgo dalį pelno: bruto {gross:.0f} EUR, "
                               f"neto ~{net:.0f} EUR"))
@@ -445,7 +486,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                               f"beveik tiek pat arba daugiau"))
     if dip is not None and dip > 8:
         flags.append(("warn", "Kritimas gilus — gali būti krentantis peilis"))
-    if down_days >= 3:
+    if recovering:
+        flags.append(("info", f"Atsigavimo faze: nukritusi {dd5:.1f}% nuo 5 d. viršūnės, "
+                              f"šiandien {day_chg:+.1f}% ir laikosi dienos viršuje"))
+    elif down_days >= 3:
         mult *= 0.8
         flags.append(("stop", f"{down_days} kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"))
     elif down_days == 2:
@@ -474,6 +518,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
+                setup=setup, recovering=recovering,
                 parts=parts, flags=flags, dip=dip, rng=rng,
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
@@ -709,6 +754,19 @@ def explain(d, s, target, rows):
 def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "neutral": "šoninė"}[market]
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
+    now_lt = datetime.now(_DTZ) if _DTZ else datetime.now()
+
+    # Naujausio 5 min. baro laikas — parodo tikrą duomenų šviežumą
+    data_lt = "?"
+    try:
+        stamps = [pd.Timestamp(d["asOf"]) for d, _ in rows if d.get("asOf")]
+        if stamps:
+            ts = max(stamps)
+            if ts.tzinfo is not None and _DTZ:
+                ts = ts.tz_convert(_DTZ)
+            data_lt = f"{ts:%H:%M}"
+    except Exception:
+        pass
     refresh_tag = (f'<meta http-equiv="refresh" content="{refresh_seconds}">'
                    if refresh_seconds else "")
 
@@ -805,8 +863,8 @@ font-family:ui-monospace,Menlo,monospace}}
 .fl .stop{{background:#FBEBEA;border-color:var(--stop);color:#7A2320}}
 </style>
 <h1>Kurią pirkti dabar</h1>
-<div class="meta">{datetime.now():%Y-%m-%d %H:%M} · tikslas {TARGET_PCT}% ·
-rinka: {market_lt} · {len(rows)} akcijos</div>
+<div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
+tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 <div class="overview">{overview}</div>
 {''.join(cards)}
 </html>"""
