@@ -129,6 +129,8 @@ def main():
     ap = argparse.ArgumentParser(description="Intraday backtestas")
     ap.add_argument("--target", type=float, default=dr.TARGET_PCT)
     ap.add_argument("--days", type=int, default=60)
+    ap.add_argument("--sweep", action="store_true",
+                    help="Isbandyti skirtingus stop ir tikslo derinius, ir parodyti, kuris geriausias")
     args = ap.parse_args()
 
     try:
@@ -173,7 +175,9 @@ def main():
                         continue
                     rows.append(dict(tag=tag, score=s["score"], grade=s["grade"],
                                      tradeable=bool(s.get("tradeable")),
-                                     setup=s.get("setup"), result=res, pnl=pnl))
+                                     setup=s.get("setup"), result=res, pnl=pnl,
+                                     _sym=sym, _di=di, _k=k, _price=d["price"],
+                                     _atr=d.get("atrPct") or 3.0, _sessions=sessions))
         except Exception as e:
             print(f"  {tag}: praleista ({str(e)[:50]})")
 
@@ -215,6 +219,43 @@ def main():
         if len(g) >= 10:
             print(f"{st:<14} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
                   f"{g['pnl'].mean():>11.2f}%")
+
+    # --- Parametru paieska: koks stop ir koks tikslas realiai veikia ---
+    if args.sweep:
+        print("\n" + "=" * 64)
+        print("PARAMETRU PAIESKA: vidutinis rezultatas vienam sandoriui (%)")
+        print("Stop = daugiklis x dienos ATR;  eilutes = stop, stulpeliai = tikslas")
+        print("=" * 64)
+        targets = [1.5, 2.0, 3.0, 4.0]
+        mults = [0.25, 0.4, 0.55, 0.75, 1.0, 1.5]
+
+        header = "STOP".ljust(10) + "".join(f"{t:>10.1f}%" for t in targets)
+        print(header)
+        print("-" * len(header))
+        best = None
+        for m in mults:
+            cells = []
+            for t in targets:
+                pnls = []
+                for r in rows:
+                    price, atr = r["_price"], r["_atr"]
+                    stop_pct = max(0.5, m * atr)
+                    stop = price * (1 - stop_pct / 100)
+                    tp = price * (1 + t / 100)
+                    res, pnl = outcome(r["_sessions"], r["_di"], r["_k"], price, stop, tp,
+                                       dr.HOLD_HOURS)
+                    if res:
+                        pnls.append(pnl)
+                avg = float(np.mean(pnls)) if pnls else 0.0
+                cells.append(avg)
+                if best is None or avg > best[0]:
+                    best = (avg, m, t)
+            print(f"{m:>4.2f}xATR  " + "".join(f"{c:>+10.2f}" for c in cells))
+
+        print("-" * len(header))
+        print(f"Geriausias derinys: stop {best[1]:.2f} x ATR, tikslas {best[2]:.1f}% "
+              f"-> {best[0]:+.2f}% sandoriui")
+        print("Nepamirsk: mokesciai ir spread'as cia neiskaiciuoti (~0.05-0.1% sandoriui).")
 
     # --- Isvada ---
     valid = [(lab, df[df["bucket"] == lab]) for lab in labels]
