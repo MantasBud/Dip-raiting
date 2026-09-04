@@ -62,7 +62,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -71,10 +71,6 @@
    [
     "info",
     "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.8%)"
-   ],
-   [
-    "info",
-    "Izoliuotas atsitraukimas: akcija -1.0%, sektorius -0.4% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 1.2996918261305357,
@@ -86,7 +82,7 @@
   "tp": 1063.7840502929687,
   "rr": 1.6424657240933436,
   "shares": 17,
-  "sector_chg": -0.42969781545376057,
+  "sector_chg": -0.9779435447627037,
   "pos_value": 17557.600830078125,
   "gross": 526.7280249023438,
   "net": 522.7280249023438,
@@ -152,7 +148,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -246,7 +242,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -255,6 +251,10 @@
    [
     "info",
     "Tipinis nakties šuolis 0.4% — telpa į stop atstumą (1.9%)"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -2.3%, sektorius -1.0% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 2.8041664567519273,
@@ -266,7 +266,7 @@
   "tp": 110.67349685668945,
   "rr": 1.6007793869018343,
   "shares": 167,
-  "sector_chg": -0.42969781545376057,
+  "sector_chg": -0.9779435447627037,
   "pos_value": 17944.149490356445,
   "gross": 538.3244847106934,
   "net": 534.3244847106934,
@@ -332,7 +332,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -418,7 +418,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -512,7 +512,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -603,7 +603,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -693,7 +693,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -717,98 +717,12 @@
   "tp": 38.42930141448975,
   "rr": 2.045635321375551,
   "shares": 482,
-  "sector_chg": -0.42969781545376057,
+  "sector_chg": -0.9779435447627037,
   "pos_value": 17983.42066192627,
   "gross": 539.5026198577881,
   "net": 535.5026198577881,
   "real_risk": 263.73352778002044,
   "move_ratio": 0.6795573872491243
- },
- {
-  "tag": "SAP",
-  "sym": "SAP.DE",
-  "name": "SAP SE",
-  "price": 185.8000030517578,
-  "dayHigh": 189.89999389648438,
-  "dayLow": 184.9600067138672,
-  "vwap": 187.2768709983548,
-  "rsi": 44.62887872224293,
-  "atrPct": 3.110441863469387,
-  "support": 185.04666646321616,
-  "resistance": 187.55999755859375,
-  "rvol": 1.5541060008044558,
-  "sma20": 183.74800033569335,
-  "sma50": 161.33359985351564,
-  "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": 0.1185479138551826,
-  "avgVolume": 2194078.05,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 0.6827954815748101,
-  "vol5m": 0.20354451737441642,
-  "res_intra": 189.89999389648438,
-  "sup_intra": 184.9600067138672,
-  "res_list": [
-   187.55999755859375,
-   189.89999389648438,
-   192.1199951171875
-  ],
-  "m1h": 0.06614858290199956,
-  "m3h": -2.576111453162077,
-  "pos1h": 60.86975751611583,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 2.8203955655566024,
-  "down_days": 0,
-  "dd5": 3.2896066136034823,
-  "chg3d": 0.8357801969134117,
-  "asOf": "2026-09-04 17:25:00+02:00",
-  "score": 45.0,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (0.9% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.7% — telpa į stop atstumą (1.7%)"
-   ]
-  ],
-  "dip": 2.1590263172738657,
-  "rng": 17.00401857005625,
-  "room": 0.9472521409731411,
-  "sup_d": 0.45209705279532714,
-  "vw_d": -0.7886013572973305,
-  "stop": 182.6214424592707,
-  "tp": 191.37400314331055,
-  "rr": 1.7536239846198012,
-  "shares": 96,
-  "sector_chg": -0.42969781545376057,
-  "pos_value": 17836.80029296875,
-  "gross": 535.1040087890625,
-  "net": 531.1040087890625,
-  "real_risk": 305.14181687876317,
-  "move_ratio": 0.9401318551855341
  },
  {
   "tag": "SIE",
@@ -873,7 +787,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -968,7 +882,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1062,7 +976,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1148,7 +1062,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1254,7 +1168,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1357,7 +1271,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1460,7 +1374,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1554,7 +1468,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1570,7 +1484,7 @@
    ],
    [
     "warn",
-    "Akcija krinta 3.2 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
+    "Akcija krinta 2.7 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ],
    [
     "warn",
@@ -1590,7 +1504,7 @@
   "tp": 156.04500000000002,
   "rr": 1.1680124510288905,
   "shares": 118,
-  "sector_chg": -0.42969781545376057,
+  "sector_chg": -0.9779435447627037,
   "pos_value": 17877.0,
   "gross": 536.31,
   "net": 532.31,
@@ -1661,7 +1575,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.4 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1764,7 +1678,7 @@
    ],
    [
     "info",
-    "Liko ~1.4 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.2%)"
+    "Liko ~1.2 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.0%)"
    ],
    [
     "info",
@@ -1796,7 +1710,7 @@
   "tp": 190.98259811401368,
   "rr": 0.680191753196653,
   "shares": 97,
-  "sector_chg": -0.42969781545376057,
+  "sector_chg": -0.9779435447627037,
   "pos_value": 17985.739822387695,
   "gross": 539.5721946716309,
   "net": 535.5721946716309,
