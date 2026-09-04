@@ -95,6 +95,10 @@ ACCOUNT_CURRENCY = "EUR"
 #   8    = visa prekybos diena (numatyta)
 #   16   = laikymas iki kitos dienos uzdarymo
 HOLD_HOURS = 8.0
+
+# Kiek akcija gali buti pakilusi siandien, kad dar laikytume tai atsigavimu, o ne
+# jau ivykusiu suoliu. Virs sios ribos nuolaidos nebera.
+MAX_RECOVERY_GAIN = 3.0
 CURRENCY_BY_SUFFIX = {
     "DE": ("EUR", "\u20ac"), "AS": ("EUR", "\u20ac"), "PA": ("EUR", "\u20ac"),
     "MI": ("EUR", "\u20ac"), "MC": ("EUR", "\u20ac"), "BR": ("EUR", "\u20ac"),
@@ -326,9 +330,14 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     # B) Atsigavimas: akcija buvo nukritusi kelias dienas, šiandien kyla nuo dugno
     #    ir dar nepasiekė ankstesnės viršūnės — dar yra kur augti
     day_chg = d.get("day_chg")
-    recovering = (day_chg is not None and day_chg > 0.2
-                  and dd5 is not None and 1.0 <= dd5 <= 9.0
-                  and rng is not None and rng >= 55)
+    # Atsigavimas galioja tik kol nuolaida dar yra. Jei akcija jau pašoko
+    # (MAX_RECOVERY_GAIN ar daugiau) arba iki 5 d. viršūnės liko mažiau nei tikslas,
+    # pirkimas vyktų jau po įvykusio judesio.
+    recovering = (day_chg is not None and 0.2 < day_chg <= MAX_RECOVERY_GAIN
+                  and dd5 is not None and max(1.0, target) <= dd5 <= 9.0
+                  and rng is not None and 55 <= rng <= 92)
+    overextended = (day_chg is not None and day_chg > MAX_RECOVERY_GAIN
+                    and dip is not None and dip < 1.0)
 
     dip_part = curve(dip, [(0, 5), (0.5, 35), (1.2, 85), (1.8, 100), (4, 100),
                            (6, 55), (9, 18), (15, 5)])
@@ -337,6 +346,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         rec_part = curve(dd5, [(0.5, 30), (1.5, 80), (3, 100), (5, 92), (8, 55), (12, 20)])
         dip_part = max(dip_part, rec_part)
         setup = "atsigavimas"
+    elif overextended:
+        dip_part = min(dip_part, 12.0)
+        setup = "jau pakilusi"
     else:
         setup = "kritimas"
 
@@ -482,7 +494,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                               f"beveik tiek pat arba daugiau"))
     if dip is not None and dip > 8:
         flags.append(("warn", "Kritimas gilus — gali būti krentantis peilis"))
-    if recovering:
+    if overextended:
+        flags.append(("stop", f"Šiandien jau pakilusi {day_chg:+.1f}% ir prekiauja prie pat "
+                              f"dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"))
+    elif recovering:
         flags.append(("info", f"Atsigavimo faze: nukritusi {dd5:.1f}% nuo 5 d. viršūnės, "
                               f"šiandien {day_chg:+.1f}% ir laikosi dienos viršuje"))
     elif down_days >= 3:
@@ -713,7 +728,14 @@ def explain(d, s, target, rows):
     med = float(np.median([x[1]["score"] for x in others])) if others else 0
 
     reasons = []
-    if s["parts"]["multiday"] >= 70 and (s.get("down_days") or 0) <= 1:
+    setup = s.get("setup", "kritimas")
+    if setup == "atsigavimas":
+        reasons.append(f"akcija buvo nukritusi ir dabar kyla nuo dugno, dar nepasiekusi "
+                       f"ankstesnės viršūnės — kelias aukštyn dar neišnaudotas")
+    elif setup == "jau pakilusi":
+        reasons.append("akcija šiandien jau smarkiai pakilo, todėl tai nebėra nuolaidos "
+                       "pirkimas — balas surinktas iš kitų rodiklių")
+    elif s["parts"]["multiday"] >= 70 and (s.get("down_days") or 0) <= 1:
         reasons.append("kritimas prasidėjo šiandien, o ne tęsiasi kelias dienas — "
                        "būtent toks vienadienis nuosmukis dažniausiai ir atšoka")
     if s["parts"]["trend"] >= 85:
@@ -785,7 +807,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
             <span class="sc">{s['score']:.0f}</span>
             <span class="gr g{s['grade']}">{s['grade']}</span></summary>
           <div class="in">
-            <div class="nm">{d['name']} · {d['sym']}</div>
+            <div class="nm">{d['name']} · {d['sym']} · {s.get('setup','')}</div>
             <div class="verdict {'ok' if s.get('tradeable') else 'no'}">{
               'Atitinka visas sąlygas' if s.get('tradeable')
               else 'NETINKAMA: ' + (s['blocking'][0] if s.get('blocking')
@@ -918,7 +940,9 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
         print("Nepavyko gauti nė vienos akcijos duomenų šį kartą. Bandysiu vėl.")
         return [], failed
 
-    rows.sort(key=lambda x: x[1]["score"], reverse=True)
+    # Pirma tinkami sandoriai pagal balą, tada visi kiti — kad viršuje būtų tai,
+    # ką realiai galima pirkti, o ne tik aukščiausias balas
+    rows.sort(key=lambda x: (bool(x[1].get("tradeable")), x[1]["score"]), reverse=True)
     print_table(rows)
     if failed:
         print("Nepavyko:", ", ".join(f"{t} ({m})" for t, _, m in failed), "\n")
