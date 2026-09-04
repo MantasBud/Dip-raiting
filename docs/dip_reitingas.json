@@ -17,7 +17,7 @@
   "earnings": false,
   "sector": "programinė įranga",
   "day_chg": -0.9779435447627037,
-  "avgVolume": 140855.4,
+  "avgVolume": 140855.5,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5645465526719432,
@@ -62,7 +62,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -111,7 +111,7 @@
   "earnings": false,
   "sector": "puslaidininkiai",
   "day_chg": 2.6123302818411633,
-  "avgVolume": 392559.05,
+  "avgVolume": 392574.5,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 1.0090198242464172,
@@ -152,7 +152,7 @@
    ],
    [
     "info",
-    "Liko ~1.9 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -176,7 +176,7 @@
   "tp": 202.2919937133789,
   "rr": 1.0384408104825413,
   "shares": 91,
-  "sector_chg": 2.84878860000191,
+  "sector_chg": 2.739001657523761,
   "pos_value": 17872.399444580078,
   "gross": 536.1719833374024,
   "net": 532.1719833374024,
@@ -246,7 +246,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -332,7 +332,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -358,6 +358,96 @@
   "net": 533.6539776611328,
   "real_risk": 387.5488472830548,
   "move_ratio": 1.0342023446242217
+ },
+ {
+  "tag": "IFX",
+  "sym": "IFX.DE",
+  "name": "Infineon Technologies",
+  "price": 56.9900016784668,
+  "dayHigh": 57.70000076293945,
+  "dayLow": 55.459999084472656,
+  "vwap": 56.95436986064259,
+  "rsi": 39.087023300906836,
+  "atrPct": 4.44685156370848,
+  "support": 55.37333297729492,
+  "resistance": 65.44999694824219,
+  "rvol": 1.2188341745868292,
+  "sma20": 57.835499954223636,
+  "sma50": 63.681600189208986,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 2.6292147150456113,
+  "avgVolume": 3454087.35,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 1.6203659046115149,
+  "vol5m": 0.23686939838700768,
+  "res_intra": 57.70000076293945,
+  "sup_intra": 55.459999084472656,
+  "res_list": [
+   57.70000076293945,
+   65.44999694824219,
+   65.44999694824219
+  ],
+  "m1h": -0.6020398347437975,
+  "m3h": 0.45509359694515605,
+  "pos1h": 5.26361579954759,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 3.282158662116566,
+  "down_days": 0,
+  "dd5": 1.452533505085955,
+  "chg3d": 2.6107323353213623,
+  "asOf": "2026-09-04 17:25:00+02:00",
+  "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (1.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 1.6% — telpa į stop atstumą (3.0%)"
+   ],
+   [
+    "warn",
+    "Vienas nesėkmingas sandoris kainuotų 3.0% portfelio — tiek pat, kiek duotų 1 sėkmingi"
+   ]
+  ],
+  "dip": 1.2305009966805522,
+  "rng": 68.30363605090574,
+  "room": 1.2458309590486003,
+  "sup_d": 2.684685995670429,
+  "vw_d": 0.06256204381048948,
+  "stop": 55.29361908721924,
+  "tp": 58.699701728820806,
+  "rr": 1.0078505044647146,
+  "shares": 315,
+  "sector_chg": 2.739001657523761,
+  "pos_value": 17951.85052871704,
+  "gross": 538.5555158615113,
+  "net": 534.5555158615113,
+  "real_risk": 534.36051624298,
+  "move_ratio": 1.0940528873721886
  },
  {
   "tag": "KER",
@@ -422,7 +512,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -513,7 +603,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -603,7 +693,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -693,7 +783,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -783,7 +873,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -878,7 +968,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -890,7 +980,7 @@
    ],
    [
     "info",
-    "Izoliuotas atsitraukimas: akcija +1.9%, sektorius +2.8% — būtent toks triukšmas, kurio ieškai"
+    "Izoliuotas atsitraukimas: akcija +1.9%, sektorius +2.7% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 1.2277206571975559,
@@ -902,7 +992,7 @@
   "tp": 205.50560440063478,
   "rr": 1.8963945662190518,
   "shares": 90,
-  "sector_chg": 2.84878860000191,
+  "sector_chg": 2.739001657523761,
   "pos_value": 17956.800384521484,
   "gross": 538.7040115356446,
   "net": 534.7040115356446,
@@ -972,7 +1062,7 @@
    ],
    [
     "info",
-    "Liko ~1.9 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Liko ~1.7 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.1%)"
    ],
    [
     "info",
@@ -996,7 +1086,7 @@
   "tp": 416.4805062866211,
   "rr": 1.10944961155233,
   "shares": 44,
-  "sector_chg": 2.84878860000191,
+  "sector_chg": 2.739001657523761,
   "pos_value": 17791.400268554688,
   "gross": 533.7420080566407,
   "net": 529.7420080566407,
@@ -1058,7 +1148,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1123,7 +1213,7 @@
   "earnings": false,
   "sector": "puslaidininkiai",
   "day_chg": 5.611322469232626,
-  "avgVolume": 123725.65,
+  "avgVolume": 123726.15,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 1.0625526032542327,
@@ -1164,7 +1254,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1196,7 +1286,7 @@
   "tp": 845.2179748535157,
   "rr": 0.5555555555555567,
   "shares": 21,
-  "sector_chg": 2.84878860000191,
+  "sector_chg": 2.739001657523761,
   "pos_value": 17232.599487304688,
   "gross": 516.9779846191407,
   "net": 512.9779846191407,
@@ -1267,7 +1357,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1370,7 +1460,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1464,7 +1554,7 @@
    ],
    [
     "info",
-    "Liko ~1.9 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1525,7 +1615,7 @@
   "earnings": false,
   "sector": "puslaidininkiai",
   "day_chg": 3.4003107758822892,
-  "avgVolume": 494219.7,
+  "avgVolume": 494229.7,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 1.1127466284633187,
@@ -1571,7 +1661,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.9 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1603,7 +1693,7 @@
   "tp": 1515.9540502929688,
   "rr": 0.7793043616242722,
   "shares": 12,
-  "sector_chg": 2.84878860000191,
+  "sector_chg": 2.739001657523761,
   "pos_value": 17661.6005859375,
   "gross": 529.848017578125,
   "net": 525.848017578125,
