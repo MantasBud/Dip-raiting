@@ -18,6 +18,7 @@ ir --loop režime pati atsinaujina. Viršuje aukščiausias reitingas, apačioje
 """
 
 import argparse
+import csv
 import json
 import math
 import os
@@ -117,15 +118,16 @@ def currency_of(sym):
     return ("USD", "$")
 
 CRITERIA = [
-    ("dip",      "Kritimo gylis",            18),
-    ("multiday", "Vienadienis ar tęstinis",  14),
-    ("room",     "Vieta iki pasipriešinimo", 14),
-    ("atr",      "Judrumas (ATR)",           14),
-    ("rsi",      "RSI (5 min)",              10),
-    ("vwap",     "Padėtis prieš VWAP",       10),
-    ("rvol",     "Apyvarta (RVOL)",           8),
-    ("trend",    "Trendas (20/50 SMA)",       8),
-    ("support",  "Atstumas iki atramos",      4),
+    ("dip",      "Kritimo gylis",            16),
+    ("stab",     "Ar kritimas sustojo",      12),
+    ("multiday", "Vienadienis ar tęstinis",  12),
+    ("room",     "Vieta iki pasipriešinimo", 12),
+    ("atr",      "Judrumas (ATR)",           12),
+    ("rsi",      "RSI (5 min)",               9),
+    ("vwap",     "Padėtis prieš VWAP",        8),
+    ("rvol",     "Apyvarta (RVOL)",           7),
+    ("trend",    "Trendas (20/50 SMA)",       7),
+    ("support",  "Atstumas iki atramos",      5),
 ]
 
 # Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
@@ -241,6 +243,42 @@ def new_intl_now():
         return now.hour * 60 + now.minute
     except Exception:
         return None
+
+
+def short_momentum(today_bars):
+    """Kryptis per 1 ir 3 valandas: ar kaina dar krinta, ar jau atsispyre.
+
+    Valandos, o ne minutes, nes 15 min. atkarpoje matosi tik triuksmas.
+    Anksti sesijoje, kai bary dar mazai, skaiciuojama nuo atidarymo ir tai pazymima.
+    """
+    if today_bars is None or len(today_bars) < 4:
+        return dict(m1h=None, m3h=None, pos1h=None, span_h=None, partial=True)
+
+    c = today_bars["Close"]
+    last = float(c.iloc[-1])
+
+    def trend(bars_back):
+        """Krypties nuolydis per atkarpa, ivertinant VISUS barus, ne tik du galus.
+        Taip vienas atsitiktinis suolis nebeiskraipo rodiklio."""
+        i = max(0, len(c) - 1 - bars_back)
+        seg = c.iloc[i:].astype(float).to_numpy()
+        n = len(seg)
+        if n < 3:
+            return (0.0, 0.0)
+        x = np.arange(n)
+        slope = float(np.polyfit(x, seg, 1)[0])       # kainos pokytis per bara
+        base = float(seg.mean())
+        total = slope * (n - 1) / base * 100 if base else 0.0
+        return (total, (n - 1) * 5 / 60)
+
+    m1h, span1 = trend(12)        # 12 x 5 min = 1 val.
+    m3h, span3 = trend(36)        # 36 x 5 min = 3 val.
+
+    win = today_bars.tail(13)
+    lo, hi = float(win["Low"].min()), float(win["High"].max())
+    pos1h = (last - lo) / (hi - lo) * 100 if hi > lo else None
+
+    return dict(m1h=m1h, m3h=m3h, pos1h=pos1h, span_h=span3, partial=span1 < 0.9)
 
 
 def intraday_vol(today_bars):
@@ -374,8 +412,24 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if chg3d is not None and chg3d < -6:
         multiday_part *= 0.7
 
+    # --- Ar kritimas jau sustojo? Krentantis peilis atrodo taip pat kaip dip,
+    # skiriasi tik tuo, kad jis vis dar krinta. ---
+    m1h, m3h, pos1h = d.get("m1h"), d.get("m3h"), d.get("pos1h")
+    stab = curve(m1h, [(-2.0, 8), (-0.8, 25), (-0.2, 55), (0.1, 85),
+                       (0.6, 100), (1.5, 90), (3.0, 65)])
+    knife = False
+    if m3h is not None and m1h is not None:
+        if m3h < -0.8 and m1h > 0.1:
+            stab = min(100.0, stab * 1.12)      # krito 3 val. ir per pastarąją atsispyrė
+        elif m3h < -0.8 and m1h < -0.2:
+            stab *= 0.55                        # kryptis žemyn nesikeičia
+            knife = True
+    if pos1h is not None and pos1h < 20:
+        stab *= 0.85                            # laikosi prie valandos dugno
+
     parts = {
         "dip":  dip_part,
+        "stab": stab,
         "multiday": multiday_part,
         "room": curve(None if room is None else room / target,
                       [(0.3, 5), (1, 45), (1.5, 70), (2, 90), (3, 100), (6, 95)]),
@@ -514,6 +568,15 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", f"Visas sektorius krenta ({sector_chg:+.1f}%) — tai ne šios akcijos problema"))
     if rv is not None and rv < 0.7:
         flags.append(("warn", "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"))
+    if knife:
+        mult *= 0.9
+        flags.append(("warn", f"Kryptis vis dar žemyn: per 3 val. {m3h:+.1f}%, per pastarąją "
+                              f"valandą {m1h:+.1f}% — dugno ženklo dar nėra"))
+    elif m3h is not None and m1h is not None and m3h < -0.8 and m1h > 0.1:
+        flags.append(("info", f"Kritimas sustojo: po {m3h:+.1f}% per 3 val. pastarąją valandą "
+                              f"jau {m1h:+.1f}%"))
+    if d.get("mom_partial") and m1h is not None:
+        flags.append(("info", "Sesija dar trumpa — krypties rodikliai skaičiuoti nuo atidarymo"))
     if rng is not None and rng < 6:
         flags.append(("warn", "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"))
     if sup_d is not None and sup_d < 0:
@@ -625,6 +688,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     ctx = multiday_context(daily, price)
     avg_vol = float(daily["Volume"].tail(20).mean())
     v5 = intraday_vol(today)
+    mom = short_momentum(today)
     # Valandos sandoriui svarbios šios dienos lubos, ne 20 d. swing lygiai
     res_intra = high if high > price * 1.001 else None
     sup_intra = low if low < price * 0.999 else None
@@ -641,6 +705,8 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1],
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
+                m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
+                span_h=mom["span_h"], mom_partial=mom["partial"],
                 exp_move=expected_move(v5, HOLD_HOURS),
                 down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
                 asOf=str(intra.index[-1]))
@@ -771,10 +837,26 @@ def explain(d, s, target, rows):
     return body
 
 
-def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
+def write_html(rows, market, path, refresh_seconds=None, sector_state=None, stats=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "neutral": "šoninė"}[market]
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
     now_lt = datetime.now(_DTZ) if _DTZ else datetime.now()
+
+    stats_html = ""
+    if stats:
+        done = sum(b["n"] for b in stats.values())
+        if done >= 5:
+            lines = []
+            for g in ["A", "B", "C", "D"]:
+                b = stats.get(g)
+                if b and b["n"]:
+                    pct = b["tikslas"] / b["n"] * 100
+                    lines.append(f"<div class='srow'><span>{g}</span>"
+                                 f"<i><b style='width:{pct:.0f}%'></b></i>"
+                                 f"<u>{pct:.0f}% ({b['n']})</u></div>")
+            stats_html = ("<div class='stats'><div class='sh'>Live backtest — "
+                          "Dalis sandorių, pasiekusių tikslą, pagal pakopą</div>"
+                          + "".join(lines) + "</div>")
 
     # Naujausio 5 min. baro laikas — parodo tikrą duomenų šviežumą
     data_lt = "?"
@@ -819,7 +901,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
               <span>kaina {cs}{d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span>
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
@@ -845,6 +927,14 @@ h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 .meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
 .overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
+.stats{{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px;margin-bottom:20px}}
+.sh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px}}
+.srow{{display:flex;align-items:center;gap:9px;margin-bottom:5px}}
+.srow span{{font-size:12px;font-weight:600;width:14px}}
+.srow i{{flex:1;height:5px;background:#E4E9F1;border-radius:3px;overflow:hidden}}
+.srow b{{display:block;height:100%;background:var(--up)}}
+.srow u{{font-size:11px;color:var(--ink2);width:64px;text-align:right;text-decoration:none;
+font-variant-numeric:tabular-nums}}
 .card{{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:7px;overflow:hidden}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
@@ -886,11 +976,132 @@ font-variant-numeric:tabular-nums}}
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 <div class="overview">{overview}</div>
+{stats_html}
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
 
+
+
+# ----------------------------- REZULTATU ZURNALAS -----------------------------
+
+JOURNAL_FIELDS = ["data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
+                  "tinkamas", "ijejimas", "stop", "tikslas", "busena", "rezultatas",
+                  "baigties_laikas", "baigties_kaina"]
+JOURNAL_TOP_N = 3          # kiek geriausiu irasyti kiekviena diena
+
+
+def load_journal(path):
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f))
+    except Exception:
+        return []
+
+
+def save_journal(path, entries):
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=JOURNAL_FIELDS)
+        w.writeheader()
+        for e in entries:
+            w.writerow({k: e.get(k, "") for k in JOURNAL_FIELDS})
+
+
+def resolve_entry(entry, intraday_all):
+    """Ka kaina padare PO irasymo: pasieke tiksla, stop, ar nei viena."""
+    try:
+        intra = flatten(intraday_all, entry["sym"]).dropna(subset=["Close"])
+        if intra.empty:
+            return entry
+        start = pd.Timestamp(f"{entry['data']} {entry['laikas']}")
+        if intra.index.tz is not None:
+            start = start.tz_localize(intra.index.tz) if start.tzinfo is None else start
+        after = intra[intra.index > start]
+        if after.empty:
+            return entry
+
+        stop, target = float(entry["stop"]), float(entry["tikslas"])
+        for ts, bar in after.iterrows():
+            hit_t = float(bar["High"]) >= target
+            hit_s = float(bar["Low"]) <= stop
+            if hit_t and hit_s:
+                # tame paciame bare abu - nezinom eiliskumo, laikom nuostoliu
+                entry.update(busena="baigta", rezultatas="neaisku (abu)",
+                             baigties_laikas=str(ts), baigties_kaina=f"{float(bar['Close']):.2f}")
+                return entry
+            if hit_t:
+                entry.update(busena="baigta", rezultatas="tikslas",
+                             baigties_laikas=str(ts), baigties_kaina=f"{target:.2f}")
+                return entry
+            if hit_s:
+                entry.update(busena="baigta", rezultatas="stop",
+                             baigties_laikas=str(ts), baigties_kaina=f"{stop:.2f}")
+                return entry
+
+        # Nei tikslas, nei stop. Jei nuo irasymo praejo daugiau nei diena - uzdarom.
+        last_ts = after.index[-1]
+        if (last_ts.date() - start.date()).days >= 1:
+            last_close = float(after["Close"].iloc[-1])
+            entry.update(busena="baigta",
+                         rezultatas="be rezultato" if last_close < target else "tikslas",
+                         baigties_laikas=str(last_ts), baigties_kaina=f"{last_close:.2f}")
+        return entry
+    except Exception:
+        return entry
+
+
+def update_journal(path, rows, intraday_all, now):
+    """Uzbaigia senus irasus ir prideda siandienos geriausius. Klaidos neblokuoja skenerio."""
+    try:
+        entries = load_journal(path)
+        for e in entries:
+            if e.get("busena") == "atviras":
+                resolve_entry(e, intraday_all)
+
+        today = now.strftime("%Y-%m-%d")
+        have = {(e["sym"], e["data"]) for e in entries}
+        added = 0
+        for d, s in rows:
+            if added >= JOURNAL_TOP_N:
+                break
+            if (d["sym"], today) in have or not d.get("price"):
+                continue
+            entries.append(dict(
+                data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
+                balas=f"{s['score']:.1f}", pakopa=s["grade"], scenarijus=s.get("setup", ""),
+                tinkamas="taip" if s.get("tradeable") else "ne",
+                ijejimas=f"{d['price']:.2f}", stop=f"{s['stop']:.2f}",
+                tikslas=f"{s['tp']:.2f}", busena="atviras", rezultatas="",
+                baigties_laikas="", baigties_kaina=""))
+            added += 1
+
+        entries = entries[-500:]          # neauginam failo be galo
+        save_journal(path, entries)
+        return entries
+    except Exception:
+        return []
+
+
+def journal_stats(entries):
+    """Ar auksciau ivertinti sandoriai realiai baigesi geriau?"""
+    out = {}
+    for e in entries:
+        if e.get("busena") != "baigta":
+            continue
+        g = e.get("pakopa", "?")
+        b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0})
+        b["n"] += 1
+        r = e.get("rezultatas", "")
+        if r == "tikslas":
+            b["tikslas"] += 1
+        elif r in ("stop", "neaisku (abu)"):
+            b["stop"] += 1
+        else:
+            b["kita"] += 1
+    return out
 
 # ----------------------------- MARKET LAIKAS -----------------------------
 
@@ -949,9 +1160,22 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
     if failed:
         print("Nepavyko:", ", ".join(f"{t} ({m})" for t, _, m in failed), "\n")
 
+    # Rezultatų žurnalas: įrašom šiandienos geriausius, užbaigiam senus įrašus
+    now_local = datetime.now(_DTZ) if _DTZ else datetime.now()
+    entries = update_journal(os.path.join(out_dir, "zurnalas.csv"),
+                             rows, intraday_all, now_local)
+    stats = journal_stats(entries)
+    if stats:
+        print("\nŽurnalas (užbaigti sandoriai):")
+        for g in ["A", "B", "C", "D"]:
+            b = stats.get(g)
+            if b and b["n"]:
+                print(f"  {g}: {b['n']:>3} sandorių, tikslą pasiekė "
+                      f"{b['tikslas']/b['n']*100:>5.1f}%")
+
     html_path = os.path.join(out_dir, "index.html")
     write_html(rows, market, html_path, refresh_seconds=refresh_seconds,
-               sector_state=sector_state)
+               sector_state=sector_state, stats=stats)
 
     with open(os.path.join(out_dir, "dip_reitingas.json"), "w", encoding="utf-8") as f:
         json.dump([{**d, **{k: v for k, v in s.items() if k != "parts"}}
