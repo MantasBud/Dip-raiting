@@ -93,9 +93,9 @@ ACCOUNT_CURRENCY = "EUR"
 
 # Laikymo horizontas valandomis. Tikslas turi buti pasiektas per si laika.
 #   1-2  = "triuksmo" gaudymas per kelias valandas
-#   8    = visa prekybos diena (numatyta)
-#   16   = laikymas iki kitos dienos uzdarymo
-HOLD_HOURS = 8.0
+#   8    = visa prekybos diena
+#   16   = laikymas iki kitos dienos uzdarymo (numatyta)
+HOLD_HOURS = 16.0
 
 # Kiek akcija gali buti pakilusi siandien, kad dar laikytume tai atsigavimu, o ne
 # jau ivykusiu suoliu. Virs sios ribos nuolaidos nebera.
@@ -296,6 +296,20 @@ def expected_move(vol_5m, hours):
         return None
     bars = max(1.0, hours * 12)          # 12 penkiaminučių valandoje
     return vol_5m * math.sqrt(bars)
+
+
+def overnight_gap(daily, n=60):
+    """Tipinis nakties suolis: |atidarymas - vakarykstis uzdarymas| procentais.
+    Svarbu, nes laikant per naktį stop nesuveikia — parduosi ten, kur atsidarys."""
+    d = daily.dropna(subset=["Open", "Close"]).tail(n + 1)
+    if len(d) < 10:
+        return None
+    gaps = (d["Open"] - d["Close"].shift(1)).abs() / d["Close"].shift(1) * 100
+    gaps = gaps.dropna()
+    if gaps.empty:
+        return None
+    v = float(gaps.median())
+    return v if math.isfinite(v) else None
 
 
 def multiday_context(daily, price):
@@ -507,16 +521,32 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         ratio = exp_range / target if target else 0
         hrs = tb["effective"] / 60
         if ratio < 0.7:
-            mult *= 0.85
-            flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
-                                  f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo; "
-                                  f"realiau uždaryti rytoj"))
+            if HOLD_HOURS > 8:
+                flags.append(("info", f"Iki uždarymo liko ~{hrs:.1f} val. — tikslas greičiausiai "
+                                      f"bus pasiektas rytoj, pozicija liks per naktį"))
+            else:
+                mult *= 0.85
+                flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
+                                      f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo"))
         elif ratio < 1.1:
             flags.append(("info", f"Liko ~{hrs:.1f} val. — tikslas pasiekiamas, bet be atsargos "
                                   f"(tikėtinas judesys ~{exp_range:.1f}%)"))
         if tb["after_hours"]:
             flags.append(("info", "Pagrindinė sesija baigta — po sesijos prekyboje spread'as "
                                   "platesnis, naudok limit pavedimus"))
+
+    # --- Nakties šuolio rizika: laikant per naktį stop neveikia ---
+    gap = d.get("gap")
+    if HOLD_HOURS > 8 and gap and shares > 0:
+        stop_dist = (price - stop) / price * 100
+        gap_loss = pos_value * gap / 100
+        if gap > stop_dist:
+            flags.append(("warn", f"Laikant per naktį stop neapsaugo: tipinis šuolis šioje "
+                                  f"akcijoje {gap:.1f}%, o stop tik {stop_dist:.1f}% žemiau — "
+                                  f"nepalankus atidarymas kainuotų ~{gap_loss:.0f} EUR"))
+        else:
+            flags.append(("info", f"Tipinis nakties šuolis {gap:.1f}% — telpa į stop atstumą "
+                                  f"({stop_dist:.1f}%)"))
 
     # --- Likvidumas: ar pozicija realiai išpildoma ---
     avg_vol = d.get("avgVolume")
@@ -687,6 +717,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     sma50 = float(c.tail(50).mean())
     ctx = multiday_context(daily, price)
     avg_vol = float(daily["Volume"].tail(20).mean())
+    gap = overnight_gap(daily)
     v5 = intraday_vol(today)
     mom = short_momentum(today)
     # Valandos sandoriui svarbios šios dienos lubos, ne 20 d. swing lygiai
@@ -703,7 +734,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
-                cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1],
+                cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -901,7 +932,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None, stat
               <span>kaina {cs}{d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span><span>nakties šuolis ~{(d.get('gap') or 0):.1f}%</span>
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
