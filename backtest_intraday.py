@@ -187,6 +187,7 @@ def main():
                     rows.append(dict(tag=tag, score=s["score"], grade=s["grade"],
                                      tradeable=bool(s.get("tradeable")),
                                      setup=s.get("setup"), result=res, pnl=pnl,
+                                     **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
                                      _sym=sym, _di=di, _k=k, _price=d["price"],
                                      _atr=d.get("atrPct") or 3.0, _sessions=sessions))
         except Exception as e:
@@ -235,6 +236,28 @@ def main():
         if len(g) >= 10:
             print(f"{st:<14} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
                   f"{g['pnl'].mean():>11.2f}%")
+
+    # --- Ar kuris nors ATSKIRAS kriterijus turi verte? ---
+    print(f"\n{'KRITERIJUS':<26} {'ZEMAS (<50)':>13} {'AUKSTAS (>75)':>15} {'SKIRTUMAS':>11}")
+    print("-" * 68)
+    signals = []
+    for key, label, _ in dr.CRITERIA:
+        col = f"c_{key}"
+        if col not in df:
+            continue
+        lo = df[df[col] < 50]["pnl"]
+        hi = df[df[col] > 75]["pnl"]
+        if len(lo) < 200 or len(hi) < 200:
+            continue
+        diff = hi.mean() - lo.mean()
+        signals.append((abs(diff), label, diff, len(lo), len(hi)))
+        print(f"{label:<26} {lo.mean():>+12.3f}% {hi.mean():>+14.3f}% {diff:>+10.3f}%")
+
+    if signals:
+        signals.sort(reverse=True)
+        _, lab, diff, _, _ = signals[0]
+        print(f"\nStipriausias atskiras signalas: {lab} ({diff:+.3f} p. p.)")
+        print("Kad butu vertas demesio, tas pats turi kartotis IR kitame laikotarpyje.")
 
     # --- Parametru paieska: koks stop ir koks tikslas realiai veikia ---
     if args.sweep:
