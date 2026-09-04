@@ -523,9 +523,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("stop", "Ataskaita per 2 dienas — kaina šoks bet kuria kryptimi"))
     if market == "bear":
         mult *= 0.75
-        flags.append(("stop", "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai "
-                              "įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis "
-                              "sandoris 0,45% — atrankos pranašumo tam nepakanka"))
+        flags.append(("stop", "Rinka krenta ir šiandien. Per 2 metus tokiomis dienomis net "
+                              "geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%"))
+    elif market == "bear_soft":
+        mult *= 0.92
+        flags.append(("warn", "Bendra rinkos kryptis vis dar žemyn, nors šiandien kyla — "
+                              "atšokimas gali būti trumpalaikis"))
     elif market == "bull":
         mult *= 1.05
     if room_far is not None and room_far < target:
@@ -713,12 +716,17 @@ def market_bias(yf):
         if len(c) < 25:
             return "neutral"
         last = float(c.iloc[-1])
+        chg1 = (last / float(c.iloc[-2]) - 1) * 100
         chg5 = (last / float(c.iloc[-6]) - 1) * 100
         sma20 = float(c.tail(20).mean())
         above = last > sma20
 
-        if chg5 < -1.0 or (not above and chg5 < 0):
+        # Svarbu: ilgesne kryptis zemyn NEREISKIA, kad siandien prasta diena.
+        # Kieta salyga ijungiama tik kai ir kryptis, ir siandiena zemyn.
+        if chg5 < -1.0 and chg1 < 0:
             return "bear"
+        if chg5 < -1.0 or (not above and chg5 < 0):
+            return "bear_soft"          # kryptis zemyn, bet siandien kyla
         if chg5 > 1.0 and above:
             return "bull"
         return "neutral"
@@ -841,7 +849,8 @@ def market_overview(rows, market, sector_state, target):
     strong = [r for r in rows if r[1]["score"] >= 64 and r[1].get("tradeable")]
     blocked = [r for r in rows if r[1].get("blocking")]
     weak = [r for r in rows if r[1]["score"] < 50]
-    mkt = {"bull": "kylanti", "bear": "krentanti", "neutral": "šoninė"}[market]
+    mkt = {"bull": "kylanti", "bear": "krentanti", "bear_soft": "atsigaunanti po kritimo",
+           "neutral": "šoninė"}.get(market, "šoninė")
 
     p = []
     if not strong:
@@ -933,7 +942,8 @@ def explain(d, s, target, rows):
 
 
 def write_html(rows, market, path, refresh_seconds=None, sector_state=None, stats=None):
-    market_lt = {"bull": "kyla", "bear": "krenta", "neutral": "šoninė"}[market]
+    market_lt = {"bull": "kyla", "bear": "krenta", "bear_soft": "kryptis žemyn, šiandien kyla",
+                 "neutral": "šoninė"}.get(market, "šoninė")
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
     now_lt = datetime.now(_DTZ) if _DTZ else datetime.now()
 
@@ -1238,6 +1248,19 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
                 if x["sector"] == sec and x["day_chg"] is not None]
         if len(chgs) >= 2:
             sector_state[sec] = float(np.median(chgs))
+
+    # Rinkos plotis is paties saraso — tikslesnis nei indeksas, nes tai TAVO akcijos.
+    # Jei dauguma ju siandien kyla, tai nera krentanti diena, kad ir ka rodo 5 d. kryptis.
+    chgs_all = [x["day_chg"] for x in collected if x.get("day_chg") is not None]
+    if chgs_all:
+        breadth = float(np.median(chgs_all))
+        rising = sum(1 for x in chgs_all if x > 0) / len(chgs_all) * 100
+        if market == "bear" and (breadth > 0.4 or rising > 60):
+            market = "bear_soft"
+        elif market == "bear_soft" and breadth > 1.0 and rising > 70:
+            market = "neutral"
+        print(f"Rinkos plotis: mediana {breadth:+.2f}%, kyla {rising:.0f}% akciju "
+              f"-> rezimas: {market}")
 
     tb = time_budget()
     for d in collected:
