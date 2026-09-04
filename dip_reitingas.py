@@ -294,7 +294,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     res_list = d.get("res_list") or []
     res_near = res_list[0] if res_list else (d.get("resistance") or high)
     res_far = res_list[-1] if len(res_list) > 1 else res_near
-    resistance = res_far
+    # Balui svarbi artimiausia kliūtis (ji realiai stabdo judesį), o sandoris
+    # blokuojamas tik kai net tolimiausios lubos arčiau nei tikslas.
+    resistance = res_near
     vwap = d.get("vwap")
     a_pct = d.get("atrPct")
 
@@ -302,6 +304,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     rng = (price - low) / (high - low) * 100 if high and low and high > low else None
     sup_d = (price - support) / price * 100 if support else None
     room = (resistance - price) / price * 100 if resistance else None
+    room_far = (res_far - price) / price * 100 if res_far else None
     vw_d = (price - vwap) / vwap * 100 if vwap else None
     rv = d.get("rvol")
 
@@ -429,12 +432,11 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", "Rinka krenta — pirkimas prieš srovę"))
     elif market == "bull":
         mult *= 1.05
-    room_near = (res_near - price) / price * 100 if res_near else None
-    if room is not None and room < target:
-        flags.append(("stop", f"Net iki tolimesnių lubų tik {room:.1f}% — "
+    if room_far is not None and room_far < target:
+        flags.append(("stop", f"Net iki tolimesnių lubų tik {room_far:.1f}% — "
                               f"{target}% tikslas netelpa niekur"))
-    elif room_near is not None and room_near < target:
-        flags.append(("warn", f"Kelyje dienos maksimumas ({room_near:.1f}% aukščiau) — "
+    elif room is not None and room < target:
+        flags.append(("warn", f"Kelyje kliūtis ({room:.1f}% aukščiau) — "
                               f"jį reikės pramušti, kad tikslas būtų pasiektas"))
     if a_pct is None:
         flags.append(("warn", "ATR nepavyko suskaičiuoti — judrumo kriterijus neįvertintas, "
@@ -525,7 +527,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if blocking:
         score = min(score, 45.0)
 
-    tradeable = (not blocking) and rr >= 1.3 and (room is None or room >= target * 1.2)
+    tradeable = (not blocking) and rr >= 1.3 and (room_far is None or room_far >= target * 1.2)
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
