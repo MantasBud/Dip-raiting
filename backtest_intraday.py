@@ -286,19 +286,58 @@ def main():
         print("V2 HIPOTEZE: balas tik is to, kas kartojosi. Tikrinama per dvi laiko puses,")
         print("kad matytusi, ar veikia UZ tos imties, pagal kuria sudarytas.")
         print("=" * 68)
-        print(f"{'LAIKOTARPIS':<14} {'BAZE':>8} {'DABARTINIS 75+':>16} {'V2 75+':>10} {'V2 PRIES BAZE':>15}")
+        print(f"{'LAIKOTARPIS':<14} {'BAZE':>8} {'DABARTINIS top10%':>18} {'V2 top10%':>12} {'V2 PRIES BAZE':>15}")
         print("-" * 68)
         for name, g in halves:
             if len(g) < 200:
                 continue
             b = g["pnl"].mean()
-            cur = g[g["score"] > 75]["pnl"]
-            v2 = g[g["score2"] > 75]["pnl"]
+            # Virsutinis decilis, o ne fiksuota riba: skales skiriasi, todel
+            # fiksuota 75 riba vienam balui duoda tukstancius atveju, kitam - nulio
+            cur = g[g["score"] >= g["score"].quantile(0.9)]["pnl"]
+            v2 = g[g["score2"] >= g["score2"].quantile(0.9)]["pnl"]
             cur_s = f"{cur.mean():+.3f}%" if len(cur) >= 50 else "per maza"
             v2_s = f"{v2.mean():+.3f}%" if len(v2) >= 50 else "per maza"
             diff = f"{v2.mean() - b:+.3f}%" if len(v2) >= 50 else "-"
             print(f"{name:<14} {b:>+7.3f}% {cur_s:>16} {v2_s:>10} {diff:>15}")
         print("\nKad V2 butu vertas, jis turi iveikti baze ABIEJOSE pusese.")
+
+    # --- Ar balo verte priklauso nuo rinkos krypties? ---
+    # Rinkos rodiklis: visu 19 akciju mediana 5 dienu pokytis tuo metu.
+    try:
+        df["_day"] = pd.to_datetime(df["_day"])
+        daily_mkt = df.groupby("_day")["pnl"].size()          # tik dienu sarasui
+        day_list = sorted(df["_day"].unique())
+        idx = {d: i for i, d in enumerate(day_list)}
+        # kiekvienai dienai - vidutinis visu akciju rezultatas kaip rinkos artinys
+        day_mean = df.groupby("_day")["pnl"].mean()
+        roll = day_mean.rolling(5, min_periods=3).mean()
+        df["_mkt"] = df["_day"].map(roll)
+
+        sub = df.dropna(subset=["_mkt"])
+        if len(sub) > 1000:
+            q1, q2 = sub["_mkt"].quantile(0.33), sub["_mkt"].quantile(0.67)
+            regimes = [("Rinka krenta", sub[sub["_mkt"] <= q1]),
+                       ("Rinka soninе", sub[(sub["_mkt"] > q1) & (sub["_mkt"] < q2)]),
+                       ("Rinka kyla", sub[sub["_mkt"] >= q2])]
+            print("\n" + "=" * 68)
+            print("AR BALAS PRIKLAUSO NUO RINKOS KRYPTIES?")
+            print("=" * 68)
+            print(f"{'REZIMAS':<16} {'ATVEJU':>8} {'BAZE':>9} {'TOP 10% BALAS':>15} {'PRIES BAZE':>12}")
+            print("-" * 68)
+            for name, g in regimes:
+                if len(g) < 200:
+                    continue
+                b = g["pnl"].mean()
+                top = g[g["score"] >= g["score"].quantile(0.9)]["pnl"]
+                if len(top) < 30:
+                    continue
+                print(f"{name:<16} {len(g):>8} {b:>+8.3f}% {top.mean():>+14.3f}% "
+                      f"{top.mean()-b:>+11.3f}%")
+            print("\nJei skirtumas teigiamas tik kylanciai rinkai — balas nera pranasumas,")
+            print("o rinkos krypties stiprintuvas, ir ji reikia naudoti tik su filtru.")
+    except Exception as e:
+        print(f"(rezimo analize praleista: {str(e)[:60]})")
 
     # --- Parametru paieska: koks stop ir koks tikslas realiai veikia ---
     if args.sweep:
