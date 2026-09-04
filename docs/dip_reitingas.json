@@ -3,25 +3,25 @@
   "tag": "CAP",
   "sym": "CAP.PA",
   "name": "Capgemini SE",
-  "price": 107.3499984741211,
+  "price": 107.44999694824219,
   "dayHigh": 110.55000305175781,
   "dayLow": 106.6500015258789,
-  "vwap": 108.05706605790645,
-  "rsi": 46.09493375098008,
-  "atrPct": 3.360642424243495,
+  "vwap": 108.01628442023063,
+  "rsi": 48.06927800007408,
+  "atrPct": 3.357514838165919,
   "support": 106.86666615804037,
   "resistance": 108.48333231608073,
-  "rvol": 1.6218213376923207,
-  "sma20": 108.22500038146973,
-  "sma50": 100.52960006713867,
+  "rvol": 1.5904685288179645,
+  "sma20": 108.23000030517578,
+  "sma50": 100.5316000366211,
   "earnings": false,
   "sector": "programinė įranga",
-  "day_chg": -2.409092296253551,
-  "avgVolume": 400232.45,
+  "day_chg": -2.318184592507102,
+  "avgVolume": 400899.1,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.3727013448642237,
-  "vol5m": 0.18437617962167124,
+  "vol5m": 0.18373644450020238,
   "res_intra": 110.55000305175781,
   "sup_intra": 106.6500015258789,
   "res_list": [
@@ -29,16 +29,16 @@
    110.55000305175781,
    111.6500015258789
   ],
-  "m1h": -0.07373376839396165,
-  "m3h": -1.21275646902984,
-  "pos1h": 46.66646321614583,
+  "m1h": 0.12898593279141374,
+  "m3h": -1.0588982028242282,
+  "pos1h": 53.333028157552086,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 2.55479128648144,
+  "exp_move": 2.5459268566112776,
   "down_days": 1,
-  "dd5": 2.894621880868267,
-  "chg3d": 0.7035647380258404,
-  "asOf": "2026-09-04 16:45:00+02:00",
+  "dd5": 2.8041664567519273,
+  "chg3d": 0.7973719383564953,
+  "asOf": "2026-09-04 17:05:00+02:00",
   "score": 45.0,
   "grade": "D",
   "tradeable": false,
@@ -54,60 +54,68 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.1% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
-    "Per 16.0 val. tikėtinas judesys ~2.6%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.6% arba ilgesnis laikymas"
+    "Per 16.0 val. tikėtinas judesys ~2.5%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.5% arba ilgesnis laikymas"
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
     "Tipinis nakties šuolis 0.4% — telpa į stop atstumą (1.8%)"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -2.3%, sektorius -0.6% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
+    "info",
+    "Kritimas sustojo: po -1.1% per 3 val. pastarąją valandą jau +0.1%"
    ]
   ],
-  "dip": 2.894621880868267,
-  "rng": 17.948632676097116,
-  "room": 1.0557371756580447,
-  "sup_d": 0.6520698259822855,
-  "vw_d": -0.6543464574602192,
-  "stop": 105.36579119899076,
-  "tp": 110.57049842834473,
-  "rr": 1.6230662968474932,
+  "dip": 2.8041664567519273,
+  "rng": 20.512695111907526,
+  "room": 0.9616895273959811,
+  "sup_d": 0.7445281015211501,
+  "vw_d": -0.5242612028620977,
+  "stop": 105.46578967311186,
+  "tp": 110.67349685668945,
+  "rr": 1.6245782125940114,
   "shares": 167,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17927.449745178223,
-  "gross": 537.8234923553467,
-  "net": 533.8234923553467,
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17944.149490356445,
+  "gross": 538.3244847106934,
+  "net": 534.3244847106934,
   "real_risk": 331.36261494676523,
-  "move_ratio": 0.8515970954938133
+  "move_ratio": 0.8486422855370925
  },
  {
   "tag": "ENR",
   "sym": "ENR.DE",
   "name": "Siemens Energy AG",
-  "price": 147.0399932861328,
+  "price": 146.89999389648438,
   "dayHigh": 149.8000030517578,
   "dayLow": 145.0399932861328,
-  "vwap": 147.52852688722194,
-  "rsi": 37.40551160271771,
-  "atrPct": 3.9178120711078166,
+  "vwap": 147.51345456432875,
+  "rsi": 37.69649206944855,
+  "atrPct": 3.921545844569365,
   "support": 144.1999969482422,
   "resistance": 165.86000061035156,
-  "rvol": 0.9656209618408557,
-  "sma20": 152.2069999694824,
-  "sma50": 152.80199951171875,
+  "rvol": 0.9325462212764296,
+  "sma20": 152.2,
+  "sma50": 152.79919952392578,
   "earnings": false,
   "sector": "pramonė ir gynyba",
-  "day_chg": 1.1279225986873243,
-  "avgVolume": 1653232.15,
+  "day_chg": 1.0316369071293807,
+  "avgVolume": 1654477.45,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.9301629686789885,
-  "vol5m": 0.2304435353254526,
+  "vol5m": 0.23033421722341768,
   "res_intra": 149.8000030517578,
   "sup_intra": 145.0399932861328,
   "res_list": [
@@ -115,16 +123,16 @@
    165.86000061035156,
    165.86000061035156
   ],
-  "m1h": -1.649708303566895,
-  "m3h": 0.22729882572684254,
-  "pos1h": 7.999674479166667,
+  "m1h": -1.3058518239625505,
+  "m3h": -0.29455417743517603,
+  "pos1h": 10.185224430975289,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 3.193119291675818,
+  "exp_move": 3.191604535620526,
   "down_days": 0,
-  "dd5": 1.8424630903855064,
-  "chg3d": 4.224547333232459,
-  "asOf": "2026-09-04 16:45:00+02:00",
+  "dd5": 1.9359206249625023,
+  "chg3d": 4.1253132902558445,
+  "asOf": "2026-09-04 17:05:00+02:00",
   "score": 45.0,
   "grade": "D",
   "tradeable": false,
@@ -140,142 +148,52 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.9% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (2.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.1%)"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
     "Tipinis nakties šuolis 0.9% — telpa į stop atstumą (2.2%)"
    ]
   ],
-  "dip": 1.8424630903855064,
-  "rng": 42.01672052110581,
-  "room": 1.8770469883347674,
-  "sup_d": 1.3601741643908372,
-  "vw_d": -0.33114517673086363,
-  "stop": 143.87158045265667,
-  "tp": 151.4511930847168,
-  "rr": 1.3922427506848478,
+  "dip": 1.9359206249625023,
+  "rng": 39.07556290711391,
+  "room": 1.9741383769675165,
+  "sup_d": 1.266167928953247,
+  "vw_d": -0.41586760316622945,
+  "stop": 143.73158106300824,
+  "tp": 151.30699371337892,
+  "rr": 1.3909171716299098,
   "shares": 122,
-  "sector_chg": 0.8226445707602968,
-  "pos_value": 17938.879180908203,
-  "gross": 538.1663754272461,
-  "net": 534.1663754272461,
+  "sector_chg": 0.746786667128186,
+  "pos_value": 17921.799255371094,
+  "gross": 537.6539776611328,
+  "net": 533.6539776611328,
   "real_risk": 386.54636568408904,
-  "move_ratio": 1.0643730972252727
- },
- {
-  "tag": "KER",
-  "sym": "KER.PA",
-  "name": "Kering SA",
-  "price": 245.8000030517578,
-  "dayHigh": 247.6999969482422,
-  "dayLow": 243.0,
-  "vwap": 245.40575132843222,
-  "rsi": 48.230566758922784,
-  "atrPct": 3.119389139660415,
-  "support": 244.96666463216147,
-  "resistance": 248.53333536783856,
-  "rvol": 1.3692131856193914,
-  "sma20": 257.9149993896484,
-  "sma50": 258.69999908447267,
-  "earnings": false,
-  "sector": "prabangos prekės",
-  "day_chg": 0.49059563299207126,
-  "avgVolume": 274983.7,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 0.6366709407861476,
-  "vol5m": 0.16391971184417864,
-  "res_intra": 247.6999969482422,
-  "sup_intra": 243.0,
-  "res_list": [
-   247.6999969482422,
-   248.53333536783856,
-   290.3999938964844
-  ],
-  "m1h": -0.5108083459969467,
-  "m3h": 0.7705416607764288,
-  "pos1h": 19.565188546559455,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 2.2713381542093383,
-  "down_days": 0,
-  "dd5": 3.758806215405594,
-  "chg3d": -0.5663405800031222,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 45.0,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "atsigavimas",
-  "recovering": true,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (0.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~2.3%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.3% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.7%)"
-   ],
-   [
-    "info",
-    "Atsigavimo faze: nukritusi 3.8% nuo 5 d. viršūnės, šiandien +0.5% ir laikosi dienos viršuje"
-   ]
-  ],
-  "dip": 0.7670544690726765,
-  "rng": 59.57457169849912,
-  "room": 0.7729836748961698,
-  "sup_d": 1.1391387375891202,
-  "vw_d": 0.1606530088196504,
-  "stop": 241.58290082149298,
-  "tp": 253.17400314331056,
-  "rr": 1.748594102991349,
-  "shares": 73,
-  "sector_chg": -0.35958423311989557,
-  "pos_value": 17943.40022277832,
-  "gross": 538.3020066833496,
-  "net": 534.3020066833496,
-  "real_risk": 307.84846280933243,
-  "move_ratio": 0.7571127180697794
+  "move_ratio": 1.0638681785401753
  },
  {
   "tag": "LR",
   "sym": "LR.PA",
   "name": "Legrand SA",
-  "price": 140.5,
+  "price": 140.5500030517578,
   "dayHigh": 142.6999969482422,
   "dayLow": 139.0,
-  "vwap": 140.59488725542528,
-  "rsi": 42.8715491344981,
-  "atrPct": 2.68147505532531,
+  "vwap": 140.5814753346031,
+  "rsi": 44.839165118042374,
+  "atrPct": 2.6805210750117747,
   "support": 136.78333028157553,
   "resistance": 143.8000030517578,
-  "rvol": 1.5132723370608834,
-  "sma20": 137.51499862670897,
-  "sma50": 137.90799896240233,
+  "rvol": 1.6195250539452632,
+  "sma20": 137.5174987792969,
+  "sma50": 137.9089990234375,
   "earnings": false,
   "sector": "pramonė ir gynyba",
-  "day_chg": 2.9681224934684667,
-  "avgVolume": 413592.85,
+  "day_chg": 3.0047681899698593,
+  "avgVolume": 415036.25,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.39744335917446877,
@@ -287,16 +205,16 @@
    143.8000030517578,
    143.8000030517578
   ],
-  "m1h": -1.4640641885023071,
-  "m3h": 0.12684225389033005,
-  "pos1h": 13.725713123141272,
+  "m1h": -0.7145149809939679,
+  "m3h": -0.05087824942365657,
+  "pos1h": 23.529781352098517,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 2.4633612263587725,
   "down_days": 0,
-  "dd5": 1.5416937598394864,
-  "chg3d": 4.5386952236127955,
-  "asOf": "2026-09-04 16:45:00+02:00",
+  "dd5": 1.5066530781105663,
+  "chg3d": 4.575899876907888,
+  "asOf": "2026-09-04 17:05:00+02:00",
   "score": 45.0,
   "grade": "D",
   "tradeable": false,
@@ -321,26 +239,26 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
     "Tipinis nakties šuolis 0.4% — telpa į stop atstumą (1.5%)"
    ]
   ],
-  "dip": 1.5416937598394864,
-  "rng": 40.540573978381985,
-  "room": 1.5658341268627667,
-  "sup_d": 1.0676156583629894,
-  "vw_d": -0.06748983357616072,
-  "stop": 138.42789015099737,
-  "tp": 144.715,
-  "rr": 2.034158566462494,
+  "dip": 1.5066530781105663,
+  "rng": 41.89200892433696,
+  "room": 1.5297003556041444,
+  "sup_d": 1.1028125351139415,
+  "vw_d": -0.022387219063103217,
+  "stop": 138.47789320275518,
+  "tp": 144.76650314331056,
+  "rr": 2.0348825104915544,
   "shares": 128,
-  "sector_chg": 0.8226445707602968,
-  "pos_value": 17984.0,
-  "gross": 539.52,
-  "net": 535.52,
+  "sector_chg": 0.746786667128186,
+  "pos_value": 17990.400390625,
+  "gross": 539.71201171875,
+  "net": 535.71201171875,
   "real_risk": 265.23006067233655,
   "move_ratio": 0.8211204087862575
  },
@@ -348,43 +266,129 @@
   "tag": "SAP",
   "sym": "SAP.DE",
   "name": "SAP SE",
-  "price": 185.47999572753906,
+  "price": 185.3000030517578,
   "dayHigh": 189.89999389648438,
-  "dayLow": 185.1999969482422,
-  "vwap": 187.55301061492284,
-  "rsi": 35.8081157901955,
-  "atrPct": 3.104553697065463,
+  "dayLow": 184.9600067138672,
+  "vwap": 187.45599261967752,
+  "rsi": 36.74323378987553,
+  "atrPct": 3.117493466222294,
   "support": 185.04666646321616,
   "resistance": 187.55999755859375,
-  "rvol": 1.7293458211068384,
-  "sma20": 183.73800048828124,
-  "sma50": 161.32959991455078,
+  "rvol": 1.5780546640099735,
+  "sma20": 183.72700042724608,
+  "sma50": 161.32519989013673,
   "earnings": false,
   "sector": "programinė įranga",
-  "day_chg": -0.0538884052855366,
-  "avgVolume": 2152834.7,
+  "day_chg": -0.1508776681400056,
+  "avgVolume": 2157262.45,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.6827954815748101,
   "vol5m": 0.20378486495822484,
   "res_intra": 189.89999389648438,
-  "sup_intra": 185.1999969482422,
+  "sup_intra": 184.9600067138672,
   "res_list": [
    187.55999755859375,
    189.89999389648438,
    192.1199951171875
   ],
-  "m1h": -0.6176641830350437,
-  "m3h": -2.1006890339064936,
-  "pos1h": 16.867359132273187,
+  "m1h": -0.5798298993123236,
+  "m3h": -2.4506044685312514,
+  "pos1h": 18.888813536333117,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 2.8237259193696636,
   "down_days": 1,
-  "dd5": 3.4561729952149096,
-  "chg3d": 0.6621085732518373,
-  "asOf": "2026-09-04 16:45:00+02:00",
+  "dd5": 3.5498606281296725,
+  "chg3d": 0.5644244957813082,
+  "asOf": "2026-09-04 17:05:00+02:00",
   "score": 45.0,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (1.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 0.7% — telpa į stop atstumą (1.7%)"
+   ],
+   [
+    "warn",
+    "Kryptis vis dar žemyn: per 3 val. -2.5%, per pastarąją valandą -0.6% — dugno ženklo dar nėra"
+   ]
+  ],
+  "dip": 2.422322797563672,
+  "rng": 6.882534818855464,
+  "room": 1.219640836273855,
+  "sup_d": 0.18348425919650826,
+  "vw_d": -1.150131045580341,
+  "stop": 182.12280953333126,
+  "tp": 190.85900314331056,
+  "rr": 1.7496573813689975,
+  "shares": 97,
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17974.100296020508,
+  "gross": 539.2230088806152,
+  "net": 535.2230088806152,
+  "real_risk": 308.1877712873752,
+  "move_ratio": 0.9412419731232212
+ },
+ {
+  "tag": "KER",
+  "sym": "KER.PA",
+  "name": "Kering SA",
+  "price": 245.10000610351562,
+  "dayHigh": 247.6999969482422,
+  "dayLow": 243.0,
+  "vwap": 245.3935842461466,
+  "rsi": 42.902641800903936,
+  "atrPct": 3.1282980047104636,
+  "support": 241.39999389648438,
+  "resistance": 248.53333536783856,
+  "rvol": 1.3806287789699347,
+  "sma20": 257.8799995422363,
+  "sma50": 258.6859991455078,
+  "earnings": false,
+  "sector": "prabangos prekės",
+  "day_chg": 0.20441536693519058,
+  "avgVolume": 275561.7,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 0.6366709407861476,
+  "vol5m": 0.16391971184417864,
+  "res_intra": 247.6999969482422,
+  "sup_intra": 243.0,
+  "res_list": [
+   247.6999969482422,
+   248.53333536783856,
+   290.3999938964844
+  ],
+  "m1h": -0.956759003875585,
+  "m3h": 0.5713232666696625,
+  "pos1h": 19.2984146870332,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 2.2713381542093383,
+  "down_days": 0,
+  "dd5": 4.032884901768406,
+  "chg3d": -0.8495108700046833,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 44.15649272757322,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -402,57 +406,144 @@
     "Kelyje kliūtis (1.1% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
-    "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.7% — telpa į stop atstumą (1.7%)"
-   ],
-   [
     "warn",
-    "Kryptis vis dar žemyn: per 3 val. -2.1%, per pastarąją valandą -0.6% — dugno ženklo dar nėra"
+    "Per 16.0 val. tikėtinas judesys ~2.3%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.3% arba ilgesnis laikymas"
    ],
    [
-    "warn",
-    "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.7%)"
    ]
   ],
-  "dip": 2.3275399215413772,
-  "rng": 5.9574247043201884,
-  "room": 1.1214157208145008,
-  "sup_d": 0.15095901754719648,
-  "vw_d": -1.1052954471842726,
-  "stop": 182.31291639196715,
-  "tp": 191.04439559936523,
-  "rr": 1.7569499473309993,
-  "shares": 97,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17991.55958557129,
-  "gross": 539.7467875671387,
-  "net": 535.7467875671387,
-  "real_risk": 307.2066955504755,
-  "move_ratio": 0.9412419731232212
+  "dip": 1.0496531597736918,
+  "rng": 44.68100993769865,
+  "room": 1.0607877519303208,
+  "sup_d": 0.8567956145332398,
+  "vw_d": -0.11963562272128685,
+  "stop": 240.8829038732508,
+  "tp": 252.4530062866211,
+  "rr": 1.743614401931091,
+  "shares": 73,
+  "sector_chg": -0.45237947910340554,
+  "pos_value": 17892.30044555664,
+  "gross": 536.7690133666993,
+  "net": 532.7690133666993,
+  "real_risk": 307.84846280933243,
+  "move_ratio": 0.7571127180697794
+ },
+ {
+  "tag": "NVD",
+  "sym": "NVD.DE",
+  "name": "Nvidia Corp",
+  "price": 199.8000030517578,
+  "dayHigh": 202.0,
+  "dayLow": 197.39999389648438,
+  "vwap": 199.51286279858124,
+  "rsi": 42.19201141148597,
+  "atrPct": 2.8713768971809683,
+  "support": 195.0800018310547,
+  "resistance": 202.0,
+  "rvol": 2.434561465861075,
+  "sma20": 190.17599792480468,
+  "sma50": 182.89199981689453,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 2.042900887464562,
+  "avgVolume": 89118.35,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 0.5802373754344937,
+  "vol5m": 0.10017879626008333,
+  "res_intra": 202.0,
+  "sup_intra": 197.39999389648438,
+  "res_list": [
+   202.0,
+   202.0,
+   202.0
+  ],
+  "m1h": -0.8970195586163345,
+  "m3h": 1.1963141448773806,
+  "pos1h": 2.6547656824948853,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 1.3881181197084427,
+  "down_days": 0,
+  "dd5": 1.0891074001198948,
+  "chg3d": 5.826271092264998,
+  "asOf": "2026-09-04 17:00:00+02:00",
+  "score": 42.93235695475495,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka",
+   "Net iki tolimesnių lubų tik 1.1% — 3.0% tikslas netelpa niekur"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "stop",
+    "Net iki tolimesnių lubų tik 1.1% — 3.0% tikslas netelpa niekur"
+   ],
+   [
+    "warn",
+    "Per 16.0 val. tikėtinas judesys ~1.4%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.4% arba ilgesnis laikymas"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.6%)"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija +2.0%, sektorius +3.0% — būtent toks triukšmas, kurio ieškai"
+   ]
+  ],
+  "dip": 1.0891074001198948,
+  "rng": 52.17404284396914,
+  "room": 1.1010995568765245,
+  "sup_d": 1.2012057650728463,
+  "vw_d": 0.14392067215558785,
+  "stop": 196.64464693125055,
+  "tp": 205.79400314331056,
+  "rr": 1.8996271300714977,
+  "shares": 90,
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17982.000274658203,
+  "gross": 539.4600082397461,
+  "net": 535.4600082397461,
+  "real_risk": 283.98205084565376,
+  "move_ratio": 0.4627060399028142
  },
  {
   "tag": "PRX",
   "sym": "PRX.AS",
   "name": "Prosus NV",
-  "price": 37.23500061035156,
+  "price": 37.1349983215332,
   "dayHigh": 37.54499816894531,
   "dayLow": 36.900001525878906,
-  "vwap": 37.34952859639932,
-  "rsi": 38.41764736582428,
-  "atrPct": 2.6589108900292326,
+  "vwap": 37.339857591344014,
+  "rsi": 30.42266067320662,
+  "atrPct": 2.6657130925796806,
   "support": 36.946667989095054,
   "resistance": 37.31333414713542,
-  "rvol": 0.9214692010283193,
-  "sma20": 38.12299976348877,
-  "sma50": 38.80269981384277,
+  "rvol": 0.9083408180736811,
+  "sma20": 38.11824970245361,
+  "sma50": 38.80079978942871,
   "earnings": false,
   "sector": "programinė įranga",
-  "day_chg": 0.9625800757995219,
-  "avgVolume": 2931644.6,
+  "day_chg": 0.6914242029087894,
+  "avgVolume": 2935433.9,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.6100500891317315,
@@ -464,17 +555,17 @@
    37.54499816894531,
    42.44499969482422
   ],
-  "m1h": -0.059241742862043964,
-  "m3h": -0.5077743555252754,
-  "pos1h": 8.571117166212534,
+  "m1h": -0.4389406485810978,
+  "m3h": -0.6745486960985869,
+  "pos1h": 3.99932861328125,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 2.0382631623710727,
   "down_days": 0,
-  "dd5": 4.157008821622785,
-  "chg3d": -0.3078925527914291,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 44.161136278082466,
+  "dd5": 4.414414980557317,
+  "chg3d": -0.5756363088926469,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 42.89961962014714,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -489,7 +580,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -497,52 +588,146 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
     "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.5%)"
    ]
   ],
-  "dip": 0.8256693932939356,
-  "rng": 51.938112868312416,
-  "room": 0.21037608567161323,
-  "sup_d": 0.8996886772697524,
-  "vw_d": -0.30663837095602714,
-  "stop": 36.69047559297946,
-  "tp": 38.35205062866211,
-  "rr": 2.0514209314045386,
-  "shares": 483,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17984.505294799805,
-  "gross": 539.5351588439942,
-  "net": 535.5351588439942,
-  "real_risk": 263.00558339072535,
+  "dip": 1.0920225526904768,
+  "rng": 36.433801350823856,
+  "room": 0.4802365252802717,
+  "sup_d": 0.6328175744605621,
+  "vw_d": -0.5486343093560717,
+  "stop": 36.5905464398307,
+  "tp": 38.2490482711792,
+  "rr": 2.0461862417710144,
+  "shares": 484,
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17973.33918762207,
+  "gross": 539.2001756286621,
+  "net": 535.2001756286621,
+  "real_risk": 263.51471074400996,
   "move_ratio": 0.6794210541236909
+ },
+ {
+  "tag": "ADYEN",
+  "sym": "ADYEN.AS",
+  "name": "Adyen NV",
+  "price": 1032.0,
+  "dayHigh": 1046.4000244140625,
+  "dayLow": 1030.5999755859375,
+  "vwap": 1037.9238697789137,
+  "rsi": 42.55592663184635,
+  "atrPct": 3.2758867033769983,
+  "support": 898.2000122070312,
+  "resistance": 1047.6666666666667,
+  "rvol": 0.8623528996006644,
+  "sma20": 1036.9599975585938,
+  "sma50": 930.1699987792969,
+  "earnings": false,
+  "sector": "programinė įranga",
+  "day_chg": -1.0546500479386385,
+  "avgVolume": 138895.4,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 0.5645465526719432,
+  "vol5m": 0.13450838904960855,
+  "res_intra": 1046.4000244140625,
+  "sup_intra": 1030.5999755859375,
+  "res_list": [
+   1046.4000244140625,
+   1047.6666666666667,
+   1095.0
+  ],
+  "m1h": -0.41632172252445065,
+  "m3h": -0.8229539266963466,
+  "pos1h": 23.333740234375,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 1.8638029110253056,
+  "down_days": 1,
+  "dd5": 4.550495134461381,
+  "chg3d": 2.502980980589086,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 41.61675521860218,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (1.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "warn",
+    "Per 16.0 val. tikėtinas judesys ~1.9%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.9% arba ilgesnis laikymas"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.8%)"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -1.1%, sektorius -0.6% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
+    "warn",
+    "Kryptis vis dar žemyn: per 3 val. -0.8%, per pastarąją valandą -0.4% — dugno ženklo dar nėra"
+   ]
+  ],
+  "dip": 1.3761490900314028,
+  "rng": 8.860886629479117,
+  "room": 1.395351202913033,
+  "sup_d": 0.1356612804324128,
+  "vw_d": -0.5707422241070121,
+  "stop": 1013.4060670716322,
+  "tp": 1062.96,
+  "rr": 1.6650592491256053,
+  "shares": 17,
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17544.0,
+  "gross": 526.32,
+  "net": 522.32,
+  "real_risk": 316.09685978225343,
+  "move_ratio": 0.6212676370084352
  },
  {
   "tag": "SIE",
   "sym": "SIE.DE",
   "name": "Siemens AG",
-  "price": 272.0,
+  "price": 271.8500061035156,
   "dayHigh": 273.54998779296875,
   "dayLow": 268.5,
-  "vwap": 271.2301363720493,
-  "rsi": 49.198574791320205,
-  "atrPct": 2.123236001970919,
+  "vwap": 271.2522242517999,
+  "rsi": 47.31172540357775,
+  "atrPct": 2.124407502555584,
   "support": 270.7166748046875,
   "resistance": 274.0833435058594,
-  "rvol": 1.154449117739131,
-  "sma20": 280.4625015258789,
-  "sma50": 276.92400146484374,
+  "rvol": 1.1264394699067104,
+  "sma20": 280.4550018310547,
+  "sma50": 276.9210015869141,
   "earnings": false,
   "sector": "pramonė ir gynyba",
-  "day_chg": 0.5173665428332694,
-  "avgVolume": 789804.9,
+  "day_chg": 0.4619364271269911,
+  "avgVolume": 790447.85,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.45051031452886076,
-  "vol5m": 0.11542906511899342,
+  "vol5m": 0.1107068138256048,
   "res_intra": 273.54998779296875,
   "sup_intra": 268.5,
   "res_list": [
@@ -550,17 +735,17 @@
    274.0833435058594,
    291.70001220703125
   ],
-  "m1h": -0.06408501355699785,
-  "m3h": 0.827932385542216,
-  "pos1h": 0.0,
+  "m1h": -0.5457369785889156,
+  "m3h": 0.7224533119265821,
+  "pos1h": 5.555932318334407,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 1.5994320436501845,
+  "exp_move": 1.533998610320129,
   "down_days": 0,
-  "dd5": 6.109772682502379,
-  "chg3d": -2.105454732772671,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 44.11502226841975,
+  "dd5": 6.161548274550743,
+  "chg3d": -2.159438498541779,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 40.54873998846546,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -579,703 +764,60 @@
    ],
    [
     "warn",
-    "Per 16.0 val. tikėtinas judesys ~1.6%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.6% arba ilgesnis laikymas"
+    "Per 16.0 val. tikėtinas judesys ~1.5%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.5% arba ilgesnis laikymas"
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
-    "Tipinis nakties šuolis 0.5% — telpa į stop atstumą (1.6%)"
+    "Tipinis nakties šuolis 0.5% — telpa į stop atstumą (1.5%)"
    ],
    [
     "info",
-    "Atsigavimo faze: nukritusi 6.1% nuo 5 d. viršūnės, šiandien +0.5% ir laikosi dienos viršuje"
-   ],
-   [
-    "info",
-    "Izoliuotas atsitraukimas: akcija +0.5%, sektorius +0.8% — būtent toks triukšmas, kurio ieškai"
+    "Atsigavimo faze: nukritusi 6.2% nuo 5 d. viršūnės, šiandien +0.5% ir laikosi dienos viršuje"
    ]
   ],
-  "dip": 0.5666195803824454,
-  "rng": 69.3070982245374,
-  "room": 0.5698484532973346,
-  "sup_d": 1.2867647058823528,
-  "vw_d": 0.28384147803350385,
+  "dip": 0.6214519339477085,
+  "rng": 66.33691487690207,
+  "room": 0.6253381097243024,
+  "sup_d": 1.2322994402435299,
+  "vw_d": 0.2203785990565145,
   "stop": 267.6945,
-  "tp": 280.16,
-  "rr": 1.895250261293702,
+  "tp": 280.0055062866211,
+  "rr": 1.9625768751021169,
   "shares": 66,
-  "sector_chg": 0.8226445707602968,
-  "pos_value": 17952.0,
-  "gross": 538.56,
-  "net": 534.56,
-  "real_risk": 284.16299999999967,
-  "move_ratio": 0.5331440145500616
- },
- {
-  "tag": "ADYEN",
-  "sym": "ADYEN.AS",
-  "name": "Adyen NV",
-  "price": 1032.0,
-  "dayHigh": 1046.4000244140625,
-  "dayLow": 1030.5999755859375,
-  "vwap": 1038.1728951712087,
-  "rsi": 40.5795224695104,
-  "atrPct": 3.2758867033769983,
-  "support": 898.2000122070312,
-  "resistance": 1047.6666666666667,
-  "rvol": 0.9291299711701749,
-  "sma20": 1036.9599975585938,
-  "sma50": 930.1699987792969,
-  "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": -1.0546500479386385,
-  "avgVolume": 138805.25,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 0.5645465526719432,
-  "vol5m": 0.1345789360534345,
-  "res_intra": 1046.4000244140625,
-  "sup_intra": 1030.5999755859375,
-  "res_list": [
-   1046.4000244140625,
-   1047.6666666666667,
-   1095.0
-  ],
-  "m1h": -0.3214589817569979,
-  "m3h": -0.8352737804840675,
-  "pos1h": 17.94891858900122,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 1.8647804389848919,
-  "down_days": 1,
-  "dd5": 4.550495134461381,
-  "chg3d": 2.502980980589086,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 41.88611116966601,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (1.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~1.9%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.9% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (1.8%)"
-   ],
-   [
-    "info",
-    "Izoliuotas atsitraukimas: akcija -1.1%, sektorius -0.6% — būtent toks triukšmas, kurio ieškai"
-   ],
-   [
-    "warn",
-    "Kryptis vis dar žemyn: per 3 val. -0.8%, per pastarąją valandą -0.3% — dugno ženklo dar nėra"
-   ]
-  ],
-  "dip": 1.3761490900314028,
-  "rng": 8.860886629479117,
-  "room": 1.395351202913033,
-  "sup_d": 0.1356612804324128,
-  "vw_d": -0.5945922109814543,
-  "stop": 1013.4060670716322,
-  "tp": 1062.96,
-  "rr": 1.6650592491256053,
-  "shares": 17,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17544.0,
-  "gross": 526.32,
-  "net": 522.32,
-  "real_risk": 316.09685978225343,
-  "move_ratio": 0.6215934796616306
- },
- {
-  "tag": "RHM",
-  "sym": "RHM.DE",
-  "name": "Rheinmetall AG",
-  "price": 1036.4000244140625,
-  "dayHigh": 1071.5999755859375,
-  "dayLow": 1032.0,
-  "vwap": 1049.0704329976256,
-  "rsi": 40.09947293241337,
-  "atrPct": 4.058348050135884,
-  "support": 1032.0,
-  "resistance": 1071.6666666666667,
-  "rvol": 1.7549801704882162,
-  "sma20": 1142.0499938964845,
-  "sma50": 1095.012000732422,
-  "earnings": false,
-  "sector": "pramonė ir gynyba",
-  "day_chg": -3.1582814707477223,
-  "avgVolume": 154022.95,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 0.5472372177466929,
-  "vol5m": 0.25701592362392667,
-  "res_intra": 1071.5999755859375,
-  "sup_intra": 1032.0,
-  "res_list": [
-   1071.5999755859375,
-   1071.6666666666667,
-   1234.0
-  ],
-  "m1h": -0.48840255314991765,
-  "m3h": -0.7664143269975137,
-  "pos1h": 6.817961131379267,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 3.561317104567064,
-  "down_days": 2,
-  "dd5": 10.423506965076706,
-  "chg3d": -4.01926490567983,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 38.63846571077877,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.5% — telpa į stop atstumą (2.2%)"
-   ],
-   [
-    "warn",
-    "Antra kritimo diena iš eilės — palauk stabilizacijos ženklo"
-   ],
-   [
-    "warn",
-    "Nuo 5 d. maksimumo nukritusi 10.4% — kritimas prasidėjo ne šiandien"
-   ],
-   [
-    "warn",
-    "Akcija krinta 4.0 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
-   ]
-  ],
-  "dip": 3.2848032823655213,
-  "rng": 11.11117961301221,
-  "room": 3.3963672657934945,
-  "sup_d": 0.42454885279939,
-  "vw_d": -1.207774824742564,
-  "stop": 1013.2666283137338,
-  "tp": 1067.4920251464844,
-  "rr": 1.344030967073619,
-  "shares": 17,
-  "sector_chg": 0.8226445707602968,
-  "pos_value": 17618.800415039062,
-  "gross": 528.5640124511718,
-  "net": 524.5640124511718,
-  "real_risk": 393.26773370558783,
-  "move_ratio": 1.1871057015223547
- },
- {
-  "tag": "AMD",
-  "sym": "AMD.DE",
-  "name": "Advanced Micro Devices",
-  "price": 404.20001220703125,
-  "dayHigh": 408.0,
-  "dayLow": 394.6000061035156,
-  "vwap": 398.77217920273876,
-  "rsi": 57.21116868604126,
-  "atrPct": 4.757409756817828,
-  "support": 389.5,
-  "resistance": 451.0,
-  "rvol": 1.302262785548415,
-  "sma20": 409.36500091552733,
-  "sma50": 434.48599914550783,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 2.810636775300656,
-  "avgVolume": 22455.25,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 1.2091308466337172,
-  "vol5m": 0.0875891136560585,
-  "res_intra": 408.0,
-  "sup_intra": 394.6000061035156,
-  "res_list": [
-   408.0,
-   451.0,
-   451.0
-  ],
-  "m1h": -0.11494042654087083,
-  "m3h": 2.0025220021499193,
-  "pos1h": 47.222481244436906,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 1.2136703603377463,
-  "down_days": 0,
-  "dd5": 1.4627010778760658,
-  "chg3d": 2.1093863773573065,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 37.14303932065904,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (0.9% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~1.2%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.2% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.6%)"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 1.2% — telpa į stop atstumą (2.7%)"
-   ],
-   [
-    "warn",
-    "Vienas nesėkmingas sandoris kainuotų 2.6% portfelio — tiek pat, kiek duotų 1 sėkmingi"
-   ]
-  ],
-  "dip": 0.9313695571001838,
-  "rng": 71.64186922528587,
-  "room": 0.9401256007440187,
-  "sup_d": 2.375063288864648,
-  "vw_d": 1.3611363298072368,
-  "stop": 393.4162060852051,
-  "tp": 416.3260125732422,
-  "rr": 1.1244638701050313,
-  "shares": 44,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17784.800537109375,
-  "gross": 533.5440161132813,
-  "net": 529.5440161132813,
-  "real_risk": 474.48746936035104,
-  "move_ratio": 0.4045567867792488
- },
- {
-  "tag": "NVD",
-  "sym": "NVD.DE",
-  "name": "Nvidia Corp",
-  "price": 200.85000610351562,
-  "dayHigh": 202.0,
-  "dayLow": 197.39999389648438,
-  "vwap": 199.50612436590356,
-  "rsi": 53.0863805936061,
-  "atrPct": 2.856365921760669,
-  "support": 195.0800018310547,
-  "resistance": 202.0,
-  "rvol": 2.5847055445778655,
-  "sma20": 190.22849807739257,
-  "sma50": 182.91299987792968,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 2.5791639290336956,
-  "avgVolume": 89029.2,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 0.5802373754344937,
-  "vol5m": 0.09555054027948393,
-  "res_intra": 202.0,
-  "sup_intra": 197.39999389648438,
-  "res_list": [
-   202.0,
-   202.0,
-   202.0
-  ],
-  "m1h": -0.38298956781747345,
-  "m3h": 1.505064100700552,
-  "pos1h": 17.857220708446867,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 1.3239871236377814,
-  "down_days": 0,
-  "dd5": 0.5693039091506807,
-  "chg3d": 6.382416767469231,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 35.51410481807638,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka",
-   "Net iki tolimesnių lubų tik 0.6% — 3.0% tikslas netelpa niekur"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "stop",
-    "Net iki tolimesnių lubų tik 0.6% — 3.0% tikslas netelpa niekur"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~1.3%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.3% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 0.6% — telpa į stop atstumą (2.0%)"
-   ],
-   [
-    "info",
-    "Izoliuotas atsitraukimas: akcija +2.6%, sektorius +3.0% — būtent toks triukšmas, kurio ieškai"
-   ]
-  ],
-  "dip": 0.5693039091506807,
-  "rng": 75.00016585618279,
-  "room": 0.5725635357420314,
-  "sup_d": 1.717705801439287,
-  "vw_d": 0.6736042524425583,
-  "stop": 196.80779391479493,
-  "tp": 206.8755062866211,
-  "rr": 1.4906442071296733,
-  "shares": 89,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17875.65054321289,
-  "gross": 536.2695162963868,
-  "net": 532.2695162963868,
-  "real_risk": 359.756884796142,
-  "move_ratio": 0.4413290412125938
- },
- {
-  "tag": "IFX",
-  "sym": "IFX.DE",
-  "name": "Infineon Technologies",
-  "price": 57.150001525878906,
-  "dayHigh": 57.70000076293945,
-  "dayLow": 55.459999084472656,
-  "vwap": 56.92212204032454,
-  "rsi": 45.00830394431926,
-  "atrPct": 4.424286542006674,
-  "support": 55.37333297729492,
-  "resistance": 65.44999694824219,
-  "rvol": 1.3459663670890083,
-  "sma20": 57.85,
-  "sma50": 63.68740020751953,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 2.917346987563798,
-  "avgVolume": 3367369.35,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 1.6203659046115149,
-  "vol5m": 0.23686939838700768,
-  "res_intra": 57.70000076293945,
-  "sup_intra": 55.459999084472656,
-  "res_list": [
-   57.70000076293945,
-   65.44999694824219,
-   65.44999694824219
-  ],
-  "m1h": -0.6188117137022028,
-  "m3h": 0.25502168848188833,
-  "pos1h": 0.0,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 3.282158662116566,
-  "down_days": 0,
-  "dd5": 1.1758607706123594,
-  "chg3d": 2.8988127184230095,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 34.080402174288764,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.4%)"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 1.6% — telpa į stop atstumą (3.2%)"
-   ],
-   [
-    "warn",
-    "Vienas nesėkmingas sandoris kainuotų 3.2% portfelio — tiek pat, kiek duotų 2 sėkmingi"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.92 — rizikuoji daugiau nei sieki"
-   ]
-  ],
-  "dip": 0.9532049043122541,
-  "rng": 75.44648102955878,
-  "room": 0.9623783418649497,
-  "sup_d": 2.9571345516779663,
-  "vw_d": 0.4003355415894976,
-  "stop": 55.29361908721924,
-  "tp": 58.864501571655275,
-  "rr": 0.923570493919487,
-  "shares": 314,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17945.100479125977,
-  "gross": 538.3530143737793,
-  "net": 534.3530143737793,
-  "real_risk": 582.9040857391349,
-  "move_ratio": 1.0940528873721886
- },
- {
-  "tag": "YDX",
-  "sym": "YDX.DE",
-  "name": "Nebius Group NV",
-  "price": 185.02000427246094,
-  "dayHigh": 187.02000427246094,
-  "dayLow": 178.82000732421875,
-  "vwap": 183.14233942884164,
-  "rsi": 57.16718208915707,
-  "atrPct": 8.029530706574185,
-  "support": 176.64666748046875,
-  "resistance": 245.89999389648438,
-  "rvol": 1.6395948434622467,
-  "sma20": 191.45800094604493,
-  "sma50": 185.38000030517577,
-  "earnings": false,
-  "sector": "programinė įranga",
-  "day_chg": 3.178673162742143,
-  "avgVolume": 11101.3,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 3.0953898934718733,
-  "vol5m": 0.07639386327888123,
-  "res_intra": 187.02000427246094,
-  "sup_intra": 178.82000732421875,
-  "res_list": [
-   187.02000427246094,
-   245.89999389648438,
-   245.89999389648438
-  ],
-  "m1h": 2.3837301327554123,
-  "m3h": 1.0718866429666818,
-  "pos1h": 71.2643955354931,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 1.058544420683941,
-  "down_days": 0,
-  "dd5": 1.0694043173511487,
-  "chg3d": 6.910901931463295,
-  "asOf": "2026-09-04 16:40:00+02:00",
-  "score": 32.05173382253574,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (1.1% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~1.1%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.1% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 3.1% — telpa į stop atstumą (4.4%)"
-   ],
-   [
-    "warn",
-    "Vienas nesėkmingas sandoris kainuotų 4.4% portfelio — tiek pat, kiek duotų 2 sėkmingi"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.68 — rizikuoji daugiau nei sieki"
-   ]
-  ],
-  "dip": 1.0694043173511487,
-  "rng": 75.60974702034817,
-  "room": 1.0809641951228122,
-  "sup_d": 3.350987355460254,
-  "vw_d": 1.025248912662738,
-  "stop": 176.84907334146178,
-  "tp": 190.57060440063478,
-  "rr": 0.6793106165070837,
-  "shares": 97,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17946.94041442871,
-  "gross": 538.4082124328613,
-  "net": 534.4082124328613,
-  "real_risk": 792.5803003069187,
-  "move_ratio": 0.35284814022798033
- },
- {
-  "tag": "BESI",
-  "sym": "BESI.AS",
-  "name": "BE Semiconductor",
-  "price": 197.3000030517578,
-  "dayHigh": 199.3000030517578,
-  "dayLow": 191.3000030517578,
-  "vwap": 196.54355446327733,
-  "rsi": 45.15538767559349,
-  "atrPct": 4.651828486555098,
-  "support": 190.98333231608072,
-  "resistance": 241.89999389648438,
-  "rvol": 1.2996830527088465,
-  "sma20": 209.94250030517577,
-  "sma50": 225.3320004272461,
-  "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 3.082554515892181,
-  "avgVolume": 384724.75,
-  "cur": "EUR",
-  "cur_sym": "€",
-  "gap": 1.0090198242464172,
-  "vol5m": 0.19059146660437237,
-  "res_intra": 199.3000030517578,
-  "sup_intra": 191.3000030517578,
-  "res_list": [
-   199.3000030517578,
-   241.89999389648438,
-   241.89999389648438
-  ],
-  "m1h": -0.8566246783674536,
-  "m3h": 0.6235276444630053,
-  "pos1h": 2.439169625378678,
-  "span_h": 3.0,
-  "mom_partial": false,
-  "exp_move": 2.6409128291827186,
-  "down_days": 0,
-  "dd5": 1.0035122776594259,
-  "chg3d": 4.308754648828417,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 31.740539375329565,
-  "grade": "D",
-  "tradeable": false,
-  "blocking": [
-   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-  ],
-  "setup": "kritimas",
-  "recovering": false,
-  "flags": [
-   [
-    "stop",
-    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
-   ],
-   [
-    "warn",
-    "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
-    "Per 16.0 val. tikėtinas judesys ~2.6%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.6% arba ilgesnis laikymas"
-   ],
-   [
-    "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.5%)"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 1.0% — telpa į stop atstumą (3.3%)"
-   ],
-   [
-    "warn",
-    "Vienas nesėkmingas sandoris kainuotų 3.3% portfelio — tiek pat, kiek duotų 2 sėkmingi"
-   ],
-   [
-    "warn",
-    "Rizika/nauda 0.90 — rizikuoji daugiau nei sieki"
-   ]
-  ],
-  "dip": 1.0035122776594259,
-  "rng": 75.0,
-  "room": 1.0136847283653305,
-  "sup_d": 3.041054185095992,
-  "vw_d": 0.38487580554152323,
-  "stop": 190.72610304260255,
-  "tp": 203.21900314331054,
-  "rr": 0.900378783265569,
-  "shares": 91,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17954.30027770996,
-  "gross": 538.6290083312988,
-  "net": 534.6290083312988,
-  "real_risk": 598.2249008331293,
-  "move_ratio": 0.8803042763942396
+  "sector_chg": 0.746786667128186,
+  "pos_value": 17942.10040283203,
+  "gross": 538.2630120849609,
+  "net": 534.2630120849609,
+  "real_risk": 274.2634028320309,
+  "move_ratio": 0.5113328701067097
  },
  {
   "tag": "PTX",
   "sym": "PTX.DE",
   "name": "Palantir Technologies",
-  "price": 152.27999877929688,
+  "price": 152.1199951171875,
   "dayHigh": 156.72000122070312,
   "dayLow": 151.44000244140625,
-  "vwap": 154.80468135003164,
-  "rsi": 35.72704197661976,
-  "atrPct": 4.627111654952576,
+  "vwap": 154.6476603016902,
+  "rsi": 39.278385545218526,
+  "atrPct": 4.631978568136547,
   "support": 149.04000345865887,
   "resistance": 154.3999989827474,
-  "rvol": 0.6774948785484343,
-  "sma20": 152.61100082397462,
-  "sma50": 130.18199996948243,
+  "rvol": 0.7303377988590475,
+  "sma20": 152.60300064086914,
+  "sma50": 130.17879989624024,
   "earnings": false,
   "sector": "programinė įranga",
-  "day_chg": -3.15441779482946,
-  "avgVolume": 28436.0,
+  "day_chg": -3.2561753988231406,
+  "avgVolume": 28480.7,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.9592518197394639,
-  "vol5m": 0.02555647225023045,
+  "vol5m": 0.02558096908636022,
   "res_intra": 156.72000122070312,
   "sup_intra": 151.44000244140625,
   "res_list": [
@@ -1283,17 +825,17 @@
    156.72000122070312,
    162.10000610351562
   ],
-  "m1h": -0.35104988789203045,
-  "m3h": -3.62363125006505,
-  "pos1h": 55.999755859375,
+  "m1h": 0.09199731197421619,
+  "m3h": -3.3518890732785613,
+  "pos1h": 60.71389645776567,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 0.35412086719698604,
+  "exp_move": 0.35446030531539763,
   "down_days": 1,
-  "dd5": 5.192377407187572,
-  "chg3d": -3.9727601078410912,
-  "asOf": "2026-09-04 16:40:00+02:00",
-  "score": 30.291607097558387,
+  "dd5": 5.291993685965714,
+  "chg3d": -4.073657863082535,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 38.817984572266745,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1308,7 +850,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (1.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -1316,7 +858,7 @@
    ],
    [
     "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.5%)"
+    "Liko ~2.2 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.3%)"
    ],
    [
     "info",
@@ -1328,52 +870,322 @@
    ],
    [
     "warn",
-    "Akcija krinta 2.6 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
-   ],
-   [
-    "warn",
-    "Kryptis vis dar žemyn: per 3 val. -3.6%, per pastarąją valandą -0.4% — dugno ženklo dar nėra"
+    "Akcija krinta 2.7 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
-  "dip": 2.8330796368190136,
-  "rng": 15.909025229026385,
-  "room": 1.3921724589209503,
-  "sup_d": 0.5516130448018011,
-  "vw_d": -1.630882573264153,
-  "stop": 148.40460771487372,
-  "tp": 156.84839874267578,
-  "rr": 1.1788229593956878,
+  "dip": 2.935174877288064,
+  "rng": 12.878652139987862,
+  "room": 1.4988193128743375,
+  "sup_d": 0.44701071365234357,
+  "vw_d": -1.6344671361801837,
+  "stop": 148.24460405276432,
+  "tp": 156.68359497070313,
+  "rr": 1.1775843463670874,
   "shares": 118,
-  "sector_chg": -0.5542692266120876,
-  "pos_value": 17969.03985595703,
-  "gross": 539.071195678711,
-  "net": 535.071195678711,
-  "real_risk": 457.2961456019323,
-  "move_ratio": 0.11804028906566201
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17950.159423828125,
+  "gross": 538.5047827148437,
+  "net": 534.5047827148437,
+  "real_risk": 457.2961456019357,
+  "move_ratio": 0.11815343510513254
+ },
+ {
+  "tag": "BESI",
+  "sym": "BESI.AS",
+  "name": "BE Semiconductor",
+  "price": 196.85000610351562,
+  "dayHigh": 199.3000030517578,
+  "dayLow": 191.3000030517578,
+  "vwap": 196.56039638527778,
+  "rsi": 40.33011162537385,
+  "atrPct": 4.662462515296734,
+  "support": 190.98333231608072,
+  "resistance": 241.89999389648438,
+  "rvol": 1.2947188724256418,
+  "sma20": 209.92000045776368,
+  "sma50": 225.32300048828125,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 2.847446384966345,
+  "avgVolume": 385131.3,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 1.0090198242464172,
+  "vol5m": 0.19059146660437237,
+  "res_intra": 199.3000030517578,
+  "sup_intra": 191.3000030517578,
+  "res_list": [
+   199.3000030517578,
+   241.89999389648438,
+   241.89999389648438
+  ],
+  "m1h": -0.8693224743542989,
+  "m3h": 0.4890512559444651,
+  "pos1h": 6.522128531907412,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 2.6409128291827186,
+  "down_days": 0,
+  "dd5": 1.22930100889458,
+  "chg3d": 4.070849831084433,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 34.71325550986037,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (1.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "warn",
+    "Per 16.0 val. tikėtinas judesys ~2.6%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.6% arba ilgesnis laikymas"
+   ],
+   [
+    "info",
+    "Liko ~2.2 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.4%)"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 1.0% — telpa į stop atstumą (3.1%)"
+   ],
+   [
+    "warn",
+    "Vienas nesėkmingas sandoris kainuotų 3.1% portfelio — tiek pat, kiek duotų 2 sėkmingi"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.96 — rizikuoji daugiau nei sieki"
+   ]
+  ],
+  "dip": 1.22930100889458,
+  "rng": 69.37503814697266,
+  "room": 1.2446009003189114,
+  "sup_d": 2.819407101689032,
+  "vw_d": 0.14733879436739514,
+  "stop": 190.72610304260255,
+  "tp": 202.7555062866211,
+  "rr": 0.9643360001562423,
+  "shares": 91,
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17913.350555419922,
+  "gross": 537.4005166625976,
+  "net": 533.4005166625976,
+  "real_risk": 557.2751785430902,
+  "move_ratio": 0.8803042763942396
+ },
+ {
+  "tag": "IFX",
+  "sym": "IFX.DE",
+  "name": "Infineon Technologies",
+  "price": 57.11000061035156,
+  "dayHigh": 57.70000076293945,
+  "dayLow": 55.459999084472656,
+  "vwap": 56.930110247282094,
+  "rsi": 44.427127969507126,
+  "atrPct": 4.427385395278328,
+  "support": 55.37333297729492,
+  "resistance": 65.44999694824219,
+  "rvol": 1.2906730972099192,
+  "sma20": 57.84799995422363,
+  "sma50": 63.68660018920898,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 2.8453122020304384,
+  "avgVolume": 3371335.95,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 1.6203659046115149,
+  "vol5m": 0.24358643776854527,
+  "res_intra": 57.70000076293945,
+  "sup_intra": 55.459999084472656,
+  "res_list": [
+   57.70000076293945,
+   65.44999694824219,
+   65.44999694824219
+  ],
+  "m1h": -0.9195576099669008,
+  "m3h": 0.3408407822665427,
+  "pos1h": 23.437760770569582,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 3.375232689998679,
+  "down_days": 0,
+  "dd5": 1.2450306033303369,
+  "chg3d": 2.8267909055530698,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 34.537545170310445,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "info",
+    "Liko ~2.2 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 1.6% — telpa į stop atstumą (3.2%)"
+   ],
+   [
+    "warn",
+    "Vienas nesėkmingas sandoris kainuotų 3.2% portfelio — tiek pat, kiek duotų 2 sėkmingi"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.94 — rizikuoji daugiau nei sieki"
+   ]
+  ],
+  "dip": 1.0225305802194131,
+  "rng": 73.66072721018114,
+  "room": 1.0330942852081657,
+  "sup_d": 2.889163908675975,
+  "vw_d": 0.3159845682506057,
+  "stop": 55.29361908721924,
+  "tp": 58.82330062866211,
+  "rr": 0.9432489796284589,
+  "shares": 315,
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17989.650192260742,
+  "gross": 539.6895057678223,
+  "net": 535.6895057678223,
+  "real_risk": 572.1601797866812,
+  "move_ratio": 1.125077563332893
+ },
+ {
+  "tag": "RHM",
+  "sym": "RHM.DE",
+  "name": "Rheinmetall AG",
+  "price": 1035.800048828125,
+  "dayHigh": 1071.5999755859375,
+  "dayLow": 1032.0,
+  "vwap": 1048.405407300312,
+  "rsi": 42.51072092867971,
+  "atrPct": 4.0591316506865285,
+  "support": 1032.0,
+  "resistance": 1071.6666666666667,
+  "rvol": 1.7152832861189802,
+  "sma20": 1142.039990234375,
+  "sma50": 1095.007999267578,
+  "earnings": false,
+  "sector": "pramonė ir gynyba",
+  "day_chg": -3.214343479093034,
+  "avgVolume": 154305.8,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 0.5472372177466929,
+  "vol5m": 0.2633109614293866,
+  "res_intra": 1071.5999755859375,
+  "sup_intra": 1032.0,
+  "res_list": [
+   1071.5999755859375,
+   1071.6666666666667,
+   1234.0
+  ],
+  "m1h": -0.5631736121711816,
+  "m3h": -0.9368814027317931,
+  "pos1h": 35.417011049934516,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 3.6485437070840523,
+  "down_days": 2,
+  "dd5": 10.475363109064391,
+  "chg3d": -4.074828487714174,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 33.60332863209376,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+  ],
+  "setup": "kritimas",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 0.5% — telpa į stop atstumą (2.2%)"
+   ],
+   [
+    "warn",
+    "Antra kritimo diena iš eilės — palauk stabilizacijos ženklo"
+   ],
+   [
+    "warn",
+    "Nuo 5 d. maksimumo nukritusi 10.5% — kritimas prasidėjo ne šiandien"
+   ],
+   [
+    "warn",
+    "Akcija krinta 4.0 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
+   ],
+   [
+    "warn",
+    "Kryptis vis dar žemyn: per 3 val. -0.9%, per pastarąją valandą -0.6% — dugno ženklo dar nėra"
+   ]
+  ],
+  "dip": 3.3407920467931653,
+  "rng": 9.59608881545485,
+  "room": 3.4562584543528,
+  "sup_d": 0.36687088713929566,
+  "vw_d": -1.2023362703409042,
+  "stop": 1012.67558063723,
+  "tp": 1066.8740502929688,
+  "rr": 1.3437715068007023,
+  "shares": 17,
+  "sector_chg": 0.746786667128186,
+  "pos_value": 17608.600830078125,
+  "gross": 528.2580249023438,
+  "net": 524.2580249023438,
+  "real_risk": 393.1159592452143,
+  "move_ratio": 1.2161812356946842
  },
  {
   "tag": "MC",
   "sym": "MC.PA",
   "name": "LVMH Moet Hennessy",
-  "price": 429.5,
+  "price": 429.1000061035156,
   "dayHigh": 433.75,
   "dayLow": 427.5,
-  "vwap": 430.94466206287154,
-  "rsi": 42.873832222494286,
-  "atrPct": 2.528778629628052,
+  "vwap": 430.83473825344487,
+  "rsi": 42.26628454575367,
+  "atrPct": 2.5311358796933603,
   "support": 425.3500061035156,
   "resistance": 431.31666056315106,
-  "rvol": 1.151515717281853,
-  "sma20": 452.85999908447263,
-  "sma50": 471.05699951171874,
+  "rvol": 1.0983988224825247,
+  "sma20": 452.8399993896484,
+  "sma50": 471.04899963378904,
   "earnings": false,
   "sector": "prabangos prekės",
-  "day_chg": -0.35958423311989557,
-  "avgVolume": 439942.25,
+  "day_chg": -0.45237947910340554,
+  "avgVolume": 440509.6,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.4334348571645643,
@@ -1385,17 +1197,17 @@
    433.75,
    487.5
   ],
-  "m1h": -0.3922075565917416,
-  "m3h": -0.31336568916037394,
-  "pos1h": 11.475541058403289,
+  "m1h": -0.4564388461053286,
+  "m3h": -0.2516695600699624,
+  "pos1h": 21.052800651040275,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 2.0830972818629565,
   "down_days": 5,
-  "dd5": 6.843073121853339,
-  "chg3d": -3.48314606741573,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 29.87361263981958,
+  "dd5": 6.929830286385354,
+  "chg3d": -3.5730323362886236,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 30.649629249381764,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1411,7 +1223,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -1419,7 +1231,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1430,41 +1242,136 @@
     "5 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
    ]
   ],
-  "dip": 0.9798270893371758,
-  "rng": 32.0,
-  "room": 0.422971027508978,
-  "sup_d": 0.46565774155995343,
-  "vw_d": -0.33523145546255273,
-  "stop": 423.52639268216114,
-  "tp": 442.385,
-  "rr": 2.156988116966074,
+  "dip": 1.07204470235951,
+  "rng": 25.60009765625,
+  "room": 0.5165822484515864,
+  "sup_d": 0.3728748731664295,
+  "vw_d": -0.40264444714037007,
+  "stop": 423.12639878567677,
+  "tp": 441.9730062866211,
+  "rr": 2.154979311188254,
   "shares": 41,
-  "sector_chg": -0.35958423311989557,
-  "pos_value": 17609.5,
-  "gross": 528.285,
-  "net": 524.285,
+  "sector_chg": -0.45237947910340554,
+  "pos_value": 17593.10025024414,
+  "gross": 527.7930075073242,
+  "net": 523.7930075073242,
   "real_risk": 244.91790003139306,
   "move_ratio": 0.6943657606209855
+ },
+ {
+  "tag": "AMD",
+  "sym": "AMD.DE",
+  "name": "Advanced Micro Devices",
+  "price": 405.29998779296875,
+  "dayHigh": 408.0,
+  "dayLow": 394.6000061035156,
+  "vwap": 398.89303159535416,
+  "rsi": 57.92235687754786,
+  "atrPct": 4.744498247460779,
+  "support": 389.5,
+  "resistance": 451.0,
+  "rvol": 1.2925839637705818,
+  "sma20": 409.41999969482424,
+  "sma50": 434.50799865722655,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 3.0904219979928182,
+  "avgVolume": 22466.95,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 1.2091308466337172,
+  "vol5m": 0.0993802571924528,
+  "res_intra": 408.0,
+  "sup_intra": 394.6000061035156,
+  "res_list": [
+   408.0,
+   451.0,
+   451.0
+  ],
+  "m1h": -0.3103227569905519,
+  "m3h": 2.2635956375427218,
+  "pos1h": 52.63146623263982,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 1.3770532378127247,
+  "down_days": 0,
+  "dd5": 1.1945451653447094,
+  "chg3d": 2.387263242073043,
+  "asOf": "2026-09-04 17:00:00+02:00",
+  "score": 28.07059040342543,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka",
+   "Šiandien jau pakilusi +3.1% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+  ],
+  "setup": "jau pakilusi",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (0.7% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "warn",
+    "Per 16.0 val. tikėtinas judesys ~1.4%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.4% arba ilgesnis laikymas"
+   ],
+   [
+    "info",
+    "Liko ~2.2 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.4%)"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 1.2% — telpa į stop atstumą (2.9%)"
+   ],
+   [
+    "warn",
+    "Vienas nesėkmingas sandoris kainuotų 2.9% portfelio — tiek pat, kiek duotų 1 sėkmingi"
+   ],
+   [
+    "stop",
+    "Šiandien jau pakilusi +3.1% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+   ]
+  ],
+  "dip": 0.6617676978017769,
+  "rng": 79.85064599365508,
+  "room": 0.6661762369483325,
+  "sup_d": 2.6400153002024718,
+  "vw_d": 1.6061840368557623,
+  "stop": 393.4162060852051,
+  "tp": 417.4589874267578,
+  "rr": 1.0231591199496362,
+  "shares": 44,
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17833.199462890625,
+  "gross": 534.9959838867187,
+  "net": 530.9959838867187,
+  "real_risk": 522.886395141601,
+  "move_ratio": 0.4590177459375749
  },
  {
   "tag": "RMS",
   "sym": "RMS.PA",
   "name": "Hermes International",
-  "price": 1458.0,
+  "price": 1456.0,
   "dayHigh": 1481.5,
   "dayLow": 1454.5,
-  "vwap": 1468.5591003876261,
-  "rsi": 39.753466093030994,
-  "atrPct": 2.861436265310972,
+  "vwap": 1468.1067670360649,
+  "rsi": 38.16745190235739,
+  "atrPct": 2.865366809631454,
   "support": 1454.5,
   "resistance": 1493.5,
-  "rvol": 1.3318662859062658,
-  "sma20": 1565.125,
-  "sma50": 1600.9,
+  "rvol": 1.3076556392411098,
+  "sma20": 1565.025,
+  "sma50": 1600.86,
   "earnings": false,
   "sector": "prabangos prekės",
-  "day_chg": -1.5862301721228484,
-  "avgVolume": 117011.2,
+  "day_chg": -1.721228484643942,
+  "avgVolume": 117090.6,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.36109288454604027,
@@ -1476,17 +1383,17 @@
    1493.5,
    1663.5
   ],
-  "m1h": -0.7778270443323939,
-  "m3h": -0.9438686179954278,
-  "pos1h": 19.444444444444446,
+  "m1h": -0.546929735349255,
+  "m3h": -0.8272698490049577,
+  "pos1h": 9.67741935483871,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.8797932488087696,
   "down_days": 5,
-  "dd5": 9.384711000621504,
-  "chg3d": -5.478119935170178,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 26.792590763713697,
+  "dd5": 9.509011808576757,
+  "chg3d": -5.607779578606159,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 27.588481728587553,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1502,7 +1409,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.6% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (1.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -1510,7 +1417,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1522,30 +1429,34 @@
    ],
    [
     "warn",
-    "Nuo 5 d. maksimumo nukritusi 9.4% — kritimas prasidėjo ne šiandien"
+    "Nuo 5 d. maksimumo nukritusi 9.5% — kritimas prasidėjo ne šiandien"
    ],
    [
     "info",
-    "Izoliuotas atsitraukimas: akcija -1.6%, sektorius -0.4% — būtent toks triukšmas, kurio ieškai"
+    "Izoliuotas atsitraukimas: akcija -1.7%, sektorius -0.5% — būtent toks triukšmas, kurio ieškai"
    ],
    [
     "warn",
-    "Kryptis vis dar žemyn: per 3 val. -0.9%, per pastarąją valandą -0.8% — dugno ženklo dar nėra"
+    "Kryptis vis dar žemyn: per 3 val. -0.8%, per pastarąją valandą -0.5% — dugno ženklo dar nėra"
+   ],
+   [
+    "warn",
+    "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
-  "dip": 1.5862301721228484,
-  "rng": 12.962962962962962,
-  "room": 1.6117969821673523,
-  "sup_d": 0.24005486968449932,
-  "vw_d": -0.7190109260729824,
-  "stop": 1435.0541425884712,
-  "tp": 1501.74,
-  "rr": 1.9062264362378347,
+  "dip": 1.721228484643942,
+  "rng": 5.555555555555555,
+  "room": 1.7513736263736264,
+  "sup_d": 0.10302197802197803,
+  "vw_d": -0.824651674381081,
+  "stop": 1433.0541425884712,
+  "tp": 1499.68,
+  "rr": 1.9036115851593216,
   "shares": 12,
-  "sector_chg": -0.35958423311989557,
-  "pos_value": 17496.0,
-  "gross": 524.88,
-  "net": 520.88,
+  "sector_chg": -0.45237947910340554,
+  "pos_value": 17472.0,
+  "gross": 524.16,
+  "net": 520.16,
   "real_risk": 275.35028893834533,
   "move_ratio": 0.6265977496029232
  },
@@ -1553,21 +1464,21 @@
   "tag": "ASM",
   "sym": "ASM.AS",
   "name": "ASM International",
-  "price": 815.5999755859375,
+  "price": 816.4000244140625,
   "dayHigh": 818.7999877929688,
   "dayLow": 778.0,
-  "vwap": 804.3570823563572,
-  "rsi": 60.77134038396845,
-  "atrPct": 4.090796508109805,
+  "vwap": 805.0609717701554,
+  "rsi": 60.147215172768114,
+  "atrPct": 4.086787643760787,
   "support": 780.6666666666666,
   "resistance": 924.2000122070312,
-  "rvol": 1.3115505717284428,
-  "sma20": 838.6099975585937,
-  "sma50": 862.3899987792969,
+  "rvol": 1.3196408334059804,
+  "sma20": 838.65,
+  "sma50": 862.4059997558594,
   "earnings": false,
   "sector": "puslaidininkiai",
-  "day_chg": 4.967821825731982,
-  "avgVolume": 119829.65,
+  "day_chg": 5.070788212878057,
+  "avgVolume": 120054.35,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 1.0625526032542327,
@@ -1579,22 +1490,22 @@
    924.2000122070312,
    924.2000122070312
   ],
-  "m1h": -0.02100562056640194,
-  "m3h": 1.7773822857733408,
-  "pos1h": 42.8566757493188,
+  "m1h": 0.03877563523993281,
+  "m3h": 2.060995646614274,
+  "pos1h": 56.5220852627808,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 2.419724896875169,
   "down_days": 0,
-  "dd5": 1.019420438599818,
-  "chg3d": 3.765900201773219,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 26.2979394942418,
+  "dd5": 0.922327134215716,
+  "chg3d": 3.8676875844863234,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 26.67494876488336,
   "grade": "D",
   "tradeable": false,
   "blocking": [
    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka",
-   "Šiandien jau pakilusi +5.0% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+   "Šiandien jau pakilusi +5.1% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
   ],
   "setup": "jau pakilusi",
   "recovering": false,
@@ -1605,7 +1516,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.3% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -1613,82 +1524,82 @@
    ],
    [
     "info",
-    "Liko ~2.5 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
-    "Tipinis nakties šuolis 1.1% — telpa į stop atstumą (4.9%)"
+    "Tipinis nakties šuolis 1.1% — telpa į stop atstumą (5.0%)"
    ],
    [
     "warn",
-    "Vienas nesėkmingas sandoris kainuotų 4.9% portfelio — tiek pat, kiek duotų 2 sėkmingi"
+    "Vienas nesėkmingas sandoris kainuotų 5.0% portfelio — tiek pat, kiek duotų 2 sėkmingi"
    ],
    [
     "warn",
-    "Rizika/nauda 0.61 — rizikuoji daugiau nei sieki"
+    "Rizika/nauda 0.60 — rizikuoji daugiau nei sieki"
    ],
    [
     "stop",
-    "Šiandien jau pakilusi +5.0% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+    "Šiandien jau pakilusi +5.1% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
    ]
   ],
-  "dip": 0.39081732471158315,
-  "rng": 92.15683047929068,
-  "room": 0.39235069921775323,
-  "sup_d": 4.610100136273937,
-  "vw_d": 1.3977490192097717,
+  "dip": 0.2931074028683393,
+  "rng": 94.11773505647997,
+  "room": 0.2939690479099048,
+  "sup_d": 4.703579527894127,
+  "vw_d": 1.4084712886994037,
   "stop": 775.666,
-  "tp": 840.0679748535157,
-  "rr": 0.6127113293522041,
+  "tp": 840.8920251464843,
+  "rr": 0.6012664126544434,
   "shares": 22,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17943.199462890625,
-  "gross": 538.2959838867188,
-  "net": 534.2959838867188,
-  "real_risk": 878.5474628906238,
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17960.800537109375,
+  "gross": 538.8240161132812,
+  "net": 534.8240161132812,
+  "real_risk": 896.1485371093738,
   "move_ratio": 0.8065749656250563
  },
  {
-  "tag": "ASML",
-  "sym": "ASML.AS",
-  "name": "ASML Holding NV",
-  "price": 1472.0,
-  "dayHigh": 1482.800048828125,
-  "dayLow": 1419.4000244140625,
-  "vwap": 1456.1776926018495,
-  "rsi": 59.51841822675328,
-  "atrPct": 3.5552234694914175,
-  "support": 1423.2000325520833,
-  "resistance": 1632.0,
-  "rvol": 1.0574538313862758,
-  "sma20": 1510.1700134277344,
-  "sma50": 1525.25201171875,
+  "tag": "YDX",
+  "sym": "YDX.DE",
+  "name": "Nebius Group NV",
+  "price": 185.44000244140625,
+  "dayHigh": 187.02000427246094,
+  "dayLow": 178.82000732421875,
+  "vwap": 183.3010087565306,
+  "rsi": 58.674644765328665,
+  "atrPct": 8.011344834325199,
+  "support": 176.64666748046875,
+  "resistance": 245.89999389648438,
+  "rvol": 1.3097237269772481,
+  "sma20": 191.4790008544922,
+  "sma50": 185.38840026855468,
   "earnings": false,
-  "sector": "puslaidininkiai",
-  "day_chg": 3.4143582093827423,
-  "avgVolume": 486255.35,
+  "sector": "programinė įranga",
+  "day_chg": 3.412890289549381,
+  "avgVolume": 11115.1,
   "cur": "EUR",
   "cur_sym": "€",
-  "gap": 1.1127466284633187,
-  "vol5m": 0.14207635569494398,
-  "res_intra": 1482.800048828125,
-  "sup_intra": 1419.4000244140625,
+  "gap": 3.0953898934718733,
+  "vol5m": 0.09636614035635212,
+  "res_intra": 187.02000427246094,
+  "sup_intra": 178.82000732421875,
   "res_list": [
-   1482.800048828125,
-   1632.0,
-   1632.0
+   187.02000427246094,
+   245.89999389648438,
+   245.89999389648438
   ],
-  "m1h": -0.3411160972323398,
-  "m3h": 2.4885306200652466,
-  "pos1h": 30.76935115340073,
+  "m1h": -0.21668830211296558,
+  "m3h": 1.4708880174971706,
+  "pos1h": 56.35366568173292,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 1.968667732942966,
+  "exp_move": 1.3352884098121236,
   "down_days": 0,
-  "dd5": 0.8754208754208754,
-  "chg3d": 2.549810154899349,
-  "asOf": "2026-09-04 16:45:00+02:00",
-  "score": 23.325217151758718,
+  "dd5": 0.8448303897763015,
+  "chg3d": 7.153591273235135,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 24.136375315954737,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1704,47 +1615,142 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.7% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.9% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
-    "Per 16.0 val. tikėtinas judesys ~2.0%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.0% arba ilgesnis laikymas"
+    "Per 16.0 val. tikėtinas judesys ~1.3%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~1.3% arba ilgesnis laikymas"
    ],
    [
     "info",
-    "Iki uždarymo liko ~2.5 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Tipinis nakties šuolis 1.1% — telpa į stop atstumą (3.9%)"
+    "Tipinis nakties šuolis 3.1% — telpa į stop atstumą (4.4%)"
    ],
    [
     "warn",
-    "Vienas nesėkmingas sandoris kainuotų 3.8% portfelio — tiek pat, kiek duotų 2 sėkmingi"
+    "Vienas nesėkmingas sandoris kainuotų 4.4% portfelio — tiek pat, kiek duotų 2 sėkmingi"
    ],
    [
     "warn",
-    "Rizika/nauda 0.78 — rizikuoji daugiau nei sieki"
+    "Rizika/nauda 0.68 — rizikuoji daugiau nei sieki"
    ],
    [
     "stop",
     "Šiandien jau pakilusi +3.4% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
    ]
   ],
-  "dip": 0.7283550359106348,
-  "rng": 82.96522922831954,
-  "room": 0.7336989693019701,
-  "sup_d": 3.5733679066533632,
-  "vw_d": 1.086564330612686,
+  "dip": 0.8448303897763015,
+  "rng": 80.73167781613152,
+  "room": 0.8520285862021184,
+  "sup_d": 3.569885154245093,
+  "vw_d": 1.1669295763215217,
+  "stop": 177.2690715104071,
+  "tp": 191.00320251464845,
+  "rr": 0.6808526617372738,
+  "shares": 97,
+  "sector_chg": -0.6027638580393221,
+  "pos_value": 17987.680236816406,
+  "gross": 539.6304071044922,
+  "net": 535.6304071044922,
+  "real_risk": 792.5803003069187,
+  "move_ratio": 0.4450961366040412
+ },
+ {
+  "tag": "ASML",
+  "sym": "ASML.AS",
+  "name": "ASML Holding NV",
+  "price": 1470.4000244140625,
+  "dayHigh": 1482.800048828125,
+  "dayLow": 1419.4000244140625,
+  "vwap": 1456.9113636320892,
+  "rsi": 55.860351527690696,
+  "atrPct": 3.559091988710197,
+  "support": 1423.2000325520833,
+  "resistance": 1632.0,
+  "rvol": 1.0090339033253144,
+  "sma20": 1510.0900146484375,
+  "sma50": 1525.2200122070312,
+  "earnings": false,
+  "sector": "puslaidininkiai",
+  "day_chg": 3.3019530134789323,
+  "avgVolume": 486980.3,
+  "cur": "EUR",
+  "cur_sym": "€",
+  "gap": 1.1127466284633187,
+  "vol5m": 0.15042133505067118,
+  "res_intra": 1482.800048828125,
+  "sup_intra": 1419.4000244140625,
+  "res_list": [
+   1482.800048828125,
+   1632.0,
+   1632.0
+  ],
+  "m1h": -0.7174086672357264,
+  "m3h": 2.495015574957949,
+  "pos1h": 13.433175735381194,
+  "span_h": 3.0,
+  "mom_partial": false,
+  "exp_move": 2.0842991588008295,
+  "down_days": 0,
+  "dd5": 0.9831633391203705,
+  "chg3d": 2.4383446708026337,
+  "asOf": "2026-09-04 17:05:00+02:00",
+  "score": 22.40689147483637,
+  "grade": "D",
+  "tradeable": false,
+  "blocking": [
+   "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka",
+   "Šiandien jau pakilusi +3.3% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+  ],
+  "setup": "jau pakilusi",
+  "recovering": false,
+  "flags": [
+   [
+    "stop",
+    "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis sandoris 0,45% — atrankos pranašumo tam nepakanka"
+   ],
+   [
+    "warn",
+    "Kelyje kliūtis (0.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+   ],
+   [
+    "warn",
+    "Per 16.0 val. tikėtinas judesys ~2.1%, o tikslas 3.0% — realistiškesnis tikslas šiai akcijai būtų ~2.1% arba ilgesnis laikymas"
+   ],
+   [
+    "info",
+    "Iki uždarymo liko ~2.2 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+   ],
+   [
+    "info",
+    "Tipinis nakties šuolis 1.1% — telpa į stop atstumą (3.8%)"
+   ],
+   [
+    "warn",
+    "Vienas nesėkmingas sandoris kainuotų 3.7% portfelio — tiek pat, kiek duotų 2 sėkmingi"
+   ],
+   [
+    "warn",
+    "Rizika/nauda 0.80 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "stop",
+    "Šiandien jau pakilusi +3.3% ir prekiauja prie pat dienos viršūnės — nuolaidos nebėra, tai pirkimas po judesio"
+   ]
+  ],
+  "dip": 0.8362573513443293,
+  "rng": 80.441609402106,
+  "room": 0.8433095897834855,
+  "sup_d": 3.4684439032380263,
+  "vw_d": 0.925839492963112,
   "stop": 1415.1418243408202,
-  "tp": 1516.16,
-  "rr": 0.7766693089962065,
+  "tp": 1514.5120251464843,
+  "rr": 0.7982887729595491,
   "shares": 12,
-  "sector_chg": 2.9999507517279893,
-  "pos_value": 17664.0,
-  "gross": 529.92,
-  "net": 525.92,
-  "real_risk": 682.2981079101573,
-  "move_ratio": 0.6562225776476553
+  "sector_chg": 2.9689341914795815,
+  "pos_value": 17644.80029296875,
+  "gross": 529.3440087890625,
+  "net": 525.3440087890625,
+  "real_risk": 663.0984008789073,
+  "move_ratio": 0.6947663862669432
  }
 ]
