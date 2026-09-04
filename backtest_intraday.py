@@ -31,12 +31,13 @@ import pandas as pd
 
 import dip_reitingas as dr
 
-CHECKPOINTS = [18, 30, 42, 54, 66]      # 5 min. barai: ~10:30, 11:30, 12:30, 13:30, 14:30
+CHECKPOINTS_5M = [18, 30, 42, 54, 66]   # ~10:30, 11:30, 12:30, 13:30, 14:30
+CHECKPOINTS_60M = [1, 3, 5]             # valandiniai barai: ~10:00, 12:00, 14:00
 
 
-def session_frames(intra):
-    """Suskaido 5 min. duomenis i sesijas pagal data."""
-    return [(d, g) for d, g in intra.groupby(intra.index.date) if len(g) >= 40]
+def session_frames(intra, min_bars):
+    """Suskaido duomenis i sesijas pagal data."""
+    return [(d, g) for d, g in intra.groupby(intra.index.date) if len(g) >= min_bars]
 
 
 def rvol_at(sessions, day_idx, k):
@@ -54,7 +55,7 @@ def rvol_at(sessions, day_idx, k):
     return cur / base if base > 0 else None
 
 
-def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target):
+def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12):
     """Atkuria tiksliai ta vaizda, kuri modulis matytu ta minute."""
     day, today = sessions[day_idx]
     bars = today.iloc[:k + 1]
@@ -76,7 +77,7 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target):
     a = dr.atr_pct(daily_hist)
     sup, res = dr.levels(daily_hist, price)
     ctx = dr.multiday_context(daily_hist, price)
-    mom = dr.short_momentum(bars)
+    mom = dr.short_momentum(bars, bph=bph)
     v5 = dr.intraday_vol(bars)
 
     prev_close = float(daily_hist["Close"].iloc[-1])
@@ -97,7 +98,7 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target):
         down_days=ctx["down_days"], dd5=ctx["dd5"], chg3d=ctx["chg3d"],
         avgVolume=float(daily_hist["Volume"].tail(20).mean()),
         cur="EUR", cur_sym="\u20ac", vol5m=v5,
-        exp_move=dr.expected_move(v5, dr.HOLD_HOURS),
+        exp_move=dr.expected_move(v5, dr.HOLD_HOURS, bph=bph),
         m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
         span_h=mom["span_h"], mom_partial=mom["partial"])
 
@@ -129,6 +130,8 @@ def main():
     ap = argparse.ArgumentParser(description="Intraday backtestas")
     ap.add_argument("--target", type=float, default=dr.TARGET_PCT)
     ap.add_argument("--days", type=int, default=60)
+    ap.add_argument("--interval", default="5m", choices=["5m", "60m"],
+                    help="5m = tikslus, bet tik 60 d.; 60m = mazesnis tikslumas, bet iki 2 metu")
     ap.add_argument("--sweep", action="store_true",
                     help="Isbandyti skirtingus stop ir tikslo derinius, ir parodyti, kuris geriausias")
     args = ap.parse_args()
@@ -139,11 +142,19 @@ def main():
         sys.exit("Paleisk: pip install yfinance pandas numpy tzdata")
 
     symbols = [s for _, s, _ in dr.WATCHLIST]
-    print(f"Siunciama {len(symbols)} akciju 5 min. istorija ({args.days} d.)…")
-    intraday = yf.download(symbols, period=f"{args.days}d", interval="5m",
+    if args.interval == "60m":
+        bph, checkpoints, min_bars = 1, CHECKPOINTS_60M, 5
+        days = min(args.days, 720) if args.days > 60 else 720
+    else:
+        bph, checkpoints, min_bars = 12, CHECKPOINTS_5M, 40
+        days = min(args.days, 60)
+
+    print(f"Siunciama {len(symbols)} akciju {args.interval} istorija ({days} d.)…")
+    intraday = yf.download(symbols, period=f"{days}d", interval=args.interval,
                            group_by="ticker", progress=False, auto_adjust=False, threads=True)
-    daily = yf.download(symbols, period="12mo", interval="1d",
-                        group_by="ticker", progress=False, auto_adjust=False, threads=True)
+    daily = yf.download(symbols, period="max" if args.interval == "60m" else "12mo",
+                        interval="1d", group_by="ticker", progress=False,
+                        auto_adjust=False, threads=True)
 
     rows = []
     for tag, sym, _ in dr.WATCHLIST:
@@ -152,7 +163,7 @@ def main():
             dhist = dr.flatten(daily, sym).dropna(subset=["Close", "High", "Low"])
             if intra.empty or len(dhist) < 60:
                 continue
-            sessions = session_frames(intra)
+            sessions = session_frames(intra, min_bars)
             rsi_series = dr.rsi(intra["Close"])
 
             for di, (day, _) in enumerate(sessions):
@@ -162,10 +173,10 @@ def main():
                 if len(hist) < 55:
                     continue
 
-                for k in CHECKPOINTS:
-                    if k + 6 >= len(sessions[di][1]):
+                for k in checkpoints:
+                    if k + max(2, bph // 2) >= len(sessions[di][1]):
                         continue
-                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target)
+                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target, bph)
                     if not d:
                         continue
                     s = dr.score_stock(d, args.target, "neutral")
@@ -193,14 +204,19 @@ def main():
     labels = ["<40", "40-50", "50-60", "60-70", "70-80", "80+"]
     df["bucket"] = pd.cut(df["score"], bins=bins, labels=labels, right=False)
 
-    print(f"{'BALAS':<8} {'ATVEJU':>7} {'TIKSLAS':>9} {'STOP':>8} {'VIDUT. REZ.':>12}")
+    base = df["pnl"].mean()
+    print(f"BAZINE LINIJA (atsitiktinis ijejimas, visi {len(df)} taskai): {base:+.3f}% sandoriui")
+    print("Bet kuris intervalas turi jа iveikti, kad atranka turetu verte.\n")
+
+    print(f"{'BALAS':<8} {'ATVEJU':>7} {'TIKSLAS':>9} {'STOP':>8} {'VIDUT. REZ.':>12} {'PRIES BAZE':>11}")
     print("-" * 50)
     for lab in labels:
         g = df[df["bucket"] == lab]
         if len(g) < 10:
             continue
         print(f"{lab:<8} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
-              f"{(g['result']=='stop').mean()*100:>7.1f}% {g['pnl'].mean():>11.2f}%")
+              f"{(g['result']=='stop').mean()*100:>7.1f}% {g['pnl'].mean():>11.2f}% "
+              f"{g['pnl'].mean()-base:>+10.2f}%")
 
     # --- Ar tinkamumo zyma ka nors reiskia ---
     print(f"\n{'TINKAMUMAS':<14} {'ATVEJU':>7} {'TIKSLAS':>9} {'VIDUT. REZ.':>12}")
