@@ -2,7 +2,7 @@ data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busen
 2026-09-04,15:06,PRX.AS,PRX,64.0,C,atsigavimas,taip,37.44,36.79,38.56,atviras,,,
 2026-09-04,15:06,AMD.DE,AMD,60.4,C,atsigavimas,taip,399.00,392.45,410.97,atviras,,,
 2026-09-04,15:06,ADYEN.AS,ADYEN,57.2,C,kritimas,taip,1042.00,1030.17,1073.26,atviras,,,
-2026-09-04,15:20,PTX.DE,PTX,71.2,B,kritimas,taip,155.04,152.66,159.69,atviras,,,
+2026-09-04,15:20,PTX.DE,PTX,71.2,B,kritimas,taip,155.04,152.66,159.69,baigta,stop,2026-09-04 15:40:00+02:00,152.66
 2026-09-04,15:20,KER.PA,KER,63.8,C,kritimas,taip,245.05,242.27,252.40,atviras,,,
 2026-09-04,15:20,RHM.DE,RHM,56.2,C,kritimas,taip,1045.60,1031.12,1076.97,atviras,,,
 2026-09-04,15:23,CAP.PA,CAP,75.9,B,kritimas,ne,108.00,106.73,111.24,atviras,,,
