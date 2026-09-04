@@ -815,6 +815,64 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 asOf=str(intra.index[-1]))
 
 
+
+# ----------------------------- SAVIKONTROLE -----------------------------
+
+def sanity_check(rows, market):
+    """Ieskо poziymiu, kad modulis pats veikia netinkamai.
+
+    Sitos patikros atsirado is realiu klaidu: ATR virsdavo 'nan' ir kriterijus
+    tyliai isjungdavo; rinkos filtras uzblokuodavo visas 19 akciju; vienas
+    kriterijus visiems duodavo 95 balus. Kiekviena tokia klaida atrodo kaip
+    normalus rezultatas, jei nezinai, ko ieskoti.
+    """
+    warn = []
+    n = len(rows)
+    if not n:
+        return warn
+
+    scored = [(d, s) for d, s in rows if not s.get("empty")]
+    if not scored:
+        return ["Nė viena akcija neturi duomenų — tikėtina duomenų šaltinio problema"]
+
+    grades = [s["grade"] for _, s in scored]
+    if len(set(grades)) == 1 and len(scored) > 5:
+        warn.append(f"Visos {len(scored)} akcijos gavo tą pačią pakopą ({grades[0]}) — "
+                    f"greičiausiai suveikė bendras filtras, o ne akcijų savybės")
+
+    blocked = [s for _, s in scored if s.get("blocking")]
+    if len(blocked) == len(scored) and len(scored) > 5:
+        reasons = {}
+        for s in blocked:
+            key = s["blocking"][0][:40]
+            reasons[key] = reasons.get(key, 0) + 1
+        top = max(reasons.items(), key=lambda x: x[1])
+        warn.append(f"Visos akcijos užblokuotos, {top[1]} iš jų ta pačia priežastimi: "
+                    f"„{top[0]}…“ — patikrink, ar filtras nėra per griežtas")
+
+    # Kriterijus laikomas sugedusiu tik tada, kai reiksmes yra TIKSLIAI vienodos.
+    # Ankstesne, svelnesne riba duodavo klaidingu ispejimu, o tokia savikontrole
+    # yra blogesne uz jokia — ja imama ignoruoti.
+    broken = []
+    for key, label, _ in CRITERIA:
+        vals = [s["parts"].get(key) for _, s in scored if s.get("parts")]
+        vals = [v for v in vals if v is not None]
+        if len(vals) > 5 and max(vals) - min(vals) < 0.01:
+            if abs(vals[0] - 50.0) < 0.01:
+                broken.append(f"„{label}“ = 50 visoms (trūksta duomenų)")
+            else:
+                broken.append(f"„{label}“ = {vals[0]:.0f} visoms")
+    if broken:
+        warn.append("Šie kriterijai visoms akcijoms grąžina tą pačią reikšmę, todėl "
+                    "nieko neskiria: " + "; ".join(broken[:4]))
+
+    prices = [d["price"] for d, _ in scored if d.get("price")]
+    if prices and (min(prices) <= 0 or max(prices) / max(min(prices), 0.01) > 5000):
+        warn.append("Kainų reikšmės neįtikėtinos — galimai sumaišyti duomenys")
+
+    return warn
+
+
 # ----------------------------- ATASKAITA -----------------------------
 
 
@@ -941,11 +999,20 @@ def explain(d, s, target, rows):
     return body
 
 
-def write_html(rows, market, path, refresh_seconds=None, sector_state=None, stats=None):
+def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
+               stats=None, problems=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "bear_soft": "kryptis žemyn, šiandien kyla",
                  "neutral": "šoninė"}.get(market, "šoninė")
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
     now_lt = datetime.now(_DTZ) if _DTZ else datetime.now()
+
+    problems_html = ""
+    if problems:
+        items = "".join(f"<li>{w}</li>" for w in problems)
+        problems_html = (f"<div class='selfcheck'><b>Modulio savikontrolė įspėja</b>"
+                         f"<ul>{items}</ul>"
+                         f"<i>Tai gali reikšti modulio, o ne rinkos problemą — "
+                         f"prieš remiantis šiuo sąrašu, pasitikrink grafike.</i></div>")
 
     stats_html = ""
     if stats:
@@ -1032,6 +1099,10 @@ h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 .meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
 .overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
+.selfcheck{{background:#FBEBEA;border-left:4px solid var(--stop);color:#7A2320;
+padding:12px 14px;border-radius:6px;margin-bottom:18px;font-size:13px;line-height:1.5}}
+.selfcheck ul{{margin:8px 0;padding-left:18px}}
+.selfcheck i{{font-size:11.5px;opacity:.85}}
 .stats{{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px;margin-bottom:20px}}
 .sh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px}}
 .srow{{display:flex;align-items:center;gap:9px;margin-bottom:5px}}
@@ -1080,6 +1151,7 @@ font-variant-numeric:tabular-nums}}
 <h1>Intraday modelis</h1>
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
+{problems_html}
 <div class="overview">{overview}</div>
 {stats_html}
 {''.join(cards)}
@@ -1291,9 +1363,16 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
                 print(f"  {g}: {b['n']:>3} sandorių, tikslą pasiekė "
                       f"{b['tikslas']/b['n']*100:>5.1f}%")
 
+    problems = sanity_check(rows, market)
+    if problems:
+        print("\n!!! SAVIKONTROLE RADO GALIMU PROBLEMU:")
+        for w in problems:
+            print(f"  - {w}")
+        print()
+
     html_path = os.path.join(out_dir, "index.html")
     write_html(rows, market, html_path, refresh_seconds=refresh_seconds,
-               sector_state=sector_state, stats=stats)
+               sector_state=sector_state, stats=stats, problems=problems)
 
     with open(os.path.join(out_dir, "dip_reitingas.json"), "w", encoding="utf-8") as f:
         json.dump([{**d, **{k: v for k, v in s.items() if k != "parts"}}
@@ -1321,6 +1400,13 @@ def main():
 
     out_dir = args.out or tempfile.gettempdir()
     os.makedirs(out_dir, exist_ok=True)
+    problems = sanity_check(rows, market)
+    if problems:
+        print("\n!!! SAVIKONTROLE RADO GALIMU PROBLEMU:")
+        for w in problems:
+            print(f"  - {w}")
+        print()
+
     html_path = os.path.join(out_dir, "index.html")
     open_browser = OPEN_BROWSER and not args.no_browser
 
