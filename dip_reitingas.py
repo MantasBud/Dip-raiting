@@ -40,7 +40,7 @@ except Exception:
 
 # ----------------------------- NUSTATYMAI -----------------------------
 
-TARGET_PCT = 2.0        # tikslinis pelnas procentais
+TARGET_PCT = 3.0        # tikslinis pelnas procentais
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas)
@@ -468,10 +468,6 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                               f"{d['cur']}, neperskaičiuoti į {ACCOUNT_CURRENCY}"))
     if shares > 0:
         risk_pct_real = real_risk / ACCOUNT * 100 if ACCOUNT else 0
-        stop_dist = (price - stop) / price * 100
-        flags.append(("info", f"Pozicija {pos_value:,.0f} EUR ({pos_value/ACCOUNT*100:.0f}% portfelio). "
-                              f"Stop {stop_dist:.1f}% žemiau → nuostolis {real_risk:.0f} EUR "
-                              f"({risk_pct_real:.1f}% portfelio), pelnas neto ~{net:.0f} EUR"))
         if risk_pct_real > 2.5:
             flags.append(("warn", f"Vienas nesėkmingas sandoris kainuotų {risk_pct_real:.1f}% portfelio "
                                   f"— tiek pat, kiek duotų {risk_pct_real/2:.0f} sėkmingi"))
@@ -789,17 +785,17 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
             <span class="sc">{s['score']:.0f}</span>
             <span class="gr g{s['grade']}">{s['grade']}</span></summary>
           <div class="in">
-            <div class="nm">{d['name']} · {d['sym']} · kainos {cur}</div>
+            <div class="nm">{d['name']} · {d['sym']}</div>
             <div class="verdict {'ok' if s.get('tradeable') else 'no'}">{
               'Atitinka visas sąlygas' if s.get('tradeable')
               else 'NETINKAMA: ' + (s['blocking'][0] if s.get('blocking')
                    else f"rizika/nauda {s['rr']:.2f} per maža")}</div>
             {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
             <div class="tags">
-              <span>kaina {cs}{d['price']:.2f} {cur}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
+              <span>kaina {cs}{d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>valiuta {cur}</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span>
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
@@ -821,7 +817,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None):
 :root{{--ink:#16233A;--ink2:#54637E;--line:#C9D2E0;--bg:#E9EDF3;--card:#FDFDFB;--up:#1F7A5C;--warn:#B26B00;--stop:#A8322D}}
 *{{box-sizing:border-box}}body{{margin:0;padding:22px 16px 50px;background:var(--bg);color:var(--ink);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:760px;margin:0 auto}}
-h1{{font-family:Georgia,serif;font-size:27px;margin:0 0 6px;font-weight:600}}
+h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 .meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
 .overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
@@ -829,10 +825,10 @@ border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
 .rk{{font-size:11px;color:var(--ink2);width:16px}}
-.tk{{font-weight:600;font-size:15px;min-width:56px;font-family:ui-monospace,Menlo,monospace}}
+.tk{{font-weight:600;font-size:15px;min-width:56px;font-variant-numeric:tabular-nums}}
 .bar{{flex:1;height:5px;background:#DFE5EE;border-radius:3px;overflow:hidden}}
 .bar i{{display:block;height:100%;background:var(--ink)}}
-.sc{{font-family:ui-monospace,Menlo,monospace;font-size:13px;width:26px;text-align:right}}
+.sc{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
 .gr{{width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:12px;
 display:flex;align-items:center;justify-content:center}}
 .gA{{background:var(--up)}}.gB{{background:#3F7FA8}}.gC{{background:var(--warn)}}.gD{{background:var(--stop)}}
@@ -845,24 +841,24 @@ display:flex;align-items:center;justify-content:center}}
 padding:9px 11px;border-radius:5px;margin:0 0 12px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}}
 .tags span{{font-size:11px;background:var(--bg);padding:4px 7px;border-radius:4px;color:var(--ink2);
-font-family:ui-monospace,Menlo,monospace}}
+font-variant-numeric:tabular-nums}}
 .plan{{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;background:var(--ink);color:#F4F7FB;
 padding:12px;border-radius:7px;margin-bottom:14px}}
 .plan div{{display:flex;flex-direction:column;gap:2px}}
 .plan span{{font-size:10px;opacity:.65}}
-.plan b{{font-size:14px;font-family:ui-monospace,Menlo,monospace}}
+.plan b{{font-size:14px;font-variant-numeric:tabular-nums}}
 .br{{display:flex;align-items:center;gap:8px;margin-bottom:5px}}
 .br span{{font-size:12px;color:var(--ink2);width:150px}}
 .br i{{flex:1;height:4px;background:#E4E9F1;border-radius:2px;overflow:hidden}}
 .br b{{display:block;height:100%;background:var(--up)}}
 .br u{{font-size:11px;color:var(--ink2);width:22px;text-align:right;text-decoration:none;
-font-family:ui-monospace,Menlo,monospace}}
+font-variant-numeric:tabular-nums}}
 .fl{{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:6px}}
 .fl li{{font-size:12.5px;padding:7px 9px;border-radius:5px;border-left:3px solid}}
 .fl .warn{{background:#FBF3E4;border-color:var(--warn);color:#6E4400}}
 .fl .stop{{background:#FBEBEA;border-color:var(--stop);color:#7A2320}}
 </style>
-<h1>Kurią pirkti dabar</h1>
+<h1>Intraday modelis</h1>
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 <div class="overview">{overview}</div>
