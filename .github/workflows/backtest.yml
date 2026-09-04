@@ -16,9 +16,9 @@ jobs:
       - name: Idiegti bibliotekas
         run: pip install yfinance pandas numpy tzdata
 
-      - name: Intraday backtestas + parametru paieska
-        run: python backtest_intraday.py --target 3 --sweep
+      - name: Ilgas testas (2 metai, valandiniai barai)
+        run: python backtest_intraday.py --interval 60m --target 3 --sweep
 
-      - name: Dienos backtestas (ilgesne istorija, apytiksliai)
+      - name: Tikslus testas (60 d., 5 min. barai)
         if: always()
-        run: python backtest.py --months 12 --target 3
+        run: python backtest_intraday.py --interval 5m --target 3
