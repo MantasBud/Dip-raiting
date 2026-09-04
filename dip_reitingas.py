@@ -506,8 +506,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         mult *= 0.35
         flags.append(("stop", "Ataskaita per 2 dienas — kaina šoks bet kuria kryptimi"))
     if market == "bear":
-        mult *= 0.85
-        flags.append(("warn", "Rinka krenta — pirkimas prieš srovę"))
+        mult *= 0.75
+        flags.append(("stop", "Rinka krenta. Per 2 metus tokiomis dienomis net geriausiai "
+                              "įvertinti įėjimai vidutiniškai prarado 0,35%, o vidutinis "
+                              "sandoris 0,45% — atrankos pranašumo tam nepakanka"))
     elif market == "bull":
         mult *= 1.05
     if room_far is not None and room_far < target:
@@ -603,9 +605,26 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", "Antra kritimo diena iš eilės — palauk stabilizacijos ženklo"))
     if dd5 is not None and dd5 > 7:
         flags.append(("warn", f"Nuo 5 d. maksimumo nukritusi {dd5:.1f}% — kritimas prasidėjo ne šiandien"))
-    if sector_chg is not None and sector_chg < -1.5:
-        mult *= 0.9
-        flags.append(("warn", f"Visas sektorius krenta ({sector_chg:+.1f}%) — tai ne šios akcijos problema"))
+    # --- Triukšmas ar trendinis kritimas? Lyginam akciją su jos sektoriumi ---
+    day_chg_v = d.get("day_chg")
+    if sector_chg is not None and day_chg_v is not None:
+        rel = day_chg_v - sector_chg          # kiek akcija atsilieka nuo saviškių
+        if sector_chg < -1.2 and rel > -0.6:
+            mult *= 0.85
+            flags.append(("warn", f"Krenta visas sektorius ({sector_chg:+.1f}%), o akcija "
+                                  f"juda kartu ({day_chg_v:+.1f}%) — tai trendinis judesys, "
+                                  f"ne šios akcijos triukšmas"))
+        elif rel < -2.5:
+            mult *= 0.8
+            flags.append(("warn", f"Akcija krinta {abs(rel):.1f} p. p. labiau nei sektorius — "
+                                  f"toks atsilikimas dažniau reiškia naujieną, ne triukšmą"))
+        elif -1.8 <= rel <= -0.3 and sector_chg > -1.0:
+            flags.append(("info", f"Izoliuotas atsitraukimas: akcija {day_chg_v:+.1f}%, "
+                                  f"sektorius {sector_chg:+.1f}% — būtent toks triukšmas, "
+                                  f"kurio ieškai"))
+    elif sector_chg is not None and sector_chg < -1.5:
+        mult *= 0.85
+        flags.append(("warn", f"Visas sektorius krenta ({sector_chg:+.1f}%)"))
     if rv is not None and rv < 0.7:
         flags.append(("warn", "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"))
     if knife:
@@ -656,17 +675,29 @@ def flatten(df, symbol):
 
 
 def market_bias(yf):
+    """Rinkos rezimas is 5 dienu krypties ir padeties pries 20 d. vidurki.
+
+    Backtestas (2 metai, 38 tukst. ijejimo tasku) parode, kad rezimas lemia
+    rezultata ~10 kartu labiau nei akcijos atranka: krentancioje rinkoje
+    vidutinis sandoris -0.45%, kylancioje +0.61%. Todel matuojame ji rimtai,
+    o ne pagal vienos dienos pokyti.
+    """
     try:
         idx = yf.download(MARKET_INDEX, period="3mo", interval="1d",
                           progress=False, auto_adjust=False)
-        idx = flatten(idx, MARKET_INDEX)
+        idx = flatten(idx, MARKET_INDEX).dropna(subset=["Close"])
         c = idx["Close"]
-        chg = (c.iloc[-1] / c.iloc[-2] - 1) * 100
-        sma20 = c.tail(20).mean()
-        if chg > 0.3 and c.iloc[-1] > sma20:
-            return "bull"
-        if chg < -0.3 and c.iloc[-1] < sma20:
+        if len(c) < 25:
+            return "neutral"
+        last = float(c.iloc[-1])
+        chg5 = (last / float(c.iloc[-6]) - 1) * 100
+        sma20 = float(c.tail(20).mean())
+        above = last > sma20
+
+        if chg5 < -1.0 or (not above and chg5 < 0):
             return "bear"
+        if chg5 > 1.0 and above:
+            return "bull"
         return "neutral"
     except Exception:
         return "neutral"
