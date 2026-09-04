@@ -11,3 +11,6 @@ data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busen
 2026-09-04,15:32,YDX.DE,YDX,45.6,D,kritimas,ne,183.62,175.56,189.13,atviras,,,
 2026-09-04,15:32,ENR.DE,ENR,45.0,D,jau pakilusi,ne,147.86,144.59,152.30,atviras,,,
 2026-09-04,15:32,LR.PA,LR,45.0,D,jau pakilusi,ne,141.15,138.58,145.38,atviras,,,
+2026-09-04,15:45,IFX.DE,IFX,67.0,B,kritimas,taip,56.96,55.29,58.67,atviras,,,
+2026-09-04,15:45,NVD.DE,NVD,45.0,D,kritimas,ne,199.58,196.50,205.57,atviras,,,
+2026-09-04,15:45,SAP.DE,SAP,45.0,D,kritimas,ne,187.96,184.83,193.60,atviras,,,
