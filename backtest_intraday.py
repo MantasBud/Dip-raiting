@@ -188,6 +188,7 @@ def main():
                                      tradeable=bool(s.get("tradeable")),
                                      setup=s.get("setup"), result=res, pnl=pnl,
                                      **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
+                                     _day=sessions[di][0],
                                      _sym=sym, _di=di, _k=k, _price=d["price"],
                                      _atr=d.get("atrPct") or 3.0, _sessions=sessions))
         except Exception as e:
@@ -258,6 +259,46 @@ def main():
         _, lab, diff, _, _ = signals[0]
         print(f"\nStipriausias atskiras signalas: {lab} ({diff:+.3f} p. p.)")
         print("Kad butu vertas demesio, tas pats turi kartotis IR kitame laikotarpyje.")
+
+    # --- V2 hipoteze: balas, sudarytas TIK is to, kas kartojosi abiejuose imtyse ---
+    # Zenklai paimti is kriteriju analizes: teigiamas tik "vienadienis ar testinis",
+    # visi kiti veikia atvirksciai, todel apverciami. RSI ir trendas ismesti (triuksmas).
+    def score_v2(r):
+        def inv(key):
+            v = r.get(f"c_{key}")
+            return None if v is None else 100 - v
+        parts = [(r.get("c_multiday"), 35), (inv("dip"), 15), (inv("rvol"), 15),
+                 (inv("vwap"), 12), (inv("support"), 12), (inv("atr"), 11)]
+        vals = [(v, w) for v, w in parts if v is not None]
+        if not vals:
+            return None
+        tot = sum(w for _, w in vals)
+        return sum(v * w for v, w in vals) / tot
+
+    df["score2"] = df.apply(score_v2, axis=1)
+
+    if df["score2"].notna().sum() > 500 and "_day" in df:
+        df["_day"] = pd.to_datetime(df["_day"])
+        mid = df["_day"].median()
+        halves = [("1-oji puse", df[df["_day"] <= mid]), ("2-oji puse", df[df["_day"] > mid])]
+
+        print("\n" + "=" * 68)
+        print("V2 HIPOTEZE: balas tik is to, kas kartojosi. Tikrinama per dvi laiko puses,")
+        print("kad matytusi, ar veikia UZ tos imties, pagal kuria sudarytas.")
+        print("=" * 68)
+        print(f"{'LAIKOTARPIS':<14} {'BAZE':>8} {'DABARTINIS 75+':>16} {'V2 75+':>10} {'V2 PRIES BAZE':>15}")
+        print("-" * 68)
+        for name, g in halves:
+            if len(g) < 200:
+                continue
+            b = g["pnl"].mean()
+            cur = g[g["score"] > 75]["pnl"]
+            v2 = g[g["score2"] > 75]["pnl"]
+            cur_s = f"{cur.mean():+.3f}%" if len(cur) >= 50 else "per maza"
+            v2_s = f"{v2.mean():+.3f}%" if len(v2) >= 50 else "per maza"
+            diff = f"{v2.mean() - b:+.3f}%" if len(v2) >= 50 else "-"
+            print(f"{name:<14} {b:>+7.3f}% {cur_s:>16} {v2_s:>10} {diff:>15}")
+        print("\nKad V2 butu vertas, jis turi iveikti baze ABIEJOSE pusese.")
 
     # --- Parametru paieska: koks stop ir koks tikslas realiai veikia ---
     if args.sweep:
