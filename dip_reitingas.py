@@ -250,7 +250,7 @@ def new_intl_now():
         return None
 
 
-def short_momentum(today_bars):
+def short_momentum(today_bars, bph=12):
     """Kryptis per 1 ir 3 valandas: ar kaina dar krinta, ar jau atsispyre.
 
     Valandos, o ne minutes, nes 15 min. atkarpoje matosi tik triuksmas.
@@ -274,12 +274,12 @@ def short_momentum(today_bars):
         slope = float(np.polyfit(x, seg, 1)[0])       # kainos pokytis per bara
         base = float(seg.mean())
         total = slope * (n - 1) / base * 100 if base else 0.0
-        return (total, (n - 1) * 5 / 60)
+        return (total, (n - 1) / bph)
 
-    m1h, span1 = trend(12)        # 12 x 5 min = 1 val.
-    m3h, span3 = trend(36)        # 36 x 5 min = 3 val.
+    m1h, span1 = trend(bph)          # 1 val.
+    m3h, span3 = trend(bph * 3)      # 3 val.
 
-    win = today_bars.tail(13)
+    win = today_bars.tail(bph + 1)
     lo, hi = float(win["Low"].min()), float(win["High"].max())
     pos1h = (last - lo) / (hi - lo) * 100 if hi > lo else None
 
@@ -295,12 +295,14 @@ def intraday_vol(today_bars):
     return v if math.isfinite(v) and v > 0 else None
 
 
-def expected_move(vol_5m, hours):
-    """Tikėtinas kainos judesys per N valandų. Svyravimas auga ~sqrt(laiko)."""
-    if not vol_5m:
+def expected_move(vol_bar, hours, bph=12):
+    """Tikėtinas kainos judesys per N valandų. Svyravimas auga ~sqrt(laiko).
+
+    bph = kiek baru telpa i valanda (12 penkiaminuciu, 1 valandinis)."""
+    if not vol_bar:
         return None
-    bars = max(1.0, hours * 12)          # 12 penkiaminučių valandoje
-    return vol_5m * math.sqrt(bars)
+    bars = max(1.0, hours * bph)
+    return vol_bar * math.sqrt(bars)
 
 
 def overnight_gap(daily, n=60):
