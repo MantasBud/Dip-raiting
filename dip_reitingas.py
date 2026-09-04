@@ -149,6 +149,16 @@ SECTORS = {
 # ----------------------------- SKAIČIAVIMAI -----------------------------
 
 
+def num(v):
+    """Skaicius arba None. Apsaugo nuo tusciu reiksmiu skaiciavimuose."""
+    try:
+        if v is None or v != v:
+            return None
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
 def curve(x, pts):
     """Tiesinė interpoliacija tarp kontrolinių taškų. None -> neutralus 50."""
     if x is None or (isinstance(x, float) and not math.isfinite(x)):
@@ -342,8 +352,14 @@ def multiday_context(daily, price):
 
 def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None):
     """d — surinktų rodiklių žodynas. Grąžina balą, dedamąsias, planą, įspėjimus."""
-    price = d["price"]
-    high, low = d["dayHigh"], d["dayLow"]
+    price = num(d.get("price"))
+    if not price or price <= 0:
+        return dict(empty=True, score=0.0, grade="?", tradeable=False, blocking=[],
+                    parts={k: 0.0 for k, _, _ in CRITERIA}, flags=[],
+                    stop=0.0, tp=0.0, rr=0.0, shares=0, pos_value=0.0,
+                    gross=0.0, net=0.0, real_risk=0.0, setup="nėra duomenų")
+
+    high, low = d.get("dayHigh"), d.get("dayLow")
     # Atrama: dienos sandoriui stop dedamas po šios dienos dugnu
     support = d.get("sup_intra") or d.get("support") or low
 
@@ -645,6 +661,13 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
 
     # Jei yra bent viena fatališka yda (tikslas netelpa, ataskaita, pralaužta atrama,
     # neigiama naujiena) — sandoris netinkamas, kad ir kokie geri kiti rodikliai.
+    # Nepilni duomenys neturi atrodyti kaip vidutinis kandidatas
+    key_fields = ["dayHigh", "dayLow", "atrPct", "vwap", "rsi", "rvol", "sma20", "vol5m"]
+    missing = [k for k in key_fields if d.get(k) is None]
+    if len(missing) >= 3:
+        flags.append(("stop", f"Trūksta {len(missing)} iš {len(key_fields)} rodiklių "
+                              f"({', '.join(missing[:4])}) — balas nepatikimas"))
+
     blocking = [t for lvl, t in flags if lvl == "stop"]
     if blocking:
         score = min(score, 45.0)
