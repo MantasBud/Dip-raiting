@@ -1484,13 +1484,6 @@ def main():
 
     out_dir = args.out or tempfile.gettempdir()
     os.makedirs(out_dir, exist_ok=True)
-    problems = sanity_check(rows, market)
-    if problems:
-        print("\n!!! SAVIKONTROLE RADO GALIMU PROBLEMU:")
-        for w in problems:
-            print(f"  - {w}")
-        print()
-
     html_path = os.path.join(out_dir, "index.html")
     open_browser = OPEN_BROWSER and not args.no_browser
 
