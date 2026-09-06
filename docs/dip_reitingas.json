@@ -62,7 +62,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.4%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.3%)"
    ],
    [
     "info",
@@ -148,7 +148,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.3%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
    ],
    [
     "info",
@@ -212,7 +212,7 @@
    165.86000061035156
   ],
   "m1h": -0.4561398796419849,
-  "m3h": -0.6047140364481678,
+  "m3h": -0.6047140364481352,
   "pos1h": 15.942061034940291,
   "span_h": 3.0,
   "mom_partial": false,
@@ -238,7 +238,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.7%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.6%)"
    ],
    [
     "info",
@@ -324,7 +324,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -380,7 +380,7 @@
    42.44499969482422
   ],
   "m1h": 0.06370192476177063,
-  "m3h": -0.5267997881200531,
+  "m3h": -0.5267997881200099,
   "pos1h": 75.51109381082132,
   "span_h": 3.0,
   "mom_partial": false,
@@ -410,7 +410,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -496,7 +496,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.2%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.1%)"
    ],
    [
     "info",
@@ -582,7 +582,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.1%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.0%)"
    ],
    [
     "info",
@@ -642,7 +642,7 @@
    291.70001220703125
   ],
   "m1h": -0.13683464891972782,
-  "m3h": 0.6726185735787892,
+  "m3h": 0.6726185735788365,
   "pos1h": 50.0,
   "span_h": 3.0,
   "mom_partial": false,
@@ -672,7 +672,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -762,7 +762,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.3%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.2%)"
    ],
    [
     "info",
@@ -848,7 +848,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.2%)"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -940,7 +940,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -995,7 +995,7 @@
    202.0,
    202.0
   ],
-  "m1h": -0.9327833779832074,
+  "m1h": -0.9327833779832343,
   "m3h": 0.8339581177421874,
   "pos1h": 0.0,
   "span_h": 3.0,
@@ -1028,7 +1028,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1087,8 +1087,8 @@
    156.72000122070312,
    162.10000610351562
   ],
-  "m1h": -0.3213140183766727,
-  "m3h": -3.0566453127588984,
+  "m1h": -0.3213140183767609,
+  "m3h": -3.0566453127589046,
   "pos1h": 18.749403948246812,
   "span_h": 3.0,
   "mom_partial": false,
@@ -1120,7 +1120,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.2%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~3.1%)"
    ],
    [
     "info",
@@ -1199,7 +1199,7 @@
    1071.6666666666667,
    1234.0
   ],
-  "m1h": -0.6469723382773483,
+  "m1h": -0.6469723382773277,
   "m3h": -1.012334924774851,
   "pos1h": 9.524363129059916,
   "span_h": 3.0,
@@ -1224,7 +1224,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.8%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.7%)"
    ],
    [
     "info",
@@ -1340,7 +1340,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1411,7 +1411,7 @@
    433.75,
    487.5
   ],
-  "m1h": -0.0921061183686084,
+  "m1h": -0.09210611836865824,
   "m3h": -0.08071387728905974,
   "pos1h": 60.5261889847251,
   "span_h": 3.0,
@@ -1421,7 +1421,7 @@
   "dd5": 6.810540012547256,
   "chg3d": -3.4494395738237356,
   "asOf": "2026-09-04 17:25:00+02:00",
-  "score": 44.851548727231915,
+  "score": 44.85154872723155,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1444,7 +1444,7 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~4.1 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
+    "Iki uždarymo liko ~3.8 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
    ],
    [
     "info",
@@ -1502,7 +1502,7 @@
    924.2000122070312,
    924.2000122070312
   ],
-  "m1h": 0.6033805807142388,
+  "m1h": 0.6033805807141995,
   "m3h": 2.343285074084439,
   "pos1h": 91.42804827008929,
   "span_h": 3.0,
@@ -1512,7 +1512,7 @@
   "dd5": 0.5574450500540789,
   "chg3d": 4.402032517294847,
   "asOf": "2026-09-04 17:25:00+02:00",
-  "score": 27.490599287517032,
+  "score": 27.490599287517064,
   "grade": "D",
   "tradeable": false,
   "blocking": [
@@ -1531,7 +1531,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.8%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.7%)"
    ],
    [
     "info",
@@ -1635,7 +1635,7 @@
    ],
    [
     "info",
-    "Liko ~4.1 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.5%)"
+    "Liko ~3.8 val. — tikslas pasiekiamas, bet be atsargos (tikėtinas judesys ~2.4%)"
    ],
    [
     "info",
@@ -1706,8 +1706,8 @@
    245.89999389648438,
    245.89999389648438
   ],
-  "m1h": -0.27168309806534674,
-  "m3h": 2.003385811109963,
+  "m1h": -0.2716830980653654,
+  "m3h": 2.0033858111099105,
   "pos1h": 33.33333333333333,
   "span_h": 3.0,
   "mom_partial": false,
@@ -1716,7 +1716,7 @@
   "dd5": 0.8555267174438991,
   "chg3d": 7.142032118755102,
   "asOf": "2026-09-04 17:25:00+02:00",
-  "score": 22.848575711906097,
+  "score": 22.84857571190603,
   "grade": "D",
   "tradeable": false,
   "blocking": [
