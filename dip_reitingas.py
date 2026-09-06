@@ -122,17 +122,24 @@ def currency_of(sym):
         return CURRENCY_BY_SUFFIX.get(suffix, ("?", ""))
     return ("USD", "$")
 
+# Svoriai po 2026 m. patikros. IBS yra VIENINTELIS signalas, isslaikes visus tris
+# etapus: paieska su daugybinio tikrinimo pataisa, patvirtinima nematytoje imties
+# puseje (+0.157%, intervalas +0.025..+0.285) ir atsparumo patikra isbraukiant
+# akcijas po viena. Neto po mokesciu +0.087% sandoriui.
+# Kiti kriterijai patvirtinimo NEISLAIKE, todel ju svoris mazas — jie palikti kaip
+# kontekstas ir rizikos filtrai, ne kaip prognoze.
 CRITERIA = [
-    ("dip",      "Kritimo gylis",            16),
-    ("stab",     "Ar kritimas sustojo",      15),
-    ("multiday", "Vienadienis ar tęstinis",  12),
-    ("room",     "Vieta iki pasipriešinimo", 12),
-    ("atr",      "Judrumas (ATR)",           12),
-    ("rsi",      "RSI (5 min)",               9),
-    ("vwap",     "Padėtis prieš VWAP",        8),
-    ("rvol",     "Apyvarta (RVOL)",           7),
-    ("trend",    "Trendas (20/50 SMA)",       7),
-    ("support",  "Atstumas iki atramos",      2),
+    ("ibs",      "Padėtis dienos diapazone", 40),
+    ("stab",     "Ar kritimas sustojo",      10),
+    ("multiday", "Vienadienis ar tęstinis",  10),
+    ("dip",      "Kritimo gylis",             8),
+    ("room",     "Vieta iki pasipriešinimo",  8),
+    ("vwap",     "Padėtis prieš VWAP",        6),
+    ("atr",      "Judrumas (ATR)",            6),
+    ("support",  "Atstumas iki atramos",      5),
+    ("rsi",      "RSI (5 min)",               3),
+    ("rvol",     "Apyvarta (RVOL)",           2),
+    ("trend",    "Trendas (20/50 SMA)",       2),
 ]
 
 # Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
@@ -470,7 +477,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if knife:
         setup = "krintantis peilis"
 
+    # IBS: 0 = uzdaro prie dienos dugno (geriausia), 1 = prie virsunes.
+    # Kreive pagal ismatuotas reiksmes: <0.2 stipriai geriau, >0.8 stipriai blogiau.
+    ibs_v = num(d.get("ibs"))
     parts = {
+        "ibs":  curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
+                              (0.6, 40), (0.8, 20), (1.0, 8)]),
         "dip":  dip_part,
         "stab": stab,
         "multiday": multiday_part,
@@ -596,6 +608,15 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         elif share_pct > MAX_POS_OF_TURNOVER_PCT:
             flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
                                   f"gali tekti pildyti dalimis"))
+
+    if ibs_v is not None:
+        if ibs_v <= 0.2:
+            flags.append(("info", f"IBS {ibs_v:.2f} — kaina prie dienos dugno. Tai vienintelis "
+                                  f"modulio signalas, patvirtintas nematytoje duomenų dalyje "
+                                  f"(+0,16% prieš dienos vidurkį)"))
+        elif ibs_v >= 0.8:
+            flags.append(("warn", f"IBS {ibs_v:.2f} — kaina prie dienos viršūnės. Istoriškai "
+                                  f"tokie įėjimai pasirodo prasčiau už dienos vidurkį"))
 
     if d.get("cur") and d["cur"] != ACCOUNT_CURRENCY:
         flags.append(("warn", f"Ši akcija kotiruojama {d['cur']}, o portfelis "
