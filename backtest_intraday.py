@@ -102,6 +102,18 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
     #  IBS = kur kaina dienos diapazone (Pagonidis 2013: IBS<0.2 -> +0.35% kita diena)
     #  gap = nakties tarpas (uzdarymas -> atidarymas), dokumentuotas atsokimo signalas
     ibs = (price - low) / (high - low) if high > low else None
+
+    # IBS VARIANTAS 1: dvieju dienu diapazonas. Gaudo gilesni atsitraukima —
+    # akcija gali buti dienos viduryje, bet zemai dvieju dienu masteliu.
+    ibs2d = None
+    try:
+        prev_sess = sessions[day_idx - 1][1] if day_idx >= 1 else None
+        if prev_sess is not None and len(prev_sess):
+            h2 = max(high, float(prev_sess["High"].max()))
+            l2 = min(low, float(prev_sess["Low"].min()))
+            ibs2d = (price - l2) / (h2 - l2) if h2 > l2 else None
+    except Exception:
+        pass
     day_open = float(bars["Open"].iloc[0])
     gap_ret = (day_open - prev_close) / prev_close * 100 if prev_close else None
 
@@ -204,7 +216,7 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
         exp_move=dr.expected_move(v5, dr.HOLD_HOURS, bph=bph),
         m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
         span_h=mom["span_h"], mom_partial=mom["partial"],
-        ibs=ibs, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
+        ibs=ibs, ibs2d=ibs2d, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
         sma_align=sma_align, macd_h=macd_h, zscore=zscore, vol_exp=vol_exp,
         hl_struct=hl_struct, vol_price=vol_price, pd_break=pd_break, tod=tod)
 
@@ -280,7 +292,9 @@ def benjamini_hochberg(pvals, alpha=0.05):
 
 SIGNALS = [
     ("score", True, "Dabartinis balas"),
-    ("ibs", False, "IBS zemas"),
+    ("ibs", False, "IBS zemas (dabartinis)"),
+    ("ibs2d", False, "IBS 2 dienu (variantas 1)"),
+    ("ibs_pct", False, "IBS procentilis (variantas 2)"),
     ("gap_ret", False, "Nakties tarpas zemyn"),
     ("or_break", True, "Atid. diapazono pramusimas"),
     ("vwap_d", False, "Kaina zemiau VWAP"),
@@ -439,7 +453,7 @@ def main():
                         rec[f"c_{key}"] = s["parts"].get(key)
                     for f in ["ibs", "gap_ret", "or_break", "pullback_atr", "sma_align",
                               "macd_h", "zscore", "vol_exp", "hl_struct", "vol_price",
-                              "pd_break"]:
+                              "pd_break", "day_chg", "ibs2d", "atrPct"]:
                         rec[f] = d.get(f)
                     rec["vwap_d"] = ((d["price"] - d["vwap"]) / d["vwap"] * 100
                                      if d.get("vwap") else None)
@@ -452,6 +466,13 @@ def main():
 
     df = pd.DataFrame(rows)
     df["_day"] = pd.to_datetime(df["_day"])
+    # IBS VARIANTAS 2: kur siandienos IBS yra tos akcijos ISTORINIU IBS fone.
+    # YDX su 8.6% ATR ir SAP su 2.5% nera palyginami absoliuciu IBS 0.15.
+    try:
+        df["ibs_pct"] = df.groupby("tag")["ibs"].rank(pct=True)
+    except Exception:
+        df["ibs_pct"] = None
+
     base = df["pnl"].mean()
     n_days = df["_day"].nunique()
 
