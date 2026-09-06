@@ -585,9 +585,6 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                 mult *= 0.85
                 flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
                                       f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo"))
-        elif ratio < 1.1:
-            flags.append(("info", f"Liko ~{hrs:.1f} val. — tikslas pasiekiamas, bet be atsargos "
-                                  f"(tikėtinas judesys ~{exp_range:.1f}%)"))
         if tb["after_hours"]:
             flags.append(("info", "Pagrindinė sesija baigta — po sesijos prekyboje spread'as "
                                   "platesnis, naudok limit pavedimus"))
@@ -601,9 +598,6 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
             flags.append(("warn", f"Laikant per naktį stop neapsaugo: tipinis šuolis šioje "
                                   f"akcijoje {gap:.1f}%, o stop tik {stop_dist:.1f}% žemiau — "
                                   f"nepalankus atidarymas kainuotų ~{gap_loss:.0f} EUR"))
-        else:
-            flags.append(("info", f"Tipinis nakties šuolis {gap:.1f}% — telpa į stop atstumą "
-                                  f"({stop_dist:.1f}%)"))
 
     # --- Likvidumas: ar pozicija realiai išpildoma ---
     avg_vol = d.get("avgVolume")
@@ -616,11 +610,6 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         elif share_pct > MAX_POS_OF_TURNOVER_PCT:
             flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
                                   f"gali tekti pildyti dalimis"))
-
-    if shares > 0 and price > stop:
-        flags.append(("info", f"Išėjimas: pasiekus {tp:.2f} ({target}%) įjungiamas slenkantis "
-                              f"stop {TRAIL_PCT}% nuo aukščiausios pasiektos kainos — pelnas "
-                              f"nefiksuojamas ties riba, jei judesys tęsiasi"))
 
     if ibs_v is not None:
         if ibs_v <= 0.2:
@@ -1069,51 +1058,72 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     # Dienos kilimai — rodomi visada, nesvarbu koks balas. Matavimas sako, kad
     # pirkti prie dienos virsunes vidutiniskai blogiau, bet tai informacija, kuria
     # vartotojas turi matyti ir spresti pats.
-    # Ralio pozymis: kyla dauguma saraso, o ne viena akcija. Rodoma atskirai,
-    # nes tai kitokia situacija nei pavienis akcijos kilimas.
+    # Platus judesys — i abi puses. Sektoriai isvardijami sarasu, nes su didesne
+    # imtimi bus svarbu matyti, kuris sektorius juda, o kuris ne.
     rally_html = ""
     try:
         chgs = [d["day_chg"] for d, _ in rows if d.get("day_chg") is not None]
         if len(chgs) >= 8:
             med = float(np.median(chgs))
             up = sum(1 for c in chgs if c > 0) / len(chgs) * 100
-            strong = sum(1 for c in chgs if c > 1.0)
             secs = {}
             for d, _ in rows:
                 if d.get("day_chg") is not None:
                     secs.setdefault(d.get("sector", "kita"), []).append(d["day_chg"])
-            hot = [(s, float(np.median(v))) for s, v in secs.items()
-                   if len(v) >= 2 and float(np.median(v)) > 0.8]
-            if med > 0.5 and up >= 65:
-                sec_txt = ("; ".join(f"{s} {v:+.1f}%" for s, v in
-                                     sorted(hot, key=lambda x: -x[1])) or "atskiro lyderio nėra")
+            sec_med = sorted([(s, float(np.median(v))) for s, v in secs.items() if len(v) >= 2],
+                             key=lambda x: -x[1])
+            sec_items = "".join(
+                f"<div class='si'><span class='sn'>{s}</span>"
+                f"<span class='sv {'up' if v > 0 else 'dn'}'>{v:+.1f}%</span></div>"
+                for s, v in sec_med)
+
+            wide_up = med > 0.5 and up >= 65
+            wide_dn = med < -0.5 and up <= 35
+            if wide_up or wide_dn:
+                strong = sum(1 for c in chgs if (c > 1.0 if wide_up else c < -1.0))
+                title = "Platus kilimas" if wide_up else "Platus kritimas"
+                verb = "Kyla" if wide_up else "Krenta"
+                cnt = up if wide_up else 100 - up
+                cls = "rally" if wide_up else "rally dn"
                 rally_html = (
-                    f"<div class='rally'><div class='rh'>Platus kilimas</div>"
-                    f"<div class='rb'>Kyla {up:.0f}% sąrašo, mediana {med:+.1f}%, "
-                    f"{strong} akcijos virš +1%. Sektoriai: {sec_txt}.</div>"
-                    f"<div class='rn'>Tai konstatavimas, ne prognozė. Ar rytinis kilimas "
-                    f"tęsiasi, matuojama atskirai — kol kas modulis to netvirtina.</div></div>")
+                    f"<div class='{cls}'><div class='rh'>{title}</div>"
+                    f"<div class='rb'>{verb} {cnt:.0f}% sąrašo · mediana {med:+.1f}% · "
+                    f"{strong} akcijos virš {'+' if wide_up else '−'}1%</div>"
+                    f"<div class='secs'>{sec_items}</div></div>")
+            elif sec_items:
+                rally_html = (f"<div class='rally flat'><div class='rh'>Sektoriai šiandien</div>"
+                              f"<div class='secs'>{sec_items}</div></div>")
     except Exception:
         pass
 
     movers_html = ""
     try:
+        def mv_items(sel):
+            return "".join(
+                f"<div class='mv'><b>{d['tag']}</b>"
+                f"<span class='mvc {'up' if d['day_chg'] > 0 else 'dn'}'>{d['day_chg']:+.1f}%</span>"
+                f"<span class='mvi'>IBS {(d.get('ibs') or 0):.2f}</span>"
+                f"<span class='mvs'>{s.get('setup','')}</span>"
+                f"<span class='mvb'>{s['score']:.0f}</span></div>"
+                for d, s in sel)
+
         risers = sorted([(d, s) for d, s in rows
                          if d.get("day_chg") is not None and d["day_chg"] > 0.5],
                         key=lambda x: -x[0]["day_chg"])[:5]
+        # Krentancios rodomos tik tos, kurias modulis laiko tesiancioms kritima
+        fallers = sorted([(d, s) for d, s in rows
+                          if d.get("day_chg") is not None and d["day_chg"] < -0.5
+                          and (s.get("setup") == "krintantis peilis"
+                               or (s.get("down_days") or 0) >= 2)],
+                         key=lambda x: x[0]["day_chg"])[:5]
+        cols = ""
         if risers:
-            items = "".join(
-                f"<div class='mv'><b>{d['tag']}</b>"
-                f"<span class='mvc'>{d['day_chg']:+.1f}%</span>"
-                f"<span class='mvi'>IBS {(d.get('ibs') or 0):.2f}</span>"
-                f"<span class='mvs'>{s.get('setup','')}</span>"
-                f"<span class='mvb'>balas {s['score']:.0f}</span></div>"
-                for d, s in risers)
-            movers_html = (
-                "<div class='movers'><div class='mh'>Šiandien kyla</div>" + items +
-                "<div class='mn'>Rodoma informacijai. Matavimas per 722 dienas rodo, kad "
-                "įėjimai prie dienos viršūnės vidutiniškai pasirodo prasčiau už dienos "
-                "vidurkį — todėl balas jiems žemas. Bet sprendimą priimi tu.</div></div>")
+            cols += f"<div class='mcol'><div class='mh'>Šiandien kyla</div>{mv_items(risers)}</div>"
+        if fallers:
+            cols += (f"<div class='mcol'><div class='mh'>Krenta ir tęsia kritimą</div>"
+                     f"{mv_items(fallers)}</div>")
+        if cols:
+            movers_html = f"<div class='movers'>{cols}</div>"
     except Exception:
         pass
 
@@ -1180,17 +1190,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               else 'NETINKAMA: ' + (s['blocking'][0] if s.get('blocking')
                    else f"rizika/nauda {s['rr']:.2f} per maža")}</div>
             {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
-            <div class="tags">
-              <span>kaina {cs}{d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
-              <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
-              <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span><span>nakties šuolis ~{(d.get('gap') or 0):.1f}%</span><span>IBS {(d.get('ibs') or 0):.2f}</span><span>nakties tarpas {(d.get('gap_ret') or 0):+.1f}%</span>
-            </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
               <div><span>Min. tikslas</span><b>{cs}{s['tp']:.2f}</b></div>
-              <div><span>Slenkantis stop</span><b>{s.get('trail_pct', 1.5):.1f}% nuo max</b></div>
-              <div><span>R:R</span><b>{s['rr']:.2f}</b></div>
+              <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f}</b></div>
               <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
               <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
               <div><span>Pelnas neto</span><b>{cs}{s['net']:.0f}</b></div>
@@ -1213,16 +1216,27 @@ h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
 .rally{{background:#E6F2EC;border-left:4px solid var(--up);border-radius:6px;
 padding:12px 14px;margin-bottom:18px}}
-.rh{{font-size:12px;font-weight:700;color:#14543E;margin-bottom:6px}}
-.rb{{font-size:13px;line-height:1.5;color:#14543E}}
-.rn{{font-size:11px;color:#3D6B57;margin-top:7px;line-height:1.45}}
-.movers{{background:var(--card);border:1px solid var(--line);border-radius:8px;
-padding:13px;margin-bottom:20px}}
+.rally.dn{{background:#FBEBEA;border-color:var(--stop)}}
+.rally.flat{{background:var(--card);border:1px solid var(--line);border-left:1px solid var(--line)}}
+.rh{{font-size:12px;font-weight:700;margin-bottom:6px}}
+.rb{{font-size:13px;line-height:1.5;margin-bottom:9px}}
+.secs{{display:flex;flex-wrap:wrap;gap:6px}}
+.si{{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.65);
+padding:4px 9px;border-radius:5px}}
+.sn{{font-size:11.5px}}
+.sv{{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}}
+.sv.up{{color:var(--up)}}
+.sv.dn{{color:var(--stop)}}
+.movers{{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}}
+.mcol{{flex:1;min-width:260px;background:var(--card);border:1px solid var(--line);
+border-radius:8px;padding:13px}}
 .mh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px;font-weight:600}}
 .mv{{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:12.5px;
 border-top:1px solid var(--bg)}}
 .mv b{{min-width:52px}}
-.mvc{{color:var(--up);font-weight:600;min-width:52px;font-variant-numeric:tabular-nums}}
+.mvc{{font-weight:600;min-width:50px;font-variant-numeric:tabular-nums}}
+.mvc.up{{color:var(--up)}}
+.mvc.dn{{color:var(--stop)}}
 .mvi,.mvb{{color:var(--ink2);font-size:11.5px;font-variant-numeric:tabular-nums}}
 .mvs{{color:var(--ink2);font-size:11.5px;flex:1}}
 .mn{{font-size:11px;color:var(--ink2);line-height:1.5;margin-top:9px;
@@ -1281,7 +1295,6 @@ font-variant-numeric:tabular-nums}}
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {problems_html}
 {rally_html}
-<div class="overview">{overview}</div>
 {movers_html}
 {stats_html}
 {''.join(cards)}
