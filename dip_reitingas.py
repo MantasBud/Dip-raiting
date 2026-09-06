@@ -41,7 +41,12 @@ except Exception:
 
 # ----------------------------- NUSTATYMAI -----------------------------
 
-TARGET_PCT = 3.0        # tikslinis pelnas procentais
+# ISEJIMO TAISYKLE (patikrinta 2026-09: vid. rezultatas +0.223% vs +0.082% su
+# fiksuotu 3% tikslu; IBS signalo pranasumas +0.199% vs +0.154%).
+# Pelnas nefiksuojamas ties riba — pasiekus MIN_TARGET_PCT ijungiamas slenkantis
+# stop, ir pozicija laikoma tol, kol kaina atsitraukia TRAIL_PCT nuo virsunes.
+TARGET_PCT = 2.0        # MINIMALUS tikslas — nuo cia ijungiamas slenkantis stop
+TRAIL_PCT = 1.5         # kiek kaina gali atsitraukti nuo pasiektos virsunes
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas)
@@ -520,7 +525,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         stop = min(stop, sup_stop)      # jei atrama dar žemiau, stop dedam po ja
     if (price - stop) / price * 100 > target * 1.8:
         stop = price * (1 - target * 1.8 / 100)
-    tp = price * (1 + target / 100)
+    tp = price * (1 + target / 100)          # minimalus tikslas, ne virsutine riba
+    trail_from = tp * (1 - TRAIL_PCT / 100)  # kur atsidurtu stop, vos pasiekus tiksla
     rr = (tp - price) / (price - stop) if price > stop else 0.0
     risk_cash = ACCOUNT * RISK_PCT / 100
     max_shares = int((ACCOUNT * MAX_POSITION_PCT / 100) / price) if price > 0 else 0
@@ -534,7 +540,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         capped = risk_shares > max_shares
 
     pos_value = shares * price
-    gross = pos_value * target / 100
+    gross = pos_value * target / 100      # konservatyvu: realiai gali buti daugiau
     net = gross - 2 * FEE_PER_TRADE      # mokestis perkant ir parduodant
     real_risk = shares * (price - stop)
 
@@ -554,7 +560,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         mult *= 1.05
     if room_far is not None and room_far < target:
         flags.append(("stop", f"Net iki tolimesnių lubų tik {room_far:.1f}% — "
-                              f"{target}% tikslas netelpa niekur"))
+                              f"net minimalus {target}% tikslas netelpa"))
     elif room is not None and room < target:
         flags.append(("warn", f"Kelyje kliūtis ({room:.1f}% aukščiau) — "
                               f"jį reikės pramušti, kad tikslas būtų pasiektas"))
@@ -563,8 +569,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                               "balas mažiau patikimas"))
     if exp_mv and exp_mv < target * 0.9:
         flags.append(("warn", f"Per {HOLD_HOURS:.1f} val. tikėtinas judesys ~{exp_mv:.1f}%, "
-                              f"o tikslas {target}% — realistiškesnis tikslas šiai akcijai "
-                              f"būtų ~{exp_mv:.1f}% arba ilgesnis laikymas"))
+                              f"o minimalus tikslas {target}% — šiai akcijai jis ant ribos"))
     # --- Laiko biudžetas: ar likusio laiko realiai užtenka tikslui pasiekti? ---
     # Kainos svyravimas auga proporcingai laiko šaknims, todėl tikėtinas likęs
     # judesys = dienos ATR * sqrt(likusi sesijos dalis).
@@ -611,6 +616,11 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         elif share_pct > MAX_POS_OF_TURNOVER_PCT:
             flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
                                   f"gali tekti pildyti dalimis"))
+
+    if shares > 0 and price > stop:
+        flags.append(("info", f"Išėjimas: pasiekus {tp:.2f} ({target}%) įjungiamas slenkantis "
+                              f"stop {TRAIL_PCT}% nuo aukščiausios pasiektos kainos — pelnas "
+                              f"nefiksuojamas ties riba, jei judesys tęsiasi"))
 
     if ibs_v is not None:
         if ibs_v <= 0.2:
@@ -724,6 +734,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
                 pos_value=pos_value, gross=gross, net=net, real_risk=real_risk,
+                trail_from=trail_from, trail_pct=TRAIL_PCT,
                 exp_move=exp_mv, move_ratio=move_ratio)
 
 
@@ -940,8 +951,9 @@ def print_table(rows):
         print(f"\nGERIAUSIAS: {best['tag']} ({best['name']})")
         c = best.get('cur_sym', '')
         print(f"  Įėjimas {c}{best['price']:.2f} | Stop {c}{bs['stop']:.2f} | "
-              f"Tikslas {c}{bs['tp']:.2f} | R:R {bs['rr']:.2f} | {bs['shares']} vnt. "
-              f"| pozicija {c}{bs['pos_value']:,.0f}")
+              f"Min. tikslas {c}{bs['tp']:.2f} (toliau slenkantis "
+              f"{bs.get('trail_pct', 1.5):.1f}%) | R:R {bs['rr']:.2f} | "
+              f"{bs['shares']} vnt. | pozicija {c}{bs['pos_value']:,.0f}")
         for lvl, txt in bs["flags"]:
             print(f"  {'!!' if lvl == 'stop' else ' !'} {txt}")
     else:
@@ -1057,6 +1069,33 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     # Dienos kilimai — rodomi visada, nesvarbu koks balas. Matavimas sako, kad
     # pirkti prie dienos virsunes vidutiniskai blogiau, bet tai informacija, kuria
     # vartotojas turi matyti ir spresti pats.
+    # Ralio pozymis: kyla dauguma saraso, o ne viena akcija. Rodoma atskirai,
+    # nes tai kitokia situacija nei pavienis akcijos kilimas.
+    rally_html = ""
+    try:
+        chgs = [d["day_chg"] for d, _ in rows if d.get("day_chg") is not None]
+        if len(chgs) >= 8:
+            med = float(np.median(chgs))
+            up = sum(1 for c in chgs if c > 0) / len(chgs) * 100
+            strong = sum(1 for c in chgs if c > 1.0)
+            secs = {}
+            for d, _ in rows:
+                if d.get("day_chg") is not None:
+                    secs.setdefault(d.get("sector", "kita"), []).append(d["day_chg"])
+            hot = [(s, float(np.median(v))) for s, v in secs.items()
+                   if len(v) >= 2 and float(np.median(v)) > 0.8]
+            if med > 0.5 and up >= 65:
+                sec_txt = ("; ".join(f"{s} {v:+.1f}%" for s, v in
+                                     sorted(hot, key=lambda x: -x[1])) or "atskiro lyderio nėra")
+                rally_html = (
+                    f"<div class='rally'><div class='rh'>Platus kilimas</div>"
+                    f"<div class='rb'>Kyla {up:.0f}% sąrašo, mediana {med:+.1f}%, "
+                    f"{strong} akcijos virš +1%. Sektoriai: {sec_txt}.</div>"
+                    f"<div class='rn'>Tai konstatavimas, ne prognozė. Ar rytinis kilimas "
+                    f"tęsiasi, matuojama atskirai — kol kas modulis to netvirtina.</div></div>")
+    except Exception:
+        pass
+
     movers_html = ""
     try:
         risers = sorted([(d, s) for d, s in rows
@@ -1149,7 +1188,8 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
-              <div><span>Tikslas</span><b>{cs}{s['tp']:.2f}</b></div>
+              <div><span>Min. tikslas</span><b>{cs}{s['tp']:.2f}</b></div>
+              <div><span>Slenkantis stop</span><b>{s.get('trail_pct', 1.5):.1f}% nuo max</b></div>
               <div><span>R:R</span><b>{s['rr']:.2f}</b></div>
               <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
               <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
@@ -1171,6 +1211,11 @@ h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 .meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
 .overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
+.rally{{background:#E6F2EC;border-left:4px solid var(--up);border-radius:6px;
+padding:12px 14px;margin-bottom:18px}}
+.rh{{font-size:12px;font-weight:700;color:#14543E;margin-bottom:6px}}
+.rb{{font-size:13px;line-height:1.5;color:#14543E}}
+.rn{{font-size:11px;color:#3D6B57;margin-top:7px;line-height:1.45}}
 .movers{{background:var(--card);border:1px solid var(--line);border-radius:8px;
 padding:13px;margin-bottom:20px}}
 .mh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px;font-weight:600}}
@@ -1235,6 +1280,7 @@ font-variant-numeric:tabular-nums}}
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {problems_html}
+{rally_html}
 <div class="overview">{overview}</div>
 {movers_html}
 {stats_html}
