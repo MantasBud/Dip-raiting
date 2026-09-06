@@ -434,6 +434,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     elif overextended:
         dip_part = min(dip_part, 12.0)
         setup = "jau pakilusi"
+    elif (day_chg is not None and day_chg > 0.5
+          and d.get("ibs") is not None and d["ibs"] > 0.6):
+        setup = "kyla, prie viršūnės"
     else:
         setup = "kritimas"
 
@@ -1051,6 +1054,30 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
     now_lt = datetime.now(_DTZ) if _DTZ else datetime.now()
 
+    # Dienos kilimai — rodomi visada, nesvarbu koks balas. Matavimas sako, kad
+    # pirkti prie dienos virsunes vidutiniskai blogiau, bet tai informacija, kuria
+    # vartotojas turi matyti ir spresti pats.
+    movers_html = ""
+    try:
+        risers = sorted([(d, s) for d, s in rows
+                         if d.get("day_chg") is not None and d["day_chg"] > 0.5],
+                        key=lambda x: -x[0]["day_chg"])[:5]
+        if risers:
+            items = "".join(
+                f"<div class='mv'><b>{d['tag']}</b>"
+                f"<span class='mvc'>{d['day_chg']:+.1f}%</span>"
+                f"<span class='mvi'>IBS {(d.get('ibs') or 0):.2f}</span>"
+                f"<span class='mvs'>{s.get('setup','')}</span>"
+                f"<span class='mvb'>balas {s['score']:.0f}</span></div>"
+                for d, s in risers)
+            movers_html = (
+                "<div class='movers'><div class='mh'>Šiandien kyla</div>" + items +
+                "<div class='mn'>Rodoma informacijai. Matavimas per 722 dienas rodo, kad "
+                "įėjimai prie dienos viršūnės vidutiniškai pasirodo prasčiau už dienos "
+                "vidurkį — todėl balas jiems žemas. Bet sprendimą priimi tu.</div></div>")
+    except Exception:
+        pass
+
     problems_html = ""
     if problems:
         items = "".join(f"<li>{w}</li>" for w in problems)
@@ -1144,6 +1171,17 @@ h1{{font-size:26px;margin:0 0 6px;font-weight:600;letter-spacing:-0.01em}}
 .meta{{font-size:12px;color:var(--ink2);margin-bottom:12px}}
 .overview{{font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--card);
 border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:20px}}
+.movers{{background:var(--card);border:1px solid var(--line);border-radius:8px;
+padding:13px;margin-bottom:20px}}
+.mh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px;font-weight:600}}
+.mv{{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:12.5px;
+border-top:1px solid var(--bg)}}
+.mv b{{min-width:52px}}
+.mvc{{color:var(--up);font-weight:600;min-width:52px;font-variant-numeric:tabular-nums}}
+.mvi,.mvb{{color:var(--ink2);font-size:11.5px;font-variant-numeric:tabular-nums}}
+.mvs{{color:var(--ink2);font-size:11.5px;flex:1}}
+.mn{{font-size:11px;color:var(--ink2);line-height:1.5;margin-top:9px;
+padding-top:9px;border-top:1px solid var(--line)}}
 .selfcheck{{background:#FBEBEA;border-left:4px solid var(--stop);color:#7A2320;
 padding:12px 14px;border-radius:6px;margin-bottom:18px;font-size:13px;line-height:1.5}}
 .selfcheck ul{{margin:8px 0;padding-left:18px}}
@@ -1198,6 +1236,7 @@ font-variant-numeric:tabular-nums}}
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {problems_html}
 <div class="overview">{overview}</div>
+{movers_html}
 {stats_html}
 {''.join(cards)}
 </html>"""
