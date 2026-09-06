@@ -69,7 +69,8 @@ def rvol_at(sessions, day_idx, k):
     return cur / base if base > 0 else None
 
 
-def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12):
+def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
+                   full_series=None):
     """Atkuria tiksliai ta vaizda, kuri modulis matytu ta minute."""
     day, today = sessions[day_idx]
     bars = today.iloc[:k + 1]
@@ -114,8 +115,16 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
     pullback_atr = ((high - price) / price * 100) / a_for_pb if a_for_pb else None
 
     # --- PROGNOSTINIAI KANDIDATAI (klasikine technine analize) ---
-    cl = bars["Close"].astype(float)
-    hi_s, lo_s = bars["High"].astype(float), bars["Low"].astype(float)
+    # MACD, Z-balas ir svyravimo pletra skaiciuojami is ISTISINES sekos iki sio baro
+    # (kaip realiame grafike), o ne is vienos dienos baru — pastarųjų valandiniuose
+    # duomenyse yra tik ~9 per sesija, todel indikatoriai negalejo susiskaiciuoti.
+    if full_series is not None:
+        cutoff = bars.index[-1]
+        cont = full_series[full_series.index <= cutoff].tail(120)
+    else:
+        cont = bars
+    cl = cont["Close"].astype(float)
+    hi_s, lo_s = cont["High"].astype(float), cont["Low"].astype(float)
 
     # 1. MACD histogramos zenklas ir kryptis (12/26/9 intraday barais)
     macd_h = None
@@ -142,8 +151,9 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
 
     # 4. Aukstesniu dugnu struktura: kiek is paskutiniu 4 atsitraukimu buvo aukstesni
     hl_struct = None
-    if len(lo_s) >= 12:
-        seg = [float(lo_s.iloc[i:i+3].min()) for i in range(len(lo_s)-12, len(lo_s), 3)]
+    day_lo = bars["Low"].astype(float)
+    if len(day_lo) >= 12:
+        seg = [float(day_lo.iloc[i:i+3].min()) for i in range(len(day_lo)-12, len(day_lo), 3)]
         if len(seg) >= 3:
             hl_struct = sum(1 for a, b in zip(seg, seg[1:]) if b > a) / (len(seg) - 1) * 100
 
@@ -151,7 +161,7 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
     vol_price = None
     rv_now = rvol_at(sessions, day_idx, k)
     if rv_now is not None and len(cl) >= 12:
-        recent_dir = 1 if float(cl.iloc[-1]) > float(cl.iloc[-12]) else -1
+        recent_dir = 1 if float(cl.iloc[-1]) > float(cl.iloc[-min(12, len(cl)-1)]) else -1
         vol_price = rv_now * recent_dir
 
     # 6. Vakarykscio maksimumo/minimumo pramusimas
@@ -272,7 +282,8 @@ def main():
                 for k in checkpoints:
                     if k + max(2, bph // 2) >= len(sessions[di][1]):
                         continue
-                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target, bph)
+                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target, bph,
+                                       full_series=intra)
                     if not d:
                         continue
                     s = dr.score_stock(d, args.target, "neutral")
@@ -533,9 +544,24 @@ def main():
         print("=" * 78)
         print(f"{'SIGNALAS':<26} {'PRANASUMAS':>12} {'95% INTERVALAS':>24} {'DIENU':>7}")
         print("-" * 78)
+        # V4: tas pats balas, bet svoris sutelktas i tris kriterijus, kurie
+        # griezta mata perejo reiksmingai teigiamai. Kiti septyni gauna maza svori,
+        # o ne nuli — nes "nulis" reiskia "neirodyta", ne "irodyta, kad nereikalingas".
+        try:
+            w4 = {"dip": 30, "support": 22, "vwap": 22,
+                  "multiday": 6, "stab": 6, "room": 5, "atr": 3, "rsi": 3,
+                  "rvol": 2, "trend": 1}
+            cols4 = {f"c_{k}": v for k, v in w4.items() if f"c_{k}" in df}
+            if cols4:
+                tot4 = sum(cols4.values())
+                df["score4"] = sum(df[c].fillna(50) * w for c, w in cols4.items()) / tot4
+        except Exception:
+            pass
+
         candidates = [
-            ("score3", True, "V3 balas"),
             ("score", True, "Dabartinis balas"),
+            ("score4", True, "V4 (svoris i 3 patvirtintus)"),
+            ("score3", True, "V3 balas (atmestas)"),
             ("vwap_d", True, "Kaina virs VWAP"),
             ("pullback_atr", False, "Mazas atsitraukimas"),
             ("or_break", True, "Atid. diapazono pram."),
