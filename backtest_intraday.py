@@ -31,6 +31,20 @@ import pandas as pd
 
 import dip_reitingas as dr
 
+
+def curve_local(x, pts):
+    """Ta pati interpoliacija kaip modulyje — kad V3 butu skaidrus ir patikrinamas."""
+    if x is None or not np.isfinite(x):
+        return 50.0
+    if x <= pts[0][0]:
+        return float(pts[0][1])
+    if x >= pts[-1][0]:
+        return float(pts[-1][1])
+    for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
+        if x1 <= x <= x2:
+            return float(y1 + (x - x1) / (x2 - x1) * (y2 - y1))
+    return 50.0
+
 CHECKPOINTS_5M = [18, 30, 42, 54, 66]   # ~10:30, 11:30, 12:30, 13:30, 14:30
 CHECKPOINTS_60M = [1, 3, 5]             # valandiniai barai: ~10:00, 12:00, 14:00
 
@@ -215,6 +229,7 @@ def main():
                                      pullback_atr=d.get("pullback_atr"),
                                      sma_align=d.get("sma_align"),
                                      day_chg=d.get("day_chg"), rvol=d.get("rvol"),
+                                     m1h_v=d.get("m1h"), m3h_v=d.get("m3h"),
                                      vwap_d=((d["price"]-d["vwap"])/d["vwap"]*100
                                              if d.get("vwap") else None),
                                      **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
@@ -366,46 +381,64 @@ def main():
         print(f"\nStipriausias atskiras signalas: {lab} ({diff:+.3f} p. p.)")
         print("Kad butu vertas demesio, tas pats turi kartotis IR kitame laikotarpyje.")
 
-    # --- V2 hipoteze: balas, sudarytas TIK is to, kas kartojosi abiejuose imtyse ---
-    # Zenklai paimti is kriteriju analizes: teigiamas tik "vienadienis ar testinis",
-    # visi kiti veikia atvirksciai, todel apverciami. RSI ir trendas ismesti (triuksmas).
-    def score_v2(r):
-        def inv(key):
-            v = r.get(f"c_{key}")
-            return None if v is None else 100 - v
-        parts = [(r.get("c_multiday"), 35), (inv("dip"), 15), (inv("rvol"), 15),
-                 (inv("vwap"), 12), (inv("support"), 12), (inv("atr"), 11)]
-        vals = [(v, w) for v, w in parts if v is not None]
-        if not vals:
+    # --- V3: balas TIK is to, kas pasikartojo ABIEJOSE imtyse (2 m. ir 60 d.) ---
+    #   VWAP: geriausia kaina VIRS VWAP (+0.16% ir +0.30% pries baze, stabilu abiejose)
+    #   Atsitraukimas: iki 0.4 ATR gerai, 0.8+ ATR blogai (-0.20% ir -0.89%, stabilu)
+    #   Dienos pokytis: ramus geriau, -2% ir zemiau blogai (abi imtys ta pati kryptis)
+    #   Atidarymo diapazonas: pramusimas geriau (silpniau, todel mazas svoris)
+    # Neitraukta: IBS, SMA issidestymas, santykinis stiprumas, nakties tarpas — nepasikartojo.
+    def score_v3(r):
+        parts = []
+        v = r.get("vwap_d")
+        if v is not None:
+            parts.append((curve_local(v, [(-2, 15), (-1, 30), (-0.3, 35), (0.3, 60),
+                                          (1.0, 90), (2.0, 100), (4.0, 85)]), 30))
+        pb = r.get("pullback_atr")
+        if pb is not None:
+            parts.append((curve_local(pb, [(0, 85), (0.2, 100), (0.4, 90), (0.8, 35),
+                                           (1.5, 12), (3.0, 5)]), 25))
+        dc = r.get("day_chg")
+        if dc is not None:
+            parts.append((curve_local(dc, [(-4, 10), (-2, 30), (-0.7, 85), (0.3, 100),
+                                           (1.5, 70), (3.0, 40), (6, 20)]), 20))
+        ob = r.get("or_break")
+        if ob is not None:
+            parts.append((curve_local(ob, [(-2, 20), (-1, 40), (-0.3, 60), (0.2, 85),
+                                           (1.0, 100), (3.0, 90)]), 15))
+        m1, m3 = r.get("m1h_v"), r.get("m3h_v")
+        if m1 is not None and m3 is not None:
+            knife = 20 if (m3 < -0.8 and m1 < -0.2) else (100 if m1 > 0.1 else 60)
+            parts.append((knife, 10))
+        if not parts:
             return None
-        tot = sum(w for _, w in vals)
-        return sum(v * w for v, w in vals) / tot
+        tot = sum(w for _, w in parts)
+        return sum(v * w for v, w in parts) / tot
 
-    df["score2"] = df.apply(score_v2, axis=1)
+    df["score3"] = df.apply(score_v3, axis=1)
 
-    if df["score2"].notna().sum() > 500 and "_day" in df:
+    if df["score3"].notna().sum() > 500:
         mid = df["_day"].median()
         halves = [("1-oji puse", df[df["_day"] <= mid]), ("2-oji puse", df[df["_day"] > mid])]
-
-        print("\n" + "=" * 68)
-        print("V2 HIPOTEZE: balas tik is to, kas kartojosi. Tikrinama per dvi laiko puses,")
-        print("kad matytusi, ar veikia UZ tos imties, pagal kuria sudarytas.")
-        print("=" * 68)
-        print(f"{'LAIKOTARPIS':<14} {'BAZE':>8} {'DABARTINIS top10%':>18} {'V2 top10%':>12} {'V2 PRIES BAZE':>15}")
-        print("-" * 68)
+        print("\n" + "=" * 74)
+        print("V3 — balas tik is pasikartojanciu signalu. Tikrinama per abi laiko puses.")
+        print("=" * 74)
+        print(f"{'LAIKOTARPIS':<14} {'BAZE':>9} {'DABARTINIS top10%':>19} {'V3 top10%':>12} "
+              f"{'V3 PRIES BAZE':>15}")
+        print("-" * 74)
+        ok = 0
         for name, g in halves:
             if len(g) < 200:
                 continue
             b = g["pnl"].mean()
-            # Virsutinis decilis, o ne fiksuota riba: skales skiriasi, todel
-            # fiksuota 75 riba vienam balui duoda tukstancius atveju, kitam - nulio
             cur = g[g["score"] >= g["score"].quantile(0.9)]["pnl"]
-            v2 = g[g["score2"] >= g["score2"].quantile(0.9)]["pnl"]
-            cur_s = f"{cur.mean():+.3f}%" if len(cur) >= 50 else "per maza"
-            v2_s = f"{v2.mean():+.3f}%" if len(v2) >= 50 else "per maza"
-            diff = f"{v2.mean() - b:+.3f}%" if len(v2) >= 50 else "-"
-            print(f"{name:<14} {b:>+7.3f}% {cur_s:>16} {v2_s:>10} {diff:>15}")
-        print("\nKad V2 butu vertas, jis turi iveikti baze ABIEJOSE pusese.")
+            v3g = g[g["score3"] >= g["score3"].quantile(0.9)]["pnl"]
+            if len(v3g) >= 50 and v3g.mean() - b > 0:
+                ok += 1
+            print(f"{name:<14} {b:>+8.3f}% {cur.mean():>+18.3f}% {v3g.mean():>+11.3f}% "
+                  f"{v3g.mean()-b:>+14.3f}%")
+        print("-" * 74)
+        print("V3 laikomas pasitvirtinusiu tik jei iveikia baze ABIEJOSE pusese "
+              f"(dabar: {ok} is 2)")
 
     # --- Ar balo verte priklauso nuo rinkos krypties? ---
     # Rinkos rodiklis: visu 19 akciju mediana 5 dienu pokytis tuo metu.
