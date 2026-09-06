@@ -48,6 +48,15 @@ import pandas as pd
 # Formatas: (tikeris, sektorius, subsektorius)
 # Visos prekiaujamos eurais ir prieinamos per IBKR.
 
+# Valiuta pagal birzos galune. NE EUR akcijos atmetamos automatiskai —
+# moduliо pozicijos dydis skaiciuojamas eurais be FX perskaiciavimo.
+EUR_GALUNES = {"DE", "AS", "PA", "MI", "MC", "BR", "LS", "VI", "HE", "IR", "F"}
+
+
+def yra_eurais(sym):
+    return sym.rsplit(".", 1)[-1].upper() in EUR_GALUNES if "." in sym else False
+
+
 KANDIDATAI = [
     # Puslaidininkiai
     ("ASML.AS", "Puslaidininkiai", "Litografijos iranga"),
@@ -55,7 +64,6 @@ KANDIDATAI = [
     ("BESI.AS", "Puslaidininkiai", "Korpusavimo iranga"),
     ("IFX.DE", "Puslaidininkiai", "Galios ir automobiliu lustai"),
     ("STM.PA", "Puslaidininkiai", "Analoginiai ir automobiliu lustai"),
-    ("AMS.SW", "Puslaidininkiai", "Jutikliai"),
     # Programine iranga ir IT
     ("SAP.DE", "Programine iranga", "Verslo valdymo sistemos"),
     ("DSY.PA", "Programine iranga", "Projektavimo programine iranga"),
@@ -63,12 +71,8 @@ KANDIDATAI = [
     ("CAP.PA", "IT paslaugos", "Konsultacijos"),
     ("PRX.AS", "Programine iranga", "Interneto holdingas"),
     ("NOKIA.HE", "Telekomu iranga", "Tinklo infrastruktura"),
-    ("ERIC-B.ST", "Telekomu iranga", "Tinklo infrastruktura"),
     # Pramone
-    ("SIE.DE", "Pramone", "Automatizacija"),
-    ("SU.PA", "Pramone", "Elektrifikacija"),
     ("KGX.DE", "Pramone", "Sandeliu automatizacija"),
-    ("ABBN.SW", "Pramone", "Elektros iranga"),
     ("VOW3.DE", "Automobiliai", "Gamintojas"),
     # Gynyba ir aviacija
     ("RHM.DE", "Gynyba", "Sausumos sistemos"),
@@ -77,7 +81,6 @@ KANDIDATAI = [
     ("SAF.PA", "Aviacija", "Varikliai ir komponentai"),
     ("HO.PA", "Gynyba", "Elektronika"),
     # Energetika
-    ("ENR.DE", "Energetikos iranga", "Turbinos ir tinklai"),
     ("RWE.DE", "Komunalines", "Elektros gamyba"),
     ("TTE.PA", "Nafta ir dujos", "Integruota"),
     ("ENI.MI", "Nafta ir dujos", "Integruota"),
@@ -110,6 +113,15 @@ KANDIDATAI = [
     ("ADS.DE", "Vartojimo prekes", "Sportine apranga"),
     ("ITX.MC", "Mazmena", "Apranga"),
     ("AD.AS", "Mazmena", "Maisto prekyba"),
+    # AI infrastruktura — duomenu centru maitinimas, ausinimas, kabeliai, lustu iranga
+    ("SU.PA", "AI infrastruktura", "Duomenu centru maitinimas"),
+    ("LR.PA", "AI infrastruktura", "Elektros iranga duomenu centrams"),
+    ("PRY.MI", "AI infrastruktura", "Kabeliai ir tinklai"),
+    ("NEX.PA", "AI infrastruktura", "Kabeliai"),
+    ("AIXA.DE", "AI infrastruktura", "Lustu gamybos iranga"),
+    ("SOI.PA", "AI infrastruktura", "Puslaidininkiu padeklai"),
+    ("SIE.DE", "AI infrastruktura", "Duomenu centru automatizacija"),
+    ("ENR.DE", "AI infrastruktura", "Elektros tinklai ir turbinos"),
     # Sveikata
     ("SAN.PA", "Farmacija", "Receptiniai vaistai"),
     ("PHIA.AS", "Medicinos technika", "Diagnostika"),
@@ -229,6 +241,12 @@ def main():
     ap.add_argument("--top", type=int, default=45, help="Kiek akciju i galutini sarasa")
     ap.add_argument("--pozicija", type=float, default=18000.0, help="Pozicijos dydis EUR")
     ap.add_argument("--rodyti-visus", action="store_true", help="Rodyti ir neislaikiusius")
+    ap.add_argument("--max-sektoriuje", type=int, default=3,
+                    help="Daugiausia akciju is vieno sektoriaus")
+    ap.add_argument("--min-progos", type=float, default=None,
+                    help="Grieztesne progu riba (numatyta 35%)")
+    ap.add_argument("--min-ibs", type=float, default=None,
+                    help="Grieztesne zemo IBS dienu riba (numatyta 15%)")
     args = ap.parse_args()
 
     try:
@@ -236,14 +254,25 @@ def main():
     except ImportError:
         sys.exit("Paleisk: pip install yfinance pandas numpy tzdata")
 
-    symbols = [s for s, _, _ in KANDIDATAI]
+    global MIN_PROGU_DALIS, MIN_ZEMO_IBS_DIENU
+    if args.min_progos:
+        MIN_PROGU_DALIS = args.min_progos
+    if args.min_ibs:
+        MIN_ZEMO_IBS_DIENU = args.min_ibs
+
+    # Valiutos filtras pries siunciant duomenis
+    ne_eur = [s for s, _, _ in KANDIDATAI if not yra_eurais(s)]
+    if ne_eur:
+        print(f"Praleista (ne eurais): {', '.join(ne_eur)}\n")
+
+    symbols = [s for s, _, _ in KANDIDATAI if yra_eurais(s)]
     print(f"Tikrinama {len(symbols)} kandidatu, pozicija {args.pozicija:,.0f} EUR…\n")
     data = yf.download(symbols, period="2y", interval="1d", group_by="ticker",
                        progress=False, auto_adjust=False, threads=True)
 
     rezultatai = []
     nepavyko = []
-    for sym, sekt, subsekt in KANDIDATAI:
+    for sym, sekt, subsekt in [k for k in KANDIDATAI if yra_eurais(k[0])]:
         try:
             if isinstance(data.columns, pd.MultiIndex):
                 d = data[sym].dropna(how="all")
@@ -288,13 +317,14 @@ def main():
 
     # --- Galutinis sarasas su sektoriu balansu ---
     print("\n" + "=" * 100)
-    print(f"SIULOMAS SARASAS (top {args.top}, ne daugiau kaip 4 is vieno sektoriaus)")
+    print(f"SIULOMAS SARASAS (top {args.top}, ne daugiau kaip "
+          f"{args.max_sektoriuje} is vieno sektoriaus)")
     print("=" * 100)
     galutinis, per_sekt = [], {}
     for r in praeje:
         if len(galutinis) >= args.top:
             break
-        if per_sekt.get(r["sekt"], 0) >= 4:
+        if per_sekt.get(r["sekt"], 0) >= args.max_sektoriuje:
             continue
         galutinis.append(r)
         per_sekt[r["sekt"]] = per_sekt.get(r["sekt"], 0) + 1
