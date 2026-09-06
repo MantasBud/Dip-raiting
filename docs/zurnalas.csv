@@ -18,3 +18,6 @@ data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busen
 2026-09-04,15:59,SIE.DE,SIE,34.8,D,kritimas,ne,271.38,267.69,279.52,atviras,,,
 2026-09-04,15:59,MC.PA,MC,33.6,D,kritimas,ne,430.50,424.42,443.42,atviras,,,
 2026-09-04,16:20,RMS.PA,RMS,33.4,D,kritimas,ne,1459.50,1436.65,1503.29,atviras,,,
+2026-09-06,16:26,CAP.PA,CAP,76.9,B,kritimas,taip,107.45,105.44,110.67,atviras,,,
+2026-09-06,16:26,ADYEN.AS,ADYEN,74.9,B,kritimas,taip,1032.80,1013.94,1063.78,atviras,,,
+2026-09-06,16:26,ENR.DE,ENR,62.9,C,kritimas,taip,146.90,143.72,151.31,atviras,,,
