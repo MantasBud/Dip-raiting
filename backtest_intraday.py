@@ -232,14 +232,115 @@ def outcome(sessions, day_idx, k, entry, stop, target_price, hold_hours):
     return "be rezultato", (last - entry) / entry * 100
 
 
+def day_block_bootstrap(vals, n=3000, seed=42):
+    """Pasikliautinasis intervalas perrenkant DIENAS, ne eilutes."""
+    if len(vals) < 25:
+        return None
+    rng = np.random.default_rng(seed)
+    boot = np.array([rng.choice(vals, len(vals), replace=True).mean() for _ in range(n)])
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+    p_pos = float((boot > 0).mean())
+    return dict(mean=float(vals.mean()), lo=float(lo), hi=float(hi),
+                p_two=float(2 * min(p_pos, 1 - p_pos)), n_days=len(vals))
+
+
+def within_day_edge(df, col, higher_better=True, top_pct=0.9):
+    """Ar signalas isrenka geresne akcija TARP TOS PACIOS DIENOS akciju.
+
+    Tai vienintelis matas, atmetantis "geros dienos" efekta. Kiekvienai dienai
+    lyginam signalo isrinktu akciju rezultata su tos dienos vidurkiu, tada
+    perrenkam dienas.
+    """
+    sub = df.dropna(subset=[col, "pnl"])
+    if len(sub) < 1500:
+        return None
+    q = sub[col].quantile(top_pct if higher_better else 1 - top_pct)
+    per_day = []
+    for _, g in sub.groupby("_day"):
+        sel = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
+        if len(sel) >= 1:
+            per_day.append(sel.mean() - g["pnl"].mean())
+    return day_block_bootstrap(np.array(per_day))
+
+
+def benjamini_hochberg(pvals, alpha=0.05):
+    """Kuriuos rezultatus laikyti reiksmingais, kai tikrinam daug hipoteziu.
+
+    Be sios pataisos, tikrinant 25 signalus, 1-2 "reiksmingi" atsiranda
+    vien is atsitiktinumo.
+    """
+    order = np.argsort(pvals)
+    m = len(pvals)
+    passed = np.zeros(m, dtype=bool)
+    for rank, idx in enumerate(order, start=1):
+        if pvals[idx] <= alpha * rank / m:
+            passed[order[:rank]] = True
+    return passed
+
+
+SIGNALS = [
+    ("score", True, "Dabartinis balas"),
+    ("ibs", False, "IBS zemas"),
+    ("gap_ret", False, "Nakties tarpas zemyn"),
+    ("or_break", True, "Atid. diapazono pramusimas"),
+    ("vwap_d", False, "Kaina zemiau VWAP"),
+    ("pullback_atr", True, "Gilesnis atsitraukimas"),
+    ("sma_align", True, "SMA issidestymas"),
+    ("macd_h", True, "MACD histograma +"),
+    ("zscore", False, "Z-balas zemas"),
+    ("zscore", True, "Z-balas aukstas"),
+    ("vol_exp", True, "Svyravimo pletra"),
+    ("hl_struct", True, "Aukstesniu dugnu struktura"),
+    ("vol_price", True, "Apyvarta + kilimas"),
+    ("pd_break", True, "Vakar max pramusimas"),
+]
+
+
+def report_signals(df, label, correct=True):
+    """Visu signalu patikra su daugybinio tikrinimo pataisa."""
+    rows = []
+    for col, hb, name in SIGNALS:
+        if col not in df:
+            continue
+        r = within_day_edge(df, col, hb)
+        if r:
+            rows.append((name, col, hb, r))
+    for key, lab, _w in dr.CRITERIA:
+        c = f"c_{key}"
+        if c in df:
+            r = within_day_edge(df, c, True)
+            if r:
+                rows.append((f"  kriterijus: {lab[:24]}", c, True, r))
+    if not rows:
+        print(f"\n{label}: nepakako duomenu.")
+        return []
+
+    pvals = np.array([r[3]["p_two"] for r in rows])
+    passed = benjamini_hochberg(pvals) if correct else pvals < 0.05
+
+    print(f"\n{label}  (tikrinta {len(rows)} signalu, "
+          f"{'su daugybinio tikrinimo pataisa' if correct else 'be pataisos'})")
+    print(f"{'SIGNALAS':<30} {'PRANASUMAS':>11} {'95% INTERVALAS':>22} {'p':>7} {'ISLAIKO':>8}")
+    print("-" * 84)
+    order = np.argsort([r[3]["mean"] for r in rows])[::-1]
+    out = []
+    for i in order:
+        name, col, hb, r = rows[i]
+        mark = "TAIP" if passed[i] else ""
+        ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
+        print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} {r['p_two']:>7.3f} {mark:>8}")
+        if passed[i]:
+            out.append((name, col, hb, r))
+    return out
+
+
 def main():
-    ap = argparse.ArgumentParser(description="Intraday backtestas")
+    ap = argparse.ArgumentParser(description="Intraday backtestas su griezta patikra")
     ap.add_argument("--target", type=float, default=dr.TARGET_PCT)
     ap.add_argument("--days", type=int, default=60)
-    ap.add_argument("--interval", default="5m", choices=["5m", "60m"],
-                    help="5m = tikslus, bet tik 60 d.; 60m = mazesnis tikslumas, bet iki 2 metu")
-    ap.add_argument("--sweep", action="store_true",
-                    help="Isbandyti skirtingus stop ir tikslo derinius, ir parodyti, kuris geriausias")
+    ap.add_argument("--interval", default="5m", choices=["5m", "60m"])
+    ap.add_argument("--costs", type=float, default=0.07,
+                    help="Mokesciai + spread'as procentais sandoriui")
     args = ap.parse_args()
 
     try:
@@ -250,7 +351,7 @@ def main():
     symbols = [s for _, s, _ in dr.WATCHLIST]
     if args.interval == "60m":
         bph, checkpoints, min_bars = 1, CHECKPOINTS_60M, 5
-        days = min(args.days, 720) if args.days > 60 else 720
+        days = 720
     else:
         bph, checkpoints, min_bars = 12, CHECKPOINTS_5M, 40
         days = min(args.days, 60)
@@ -271,19 +372,17 @@ def main():
                 continue
             sessions = session_frames(intra, min_bars)
             rsi_series = dr.rsi(intra["Close"])
-
             for di, (day, _) in enumerate(sessions):
                 if di < 1 or di + 1 >= len(sessions):
                     continue
                 hist = dhist[dhist.index.date < day]
                 if len(hist) < 55:
                     continue
-
                 for k in checkpoints:
                     if k + max(2, bph // 2) >= len(sessions[di][1]):
                         continue
-                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target, bph,
-                                       full_series=intra)
+                    d = build_snapshot(sessions, di, k, hist, rsi_series, args.target,
+                                       bph, full_series=intra)
                     if not d:
                         continue
                     s = dr.score_stock(d, args.target, "neutral")
@@ -291,25 +390,17 @@ def main():
                                        s["tp"], dr.HOLD_HOURS)
                     if res is None:
                         continue
-                    rows.append(dict(tag=tag, score=s["score"], grade=s["grade"],
-                                     tradeable=bool(s.get("tradeable")),
-                                     setup=s.get("setup"), result=res, pnl=pnl,
-                                     ibs=d.get("ibs"), gap_ret=d.get("gap_ret"),
-                                     or_break=d.get("or_break"),
-                                     pullback_atr=d.get("pullback_atr"),
-                                     sma_align=d.get("sma_align"),
-                                     day_chg=d.get("day_chg"), rvol=d.get("rvol"),
-                                     m1h_v=d.get("m1h"), m3h_v=d.get("m3h"),
-                                     macd_h=d.get("macd_h"), zscore=d.get("zscore"),
-                                     vol_exp=d.get("vol_exp"), hl_struct=d.get("hl_struct"),
-                                     vol_price=d.get("vol_price"), pd_break=d.get("pd_break"),
-                                     tod=d.get("tod"),
-                                     vwap_d=((d["price"]-d["vwap"])/d["vwap"]*100
-                                             if d.get("vwap") else None),
-                                     **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
-                                     _day=sessions[di][0],
-                                     _sym=sym, _di=di, _k=k, _price=d["price"],
-                                     _atr=d.get("atrPct") or 3.0, _sessions=sessions))
+                    rec = dict(tag=tag, _day=day, _k=k, pnl=pnl, result=res,
+                               score=s["score"], setup=s.get("setup"))
+                    for key, _l, _w in dr.CRITERIA:
+                        rec[f"c_{key}"] = s["parts"].get(key)
+                    for f in ["ibs", "gap_ret", "or_break", "pullback_atr", "sma_align",
+                              "macd_h", "zscore", "vol_exp", "hl_struct", "vol_price",
+                              "pd_break"]:
+                        rec[f] = d.get(f)
+                    rec["vwap_d"] = ((d["price"] - d["vwap"]) / d["vwap"] * 100
+                                     if d.get("vwap") else None)
+                    rows.append(rec)
         except Exception as e:
             print(f"  {tag}: praleista ({str(e)[:50]})")
 
@@ -317,416 +408,97 @@ def main():
         sys.exit("Nepavyko surinkti duomenu.")
 
     df = pd.DataFrame(rows)
-    # Datos konvertuojamos is karto — signal_report jas naudoja medianai skaiciuoti
-    if "_day" in df:
-        df["_day"] = pd.to_datetime(df["_day"])
-    print(f"\nIstirta ijejimo tasku: {len(df)}  |  tikslas {args.target}%  "
-          f"|  laikymas {dr.HOLD_HOURS} val.\n")
-
-    # --- Pagal balo intervala (ne pagal pakopa: taip matosi tikra priklausomybe) ---
-    bins = [0, 40, 50, 60, 70, 80, 101]
-    labels = ["<40", "40-50", "50-60", "60-70", "70-80", "80+"]
-    df["bucket"] = pd.cut(df["score"], bins=bins, labels=labels, right=False)
-
+    df["_day"] = pd.to_datetime(df["_day"])
     base = df["pnl"].mean()
-    print(f"BAZINE LINIJA (atsitiktinis ijejimas, visi {len(df)} taskai): {base:+.3f}% sandoriui")
-    print("Bet kuris intervalas turi jа iveikti, kad atranka turetu verte.\n")
+    n_days = df["_day"].nunique()
 
-    print(f"{'BALAS':<8} {'ATVEJU':>7} {'TIKSLAS':>9} {'STOP':>8} {'VIDUT. REZ.':>12} {'PRIES BAZE':>11}")
-    print("-" * 50)
-    for lab in labels:
-        g = df[df["bucket"] == lab]
-        if len(g) < 10:
-            continue
-        print(f"{lab:<8} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
-              f"{(g['result']=='stop').mean()*100:>7.1f}% {g['pnl'].mean():>11.2f}% "
-              f"{g['pnl'].mean()-base:>+10.2f}%")
+    print(f"\nIjejimo tasku: {len(df)}  |  nepriklausomu dienu: {n_days}  "
+          f"|  tikslas {args.target}%  |  laikymas {dr.HOLD_HOURS} val.")
+    print(f"BAZINE LINIJA (atsitiktinis ijejimas): {base:+.3f}% sandoriui")
+    print(f"Mokesciai ir spread'as: {args.costs:.2f}% sandoriui — "
+          f"signalas verta demesio tik virs sios ribos.")
+    print(f"\nDEMESIO: {len(SIGNALS) + len(dr.CRITERIA)} signalu ant TOS PACIOS imties. "
+          f"Be pataisos 1-2 'reiksmingi' atsiranda vien is atsitiktinumo.")
 
-    # --- Ar tinkamumo zyma ka nors reiskia ---
-    print(f"\n{'TINKAMUMAS':<14} {'ATVEJU':>7} {'TIKSLAS':>9} {'VIDUT. REZ.':>12}")
-    print("-" * 46)
-    for val, name in [(True, "atitinka"), (False, "netinkama")]:
-        g = df[df["tradeable"] == val]
-        if len(g) >= 10:
-            print(f"{name:<14} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
-                  f"{g['pnl'].mean():>11.2f}%")
-
-    # --- Pagal scenariju ---
-    print(f"\n{'SCENARIJUS':<14} {'ATVEJU':>7} {'TIKSLAS':>9} {'VIDUT. REZ.':>12}")
-    print("-" * 46)
-    for st in df["setup"].dropna().unique():
-        g = df[df["setup"] == st]
-        if len(g) >= 10:
-            print(f"{st:<14} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
-                  f"{g['pnl'].mean():>11.2f}%")
-
-    # --- Santykinis stiprumas: kelinta akcija is 19 pagal siandienos pokyti ---
-    try:
-        df["_rs"] = df.groupby(["_day", "_k"])["day_chg"].rank(pct=True) * 100
-    except Exception:
-        df["_rs"] = None
-
-    # --- VISU KANDIDATU PATIKRA VIENODU BUDU ---
-    # Kiekvienas signalas tikrinamas TRIS kartus: visoje imtyje ir abiejose
-    # laiko pusese. Vertingas tik tas, kuris veikia ta pacia kryptimi visur.
-    def signal_report(col, edges, labels, title, note=""):
-        if col not in df or df[col].notna().sum() < 400:
-            return
-        try:
-            df["_b"] = pd.cut(df[col], bins=edges, labels=labels, right=False)
-        except Exception:
-            return
-        try:
-            mid = df["_day"].median()
-            h1, h2 = df[df["_day"] <= mid], df[df["_day"] > mid]
-        except Exception:
-            h1 = h2 = df
-        b_all, b1, b2 = df["pnl"].mean(), h1["pnl"].mean(), h2["pnl"].mean()
-
-        print(f"\n{title}")
-        if note:
-            print(f"  {note}")
-        print(f"  {'REIKSME':<14} {'ATVEJU':>7} {'VISA IMTIS':>12} {'1-OJI PUSE':>12} "
-              f"{'2-OJI PUSE':>12} {'STABILUS':>9}")
-        print("  " + "-" * 72)
-        for lab in labels:
-            g = df[df["_b"] == lab]
-            g1, g2 = h1[h1["_b"] == lab], h2[h2["_b"] == lab]
-            if len(g) < 100 or len(g1) < 40 or len(g2) < 40:
-                continue
-            d_all, d1, d2 = g["pnl"].mean()-b_all, g1["pnl"].mean()-b1, g2["pnl"].mean()-b2
-            stable = "TAIP" if (d1 > 0.02 and d2 > 0.02) or (d1 < -0.02 and d2 < -0.02) else "ne"
-            print(f"  {str(lab):<14} {len(g):>7} {d_all:>+11.3f}% {d1:>+11.3f}% "
-                  f"{d2:>+11.3f}% {stable:>9}")
-
+    # ---------- 1 etapas: paieska pirmoje laiko puseje ----------
+    mid = df["_day"].median()
+    train = df[df["_day"] <= mid]
+    test = df[df["_day"] > mid]
     print("\n" + "=" * 84)
-    print("KANDIDATINIAI SIGNALAI — visi tikrinami vienodai, per abi laiko puses")
-    print("Skaiciai rodo skirtuma nuo bazines linijos. 'STABILUS: TAIP' = veikia abiejose.")
+    print(f"1 ETAPAS — PAIESKA (1-oji puse: {train['_day'].nunique()} dienu). "
+          f"Cia ieskom kandidatu.")
     print("=" * 84)
+    found = report_signals(train, "Rezultatai pirmoje puseje")
 
-    signal_report("ibs", [0, .2, .4, .6, .8, 1.01], ["<0.2", "0.2-0.4", "0.4-0.6", "0.6-0.8", ">0.8"],
-                  "IBS — kur kaina dienos diapazone (0 = dugnas, 1 = virsune)",
-                  "Literatura: IBS<0.2 -> +0.35% kita diena")
-    signal_report("gap_ret", [-99, -1.5, -0.5, 0.5, 1.5, 99],
-                  ["<-1.5%", "-1.5..-0.5", "-0.5..+0.5", "+0.5..+1.5", ">+1.5%"],
-                  "NAKTIES TARPAS — vakar uzdarymas -> siandien atidarymas",
-                  "Literatura: kritimas per nakti dazniau atsoka dienos metu")
-    signal_report("or_break", [-99, -1.0, -0.3, 0.0, 0.5, 99],
-                  ["<-1%", "-1..-0.3", "-0.3..0", "0..+0.5", ">+0.5%"],
-                  "ATIDARYMO DIAPAZONO PRAMUSIMAS — kaina pries pirmos valandos maksimuma",
-                  "Teigiama reiksme = pramuse. Klasikinis intraday momentum signalas")
-    signal_report("vwap_d", [-99, -1.0, -0.3, 0.3, 1.0, 99],
-                  ["<-1%", "-1..-0.3", "-0.3..+0.3", "+0.3..+1", ">+1%"],
-                  "PADETIS PRIES VWAP — dabartinis modulis premijuoja buvima ZEMIAU",
-                  "Jei teigiamos reiksmes geresnes, dabartinis kriterijus veikia atvirksciai")
-    signal_report("pullback_atr", [0, 0.15, 0.4, 0.8, 1.5, 99],
-                  ["<0.15", "0.15-0.4", "0.4-0.8", "0.8-1.5", ">1.5"],
-                  "ATSITRAUKIMAS NUO DIENOS MAX, ATR dalimis",
-                  "Tavo scenarijus 'atsitraukus iki kritimo' — koks gylis sveikas?")
-    signal_report("sma_align", [0, 1, 2, 3], ["0", "1", "2"],
-                  "SLANKIUJU VIDURKIU ISSIDESTYMAS (2 = kaina > SMA20 > SMA50)")
-    signal_report("_rs", [0, 25, 50, 75, 101], ["silpniausi", "25-50", "50-75", "stipriausi"],
-                  "SANTYKINIS STIPRUMAS — kelinta akcija is 19 pagal siandienos pokyti",
-                  "Ar verta pirkti dienos lyderius, ar atsilikelius?")
-    signal_report("day_chg", [-99, -2, -0.7, 0.7, 2, 99],
-                  ["<-2%", "-2..-0.7", "-0.7..+0.7", "+0.7..+2", ">+2%"],
-                  "SIANDIENOS POKYTIS — tavo trys scenarijai vienoje lenteleje",
-                  "Kairioji puse = dipai, desinioji = prasidejes augimas")
-
-    # --- Ar kuris nors ATSKIRAS kriterijus turi verte? ---
-    print(f"\n{'KRITERIJUS':<26} {'ZEMAS (<50)':>13} {'AUKSTAS (>75)':>15} {'SKIRTUMAS':>11}")
-    print("-" * 68)
-    signals = []
-    for key, label, _ in dr.CRITERIA:
-        col = f"c_{key}"
-        if col not in df:
-            continue
-        lo = df[df[col] < 50]["pnl"]
-        hi = df[df[col] > 75]["pnl"]
-        if len(lo) < 200 or len(hi) < 200:
-            continue
-        diff = hi.mean() - lo.mean()
-        signals.append((abs(diff), label, diff, len(lo), len(hi)))
-        print(f"{label:<26} {lo.mean():>+12.3f}% {hi.mean():>+14.3f}% {diff:>+10.3f}%")
-
-    if signals:
-        signals.sort(reverse=True)
-        _, lab, diff, _, _ = signals[0]
-        print(f"\nStipriausias atskiras signalas: {lab} ({diff:+.3f} p. p.)")
-        print("Kad butu vertas demesio, tas pats turi kartotis IR kitame laikotarpyje.")
-
-    # --- V3: balas TIK is to, kas pasikartojo ABIEJOSE imtyse (2 m. ir 60 d.) ---
-    #   VWAP: geriausia kaina VIRS VWAP (+0.16% ir +0.30% pries baze, stabilu abiejose)
-    #   Atsitraukimas: iki 0.4 ATR gerai, 0.8+ ATR blogai (-0.20% ir -0.89%, stabilu)
-    #   Dienos pokytis: ramus geriau, -2% ir zemiau blogai (abi imtys ta pati kryptis)
-    #   Atidarymo diapazonas: pramusimas geriau (silpniau, todel mazas svoris)
-    # Neitraukta: IBS, SMA issidestymas, santykinis stiprumas, nakties tarpas — nepasikartojo.
-    def score_v3(r):
-        parts = []
-        v = r.get("vwap_d")
-        if v is not None:
-            parts.append((curve_local(v, [(-2, 15), (-1, 30), (-0.3, 35), (0.3, 60),
-                                          (1.0, 90), (2.0, 100), (4.0, 85)]), 30))
-        pb = r.get("pullback_atr")
-        if pb is not None:
-            parts.append((curve_local(pb, [(0, 85), (0.2, 100), (0.4, 90), (0.8, 35),
-                                           (1.5, 12), (3.0, 5)]), 25))
-        dc = r.get("day_chg")
-        if dc is not None:
-            parts.append((curve_local(dc, [(-4, 10), (-2, 30), (-0.7, 85), (0.3, 100),
-                                           (1.5, 70), (3.0, 40), (6, 20)]), 20))
-        ob = r.get("or_break")
-        if ob is not None:
-            parts.append((curve_local(ob, [(-2, 20), (-1, 40), (-0.3, 60), (0.2, 85),
-                                           (1.0, 100), (3.0, 90)]), 15))
-        m1, m3 = r.get("m1h_v"), r.get("m3h_v")
-        if m1 is not None and m3 is not None:
-            knife = 20 if (m3 < -0.8 and m1 < -0.2) else (100 if m1 > 0.1 else 60)
-            parts.append((knife, 10))
-        if not parts:
-            return None
-        tot = sum(w for _, w in parts)
-        return sum(v * w for v, w in parts) / tot
-
-    df["score3"] = df.apply(score_v3, axis=1)
-
-    if df["score3"].notna().sum() > 500:
-        mid = df["_day"].median()
-        halves = [("1-oji puse", df[df["_day"] <= mid]), ("2-oji puse", df[df["_day"] > mid])]
-        print("\n" + "=" * 74)
-        print("V3 — balas tik is pasikartojanciu signalu. Tikrinama per abi laiko puses.")
-        print("=" * 74)
-        print(f"{'LAIKOTARPIS':<14} {'BAZE':>9} {'DABARTINIS top10%':>19} {'V3 top10%':>12} "
-              f"{'V3 PRIES BAZE':>15}")
-        print("-" * 74)
-        ok = 0
-        for name, g in halves:
-            if len(g) < 200:
+    # ---------- 2 etapas: patvirtinimas antroje, NEMATYTOJE puseje ----------
+    print("\n" + "=" * 84)
+    print(f"2 ETAPAS — PATVIRTINIMAS (2-oji puse: {test['_day'].nunique()} dienu). "
+          f"Tikrinami TIK 1 etape islaike kandidatai.")
+    print("Cia pataisos nereikia — hipotezes buvo pasirinktos pries pamatant siuos duomenis.")
+    print("=" * 84)
+    if not found:
+        print("\n1 etape nei vienas signalas neislaike — patvirtinti nera ko.")
+        print("Tai reiskia, kad ankstesni 'reiksmingi' rezultatai buvo daugybinio")
+        print("tikrinimo pasekme, o ne tikras pranasumas.")
+    else:
+        base_t = test["pnl"].mean()
+        print(f"\n{'SIGNALAS':<30} {'PRANASUMAS':>11} {'95% INTERVALAS':>22} {'VERDIKTAS':>16}")
+        print("-" * 84)
+        confirmed = []
+        for name, col, hb, _ in found:
+            r = within_day_edge(test, col, hb)
+            if not r:
+                print(f"{name:<30} {'per maza imtis':>11}")
                 continue
-            b = g["pnl"].mean()
-            cur = g[g["score"] >= g["score"].quantile(0.9)]["pnl"]
-            v3g = g[g["score3"] >= g["score3"].quantile(0.9)]["pnl"]
-            if len(v3g) >= 50 and v3g.mean() - b > 0:
-                ok += 1
-            print(f"{name:<14} {b:>+8.3f}% {cur.mean():>+18.3f}% {v3g.mean():>+11.3f}% "
-                  f"{v3g.mean()-b:>+14.3f}%")
-        print("-" * 74)
-        print("V3 laikomas pasitvirtinusiu tik jei iveikia baze ABIEJOSE pusese "
-              f"(dabar: {ok} is 2)")
+            if r["lo"] > 0:
+                v = "PATVIRTINTA"
+                confirmed.append((name, col, hb, r))
+            elif r["hi"] < 0:
+                v = "PRIESINGA KRYPTIS"
+            else:
+                v = "nepatvirtinta"
+            ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
+            print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} {v:>16}")
 
-        # --- Palyginam VISUS kandidatus tuo paciu, grieztu matu ---
-        # Klausimas: ar signalas isrenka geresne akcija TARP TOS DIENOS akciju?
-        # Tai vienintelis sarazinis matas — atmeta "geros dienos" efekta.
-        def within_day_edge(col, higher_better=True, label=""):
-            try:
-                sub_ = df.dropna(subset=[col, "pnl"])
-                if len(sub_) < 2000:
-                    return None
-                q = sub_[col].quantile(0.9 if higher_better else 0.1)
-                per_day_ = {}
-                for d_, g in sub_.groupby("_day"):
-                    top_ = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
-                    if len(top_) >= 1:
-                        per_day_[d_] = top_.mean() - g["pnl"].mean()
-                vals_ = np.array(list(per_day_.values()))
-                if len(vals_) < 30:
-                    return None
-                rng2 = np.random.default_rng(7)
-                b_ = [rng2.choice(vals_, len(vals_), replace=True).mean() for _ in range(2000)]
-                lo_, hi_ = np.percentile(b_, [2.5, 97.5])
-                return (label or col, vals_.mean(), lo_, hi_, len(vals_))
-            except Exception:
-                return None
-
-        print("\n" + "=" * 78)
-        print("GRIEZTAS MATAS: ar signalas isrenka geresne akcija TARP TOS PACIOS DIENOS akciju?")
-        print("(atmeta 'geros dienos' efekta — lieka tik akciju atranka)")
-        print("=" * 78)
-        print(f"{'SIGNALAS':<26} {'PRANASUMAS':>12} {'95% INTERVALAS':>24} {'DIENU':>7}")
-        print("-" * 78)
-        # V4: tas pats balas, bet svoris sutelktas i tris kriterijus, kurie
-        # griezta mata perejo reiksmingai teigiamai. Kiti septyni gauna maza svori,
-        # o ne nuli — nes "nulis" reiskia "neirodyta", ne "irodyta, kad nereikalingas".
-        try:
-            w4 = {"dip": 30, "support": 22, "vwap": 22,
-                  "multiday": 6, "stab": 6, "room": 5, "atr": 3, "rsi": 3,
-                  "rvol": 2, "trend": 1}
-            cols4 = {f"c_{k}": v for k, v in w4.items() if f"c_{k}" in df}
-            if cols4:
-                tot4 = sum(cols4.values())
-                df["score4"] = sum(df[c].fillna(50) * w for c, w in cols4.items()) / tot4
-        except Exception:
-            pass
-
-        candidates = [
-            ("score", True, "Dabartinis balas"),
-            ("score4", True, "V4 (svoris i 3 patvirtintus)"),
-            ("score3", True, "V3 balas (atmestas)"),
-            ("vwap_d", True, "Kaina virs VWAP"),
-            ("pullback_atr", False, "Mazas atsitraukimas"),
-            ("or_break", True, "Atid. diapazono pram."),
-            # Prognostiniai kandidatai — klasikine technine analize
-            ("macd_h", True, "MACD histograma +"),
-            ("macd_h", False, "MACD histograma -"),
-            ("zscore", False, "Z-balas zemas (perparduota)"),
-            ("zscore", True, "Z-balas aukstas (perpirkta)"),
-            ("vol_exp", True, "Svyravimo pletra"),
-            ("hl_struct", True, "Aukstesniu dugnu struktura"),
-            ("vol_price", True, "Apyvarta + kilimas"),
-            ("vol_price", False, "Apyvarta + kritimas"),
-            ("pd_break", True, "Vakar max pramusimas"),
-            ("pd_break", False, "Vakar min pralauzimas"),
-        ]
-        # Kiekvienas dabartinio balo kriterijus atskirai — kurie is ju duoda ta +0.124%?
-        for _k, _lab, _w in dr.CRITERIA:
-            candidates.append((f"c_{_k}", True, f"  kriterijus: {_lab[:22]}"))
-        for res_ in [within_day_edge(c, h, l) for c, h, l in candidates]:
-            if res_:
-                lab, m_, lo_, hi_, n_ = res_
-                verdict = "reiksmingas +" if lo_ > 0 else ("reiksmingas -" if hi_ < 0 else "nulis")
-                print(f"{lab:<26} {m_:>+11.3f}% {f'{lo_:+.3f} .. {hi_:+.3f}':>24} {n_:>7}  {verdict}")
-
-        # --- Paros laikas: ar yra valandu, kada ijejimai geresni? ---
-        try:
-            if "tod" in df and df["tod"].notna().sum() > 2000:
-                print("\nPAROS LAIKAS — ar yra geresniu ijejimo valandu?")
-                print(f"{'TASKAS':<10} {'ATVEJU':>8} {'VID. REZ.':>11} {'PRIES BAZE':>12}")
-                print("-" * 44)
-                for t_ in sorted(df["tod"].dropna().unique()):
-                    g = df[df["tod"] == t_]["pnl"]
-                    if len(g) >= 200:
-                        print(f"{f'#{int(t_)}':<10} {len(g):>8} {g.mean():>+10.3f}% "
-                              f"{g.mean()-base:>+11.3f}%")
-        except Exception:
-            pass
-
-        # --- Ar skirtumas tikras, ar imties triuksmas? ---
-        # Ijejimo taskai NEra nepriklausomi: ta pacia diena 19 akciju x keli taskai
-        # juda kartu. Todel perrenkame DIENAS (block bootstrap) — taip paklaida
-        # atspindi tikra nepriklausomu stebejimu skaiciu, o ne eiluciu skaiciu.
-        try:
-            sub = df.dropna(subset=["score3"])
-            days = sub["_day"].unique()
-            thr = sub["score3"].quantile(0.9)
-            per_day = {}
-            for d_, g in sub.groupby("_day"):
-                top = g[g["score3"] >= thr]["pnl"]
-                if len(top) >= 1:
-                    per_day[d_] = top.mean() - g["pnl"].mean()
-            vals = np.array(list(per_day.values()))
-            if len(vals) >= 30:
-                rng_ = np.random.default_rng(42)
-                boot = [rng_.choice(vals, len(vals), replace=True).mean() for _ in range(3000)]
-                lo, hi = np.percentile(boot, [2.5, 97.5])
-                pos = float((np.array(boot) > 0).mean() * 100)
-                print(f"\nSTATISTINE PATIKRA (perrenkant dienas, {len(vals)} nepriklausomu dienu):")
-                print(f"  V3 pranasumas pries baze: {vals.mean():+.3f}% sandoriui")
-                print(f"  95% pasikliautinasis intervalas: nuo {lo:+.3f}% iki {hi:+.3f}%")
-                print(f"  Tikimybe, kad pranasumas teigiamas: {pos:.0f}%")
-                if lo > 0:
-                    print("  -> Skirtumas statistiskai reiksmingas.")
-                elif hi < 0:
-                    print("  -> Skirtumas reiksmingai NEIGIAMAS.")
+        # ---------- 3 etapas: ar pranasumas is visu akciju, ar is vienos ----------
+        if confirmed:
+            print("\n" + "=" * 84)
+            print("3 ETAPAS — ATSPARUMAS: ar pranasumas islieka isbraukus bet kuria akcija?")
+            print("=" * 84)
+            for name, col, hb, _ in confirmed[:3]:
+                mins, maxs = 99.0, -99.0
+                worst = best = ""
+                for tag in df["tag"].unique():
+                    r = within_day_edge(df[df["tag"] != tag], col, hb)
+                    if r:
+                        if r["mean"] < mins:
+                            mins, worst = r["mean"], tag
+                        if r["mean"] > maxs:
+                            maxs, best = r["mean"], tag
+                full = within_day_edge(df, col, hb)
+                print(f"\n{name}: visos akcijos {full['mean']:+.3f}%")
+                print(f"  isbraukus po viena: nuo {mins:+.3f}% (be {worst}) "
+                      f"iki {maxs:+.3f}% (be {best})")
+                if mins > 0:
+                    print("  -> Pranasumas nepriklauso nuo vienos akcijos.")
                 else:
-                    width = hi - lo
-                    print(f"  -> Neatskiriama nuo nulio. Intervalo plotis {width:.3f} p. p. "
-                          f"rodo, kiek imtis apskritai leidzia pasakyti.")
-                print(f"  Palyginimui: mokesciai ir spread'as ~0.05-0.10% sandoriui.")
-        except Exception as e:
-            print(f"(statistine patikra praleista: {str(e)[:60]})")
+                    print("  -> DEMESIO: isbraukus viena akcija pranasumas dingsta. "
+                          "Greiciausiai atsitiktinumas.")
 
-    # --- Ar balo verte priklauso nuo rinkos krypties? ---
-    # Rinkos rodiklis: visu 19 akciju mediana 5 dienu pokytis tuo metu.
-    try:
-        df["_day"] = pd.to_datetime(df["_day"])
-        daily_mkt = df.groupby("_day")["pnl"].size()          # tik dienu sarasui
-        day_list = sorted(df["_day"].unique())
-        idx = {d: i for i, d in enumerate(day_list)}
-        # kiekvienai dienai - vidutinis visu akciju rezultatas kaip rinkos artinys
-        day_mean = df.groupby("_day")["pnl"].mean()
-        roll = day_mean.rolling(5, min_periods=3).mean()
-        df["_mkt"] = df["_day"].map(roll)
-
-        sub = df.dropna(subset=["_mkt"])
-        if len(sub) > 1000:
-            q1, q2 = sub["_mkt"].quantile(0.33), sub["_mkt"].quantile(0.67)
-            regimes = [("Rinka krenta", sub[sub["_mkt"] <= q1]),
-                       ("Rinka soninе", sub[(sub["_mkt"] > q1) & (sub["_mkt"] < q2)]),
-                       ("Rinka kyla", sub[sub["_mkt"] >= q2])]
-            print("\n" + "=" * 68)
-            print("AR BALAS PRIKLAUSO NUO RINKOS KRYPTIES?")
-            print("=" * 68)
-            print(f"{'REZIMAS':<16} {'ATVEJU':>8} {'BAZE':>9} {'TOP 10% BALAS':>15} {'PRIES BAZE':>12}")
-            print("-" * 68)
-            for name, g in regimes:
-                if len(g) < 200:
-                    continue
-                b = g["pnl"].mean()
-                top = g[g["score"] >= g["score"].quantile(0.9)]["pnl"]
-                if len(top) < 30:
-                    continue
-                print(f"{name:<16} {len(g):>8} {b:>+8.3f}% {top.mean():>+14.3f}% "
-                      f"{top.mean()-b:>+11.3f}%")
-            print("\nJei skirtumas teigiamas tik kylanciai rinkai — balas nera pranasumas,")
-            print("o rinkos krypties stiprintuvas, ir ji reikia naudoti tik su filtru.")
-    except Exception as e:
-        print(f"(rezimo analize praleista: {str(e)[:60]})")
-
-    # --- Parametru paieska: koks stop ir koks tikslas realiai veikia ---
-    if args.sweep:
-        print("\n" + "=" * 64)
-        print("PARAMETRU PAIESKA: vidutinis rezultatas vienam sandoriui (%)")
-        print("Stop = daugiklis x dienos ATR;  eilutes = stop, stulpeliai = tikslas")
-        print("=" * 64)
-        targets = [1.5, 2.0, 3.0, 4.0]
-        mults = [0.25, 0.4, 0.55, 0.75, 1.0, 1.5]
-
-        header = "STOP".ljust(10) + "".join(f"{t:>10.1f}%" for t in targets)
-        print(header)
-        print("-" * len(header))
-        best = None
-        for m in mults:
-            cells = []
-            for t in targets:
-                pnls = []
-                for r in rows:
-                    price, atr = r["_price"], r["_atr"]
-                    stop_pct = max(0.5, m * atr)
-                    stop = price * (1 - stop_pct / 100)
-                    tp = price * (1 + t / 100)
-                    res, pnl = outcome(r["_sessions"], r["_di"], r["_k"], price, stop, tp,
-                                       dr.HOLD_HOURS)
-                    if res:
-                        pnls.append(pnl)
-                avg = float(np.mean(pnls)) if pnls else 0.0
-                cells.append(avg)
-                if best is None or avg > best[0]:
-                    best = (avg, m, t)
-            print(f"{m:>4.2f}xATR  " + "".join(f"{c:>+10.2f}" for c in cells))
-
-        print("-" * len(header))
-        print(f"Geriausias derinys: stop {best[1]:.2f} x ATR, tikslas {best[2]:.1f}% "
-              f"-> {best[0]:+.2f}% sandoriui")
-        print("Nepamirsk: mokesciai ir spread'as cia neiskaiciuoti (~0.05-0.1% sandoriui).")
-
-    # --- Isvada ---
-    valid = [(lab, df[df["bucket"] == lab]) for lab in labels]
-    valid = [(l, g) for l, g in valid if len(g) >= 20]
-    if len(valid) >= 2:
-        lo_pnl = valid[0][1]["pnl"].mean()
-        hi_pnl = valid[-1][1]["pnl"].mean()
-        print(f"\nZemiausias intervalas ({valid[0][0]}): {lo_pnl:+.2f}% vidutiniskai")
-        print(f"Auksciausias intervalas ({valid[-1][0]}): {hi_pnl:+.2f}% vidutiniskai")
-        d = hi_pnl - lo_pnl
-        if d > 0.15:
-            print(f"→ Balas veikia teisinga kryptimi: skirtumas {d:+.2f} proc. punkto sandoriui.")
-        elif d < -0.15:
-            print(f"→ Balas veikia ATVIRKSCIAI ({d:+.2f} p. p.). Svorius butina perziureti.")
+            print("\n" + "=" * 84)
+            print("GALUTINIS VERTINIMAS (atemus mokescius)")
+            print("=" * 84)
+            for name, col, hb, r in confirmed:
+                net = r["mean"] - args.costs
+                print(f"{name:<34} bruto {r['mean']:+.3f}%  neto {net:+.3f}%  "
+                      f"{'verta' if net > 0 else 'po mokesciu nelieka'}")
         else:
-            print(f"→ Balas kol kas neskiria gerų sandoriu nuo blogu ({d:+.2f} p. p.).")
+            print("\nNe vienas kandidatas nepasitvirtino nematytoje imties dalyje.")
+            print("Tai stipriausias imanomas signalas, kad pranasumo nera.")
 
-    print("\nSVARBU: be mokesciu ir spread'o; kai bare paliesti abu lygiai — "
-          "\nlaikoma pralaimejimu; keli ijejimo taskai per diena yra susije tarpusavyje.")
+    print("\nAPRIBOJIMAI: be mokesciu ir spread'o skaiciuose auksciau; kai bare paliesti "
+          "\nabu lygiai — laikoma pralaimejimu; duomenys is vieno saltinio; "
+          "\npraeities rezultatai negarantuoja ateities.")
 
 
 if __name__ == "__main__":
