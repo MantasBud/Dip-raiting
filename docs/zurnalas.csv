@@ -27,3 +27,6 @@ data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busen
 2026-09-06,17:21,SAP.DE,SAP,79.8,A,kritimas,taip,185.80,182.62,189.52,atviras,,,
 2026-09-06,17:21,SIE.DE,SIE,42.8,D,atsigavimas,taip,272.40,267.69,277.85,atviras,,,
 2026-09-06,17:21,LR.PA,LR,61.0,C,kritimas,ne,140.90,138.58,143.72,atviras,,,
+2026-09-06,19:08,MC.PA,MC,45.0,D,kritimas,ne,429.65,423.67,438.24,atviras,,,
+2026-09-06,19:08,NVD.DE,NVD,45.0,D,kritimas,ne,199.52,196.36,203.51,atviras,,,
+2026-09-06,19:08,RMS.PA,RMS,45.0,D,kritimas,ne,1459.00,1436.02,1488.18,atviras,,,
