@@ -334,6 +334,42 @@ def report_signals(df, label, correct=True):
     return out
 
 
+def outcome_trailing(sessions, day_idx, k, entry, stop, min_target, trail_pct, hold_hours):
+    """Isejimas be virsutines ribos: pasiekus min_target, ijungiamas slenkantis stop.
+
+    Skirtumas nuo fiksuoto tikslo: kai judesys stiprus, pozicija laikoma toliau,
+    o pelnas fiksuojamas tik kai kaina atsitraukia trail_pct nuo pasiektos virsunes.
+    Kai bare paliesti abu lygiai, laikoma nepalankiu variantu (konservatyvu).
+    """
+    bars = [sessions[day_idx][1].iloc[k + 1:]]
+    if hold_hours > 8 and day_idx + 1 < len(sessions):
+        bars.append(sessions[day_idx + 1][1])
+    future = pd.concat(bars) if bars else None
+    if future is None or future.empty:
+        return None, 0.0
+
+    trigger = entry * (1 + min_target / 100)
+    armed = False
+    peak = entry
+    cur_stop = stop
+
+    for _, b in future.iterrows():
+        hi, lo = float(b["High"]), float(b["Low"])
+        if lo <= cur_stop:
+            pnl = (cur_stop - entry) / entry * 100
+            return ("stop" if not armed else "slenkantis stop"), pnl
+        if hi > peak:
+            peak = hi
+        if not armed and hi >= trigger:
+            armed = True
+        if armed:
+            new_stop = peak * (1 - trail_pct / 100)
+            cur_stop = max(cur_stop, new_stop)
+
+    last = float(future["Close"].iloc[-1])
+    return ("uzdaryta pabaigoje" if armed else "be rezultato"), (last - entry) / entry * 100
+
+
 def main():
     ap = argparse.ArgumentParser(description="Intraday backtestas su griezta patikra")
     ap.add_argument("--target", type=float, default=dr.TARGET_PCT)
@@ -390,7 +426,14 @@ def main():
                                        s["tp"], dr.HOLD_HOURS)
                     if res is None:
                         continue
+                    # Tas pats ijejimas, kitokia isejimo taisykle
+                    tr_res, tr_pnl = outcome_trailing(sessions, di, k, d["price"], s["stop"],
+                                                      2.0, 1.0, dr.HOLD_HOURS)
+                    tr_res2, tr_pnl2 = outcome_trailing(sessions, di, k, d["price"], s["stop"],
+                                                        2.0, 1.5, dr.HOLD_HOURS)
                     rec = dict(tag=tag, _day=day, _k=k, pnl=pnl, result=res,
+                               pnl_trail=tr_pnl, res_trail=tr_res,
+                               pnl_trail15=tr_pnl2,
                                score=s["score"], setup=s.get("setup"))
                     for key, _l, _w in dr.CRITERIA:
                         rec[f"c_{key}"] = s["parts"].get(key)
@@ -419,6 +462,91 @@ def main():
           f"signalas verta demesio tik virs sios ribos.")
     print(f"\nDEMESIO: {len(SIGNALS) + len(dr.CRITERIA)} signalu ant TOS PACIOS imties. "
           f"Be pataisos 1-2 'reiksmingi' atsiranda vien is atsitiktinumo.")
+
+    # ---------- ISEJIMO TAISYKLIU PALYGINIMAS ----------
+    # Tas pats ijejimas, trys skirtingos isejimo taisykles. Klausimas: ar atsisakius
+    # virsutines ribos rezultatas pagereja, ir ar SIGNALAS tampa informatyvesnis.
+    try:
+        if "pnl_trail" in df:
+            print("\n" + "=" * 84)
+            print("ISEJIMO TAISYKLES — tas pats ijejimas, skirtingi isejimai")
+            print("=" * 84)
+            rules = [("pnl", f"Fiksuotas tikslas {args.target}%"),
+                     ("pnl_trail", "Min 2%, tada slenkantis stop 1.0%"),
+                     ("pnl_trail15", "Min 2%, tada slenkantis stop 1.5%")]
+            print(f"{'TAISYKLE':<34} {'VID. REZ.':>11} {'>0 dalis':>10} "
+                  f"{'VID. PELNAS':>12} {'VID. NUOSTOLIS':>15}")
+            print("-" * 84)
+            for col, lab in rules:
+                v = df[col].dropna()
+                if len(v) < 500:
+                    continue
+                wins, losses = v[v > 0], v[v <= 0]
+                print(f"{lab:<34} {v.mean():>+10.3f}% {len(wins)/len(v)*100:>9.1f}% "
+                      f"{wins.mean():>+11.2f}% {losses.mean():>+14.2f}%")
+
+            print(f"\n{'TAISYKLE':<34} {'SIGNALO PRANASUMAS':>20} {'95% INTERVALAS':>24}")
+            print("-" * 84)
+            for col, lab in rules:
+                tmp = df.copy()
+                tmp["pnl"] = tmp[col]
+                r = within_day_edge(tmp, "ibs", higher_better=False)
+                if r:
+                    ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
+                    print(f"{lab:<34} {r['mean']:>+19.3f}% {ci:>24}")
+            print("\n(Signalo pranasumas = IBS, vienintelis patvirtintas signalas. "
+                  "\nJei jis didesnis su slenkanciu isejimu, verta keisti taisykle.)")
+    except Exception as e:
+        print(f"(isejimo palyginimas praleistas: {str(e)[:60]})")
+
+    # ---------- RYTINIS RALIS: ar rytinis stiprumas testiasi? ----------
+    # Klausimas siauresnis nei ankstesni: imam TIK anksciausia dienos taska
+    # (~10:30) ir ziurim, ka kaina padare iki galo. Tai tiesiogiai atsako,
+    # ar rytinis kilimas turi tesinio potencialo.
+    try:
+        first_k = df["_k"].min()
+        am = df[df["_k"] == first_k].copy()
+        if len(am) > 800:
+            am_base = am["pnl"].mean()
+            mid_am = am["_day"].median()
+            h1, h2 = am[am["_day"] <= mid_am], am[am["_day"] > mid_am]
+            print("\n" + "=" * 84)
+            print(f"RYTINIS RALIS — tik anksciausias dienos taskas ({len(am)} atveju). "
+                  f"Ar rytinis kilimas testiasi?")
+            print(f"Bazine linija sioje imtyje: {am_base:+.3f}%")
+            print("=" * 84)
+            print(f"{'RYTINIS POKYTIS':<18} {'ATVEJU':>7} {'VISA IMTIS':>12} "
+                  f"{'1-OJI PUSE':>12} {'2-OJI PUSE':>12} {'STABILUS':>9}")
+            print("-" * 84)
+            for lo, hi, lab in [(-99, -1.0, "krenta > 1%"), (-1.0, -0.3, "krenta 0.3-1%"),
+                                (-0.3, 0.3, "stovi vietoje"), (0.3, 1.0, "kyla 0.3-1%"),
+                                (1.0, 2.0, "kyla 1-2%"), (2.0, 99, "ralis > 2%")]:
+                g = am[(am["day_chg"] >= lo) & (am["day_chg"] < hi)]
+                g1 = h1[(h1["day_chg"] >= lo) & (h1["day_chg"] < hi)]
+                g2 = h2[(h2["day_chg"] >= lo) & (h2["day_chg"] < hi)]
+                if len(g) < 60 or len(g1) < 25 or len(g2) < 25:
+                    continue
+                d_all = g["pnl"].mean() - am_base
+                d1 = g1["pnl"].mean() - h1["pnl"].mean()
+                d2 = g2["pnl"].mean() - h2["pnl"].mean()
+                stab = "TAIP" if (d1 > 0.02 and d2 > 0.02) or (d1 < -0.02 and d2 < -0.02) else "ne"
+                print(f"{lab:<18} {len(g):>7} {d_all:>+11.3f}% {d1:>+11.3f}% "
+                      f"{d2:>+11.3f}% {stab:>9}")
+
+            # Ar svarbu, kad kyla visa rinka, ar tik viena akcija?
+            am["_breadth"] = am.groupby("_day")["day_chg"].transform("median")
+            print(f"\n{'RALIS + RINKOS PLOTIS':<34} {'ATVEJU':>7} {'PRIES BAZE':>12}")
+            print("-" * 58)
+            for cond, lab in [
+                ((am["day_chg"] > 1.0) & (am["_breadth"] > 0.5), "akcija kyla + kyla visas sarasas"),
+                ((am["day_chg"] > 1.0) & (am["_breadth"] <= 0.5), "akcija kyla viena"),
+                ((am["day_chg"] > 1.0) & (am["ibs"] > 0.7), "kyla ir laikosi virsuje"),
+                ((am["day_chg"] > 1.0) & (am["ibs"] <= 0.4), "kyla, bet atsitrauke")]:
+                g = am[cond]
+                if len(g) >= 60:
+                    print(f"{lab:<34} {len(g):>7} {g['pnl'].mean()-am_base:>+11.3f}%")
+    except Exception as e:
+        print(f"(rytinio ralio analize praleista: {str(e)[:60]})")
 
     # ---------- 1 etapas: paieska pirmoje laiko puseje ----------
     mid = df["_day"].median()
