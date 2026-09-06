@@ -83,6 +83,27 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
     prev_close = float(daily_hist["Close"].iloc[-1])
     day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
 
+    # Kandidatiniai signalai is literaturos (dar neidiegti i bala - pirma matuojam):
+    #  IBS = kur kaina dienos diapazone (Pagonidis 2013: IBS<0.2 -> +0.35% kita diena)
+    #  gap = nakties tarpas (uzdarymas -> atidarymas), dokumentuotas atsokimo signalas
+    ibs = (price - low) / (high - low) if high > low else None
+    day_open = float(bars["Open"].iloc[0])
+    gap_ret = (day_open - prev_close) / prev_close * 100 if prev_close else None
+
+    # Atidarymo diapazonas: pirma valanda. Kaina virs jo = pramusimas.
+    or_bars = bars.iloc[:max(1, bph)]
+    or_high = float(or_bars["High"].max())
+    or_break = (price - or_high) / price * 100 if or_high else None
+
+    # Atsitraukimas nuo dienos maksimumo, isreikstas ATR dalimis
+    a_for_pb = a if a else None
+    pullback_atr = ((high - price) / price * 100) / a_for_pb if a_for_pb else None
+
+    # Slankiuju vidurkiu issidestymas: 2 = kaina > SMA20 > SMA50, 0 = zemiau abieju
+    sma20_v = float(daily_hist["Close"].tail(20).mean())
+    sma50_v = float(daily_hist["Close"].tail(50).mean())
+    sma_align = (1 if price > sma20_v else 0) + (1 if sma20_v > sma50_v else 0)
+
     res_intra = high if high > price * 1.001 else None
     sup_intra = low if low < price * 0.999 else None
     hi20 = float(daily_hist["High"].tail(20).max())
@@ -100,7 +121,9 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
         cur="EUR", cur_sym="\u20ac", vol5m=v5,
         exp_move=dr.expected_move(v5, dr.HOLD_HOURS, bph=bph),
         m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
-        span_h=mom["span_h"], mom_partial=mom["partial"])
+        span_h=mom["span_h"], mom_partial=mom["partial"],
+        ibs=ibs, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
+        sma_align=sma_align)
 
 
 def outcome(sessions, day_idx, k, entry, stop, target_price, hold_hours):
@@ -187,6 +210,13 @@ def main():
                     rows.append(dict(tag=tag, score=s["score"], grade=s["grade"],
                                      tradeable=bool(s.get("tradeable")),
                                      setup=s.get("setup"), result=res, pnl=pnl,
+                                     ibs=d.get("ibs"), gap_ret=d.get("gap_ret"),
+                                     or_break=d.get("or_break"),
+                                     pullback_atr=d.get("pullback_atr"),
+                                     sma_align=d.get("sma_align"),
+                                     day_chg=d.get("day_chg"), rvol=d.get("rvol"),
+                                     vwap_d=((d["price"]-d["vwap"])/d["vwap"]*100
+                                             if d.get("vwap") else None),
                                      **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
                                      _day=sessions[di][0],
                                      _sym=sym, _di=di, _k=k, _price=d["price"],
@@ -237,6 +267,76 @@ def main():
         if len(g) >= 10:
             print(f"{st:<14} {len(g):>7} {(g['result']=='tikslas').mean()*100:>8.1f}% "
                   f"{g['pnl'].mean():>11.2f}%")
+
+    # --- Santykinis stiprumas: kelinta akcija is 19 pagal siandienos pokyti ---
+    try:
+        df["_rs"] = df.groupby(["_day", "_k"])["day_chg"].rank(pct=True) * 100
+    except Exception:
+        df["_rs"] = None
+
+    # --- VISU KANDIDATU PATIKRA VIENODU BUDU ---
+    # Kiekvienas signalas tikrinamas TRIS kartus: visoje imtyje ir abiejose
+    # laiko pusese. Vertingas tik tas, kuris veikia ta pacia kryptimi visur.
+    def signal_report(col, edges, labels, title, note=""):
+        if col not in df or df[col].notna().sum() < 400:
+            return
+        try:
+            df["_b"] = pd.cut(df[col], bins=edges, labels=labels, right=False)
+        except Exception:
+            return
+        mid = df["_day"].median()
+        h1, h2 = df[df["_day"] <= mid], df[df["_day"] > mid]
+        b_all, b1, b2 = df["pnl"].mean(), h1["pnl"].mean(), h2["pnl"].mean()
+
+        print(f"\n{title}")
+        if note:
+            print(f"  {note}")
+        print(f"  {'REIKSME':<14} {'ATVEJU':>7} {'VISA IMTIS':>12} {'1-OJI PUSE':>12} "
+              f"{'2-OJI PUSE':>12} {'STABILUS':>9}")
+        print("  " + "-" * 72)
+        for lab in labels:
+            g = df[df["_b"] == lab]
+            g1, g2 = h1[h1["_b"] == lab], h2[h2["_b"] == lab]
+            if len(g) < 100 or len(g1) < 40 or len(g2) < 40:
+                continue
+            d_all, d1, d2 = g["pnl"].mean()-b_all, g1["pnl"].mean()-b1, g2["pnl"].mean()-b2
+            stable = "TAIP" if (d1 > 0.02 and d2 > 0.02) or (d1 < -0.02 and d2 < -0.02) else "ne"
+            print(f"  {str(lab):<14} {len(g):>7} {d_all:>+11.3f}% {d1:>+11.3f}% "
+                  f"{d2:>+11.3f}% {stable:>9}")
+
+    print("\n" + "=" * 84)
+    print("KANDIDATINIAI SIGNALAI — visi tikrinami vienodai, per abi laiko puses")
+    print("Skaiciai rodo skirtuma nuo bazines linijos. 'STABILUS: TAIP' = veikia abiejose.")
+    print("=" * 84)
+
+    signal_report("ibs", [0, .2, .4, .6, .8, 1.01], ["<0.2", "0.2-0.4", "0.4-0.6", "0.6-0.8", ">0.8"],
+                  "IBS — kur kaina dienos diapazone (0 = dugnas, 1 = virsune)",
+                  "Literatura: IBS<0.2 -> +0.35% kita diena")
+    signal_report("gap_ret", [-99, -1.5, -0.5, 0.5, 1.5, 99],
+                  ["<-1.5%", "-1.5..-0.5", "-0.5..+0.5", "+0.5..+1.5", ">+1.5%"],
+                  "NAKTIES TARPAS — vakar uzdarymas -> siandien atidarymas",
+                  "Literatura: kritimas per nakti dazniau atsoka dienos metu")
+    signal_report("or_break", [-99, -1.0, -0.3, 0.0, 0.5, 99],
+                  ["<-1%", "-1..-0.3", "-0.3..0", "0..+0.5", ">+0.5%"],
+                  "ATIDARYMO DIAPAZONO PRAMUSIMAS — kaina pries pirmos valandos maksimuma",
+                  "Teigiama reiksme = pramuse. Klasikinis intraday momentum signalas")
+    signal_report("vwap_d", [-99, -1.0, -0.3, 0.3, 1.0, 99],
+                  ["<-1%", "-1..-0.3", "-0.3..+0.3", "+0.3..+1", ">+1%"],
+                  "PADETIS PRIES VWAP — dabartinis modulis premijuoja buvima ZEMIAU",
+                  "Jei teigiamos reiksmes geresnes, dabartinis kriterijus veikia atvirksciai")
+    signal_report("pullback_atr", [0, 0.15, 0.4, 0.8, 1.5, 99],
+                  ["<0.15", "0.15-0.4", "0.4-0.8", "0.8-1.5", ">1.5"],
+                  "ATSITRAUKIMAS NUO DIENOS MAX, ATR dalimis",
+                  "Tavo scenarijus 'atsitraukus iki kritimo' — koks gylis sveikas?")
+    signal_report("sma_align", [0, 1, 2, 3], ["0", "1", "2"],
+                  "SLANKIUJU VIDURKIU ISSIDESTYMAS (2 = kaina > SMA20 > SMA50)")
+    signal_report("_rs", [0, 25, 50, 75, 101], ["silpniausi", "25-50", "50-75", "stipriausi"],
+                  "SANTYKINIS STIPRUMAS — kelinta akcija is 19 pagal siandienos pokyti",
+                  "Ar verta pirkti dienos lyderius, ar atsilikelius?")
+    signal_report("day_chg", [-99, -2, -0.7, 0.7, 2, 99],
+                  ["<-2%", "-2..-0.7", "-0.7..+0.7", "+0.7..+2", ">+2%"],
+                  "SIANDIENOS POKYTIS — tavo trys scenarijai vienoje lenteleje",
+                  "Kairioji puse = dipai, desinioji = prasidejes augimas")
 
     # --- Ar kuris nors ATSKIRAS kriterijus turi verte? ---
     print(f"\n{'KRITERIJUS':<26} {'ZEMAS (<50)':>13} {'AUKSTAS (>75)':>15} {'SKIRTUMAS':>11}")
