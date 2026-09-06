@@ -440,6 +440,46 @@ def main():
         print("V3 laikomas pasitvirtinusiu tik jei iveikia baze ABIEJOSE pusese "
               f"(dabar: {ok} is 2)")
 
+        # --- Palyginam VISUS kandidatus tuo paciu, grieztu matu ---
+        # Klausimas: ar signalas isrenka geresne akcija TARP TOS DIENOS akciju?
+        # Tai vienintelis sarazinis matas — atmeta "geros dienos" efekta.
+        def within_day_edge(col, higher_better=True, label=""):
+            try:
+                sub_ = df.dropna(subset=[col, "pnl"])
+                if len(sub_) < 2000:
+                    return None
+                q = sub_[col].quantile(0.9 if higher_better else 0.1)
+                per_day_ = {}
+                for d_, g in sub_.groupby("_day"):
+                    top_ = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
+                    if len(top_) >= 1:
+                        per_day_[d_] = top_.mean() - g["pnl"].mean()
+                vals_ = np.array(list(per_day_.values()))
+                if len(vals_) < 30:
+                    return None
+                rng2 = np.random.default_rng(7)
+                b_ = [rng2.choice(vals_, len(vals_), replace=True).mean() for _ in range(2000)]
+                lo_, hi_ = np.percentile(b_, [2.5, 97.5])
+                return (label or col, vals_.mean(), lo_, hi_, len(vals_))
+            except Exception:
+                return None
+
+        print("\n" + "=" * 78)
+        print("GRIEZTAS MATAS: ar signalas isrenka geresne akcija TARP TOS PACIOS DIENOS akciju?")
+        print("(atmeta 'geros dienos' efekta — lieka tik akciju atranka)")
+        print("=" * 78)
+        print(f"{'SIGNALAS':<26} {'PRANASUMAS':>12} {'95% INTERVALAS':>24} {'DIENU':>7}")
+        print("-" * 78)
+        for res_ in [within_day_edge("score3", True, "V3 balas"),
+                     within_day_edge("score", True, "Dabartinis balas"),
+                     within_day_edge("vwap_d", True, "Kaina virs VWAP"),
+                     within_day_edge("pullback_atr", False, "Mazas atsitraukimas"),
+                     within_day_edge("or_break", True, "Atid. diapazono pram.")]:
+            if res_:
+                lab, m_, lo_, hi_, n_ = res_
+                verdict = "reiksmingas +" if lo_ > 0 else ("reiksmingas -" if hi_ < 0 else "nulis")
+                print(f"{lab:<26} {m_:>+11.3f}% {f'{lo_:+.3f} .. {hi_:+.3f}':>24} {n_:>7}  {verdict}")
+
         # --- Ar skirtumas tikras, ar imties triuksmas? ---
         # Ijejimo taskai NEra nepriklausomi: ta pacia diena 19 akciju x keli taskai
         # juda kartu. Todel perrenkame DIENAS (block bootstrap) — taip paklaida
