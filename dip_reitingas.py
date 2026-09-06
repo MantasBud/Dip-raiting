@@ -76,25 +76,38 @@ LOOP_INTERVAL_SEC = 300     # kas kiek atsinaujina --loop režime (biržos valan
 LOOP_INTERVAL_OFF_SEC = 1800  # kas kiek tikrina ne prekybos metu (kad netrukdytų Yahoo)
 
 WATCHLIST = [
-    ("ADYEN", "ADYEN.AS", "Adyen NV"),
-    ("AMD",   "AMD.DE",   "Advanced Micro Devices"),
-    ("ASM",   "ASM.AS",   "ASM International"),
-    ("ASML",  "ASML.AS",  "ASML Holding NV"),
-    ("BESI",  "BESI.AS",  "BE Semiconductor"),
-    ("CAP",   "CAP.PA",   "Capgemini SE"),
+    # AI infrastruktura — duomenu centru maitinimas, tinklai, lustu iranga
+    ("AIXA",  "AIXA.DE",  "Aixtron SE"),
+    ("SOI",   "SOI.PA",   "Soitec SA"),
+    ("PRY",   "PRY.MI",   "Prysmian SpA"),
+    ("NEX",   "NEX.PA",   "Nexans SA"),
     ("ENR",   "ENR.DE",   "Siemens Energy AG"),
+    # Puslaidininkiai
+    ("BESI",  "BESI.AS",  "BE Semiconductor"),
     ("IFX",   "IFX.DE",   "Infineon Technologies"),
-    ("KER",   "KER.PA",   "Kering SA"),
-    ("LR",    "LR.PA",    "Legrand SA"),
-    ("MC",    "MC.PA",    "LVMH Moet Hennessy"),
-    ("NVD",   "NVD.DE",   "Nvidia Corp"),
-    ("PRX",   "PRX.AS",   "Prosus NV"),
-    ("PTX",   "PTX.DE",   "Palantir Technologies"),
-    ("RHM",   "RHM.DE",   "Rheinmetall AG"),
-    ("RMS",   "RMS.PA",   "Hermes International"),
+    # Automobiliai ir komponentai
+    ("STLAM", "STLAM.MI", "Stellantis NV"),
+    ("P911",  "P911.DE",  "Porsche AG"),
+    ("BMW",   "BMW.DE",   "BMW AG"),
+    ("CON",   "CON.DE",   "Continental AG"),
+    # IT paslaugos ir programine iranga
+    ("TEP",   "TEP.PA",   "Teleperformance SE"),
+    ("CAP",   "CAP.PA",   "Capgemini SE"),
     ("SAP",   "SAP.DE",   "SAP SE"),
-    ("SIE",   "SIE.DE",   "Siemens AG"),
-    ("YDX",   "YDX.DE",   "Nebius Group NV"),
+    # Prabanga
+    ("KER",   "KER.PA",   "Kering SA"),
+    ("MONC",  "MONC.MI",  "Moncler SpA"),
+    ("MC",    "MC.PA",    "LVMH Moet Hennessy"),
+    # Gynyba
+    ("LDO",   "LDO.MI",   "Leonardo SpA"),
+    ("HO",    "HO.PA",    "Thales SA"),
+    # Kiti sektoriai
+    ("KGX",   "KGX.DE",   "Kion Group AG"),
+    ("MT",    "MT.AS",    "ArcelorMittal"),
+    ("BAYN",  "BAYN.DE",  "Bayer AG"),
+    ("LHA",   "LHA.DE",   "Deutsche Lufthansa AG"),
+    ("ADS",   "ADS.DE",   "Adidas AG"),
+    ("NOKIA", "NOKIA.HE", "Nokia Oyj"),
 ]
 
 MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
@@ -150,13 +163,19 @@ CRITERIA = [
 
 # Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
 SECTORS = {
-    "ASML.AS": "puslaidininkiai", "ASM.AS": "puslaidininkiai", "BESI.AS": "puslaidininkiai",
-    "IFX.DE": "puslaidininkiai", "AMD.DE": "puslaidininkiai", "NVD.DE": "puslaidininkiai",
-    "MC.PA": "prabangos prekės", "RMS.PA": "prabangos prekės", "KER.PA": "prabangos prekės",
-    "RHM.DE": "pramonė ir gynyba", "SIE.DE": "pramonė ir gynyba",
-    "ENR.DE": "pramonė ir gynyba", "LR.PA": "pramonė ir gynyba",
-    "SAP.DE": "programinė įranga", "ADYEN.AS": "programinė įranga", "PRX.AS": "programinė įranga",
-    "PTX.DE": "programinė įranga", "YDX.DE": "programinė įranga", "CAP.PA": "programinė įranga",
+    "AIXA.DE": "AI infrastruktūra", "SOI.PA": "AI infrastruktūra",
+    "PRY.MI": "AI infrastruktūra", "NEX.PA": "AI infrastruktūra",
+    "ENR.DE": "AI infrastruktūra",
+    "BESI.AS": "puslaidininkiai", "IFX.DE": "puslaidininkiai",
+    "STLAM.MI": "automobiliai", "P911.DE": "automobiliai", "BMW.DE": "automobiliai",
+    "CON.DE": "auto komponentai",
+    "TEP.PA": "IT paslaugos", "CAP.PA": "IT paslaugos",
+    "SAP.DE": "programinė įranga",
+    "KER.PA": "prabanga", "MONC.MI": "prabanga", "MC.PA": "prabanga",
+    "LDO.MI": "gynyba", "HO.PA": "gynyba",
+    "KGX.DE": "pramonė", "MT.AS": "metalai", "BAYN.DE": "farmacija",
+    "LHA.DE": "aviakompanijos", "ADS.DE": "vartojimo prekės",
+    "NOKIA.HE": "telekomų įranga",
 }
 
 # ----------------------------- SKAIČIAVIMAI -----------------------------
@@ -1355,7 +1374,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-06 ibs40-trail"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-07 ibs40-trail-25akc"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
