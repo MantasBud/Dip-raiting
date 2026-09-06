@@ -58,14 +58,6 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
-    "info",
     "IBS 0.17 — kaina prie dienos dugno. Tai vienintelis modulio signalas, patvirtintas nematytoje duomenų dalyje (+0,16% prieš dienos vidurkį)"
    ]
   ],
@@ -143,10 +135,6 @@
    [
     "warn",
     "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ]
   ],
   "dip": 2.8041664567519273,
@@ -223,10 +211,6 @@
    [
     "warn",
     "Kelyje kliūtis (1.3% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "info",
@@ -311,10 +295,6 @@
    [
     "warn",
     "Kelyje kliūtis (1.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ]
   ],
   "dip": 1.0092854383532286,
@@ -391,14 +371,6 @@
    [
     "warn",
     "Kelyje kliūtis (0.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "info",
@@ -486,14 +458,6 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
-    "info",
     "Atsigavimo faze: nukritusi 6.0% nuo 5 d. viršūnės, šiandien +0.7% ir laikosi dienos viršuje"
    ]
   ],
@@ -571,14 +535,6 @@
    [
     "warn",
     "Kelyje kliūtis (1.3% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ]
   ],
   "dip": 1.2613896918376812,
@@ -655,10 +611,6 @@
    [
     "warn",
     "Kelyje kliūtis (2.0% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "warn",
@@ -741,14 +693,6 @@
    [
     "warn",
     "Kelyje kliūtis (0.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "stop",
@@ -838,14 +782,6 @@
    ],
    [
     "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
-    "info",
     "Izoliuotas atsitraukimas: akcija +1.9%, sektorius +2.7% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
@@ -925,14 +861,6 @@
    [
     "warn",
     "Kelyje kliūtis (1.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Iki uždarymo liko ~1.7 val. — tikslas greičiausiai bus pasiektas rytoj, pozicija liks per naktį"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "info",
@@ -1023,10 +951,6 @@
    [
     "warn",
     "Bendra rinkos kryptis vis dar žemyn, nors šiandien kyla — atšokimas gali būti trumpalaikis"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "info",
@@ -1137,10 +1061,6 @@
     "Kelyje kliūtis (1.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
     "warn",
     "Vienas nesėkmingas sandoris kainuotų 2.9% portfelio — tiek pat, kiek duotų 1 sėkmingi"
    ],
@@ -1229,10 +1149,6 @@
    [
     "warn",
     "Per 16.0 val. tikėtinas judesys ~0.5%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "info",
@@ -1339,10 +1255,6 @@
     "Kelyje kliūtis (1.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
     "warn",
     "Vienas nesėkmingas sandoris kainuotų 3.0% portfelio — tiek pat, kiek duotų 1 sėkmingi"
    ],
@@ -1431,10 +1343,6 @@
     "Per 16.0 val. tikėtinas judesys ~1.4%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
    ],
    [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
-   ],
-   [
     "warn",
     "Vienas nesėkmingas sandoris kainuotų 2.7% portfelio — tiek pat, kiek duotų 1 sėkmingi"
    ],
@@ -1514,10 +1422,6 @@
    [
     "warn",
     "Bendra rinkos kryptis vis dar žemyn, nors šiandien kyla — atšokimas gali būti trumpalaikis"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "warn",
@@ -1612,10 +1516,6 @@
    [
     "warn",
     "Kelyje kliūtis (0.7% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "warn",
@@ -1714,10 +1614,6 @@
    [
     "warn",
     "Per 16.0 val. tikėtinas judesys ~1.3%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
-   ],
-   [
-    "info",
-    "Pagrindinė sesija baigta — po sesijos prekyboje spread'as platesnis, naudok limit pavedimus"
    ],
    [
     "warn",
