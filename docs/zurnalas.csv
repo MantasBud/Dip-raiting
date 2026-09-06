@@ -24,3 +24,6 @@ data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ijejimas,stop,tikslas,busen
 2026-09-06,16:43,KER.PA,KER,55.7,C,kritimas,taip,245.20,240.98,252.56,atviras,,,
 2026-09-06,16:43,PRX.AS,PRX,53.2,C,atsigavimas,taip,37.31,36.76,38.43,atviras,,,
 2026-09-06,16:43,BESI.AS,BESI,46.9,D,"kyla, prie viršūnės",taip,196.40,190.73,202.29,atviras,,,
+2026-09-06,17:21,SAP.DE,SAP,79.8,A,kritimas,taip,185.80,182.62,189.52,atviras,,,
+2026-09-06,17:21,SIE.DE,SIE,42.8,D,atsigavimas,taip,272.40,267.69,277.85,atviras,,,
+2026-09-06,17:21,LR.PA,LR,61.0,C,kritimas,ne,140.90,138.58,143.72,atviras,,,
