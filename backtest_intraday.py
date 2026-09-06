@@ -113,6 +113,64 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
     a_for_pb = a if a else None
     pullback_atr = ((high - price) / price * 100) / a_for_pb if a_for_pb else None
 
+    # --- PROGNOSTINIAI KANDIDATAI (klasikine technine analize) ---
+    cl = bars["Close"].astype(float)
+    hi_s, lo_s = bars["High"].astype(float), bars["Low"].astype(float)
+
+    # 1. MACD histogramos zenklas ir kryptis (12/26/9 intraday barais)
+    macd_h = None
+    if len(cl) >= 30:
+        ema12 = cl.ewm(span=12, adjust=False).mean()
+        ema26 = cl.ewm(span=26, adjust=False).mean()
+        macd = ema12 - ema26
+        sig = macd.ewm(span=9, adjust=False).mean()
+        hist = macd - sig
+        macd_h = float(hist.iloc[-1] / price * 100)
+
+    # 2. Z-balas: kiek standartiniu nuokrypiu kaina nuo 20 baru vidurkio (Bollinger logika)
+    zscore = None
+    if len(cl) >= 20:
+        m20, s20 = float(cl.tail(20).mean()), float(cl.tail(20).std())
+        zscore = (price - m20) / s20 if s20 > 0 else None
+
+    # 3. Svyravimo pletra: ar dabartinis judrumas didesnis uz iprasta (Bollinger squeeze)
+    vol_exp = None
+    if len(cl) >= 30:
+        r_now = float((hi_s.tail(6) - lo_s.tail(6)).mean())
+        r_base = float((hi_s.tail(30) - lo_s.tail(30)).mean())
+        vol_exp = r_now / r_base if r_base > 0 else None
+
+    # 4. Aukstesniu dugnu struktura: kiek is paskutiniu 4 atsitraukimu buvo aukstesni
+    hl_struct = None
+    if len(lo_s) >= 12:
+        seg = [float(lo_s.iloc[i:i+3].min()) for i in range(len(lo_s)-12, len(lo_s), 3)]
+        if len(seg) >= 3:
+            hl_struct = sum(1 for a, b in zip(seg, seg[1:]) if b > a) / (len(seg) - 1) * 100
+
+    # 5. Apyvartos ir kainos sutapimas: didele apyvarta + kylanti kaina = patvirtinimas
+    vol_price = None
+    rv_now = rvol_at(sessions, day_idx, k)
+    if rv_now is not None and len(cl) >= 12:
+        recent_dir = 1 if float(cl.iloc[-1]) > float(cl.iloc[-12]) else -1
+        vol_price = rv_now * recent_dir
+
+    # 6. Vakarykscio maksimumo/minimumo pramusimas
+    pd_break = None
+    try:
+        pd_high = float(daily_hist["High"].iloc[-1])
+        pd_low = float(daily_hist["Low"].iloc[-1])
+        if price > pd_high:
+            pd_break = (price - pd_high) / price * 100
+        elif price < pd_low:
+            pd_break = (price - pd_low) / price * 100
+        else:
+            pd_break = 0.0
+    except Exception:
+        pass
+
+    # 7. Paros laikas: kelintas ijejimo taskas (ar yra geresniu valandu)
+    tod = k
+
     # Slankiuju vidurkiu issidestymas: 2 = kaina > SMA20 > SMA50, 0 = zemiau abieju
     sma20_v = float(daily_hist["Close"].tail(20).mean())
     sma50_v = float(daily_hist["Close"].tail(50).mean())
@@ -137,7 +195,8 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12)
         m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
         span_h=mom["span_h"], mom_partial=mom["partial"],
         ibs=ibs, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
-        sma_align=sma_align)
+        sma_align=sma_align, macd_h=macd_h, zscore=zscore, vol_exp=vol_exp,
+        hl_struct=hl_struct, vol_price=vol_price, pd_break=pd_break, tod=tod)
 
 
 def outcome(sessions, day_idx, k, entry, stop, target_price, hold_hours):
@@ -230,6 +289,10 @@ def main():
                                      sma_align=d.get("sma_align"),
                                      day_chg=d.get("day_chg"), rvol=d.get("rvol"),
                                      m1h_v=d.get("m1h"), m3h_v=d.get("m3h"),
+                                     macd_h=d.get("macd_h"), zscore=d.get("zscore"),
+                                     vol_exp=d.get("vol_exp"), hl_struct=d.get("hl_struct"),
+                                     vol_price=d.get("vol_price"), pd_break=d.get("pd_break"),
+                                     tod=d.get("tod"),
                                      vwap_d=((d["price"]-d["vwap"])/d["vwap"]*100
                                              if d.get("vwap") else None),
                                      **{f"c_{key}": s["parts"][key] for key, _, _ in dr.CRITERIA},
@@ -470,15 +533,46 @@ def main():
         print("=" * 78)
         print(f"{'SIGNALAS':<26} {'PRANASUMAS':>12} {'95% INTERVALAS':>24} {'DIENU':>7}")
         print("-" * 78)
-        for res_ in [within_day_edge("score3", True, "V3 balas"),
-                     within_day_edge("score", True, "Dabartinis balas"),
-                     within_day_edge("vwap_d", True, "Kaina virs VWAP"),
-                     within_day_edge("pullback_atr", False, "Mazas atsitraukimas"),
-                     within_day_edge("or_break", True, "Atid. diapazono pram.")]:
+        candidates = [
+            ("score3", True, "V3 balas"),
+            ("score", True, "Dabartinis balas"),
+            ("vwap_d", True, "Kaina virs VWAP"),
+            ("pullback_atr", False, "Mazas atsitraukimas"),
+            ("or_break", True, "Atid. diapazono pram."),
+            # Prognostiniai kandidatai — klasikine technine analize
+            ("macd_h", True, "MACD histograma +"),
+            ("macd_h", False, "MACD histograma -"),
+            ("zscore", False, "Z-balas zemas (perparduota)"),
+            ("zscore", True, "Z-balas aukstas (perpirkta)"),
+            ("vol_exp", True, "Svyravimo pletra"),
+            ("hl_struct", True, "Aukstesniu dugnu struktura"),
+            ("vol_price", True, "Apyvarta + kilimas"),
+            ("vol_price", False, "Apyvarta + kritimas"),
+            ("pd_break", True, "Vakar max pramusimas"),
+            ("pd_break", False, "Vakar min pralauzimas"),
+        ]
+        # Kiekvienas dabartinio balo kriterijus atskirai — kurie is ju duoda ta +0.124%?
+        for _k, _lab, _w in dr.CRITERIA:
+            candidates.append((f"c_{_k}", True, f"  kriterijus: {_lab[:22]}"))
+        for res_ in [within_day_edge(c, h, l) for c, h, l in candidates]:
             if res_:
                 lab, m_, lo_, hi_, n_ = res_
                 verdict = "reiksmingas +" if lo_ > 0 else ("reiksmingas -" if hi_ < 0 else "nulis")
                 print(f"{lab:<26} {m_:>+11.3f}% {f'{lo_:+.3f} .. {hi_:+.3f}':>24} {n_:>7}  {verdict}")
+
+        # --- Paros laikas: ar yra valandu, kada ijejimai geresni? ---
+        try:
+            if "tod" in df and df["tod"].notna().sum() > 2000:
+                print("\nPAROS LAIKAS — ar yra geresniu ijejimo valandu?")
+                print(f"{'TASKAS':<10} {'ATVEJU':>8} {'VID. REZ.':>11} {'PRIES BAZE':>12}")
+                print("-" * 44)
+                for t_ in sorted(df["tod"].dropna().unique()):
+                    g = df[df["tod"] == t_]["pnl"]
+                    if len(g) >= 200:
+                        print(f"{f'#{int(t_)}':<10} {len(g):>8} {g.mean():>+10.3f}% "
+                              f"{g.mean()-base:>+11.3f}%")
+        except Exception:
+            pass
 
         # --- Ar skirtumas tikras, ar imties triuksmas? ---
         # Ijejimo taskai NEra nepriklausomi: ta pacia diena 19 akciju x keli taskai
