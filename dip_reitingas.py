@@ -577,17 +577,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         exp_range = a_pct * math.sqrt(max(tb["frac"], 0.01))
         ratio = exp_range / target if target else 0
         hrs = tb["effective"] / 60
-        if ratio < 0.7:
-            if HOLD_HOURS > 8:
-                flags.append(("info", f"Iki uždarymo liko ~{hrs:.1f} val. — tikslas greičiausiai "
-                                      f"bus pasiektas rytoj, pozicija liks per naktį"))
-            else:
-                mult *= 0.85
-                flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
-                                      f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo"))
-        if tb["after_hours"]:
-            flags.append(("info", "Pagrindinė sesija baigta — po sesijos prekyboje spread'as "
-                                  "platesnis, naudok limit pavedimus"))
+        # Laiko biudzetas toliau skaiciuojamas ir veikia bala (kai HOLD_HOURS <= 8),
+        # bet informaciniu zymu puslapyje nerodom — jos tik apkraudavo vaizda.
+        if ratio < 0.7 and HOLD_HOURS <= 8:
+            mult *= 0.85
+            flags.append(("warn", f"Liko ~{hrs:.1f} val. efektyvios prekybos — tikėtinas "
+                                  f"judesys ~{exp_range:.1f}% nesiekia {target}% tikslo"))
 
     # --- Nakties šuolio rizika: laikant per naktį stop neveikia ---
     gap = d.get("gap")
