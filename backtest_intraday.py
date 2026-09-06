@@ -228,6 +228,9 @@ def main():
         sys.exit("Nepavyko surinkti duomenu.")
 
     df = pd.DataFrame(rows)
+    # Datos konvertuojamos is karto — signal_report jas naudoja medianai skaiciuoti
+    if "_day" in df:
+        df["_day"] = pd.to_datetime(df["_day"])
     print(f"\nIstirta ijejimo tasku: {len(df)}  |  tikslas {args.target}%  "
           f"|  laikymas {dr.HOLD_HOURS} val.\n")
 
@@ -284,8 +287,11 @@ def main():
             df["_b"] = pd.cut(df[col], bins=edges, labels=labels, right=False)
         except Exception:
             return
-        mid = df["_day"].median()
-        h1, h2 = df[df["_day"] <= mid], df[df["_day"] > mid]
+        try:
+            mid = df["_day"].median()
+            h1, h2 = df[df["_day"] <= mid], df[df["_day"] > mid]
+        except Exception:
+            h1 = h2 = df
         b_all, b1, b2 = df["pnl"].mean(), h1["pnl"].mean(), h2["pnl"].mean()
 
         print(f"\n{title}")
@@ -378,7 +384,6 @@ def main():
     df["score2"] = df.apply(score_v2, axis=1)
 
     if df["score2"].notna().sum() > 500 and "_day" in df:
-        df["_day"] = pd.to_datetime(df["_day"])
         mid = df["_day"].median()
         halves = [("1-oji puse", df[df["_day"] <= mid]), ("2-oji puse", df[df["_day"] > mid])]
 
