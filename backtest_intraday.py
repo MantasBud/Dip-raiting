@@ -440,6 +440,41 @@ def main():
         print("V3 laikomas pasitvirtinusiu tik jei iveikia baze ABIEJOSE pusese "
               f"(dabar: {ok} is 2)")
 
+        # --- Ar skirtumas tikras, ar imties triuksmas? ---
+        # Ijejimo taskai NEra nepriklausomi: ta pacia diena 19 akciju x keli taskai
+        # juda kartu. Todel perrenkame DIENAS (block bootstrap) — taip paklaida
+        # atspindi tikra nepriklausomu stebejimu skaiciu, o ne eiluciu skaiciu.
+        try:
+            sub = df.dropna(subset=["score3"])
+            days = sub["_day"].unique()
+            thr = sub["score3"].quantile(0.9)
+            per_day = {}
+            for d_, g in sub.groupby("_day"):
+                top = g[g["score3"] >= thr]["pnl"]
+                if len(top) >= 1:
+                    per_day[d_] = top.mean() - g["pnl"].mean()
+            vals = np.array(list(per_day.values()))
+            if len(vals) >= 30:
+                rng_ = np.random.default_rng(42)
+                boot = [rng_.choice(vals, len(vals), replace=True).mean() for _ in range(3000)]
+                lo, hi = np.percentile(boot, [2.5, 97.5])
+                pos = float((np.array(boot) > 0).mean() * 100)
+                print(f"\nSTATISTINE PATIKRA (perrenkant dienas, {len(vals)} nepriklausomu dienu):")
+                print(f"  V3 pranasumas pries baze: {vals.mean():+.3f}% sandoriui")
+                print(f"  95% pasikliautinasis intervalas: nuo {lo:+.3f}% iki {hi:+.3f}%")
+                print(f"  Tikimybe, kad pranasumas teigiamas: {pos:.0f}%")
+                if lo > 0:
+                    print("  -> Skirtumas statistiskai reiksmingas.")
+                elif hi < 0:
+                    print("  -> Skirtumas reiksmingai NEIGIAMAS.")
+                else:
+                    width = hi - lo
+                    print(f"  -> Neatskiriama nuo nulio. Intervalo plotis {width:.3f} p. p. "
+                          f"rodo, kiek imtis apskritai leidzia pasakyti.")
+                print(f"  Palyginimui: mokesciai ir spread'as ~0.05-0.10% sandoriui.")
+        except Exception as e:
+            print(f"(statistine patikra praleista: {str(e)[:60]})")
+
     # --- Ar balo verte priklauso nuo rinkos krypties? ---
     # Rinkos rodiklis: visu 19 akciju mediana 5 dienu pokytis tuo metu.
     try:
