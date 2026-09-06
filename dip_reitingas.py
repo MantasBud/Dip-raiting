@@ -464,6 +464,12 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if pos1h is not None and pos1h < 20:
         stab *= 0.85                            # laikosi prie valandos dugno
 
+    # Krintantis peilis — atskiras scenarijus, o ne tik bauda. Skirtumas svarbus:
+    # tokia akcija nera "neidomi", ji yra pavojinga, ir tai turi matytis atskirai.
+    # Rytoj ji dazniausiai tampa "atsigavimo" kandidate, todel ja verta stebeti.
+    if knife:
+        setup = "krintantis peilis"
+
     parts = {
         "dip":  dip_part,
         "stab": stab,
@@ -648,8 +654,18 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         flags.append(("warn", "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"))
     if knife:
         mult *= 0.9
-        flags.append(("warn", f"Kryptis vis dar žemyn: per 3 val. {m3h:+.1f}%, per pastarąją "
-                              f"valandą {m1h:+.1f}% — dugno ženklo dar nėra"))
+        laukti = []
+        if m1h is not None and m1h <= 0.1:
+            laukti.append("kad pastaroji valanda taptų teigiama")
+        if down_days and down_days >= 2:
+            laukti.append(f"kad nutrūktų kritimo dienų serija (dabar {down_days})")
+        if sector_chg is not None and sector_chg < -1.0:
+            laukti.append(f"kad nustotų kristi sektorius ({sector_chg:+.1f}%)")
+        flags.append(("stop", f"Krintantis peilis: per 3 val. {m3h:+.1f}%, per pastarąją "
+                              f"valandą {m1h:+.1f}% — dugno ženklo dar nėra. Nepirkti, stebėti."))
+        if laukti:
+            flags.append(("info", "Ko laukti, kad taptų pirkimo kandidatu: " +
+                                  ", ".join(laukti[:3])))
     elif m3h is not None and m1h is not None and m3h < -0.8 and m1h > 0.1:
         flags.append(("info", f"Kritimas sustojo: po {m3h:+.1f}% per 3 val. pastarąją valandą "
                               f"jau {m1h:+.1f}%"))
@@ -785,6 +801,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     sup, res = levels(daily, price)
     rv = relative_volume(intra, mask)
     c = daily["Close"]
+    prev_close = float(c.iloc[-2]) if len(c) > 1 else None
     sma20 = float(c.tail(20).mean())
     sma50 = float(c.tail(50).mean())
     ctx = multiday_context(daily, price)
@@ -792,6 +809,13 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     gap = overnight_gap(daily)
     v5 = intraday_vol(today)
     mom = short_momentum(today)
+
+    # IBS ir nakties tarpas — rodomi kaip informacija. I bala neijungti, kol
+    # nepatvirtinta tavo akcijose (backtest_intraday.py juos matuoja atskirai).
+    ibs = (price - low) / (high - low) if high > low else None
+    day_open = float(today["Open"].iloc[0]) if len(today) else None
+    gap_ret = ((day_open - prev_close) / prev_close * 100
+               if day_open and prev_close else None)
     # Valandos sandoriui svarbios šios dienos lubos, ne 20 d. swing lygiai
     res_intra = high if high > price * 1.001 else None
     sup_intra = low if low < price * 0.999 else None
@@ -799,7 +823,6 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     # Dienos maksimumas dazniausiai pramusamas, todel jis - ispejimas, ne kliutis.
     cands = sorted(x for x in (res_intra, res, float(daily["High"].tail(20).max()))
                    if x and x > price * 1.001)
-    prev_close = float(c.iloc[-2]) if len(c) > 1 else None
     day_chg = (price - prev_close) / prev_close * 100 if prev_close else None
 
     return dict(tag=tag, sym=sym, name=name, price=price, dayHigh=high, dayLow=low,
@@ -807,6 +830,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
+                ibs=ibs, gap_ret=gap_ret,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -1073,7 +1097,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <span>kaina {cs}{d['price']:.2f}</span><span>kritimas {(s['dip'] or 0):.1f}%</span>
               <span>diapazone {(s['rng'] or 0):.0f}%</span><span>iki pasipr. {(s['room'] or 0):.1f}%</span>
               <span>ATR {d['atrPct']:.1f}%</span><span>RSI {d['rsi']:.0f}</span>
-              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span><span>nakties šuolis ~{(d.get('gap') or 0):.1f}%</span>
+              <span>RVOL {(d['rvol'] or 0):.2f}</span><span>VWAP {(s['vw_d'] or 0):+.1f}%</span><span>realus tikslas per {HOLD_HOURS:.1f}h ~{(s.get('exp_move') or 0):.1f}%</span><span>1 val. {(d.get('m1h') or 0):+.1f}%</span><span>3 val. {(d.get('m3h') or 0):+.1f}%</span><span>nakties šuolis ~{(d.get('gap') or 0):.1f}%</span><span>IBS {(d.get('ibs') or 0):.2f}</span><span>nakties tarpas {(d.get('gap_ret') or 0):+.1f}%</span>
             </div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
