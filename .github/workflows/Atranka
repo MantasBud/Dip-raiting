@@ -1,0 +1,53 @@
+name: Akciju atranka
+
+on:
+  workflow_dispatch:
+    inputs:
+      top:
+        description: "Kiek akciju i galutini saraso"
+        required: false
+        default: "45"
+      pozicija:
+        description: "Pozicijos dydis EUR"
+        required: false
+        default: "18000"
+      rodyti_visus:
+        description: "Rodyti ir neislaikiusius (taip/ne)"
+        required: false
+        default: "ne"
+
+jobs:
+  atranka:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Idiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+
+      - name: Patikrinti ar failas vietoje
+        run: |
+          ls -la
+          test -f atranka.py || (echo "KLAIDA: atranka.py nerastas repozitorijoje" && exit 1)
+
+      - name: Paleisti atranka
+        env:
+          TOP: ${{ github.event.inputs.top || '45' }}
+          POZICIJA: ${{ github.event.inputs.pozicija || '18000' }}
+          VISI: ${{ github.event.inputs.rodyti_visus || 'ne' }}
+        run: |
+          FLAGS=""
+          if [ "$VISI" = "taip" ]; then FLAGS="--rodyti-visus"; fi
+          python atranka.py --top "$TOP" --pozicija "$POZICIJA" $FLAGS | tee atranka_rezultatas.txt
+
+      - name: Issaugoti rezultata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atranka-rezultatas
+          path: atranka_rezultatas.txt
+          if-no-files-found: ignore
