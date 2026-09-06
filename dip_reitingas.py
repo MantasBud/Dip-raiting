@@ -59,6 +59,7 @@ FEE_PER_TRADE = 2.0     # brokerio mokestis vienam sandoriui (pirkimas ARBA pard
 # Backtestas parode: ankstus stop'ai (0.35 x ATR) buvo pagrindine nuostoliu priezastis.
 STOP_ATR_MULT = 0.55    # stop atstumas = tiek kartu dienos ATR
 STOP_MIN_PCT = 0.8      # bet ne arciau nei tiek procentu
+MIN_RR = 1.3            # minimalus rizikos/naudos santykis, kad sandoris butu tinkamas
 
 # Prekybos laikas (Europe/Berlin). Sesija 9:00-17:30, po jos - Tradegate/LS iki 22:00.
 SESSION_OPEN_MIN = 9 * 60
@@ -341,6 +342,22 @@ def overnight_gap(daily, n=60):
     return v if math.isfinite(v) else None
 
 
+def completed_daily(daily):
+    """Tik UZBAIGTOS dienos — be siandienos nebaigto baro.
+
+    Yahoo dienos duomenyse siandienos eilute pildoma realiu laiku, todel ATR,
+    SMA ir kritimo dienu skaicius keistusi kas 5 minutes kartu su kaina.
+    Tai reiskia, kad rodikliai reikstu ne ta, ka sako ju pavadinimas.
+    """
+    try:
+        today = datetime.now(_TZ).date() if _TZ else datetime.now().date()
+        idx_dates = pd.Index([i.date() if hasattr(i, "date") else i for i in daily.index])
+        closed = daily[idx_dates < today]
+        return closed if len(closed) >= 30 else daily
+    except Exception:
+        return daily
+
+
 def multiday_context(daily, price):
     """Ar tai vienos dienos kritimas, ar tęstinis kelių dienų slydimas."""
     closes = daily["Close"].tail(6).tolist()
@@ -616,6 +633,10 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                                   f"tokie įėjimai pasirodo prasčiau už dienos vidurkį"))
 
     if d.get("cur") and d["cur"] != ACCOUNT_CURRENCY:
+        flags.append(("stop", f"Ši akcija kotiruojama {d['cur']}, o portfelis "
+                              f"{ACCOUNT_CURRENCY}. Pozicijos dydis skaičiuojamas be valiutos "
+                              f"perskaičiavimo, todėl būtų neteisingas"))
+    if False:
         flags.append(("warn", f"Ši akcija kotiruojama {d['cur']}, o portfelis "
                               f"{ACCOUNT_CURRENCY} — pozicijos dydis ir pelnas rodomi "
                               f"{d['cur']}, neperskaičiuoti į {ACCOUNT_CURRENCY}"))
@@ -630,7 +651,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     # R:R nebeduoda premijos: aukštas R:R pasiekiamas ankštu stop'u, o backtestas
     # parodė, kad būtent ankšti stop'ai ir generuoja nuostolius. Lieka tik bauda,
     # kai santykis tikrai blogas.
-    if 0 < rr < 1.0:
+    if 0 < rr < MIN_RR:
         mult *= 0.8
         flags.append(("warn", f"Rizika/nauda {rr:.2f} — rizikuoji daugiau nei sieki"))
     if dip is not None and dip > 8:
@@ -709,7 +730,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if blocking:
         score = min(score, 45.0)
 
-    tradeable = (not blocking) and rr >= 1.0 and (room_far is None or room_far >= target * 1.2)
+    tradeable = (not blocking) and rr >= MIN_RR and (room_far is None or room_far >= target * 1.2)
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
@@ -769,7 +790,22 @@ def market_bias(yf):
         return "neutral"
 
 
-def earnings_soon(yf, symbol):
+_EARNINGS_CACHE = {}
+
+
+def earnings_soon(yf, symbol, cache_hours=6):
+    """Su kesavimu: be jo butu 19 atskiru uzklausu kas 5 min. (~1900 per diena),
+    o ataskaitu datos keiciasi kartus per ketvirti."""
+    now = time.time()
+    hit = _EARNINGS_CACHE.get(symbol)
+    if hit and now - hit[1] < cache_hours * 3600:
+        return hit[0]
+    val = _earnings_soon_uncached(yf, symbol)
+    _EARNINGS_CACHE[symbol] = (val, now)
+    return val
+
+
+def _earnings_soon_uncached(yf, symbol):
     try:
         t = yf.Ticker(symbol)
         cal = t.get_earnings_dates(limit=8)
@@ -801,6 +837,9 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
 
     intra = intra.dropna(subset=["Close"])
     daily = daily.dropna(subset=["Close", "High", "Low"])
+    # Dienos rodikliai (ATR, SMA, kritimo dienos, lygiai, nakties suolis) skaiciuojami
+    # TIK is uzbaigtu dienu. Intraday rodikliai toliau naudoja siandienos barus.
+    daily = completed_daily(daily)
     last_day = intra.index[-1].date()
     mask = pd.Series(intra.index.date == last_day, index=intra.index)
     today = intra[mask]
@@ -909,6 +948,21 @@ def sanity_check(rows, market):
         warn.append("Šie kriterijai visoms akcijoms grąžina tą pačią reikšmę, todėl "
                     "nieko neskiria: " + "; ".join(broken[:4]))
 
+    # Duomenu sviezumas: su 15 min. vėlavimu ir GitHub delsa senesni nei 45 min.
+    # duomenys reiskia, kad kazkas neveikia — o balas atrodo normaliai.
+    try:
+        stamps = [pd.Timestamp(d["asOf"]) for d, _ in scored if d.get("asOf")]
+        if stamps:
+            newest = max(stamps)
+            now = (pd.Timestamp.now(tz=newest.tz) if newest.tzinfo
+                   else pd.Timestamp.now())
+            amz = (now - newest).total_seconds() / 60
+            if amz > 45 and market_open_now():
+                warn.append(f"Naujausias baras {amz:.0f} min. senumo, nors birža dirba — "
+                            f"duomenys nebeatnaujinami")
+    except Exception:
+        pass
+
     prices = [d["price"] for d, _ in scored if d.get("price")]
     if prices and (min(prices) <= 0 or max(prices) / max(min(prices), 0.01) > 5000):
         warn.append("Kainų reikšmės neįtikėtinos — galimai sumaišyti duomenys")
@@ -957,7 +1011,7 @@ def market_overview(rows, market, sector_state, target):
     p = []
     if not strong:
         p.append(f"Rinka {mkt}. Nė viena iš {len(rows)} akcijų šiuo metu neatitinka visų sąlygų: "
-                 f"reikia, kad tikslas tilptų iki pasipriešinimo, o rizika/nauda būtų bent 1,3. "
+                 f"reikia, kad tikslas tilptų iki pasipriešinimo, o rizika/nauda būtų bent {MIN_RR}. "
                  f"Tokia diena tinka praleisti — tai irgi sprendimas.")
         if blocked:
             p.append(f"{len(blocked)} akcijos turi lemiamą kliūtį (tikslas netelpa, artėja "
@@ -1301,7 +1355,9 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-JOURNAL_FIELDS = ["data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
+MODEL_VERSION = "2026-09-06 ibs40-trail"   # keiciant svorius ar isejima — atnaujink
+
+JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
                   "min_tikslas", "busena", "rezultatas", "baigties_laikas",
                   "baigties_kaina", "pelnas_pct", "virsune_pct"]
@@ -1400,7 +1456,7 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
             if (d["sym"], today) in have or not d.get("price"):
                 continue
             entries.append(dict(
-                data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
+                versija=MODEL_VERSION, data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
                 balas=f"{s['score']:.1f}", pakopa=s["grade"], scenarijus=s.get("setup", ""),
                 tinkamas="taip" if s.get("tradeable") else "ne",
                 ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
