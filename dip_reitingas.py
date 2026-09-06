@@ -1307,8 +1307,9 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
 JOURNAL_FIELDS = ["data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
-                  "tinkamas", "ijejimas", "stop", "tikslas", "busena", "rezultatas",
-                  "baigties_laikas", "baigties_kaina"]
+                  "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
+                  "min_tikslas", "busena", "rezultatas", "baigties_laikas",
+                  "baigties_kaina", "pelnas_pct", "virsune_pct"]
 JOURNAL_TOP_N = 3          # kiek geriausiu irasyti kiekviena diena
 
 
@@ -1343,37 +1344,51 @@ def resolve_entry(entry, intraday_all):
         if after.empty:
             return entry
 
-        stop, target = float(entry["stop"]), float(entry["tikslas"])
+        entry_px = float(entry["ijejimas"])
+        stop = float(entry["stop"])
+        trigger = float(entry["min_tikslas"])
+
+        # Rezultatas skaiciuojamas TA PACIA taisykle, kuria rekomenduoja modulis:
+        # pasiekus minimalu tiksla ijungiamas slenkantis stop TRAIL_PCT nuo virsunes.
+        # Anksciau cia buvo fiksuotas tikslas — zurnalas rodydavo mazesni pelna,
+        # nei realiai duotu modulio rekomenduojamas isejimas.
+        armed = False
+        peak = entry_px
+        cur_stop = stop
+
         for ts, bar in after.iterrows():
-            hit_t = float(bar["High"]) >= target
-            hit_s = float(bar["Low"]) <= stop
-            if hit_t and hit_s:
-                # tame paciame bare abu - nezinom eiliskumo, laikom nuostoliu
-                entry.update(busena="baigta", rezultatas="neaisku (abu)",
-                             baigties_laikas=str(ts), baigties_kaina=f"{float(bar['Close']):.2f}")
+            hi, lo = float(bar["High"]), float(bar["Low"])
+            if lo <= cur_stop:
+                pnl = (cur_stop - entry_px) / entry_px * 100
+                entry.update(busena="baigta",
+                             rezultatas="slenkantis stop" if armed else "stop",
+                             baigties_laikas=str(ts), baigties_kaina=f"{cur_stop:.2f}",
+                             pelnas_pct=f"{pnl:+.2f}",
+                             virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
                 return entry
-            if hit_t:
-                entry.update(busena="baigta", rezultatas="tikslas",
-                             baigties_laikas=str(ts), baigties_kaina=f"{target:.2f}")
-                return entry
-            if hit_s:
-                entry.update(busena="baigta", rezultatas="stop",
-                             baigties_laikas=str(ts), baigties_kaina=f"{stop:.2f}")
-                return entry
+            if hi > peak:
+                peak = hi
+            if not armed and hi >= trigger:
+                armed = True
+            if armed:
+                cur_stop = max(cur_stop, peak * (1 - TRAIL_PCT / 100))
 
         # Nei tikslas, nei stop. Jei nuo irasymo praejo daugiau nei diena - uzdarom.
         last_ts = after.index[-1]
         if (last_ts.date() - start.date()).days >= 1:
             last_close = float(after["Close"].iloc[-1])
+            pnl = (last_close - entry_px) / entry_px * 100
             entry.update(busena="baigta",
-                         rezultatas="be rezultato" if last_close < target else "tikslas",
-                         baigties_laikas=str(last_ts), baigties_kaina=f"{last_close:.2f}")
+                         rezultatas="uzdaryta pabaigoje" if armed else "be rezultato",
+                         baigties_laikas=str(last_ts), baigties_kaina=f"{last_close:.2f}",
+                         pelnas_pct=f"{pnl:+.2f}",
+                         virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
         return entry
     except Exception:
         return entry
 
 
-def update_journal(path, rows, intraday_all, now):
+def update_journal(path, rows, intraday_all, now, market="neutral"):
     """Uzbaigia senus irasus ir prideda siandienos geriausius. Klaidos neblokuoja skenerio."""
     try:
         entries = load_journal(path)
@@ -1393,9 +1408,12 @@ def update_journal(path, rows, intraday_all, now):
                 data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
                 balas=f"{s['score']:.1f}", pakopa=s["grade"], scenarijus=s.get("setup", ""),
                 tinkamas="taip" if s.get("tradeable") else "ne",
+                ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
+                rinka=market, sektorius=d.get("sector", ""),
+                atr=f"{d['atrPct']:.2f}" if d.get("atrPct") else "",
                 ijejimas=f"{d['price']:.2f}", stop=f"{s['stop']:.2f}",
-                tikslas=f"{s['tp']:.2f}", busena="atviras", rezultatas="",
-                baigties_laikas="", baigties_kaina=""))
+                min_tikslas=f"{s['tp']:.2f}", busena="atviras", rezultatas="",
+                baigties_laikas="", baigties_kaina="", pelnas_pct="", virsune_pct=""))
             added += 1
 
         entries = entries[-500:]          # neauginam failo be galo
@@ -1415,12 +1433,16 @@ def journal_stats(entries):
         b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0})
         b["n"] += 1
         r = e.get("rezultatas", "")
-        if r == "tikslas":
+        if r in ("slenkantis stop", "uzdaryta pabaigoje"):
             b["tikslas"] += 1
-        elif r in ("stop", "neaisku (abu)"):
+        elif r == "stop":
             b["stop"] += 1
         else:
             b["kita"] += 1
+        try:
+            b.setdefault("pelnai", []).append(float(e.get("pelnas_pct", "")))
+        except (TypeError, ValueError):
+            pass
     return out
 
 # ----------------------------- MARKET LAIKAS -----------------------------
@@ -1496,7 +1518,7 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
     # Rezultatų žurnalas: įrašom šiandienos geriausius, užbaigiam senus įrašus
     now_local = datetime.now(_DTZ) if _DTZ else datetime.now()
     entries = update_journal(os.path.join(out_dir, "zurnalas.csv"),
-                             rows, intraday_all, now_local)
+                             rows, intraday_all, now_local, market=market)
     stats = journal_stats(entries)
     if stats:
         print("\nŽurnalas (užbaigti sandoriai):")
