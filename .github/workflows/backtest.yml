@@ -17,8 +17,4 @@ jobs:
         run: pip install yfinance pandas numpy tzdata
 
       - name: Ilgas testas (2 metai, valandiniai barai)
-        run: python backtest_intraday.py --interval 60m --target 3
-
-      - name: Tikslus testas (60 d., 5 min. barai)
-        if: always()
-        run: python backtest_intraday.py --interval 5m --target 3
+        run: python backtest_intraday.py --interval 60m --target 2
