@@ -65,9 +65,9 @@ GALUNIU_VALIUTA = {"DE": "EUR", "PA": "EUR", "AS": "EUR", "MI": "EUR", "MC": "EU
 
 UNIVERSAS = {
     "Technologijos": [
-        "ASML.AS", "ASM.AS", "BESI.AS", "IFX.DE", "STM.PA", "AIXA.DE", "SOI.PA",
+        "ASML.AS", "ASM.AS", "BESI.AS", "IFX.DE", "STMPA.PA", "AIXA.DE", "SOI.PA",
         "SAP.DE", "DSY.PA", "CAP.PA", "TEP.PA", "ADYEN.AS", "PRX.AS", "NOKIA.HE",
-        "ERIC-B.ST", "LOGN.SW", "TEMN.SW", "AMS.SW", "SW.PA", "ATO.PA", "ALTR.LS",
+        "ERIC-B.ST", "LOGN.SW", "TEMN.SW", "AMS.SW", "SW.PA", 
     ],
     "Pramone": [
         "SIE.DE", "SU.PA", "ABBN.SW", "KGX.DE", "LR.PA", "PRY.MI", "NEX.PA",
@@ -79,7 +79,7 @@ UNIVERSAS = {
     ],
     "Automobiliai": [
         "MBG.DE", "BMW.DE", "VOW3.DE", "P911.DE", "STLAM.MI", "CON.DE", "RNO.PA",
-        "PAH3.DE", "FORVIA.PA", "MICP.PA", "PIRC.MI",
+        "PAH3.DE", "FRVIA.PA", "ML.PA", "PIRC.MI",
     ],
     "Bankai ir finansai": [
         "BNP.PA", "ACA.PA", "GLE.PA", "DBK.DE", "CBK.DE", "UCG.MI", "ISP.MI",
@@ -95,7 +95,7 @@ UNIVERSAS = {
         "RWE.DE", "EOAN.DE", "ENEL.MI", "IBE.MC", "ENGI.PA", "SSE.L", "ORSTED.CO",
     ],
     "Medziagos": [
-        "BAS.DE", "1COV.DE", "AI.PA", "LIN.DE", "MT.AS", "GLEN.L", "AAL.L",
+        "BAS.DE", "AI.PA", "MT.AS", "GLEN.L", "AAL.L",
         "RIO.L", "ANTO.L", "BOL.ST", "UPM.HE", "STERV.HE", "SIKA.SW", "GIVN.SW",
     ],
     "Sveikata": [
@@ -105,7 +105,7 @@ UNIVERSAS = {
     ],
     "Vartojimas ir prabanga": [
         "MC.PA", "KER.PA", "RMS.PA", "MONC.MI", "CFR.SW", "UHR.SW", "ADS.DE",
-        "PUM.DE", "ITX.MC", "HM-B.ST", "BRBY.L", "NXT.L", "PNDORA.CO", "SW.L",
+        "PUM.DE", "ITX.MC", "HM-B.ST", "BRBY.L", "NXT.L", "PNDORA.CO", "SN.L",
     ],
     "Maistas ir kasdienes prekes": [
         "NESN.SW", "ABI.BR", "HEIA.AS", "DGE.L", "ULVR.L", "BN.PA", "OR.PA",
@@ -113,19 +113,56 @@ UNIVERSAS = {
     ],
     "Telekomai ir ziniasklaida": [
         "DTE.DE", "ORA.PA", "TEF.MC", "TIT.MI", "KPN.AS", "VOD.L", "BT-A.L",
-        "PUB.PA", "WPP.L", "RELX.L", "TEL2-B.ST",
+        "PUB.PA", "WPP.L", "REL.L", "TEL2-B.ST",
     ],
     "Keliones ir laisvalaikis": [
-        "LHA.DE", "AF.PA", "IAG.L", "RYA.IR", "ACS.MC", "AC.PA", "FLTR.L",
+        "LHA.DE", "AF.PA", "IAG.L", "RYA.IR", "ACS.MC", "AC.PA", 
         "EVD.DE", "TUI1.DE", "CPG.L",
     ],
     "Nekilnojamas turtas ir statyba": [
-        "VNA.DE", "URW.AS", "SGO.PA", "HEI.DE", "CRH.L", "SKA-B.ST", "BZU.MI",
+        "VNA.DE", "URW.AS", "SGO.PA", "HEI.DE", "SKA-B.ST", "BZU.MI",
     ],
     "Logistika ir mazmena": [
-        "DHL.DE", "DSV.CO", "KNIN.SW", "MAERSK-B.CO", "AHT.L", "BOO.L",
+        "DHL.DE", "DSV.CO", "KNIN.SW", "MAERSK-B.CO", "DEBS.L",
     ],
 }
+
+# JAV universas — NEPRIKLAUSOMAS patikrinimas. Slenksciai (>8%, pirma zalia diena,
+# sektorius >1%) buvo pastebeti Europos imtyje, todel tikrinti juos ten pat butu
+# ratas. JAV akcijos yra visiskai kiti duomenys tiems patiems slenksciams.
+UNIVERSAS_US = {
+    "Technologijos": ["AAPL", "MSFT", "NVDA", "AMD", "AVGO", "INTC", "MU", "AMAT",
+                      "LRCX", "KLAC", "ADI", "TXN", "QCOM", "CRM", "ORCL", "ADBE",
+                      "NOW", "PANW", "SNPS", "CDNS"],
+    "Pramone": ["CAT", "DE", "HON", "GE", "MMM", "EMR", "ETN", "PH", "ITW", "CMI",
+                "PCAR", "ROK", "AME", "FTV"],
+    "Gynyba ir aviacija": ["LMT", "RTX", "NOC", "GD", "BA", "LHX", "TDG", "HWM"],
+    "Automobiliai": ["TSLA", "F", "GM", "APTV", "LEA", "BWA"],
+    "Bankai ir finansai": ["JPM", "BAC", "WFC", "C", "GS", "MS", "SCHW", "USB",
+                           "PNC", "TFC", "COF"],
+    "Draudimas": ["BRK-B", "PGR", "TRV", "ALL", "AIG", "MET", "PRU", "CB"],
+    "Energetika": ["XOM", "CVX", "COP", "EOG", "SLB", "PSX", "VLO", "OXY", "HAL",
+                   "DVN", "FANG"],
+    "Medziagos": ["LIN", "APD", "SHW", "FCX", "NEM", "NUE", "DOW", "DD", "PPG"],
+    "Sveikata": ["JNJ", "PFE", "MRK", "ABBV", "LLY", "TMO", "ABT", "DHR", "BMY",
+                 "AMGN", "GILD", "VRTX", "REGN", "ISRG"],
+    "Vartojimas ir prabanga": ["NKE", "SBUX", "MCD", "TJX", "LOW", "HD", "RL", "TPR"],
+    "Maistas ir kasdienes prekes": ["PG", "KO", "PEP", "COST", "WMT", "MDLZ",
+                                    "CL", "KMB", "GIS", "K"],
+    "Telekomai ir ziniasklaida": ["T", "VZ", "TMUS", "DIS", "NFLX", "CMCSA", "META"],
+    "Keliones ir laisvalaikis": ["DAL", "UAL", "LUV", "AAL", "MAR", "HLT", "RCL",
+                                 "CCL", "BKNG", "ABNB"],
+    "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
+}
+US_ETF = {
+    "Technologijos": "XLK", "Pramone": "XLI", "Gynyba ir aviacija": "ITA",
+    "Automobiliai": "XLY", "Bankai ir finansai": "XLF", "Draudimas": "XLF",
+    "Energetika": "XLE", "Medziagos": "XLB", "Sveikata": "XLV",
+    "Vartojimas ir prabanga": "XLY", "Maistas ir kasdienes prekes": "XLP",
+    "Telekomai ir ziniasklaida": "XLC", "Keliones ir laisvalaikis": "XLY",
+    "Logistika ir mazmena": "XLI",
+}
+US_INDEKSAS = "SPY"
 
 SEKTORIU_ETF = {
     "Technologijos": "EXV3.DE", "Pramone": "EXH4.DE", "Gynyba ir aviacija": "EXH4.DE",
@@ -201,9 +238,10 @@ def valiutos_kursas(sym):
     return FX.get(GALUNIU_VALIUTA.get(g, "EUR"), 1.0)
 
 
-def surink(yf, metai):
-    visi = [s for lst in UNIVERSAS.values() for s in lst]
-    sekt = {s: k for k, lst in UNIVERSAS.items() for s in lst}
+def surink(yf, metai, uni=None):
+    uni = uni or UNIVERSAS
+    visi = [s for lst in uni.values() for s in lst]
+    sekt = {s: k for k, lst in uni.items() for s in lst}
     print(f"Siunciama {len(visi)} akciju dienos istorija ({metai}m)…")
     raw = yf.download(visi, period=f"{metai}y", interval="1d", group_by="ticker",
                       progress=False, auto_adjust=False, threads=True)
@@ -261,9 +299,11 @@ def surink(yf, metai):
     return df
 
 
-def prideti_kontekstą(yf, df):
+def prideti_kontekstą(yf, df, etf_map=None, indeksas=None):
     """Sektoriaus ETF ir indekso dienos grazos."""
-    etfs = sorted(set(SEKTORIU_ETF.values()) | {INDEKSAS})
+    etf_map = etf_map or SEKTORIU_ETF
+    indeksas = indeksas or INDEKSAS
+    etfs = sorted(set(etf_map.values()) | {indeksas})
     try:
         raw = yf.download(etfs, period="10y", interval="1d", group_by="ticker",
                           progress=False, auto_adjust=False, threads=True)
@@ -283,12 +323,12 @@ def prideti_kontekstą(yf, df):
         print(f"  sektoriu ETF veikia: {', '.join(veikia) or 'nei vienas'}")
         df["_d"] = df["data"].dt.date
         df["sekt_ret"] = np.nan
-        for sek, e in SEKTORIU_ETF.items():
+        for sek, e in etf_map.items():
             if e in lentelės:
                 m = df["sekt"] == sek
                 df.loc[m, "sekt_ret"] = df.loc[m, "_d"].map(lentelės[e])
-        if INDEKSAS in lentelės:
-            df["idx_ret"] = df["_d"].map(lentelės[INDEKSAS])
+        if indeksas in lentelės:
+            df["idx_ret"] = df["_d"].map(lentelės[indeksas])
     except Exception as e:
         print(f"  ETF nepavyko: {str(e)[:50]}")
     return df
@@ -307,6 +347,19 @@ def pazymėk_ivykius(df):
     df["v2_svelnus"] = df["p_kilimas_sv"] & df["p_apyvarta"] & df["p_virsuje"]
     df["v3_kilimas_virsune"] = df["p_kilimas"] & df["p_virsune"]
     df["v4_kilimas_apyvarta"] = df["p_kilimas"] & df["p_apyvarta"]
+
+    # --- V5: PATIKSLINTA hipoteze ---
+    # Slenksciai uzrasyti pries si paleidima, remiantis Europos pjuviais:
+    #   kilimas >8% (ten +0.345%), PIRMA zalia diena (+0.277%), sektorius >=1% (+0.157%).
+    # Europos imtyje sie skaiciai jau matyti, todel ten jie NIEKO neirodo —
+    # irodymu laikomas tik JAV rezultatas, kur slenksciai nebuvo derinti.
+    df["p_kilimas_didelis"] = df["chg"] >= 8.0
+    df["p_pirma_zalia"] = df["zalios_serija"] == 1
+    df["p_sekt_kyla"] = df["sekt_ret"] >= 1.0
+    df["v5_patikslintas"] = (df["p_kilimas_didelis"] & df["p_pirma_zalia"]
+                             & df["p_sekt_kyla"])
+    # Be sektoriaus salygos — jei ETF duomenu nera
+    df["v6_be_sektoriaus"] = df["p_kilimas_didelis"] & df["p_pirma_zalia"]
     return df
 
 
@@ -345,6 +398,8 @@ def realistiski_isejimai(df):
 # ----------------------------- ATASKAITA -----------------------------
 
 VARIANTAI = [
+    ("v5_patikslintas", "V5: >8% + pirma zalia + sektorius >=1%"),
+    ("v6_be_sektoriaus", "V6: >8% + pirma zalia (be sektoriaus)"),
     ("v1_pilnas", "Pilnas: >3% + 2x + IBS>0.8 + virsune"),
     ("v2_svelnus", "Svelnus: >2% + 2x + IBS>0.8"),
     ("v3_kilimas_virsune", "Kilimas + virsune (be apyvartos)"),
@@ -446,6 +501,9 @@ def main():
     ap = argparse.ArgumentParser(description="Tesinio hipotezes backtestas")
     ap.add_argument("--metai", type=int, default=10)
     ap.add_argument("--sanaudos", type=float, default=0.07)
+    ap.add_argument("--rinka", default="eu", choices=["eu", "us"],
+                    help="eu = Europos universas (cia slenksciai buvo pastebeti); "
+                         "us = JAV universas (NEPRIKLAUSOMAS patikrinimas)")
     args = ap.parse_args()
 
     try:
@@ -453,8 +511,17 @@ def main():
     except ImportError:
         sys.exit("Paleisk: pip install yfinance pandas numpy")
 
-    df = surink(yf, args.metai)
-    df = prideti_kontekstą(yf, df)
+    if args.rinka == "us":
+        uni, emap, idx = UNIVERSAS_US, US_ETF, US_INDEKSAS
+        print("JAV UNIVERSAS — nepriklausomas patikrinimas. Slenksciai cia "
+              "nederinti,\ntodel tik sis rezultatas laikomas irodymu.\n")
+    else:
+        uni, emap, idx = UNIVERSAS, SEKTORIU_ETF, INDEKSAS
+        print("EUROPOS UNIVERSAS — cia slenksciai buvo pastebeti, todel V5/V6 "
+              "rezultatas\ncia NIEKO neirodo. Jis rodomas tik palyginimui.\n")
+
+    df = surink(yf, args.metai, uni)
+    df = prideti_kontekstą(yf, df, emap, idx)
     df = pazymėk_ivykius(df)
     df = grazos(df)
     df = realistiski_isejimai(df)
@@ -470,6 +537,10 @@ def main():
           "salismas,\nkuris paprastai DIDINA teigiamus rezultatus.")
 
     pagrindine_lentele(df, antraste="PAGRINDINE LENTELE (visa imtis, demeanuota pagal diena)")
+    if args.rinka == "eu":
+        print("\n  PRIMINIMAS: V5 ir V6 slenksciai (>8%, pirma zalia, sektorius >=1%)")
+        print("  buvo pastebeti BUTENT sioje imtyje. Ju teigiamas rezultatas cia yra")
+        print("  lauktinas ir nieko neirodo. Sprendziam pagal --rinka us paleidima.")
 
     # Dvi kalendorines puses
     riba = df["data"].quantile(0.5)
