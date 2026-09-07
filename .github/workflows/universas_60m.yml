@@ -1,0 +1,43 @@
+name: Universo 60m backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      laikymas:
+        description: "Laikymas sesijomis (3 = 25,5 prekybos val.)"
+        default: "3"
+      min_apyvarta:
+        description: "Min. 20 d. apyvarta, mln EUR"
+        default: "20"
+      z_langas:
+        description: "Z-balo langas valandiniais barais (20 = patvirtintas)"
+        default: "20"
+
+jobs:
+  universas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          ls -la
+          test -f backtest_universas_60m.py || (echo "KLAIDA: backtest_universas_60m.py nerastas" && exit 1)
+          test -f universas.py || echo "PASTABA: universas.py nerastas — bus naudojamas vidinis sarasas"
+          test -f dip_reitingas.py || echo "PASTABA: dip_reitingas.py nerastas — siauro saraso palyginimo nebus"
+      - name: Paleisti
+        run: |
+          python backtest_universas_60m.py \
+            --laikymas "${{ github.event.inputs.laikymas || '3' }}" \
+            --min-apyvarta "${{ github.event.inputs.min_apyvarta || '20' }}" \
+            --z-langas "${{ github.event.inputs.z_langas || '20' }}" \
+            --sanaudos 0.07 | tee universas_60m.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: universas-60m
+          path: universas_60m.txt
