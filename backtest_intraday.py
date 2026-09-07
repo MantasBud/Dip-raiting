@@ -45,8 +45,9 @@ def curve_local(x, pts):
             return float(y1 + (x - x1) / (x2 - x1) * (y2 - y1))
     return 50.0
 
-CHECKPOINTS_5M = [18, 30, 42, 54, 66]   # ~10:30, 11:30, 12:30, 13:30, 14:30
-CHECKPOINTS_60M = [1, 3, 5]             # valandiniai barai: ~10:00, 12:00, 14:00
+CHECKPOINTS_5M = [18, 42, 66, 84, 96]   # ~10:30, 12:30, 14:30, 16:00, 17:00
+CHECKPOINTS_60M = [1, 3, 5, 7, 8]       # ~10:00, 12:00, 14:00, 16:00, 17:00
+                                        # (paskutiniai du — po JAV atidarymo 15:30)
 
 
 def session_frames(intra, min_bars):
@@ -299,7 +300,35 @@ def day_block_bootstrap(vals, n=3000, seed=42):
                 p_two=float(2 * min(p_pos, 1 - p_pos)), n_days=len(vals))
 
 
-def within_day_edge(df, col, higher_better=True, top_pct=0.9):
+def week_block_bootstrap(vals, per_day_index=None, n=3000, seed=42):
+    """Perrenka SAVAITES, ne atskiras dienas.
+
+    Tos pacios savaites dienos yra susijusios (ta pati rinkos busena), todel
+    dienu perrinkimas duoda per siaurus intervalus.
+    """
+    if len(vals) < 25:
+        return None
+    rng = np.random.default_rng(seed)
+    if per_day_index is not None and len(per_day_index) == len(vals):
+        weeks = pd.Series([pd.Timestamp(d).to_period("W") for d in per_day_index])
+        grupes = [vals[(weeks == w).to_numpy()] for w in weeks.unique()]
+    else:
+        grupes = [vals[i:i + 5] for i in range(0, len(vals), 5)]
+    grupes = [g for g in grupes if len(g)]
+    if len(grupes) < 12:
+        return None
+    boot = []
+    for _ in range(n):
+        pick = rng.integers(0, len(grupes), len(grupes))
+        boot.append(np.concatenate([grupes[i] for i in pick]).mean())
+    boot = np.array(boot)
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+    p_pos = float((boot > 0).mean())
+    return dict(mean=float(vals.mean()), lo=float(lo), hi=float(hi),
+                p_two=float(2 * min(p_pos, 1 - p_pos)), n_days=len(vals))
+
+
+def within_day_edge(df, col, higher_better=True, top_pct=0.9, min_dienu=30):
     """Ar signalas isrenka geresne akcija TARP TOS PACIOS DIENOS akciju.
 
     Tai vienintelis matas, atmetantis "geros dienos" efekta. Kiekvienai dienai
@@ -310,12 +339,24 @@ def within_day_edge(df, col, higher_better=True, top_pct=0.9):
     if len(sub) < 1500:
         return None
     q = sub[col].quantile(top_pct if higher_better else 1 - top_pct)
-    per_day = []
+    per_day, n_sel = [], 0
     for _, g in sub.groupby("_day"):
         sel = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
-        if len(sel) >= 1:
+        # Jei atrenkama VISA diena, signalas nieko neskiria — praleidziam
+        if 1 <= len(sel) < len(g):
             per_day.append(sel.mean() - g["pnl"].mean())
-    return day_block_bootstrap(np.array(per_day))
+            n_sel += len(sel)
+    vals = np.array(per_day)
+    # Nulines sklaidos apsauga: anksciau signalas, kuris nesuveike ne karto,
+    # duodavo p=0 ir "ISLAIKO". Dabar toks atmetamas.
+    if len(vals) < min_dienu or n_sel < 50 or float(np.std(vals)) < 1e-9:
+        return None
+    r = week_block_bootstrap(vals, per_day_index=[d for d, _ in sub.groupby("_day")
+                                                  if True][:len(vals)])
+    if r:
+        r["n"] = n_sel
+        r["dienos"] = len(vals)
+    return r
 
 
 def benjamini_hochberg(pvals, alpha=0.05):
@@ -404,6 +445,7 @@ SIGNALS = [
     ("setup_sektorius", True, "SET-UP: kylantis sekt. + atsilikimas"),
     ("setup_stiprus", True, "SET-UP: stiprus sekt. + gilesnis atsilikimas"),
     ("sekt_vs_rinka", True, "Sektorius stipresnis uz visa rinka"),
+    ("sekt_z", True, "Sektoriaus z-balas pries rinka"),
     # JAV kanalas — reaktyvumas dienos viduje (15:30-22:00)
     ("us_move", True, "JAV sektorius kyla nuo 15:30"),
     ("us_move", False, "JAV sektorius krenta nuo 15:30"),
@@ -439,15 +481,17 @@ def report_signals(df, label, correct=True):
 
     print(f"\n{label}  (tikrinta {len(rows)} signalu, "
           f"{'su daugybinio tikrinimo pataisa' if correct else 'be pataisos'})")
-    print(f"{'SIGNALAS':<30} {'PRANASUMAS':>11} {'95% INTERVALAS':>22} {'p':>7} {'ISLAIKO':>8}")
-    print("-" * 84)
+    print(f"{'SIGNALAS':<30} {'PRANASUMAS':>11} {'95% INTERVALAS':>22} {'p':>7} "
+          f"{'ATVEJU':>8} {'DIENU':>7} {'ISLAIKO':>8}")
+    print("-" * 100)
     order = np.argsort([r[3]["mean"] for r in rows])[::-1]
     out = []
     for i in order:
         name, col, hb, r = rows[i]
         mark = "TAIP" if passed[i] else ""
         ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
-        print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} {r['p_two']:>7.3f} {mark:>8}")
+        print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} {r['p_two']:>7.3f} "
+              f"{r.get('n', 0):>8} {r.get('dienos', 0):>7} {mark:>8}")
         if passed[i]:
             out.append((name, col, hb, r))
     return out
@@ -533,7 +577,9 @@ def main():
     ap = argparse.ArgumentParser(description="Intraday backtestas su griezta patikra")
     ap.add_argument("--target", type=float, default=dr.TARGET_PCT)
     ap.add_argument("--days", type=int, default=60)
-    ap.add_argument("--interval", default="5m", choices=["5m", "60m"])
+    ap.add_argument("--interval", default="60m", choices=["5m", "60m"])
+    ap.add_argument("--leisti-5m", action="store_true",
+                    help="Leisti 5m testa (su 3+ dienu laikymu jis neinformatyvus)")
     ap.add_argument("--costs", type=float, default=0.07,
                     help="Mokesciai + spread'as procentais sandoriui")
     args = ap.parse_args()
@@ -542,6 +588,11 @@ def main():
         import yfinance as yf
     except ImportError:
         sys.exit("Paleisk: pip install yfinance pandas numpy tzdata")
+
+    if args.interval == "5m" and dr.HOLD_HOURS > 16 and not args.leisti_5m:
+        sys.exit("5m testas isjungtas: 60 dienu imtis su "
+                 f"{dr.HOLD_HOURS:.0f} val. laikymu duoda ~10 nepriklausomu langu — "
+                 "rezultatai butu triuksmas. Naudok --interval 60m arba --leisti-5m.")
 
     symbols = [s for _, s, _ in dr.WATCHLIST]
     if args.interval == "60m":
@@ -740,14 +791,37 @@ def main():
 
         # SET-UP: kylantis sektorius + akcija jame trumpam atsilikusi.
         # Slenksciai uzrasyti PRIES matant rezultatus ir nebus derinami.
-        df["setup_sektorius"] = np.where(
-            (df["sekt_mom10"] > 0.5) & (df["likutis3"] < 0), 1.0, 0.0)
-        df["setup_stiprus"] = np.where(
-            (df["sekt_mom10"] > 1.5) & (df["likutis3"] < -0.5), 1.0, 0.0)
+        # Set-up turi buti RETAS ivykis. Anksciau suveikdavo 21% laiko — tai ne
+        # ivykis, o busena, ir tokia imtis beveik atsitiktine. Dabar matuojam
+        # sektoriu SANTYKINAI pries rinka ir normalizuojam jo svyravimu (z-balas).
+        if "sekt_vs_rinka" in df:
+            sv = df["sekt_vs_rinka"]
+            z = (sv - sv.rolling(200, min_periods=50).mean()) / \
+                sv.rolling(200, min_periods=50).std()
+            df["sekt_z"] = z
+            lik_z = ((df["likutis3"] - df["likutis3"].rolling(200, min_periods=50).mean())
+                     / df["likutis3"].rolling(200, min_periods=50).std())
+            # Retumas apibreziamas procentiliais, ne fiksuotomis z ribomis: taip
+            # ivykis lieka retas, bet imtis niekada nebuna nuline. Ribos nustatytos
+            # pries matant rezultatus ir nederinamos.
+            z_riba = z.quantile(0.90)
+            z_riba_st = z.quantile(0.95)
+            lik_riba = lik_z.quantile(0.25)
+            lik_riba_st = lik_z.quantile(0.15)
+            df["setup_sektorius"] = np.where((z >= z_riba) & (lik_z <= lik_riba), 1.0, 0.0)
+            df["setup_stiprus"] = np.where((z >= z_riba_st) & (lik_z <= lik_riba_st), 1.0, 0.0)
+        else:
+            df["setup_sektorius"] = 0.0
+            df["setup_stiprus"] = 0.0
 
+        d1 = df["setup_sektorius"].mean() * 100
+        d2 = df["setup_stiprus"].mean() * 100
         print(f"Sektoriaus judejimas is ETF: {is_etf:.0f}% eiluciu; "
-              f"set-up'ai suveikia {df['setup_sektorius'].mean()*100:.1f}% / "
-              f"{df['setup_stiprus'].mean()*100:.1f}% atveju")
+              f"set-up'ai suveikia {d1:.1f}% / {d2:.1f}% atveju")
+        if d1 < 0.3 or d2 < 0.3:
+            print("  DEMESIO: set-up per retas — imtis bus per maza isvadai")
+        elif d1 > 10:
+            print("  DEMESIO: set-up suveikia per daznai — tai busena, ne ivykis")
     except Exception as e:
         import traceback
         print(f"!!! SEKTORIAUS MOMENTUMAS NEVEIKIA: {type(e).__name__}: {e}")
@@ -888,7 +962,8 @@ def main():
             else:
                 v = "nepatvirtinta"
             ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
-            print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} {v:>16}")
+            print(f"{name:<30} {r['mean']:>+10.3f}% {ci:>22} "
+                  f"n={r.get('n', 0)} d={r.get('dienos', 0)} {v:>16}")
 
         # ---------- 3 etapas: ar pranasumas is visu akciju, ar is vienos ----------
         if confirmed:
