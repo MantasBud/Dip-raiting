@@ -156,14 +156,14 @@ CRITERIA = [
     #   IBS zemas      +0.103% (+0.019..+0.188), neto +0.033%
     # Likusieji patvirtinimo NEISLAIKE — ju svoris mazas, nes kompozitas su
     # 60% nepatvirtintu kriteriju praskiede signala iki triuksmo (+0.061%).
-    ("zbal",     "Nutolimas nuo vidurkio",   40),
-    ("ibs",      "Padėtis dienos diapazone", 30),
+    ("zbal",     "Nutolimas nuo vidurkio",   35),   # patvirtinta, neto +0.076%
+    ("ibs",      "Padėtis dienos diapazone", 25),   # patvirtinta, neto +0.013%
+    ("vwap",     "Padėtis prieš VWAP",       15),   # patvirtinta, neto +0.051%
     ("stab",     "Ar kritimas sustojo",       8),
     ("multiday", "Vienadienis ar tęstinis",   6),
-    ("room",     "Vieta iki pasipriešinimo",  6),
-    ("dip",      "Kritimo gylis",             4),
-    ("atr",      "Judrumas (ATR)",            3),
-    ("vwap",     "Padėtis prieš VWAP",        2),
+    ("room",     "Vieta iki pasipriešinimo",  5),
+    ("dip",      "Kritimo gylis",             3),
+    ("atr",      "Judrumas (ATR)",            2),
     ("trend",    "Trendas (20/50 SMA)",       1),
 ]
 
@@ -576,7 +576,11 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                       [(25, 20), (40, 60), (50, 90), (60, 100), (70, 70), (80, 25)]
                       if recovering else
                       [(10, 25), (20, 55), (28, 85), (35, 100), (45, 85), (55, 55), (65, 30), (80, 10)]),
-        "vwap": curve(vw_d, [(-4, 20), (-2, 45), (-0.8, 85), (-0.2, 100), (0.3, 90), (1.5, 60), (3, 35), (6, 15)]),
+        # Patvirtinta nematytoje imties dalyje: kaina ZEMIAU VWAP +0.121%
+        # (+0.025..+0.211), neto +0.051%. Anksciau kreive maksimuma dave ties
+        # -0.2%, t. y. matavo ne ta, kas pasitvirtino.
+        "vwap": curve(vw_d, [(-5, 100), (-2, 92), (-1, 82), (-0.3, 62),
+                             (0.3, 42), (1.0, 28), (3, 12)]),
         "_nenaudojamas_rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
         "trend": trend,
         "_nenaudojamas_support": 15.0 if (sup_d is not None and sup_d < 0) else
@@ -1467,7 +1471,7 @@ kietuosiuose filtruose, rizikos skaičiavime ir išėjimo taisyklėje.</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-07 ibs40-trail-25akc"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-hold3d"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
