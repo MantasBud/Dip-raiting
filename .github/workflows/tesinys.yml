@@ -4,18 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       metai:
-        description: "Kiek metu istorijos (10 = maksimali imtis)"
+        description: "Kiek metu istorijos"
         required: false
         default: "10"
       sanaudos:
-        description: "Mokesciai ir spread'as procentais sandoriui"
+        description: "Mokesciai ir spread'as procentais"
         required: false
         default: "0.07"
 
 jobs:
   tesinys:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@v4
@@ -31,21 +31,31 @@ jobs:
         run: |
           ls -la
           test -f backtest_tesinys_daily.py || \
-            (echo "KLAIDA: backtest_tesinys_daily.py nerastas repozitorijoje" && exit 1)
+            (echo "KLAIDA: backtest_tesinys_daily.py nerastas" && exit 1)
 
-      - name: Paleisti tesinio backtesta
+      - name: JAV universas (NEPRIKLAUSOMAS patikrinimas)
         env:
           METAI: ${{ github.event.inputs.metai || '10' }}
           SANAUDOS: ${{ github.event.inputs.sanaudos || '0.07' }}
         run: |
-          echo "Parametrai: metai=$METAI sanaudos=$SANAUDOS"
-          python backtest_tesinys_daily.py --metai "$METAI" --sanaudos "$SANAUDOS" \
-            | tee tesinio_rezultatas.txt
+          python backtest_tesinys_daily.py --rinka us --metai "$METAI" \
+            --sanaudos "$SANAUDOS" | tee tesinys_us.txt
 
-      - name: Issaugoti rezultata
+      - name: Europos universas (palyginimui)
+        if: always()
+        env:
+          METAI: ${{ github.event.inputs.metai || '10' }}
+          SANAUDOS: ${{ github.event.inputs.sanaudos || '0.07' }}
+        run: |
+          python backtest_tesinys_daily.py --rinka eu --metai "$METAI" \
+            --sanaudos "$SANAUDOS" | tee tesinys_eu.txt
+
+      - name: Issaugoti rezultatus
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tesinio-rezultatas
-          path: tesinio_rezultatas.txt
+          name: tesinio-rezultatai
+          path: |
+            tesinys_us.txt
+            tesinys_eu.txt
           if-no-files-found: ignore
