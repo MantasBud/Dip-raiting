@@ -62,3 +62,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-07 ibs40-trail-25akc,2026-09-07,11:24,AIXA.DE,AIXA,28.4,D,jau pakilusi,ne,0.812,bear_soft,AI infrastruktūra,4.87,37.10,36.11,37.84,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,11:24,PRY.MI,PRY,26.7,D,jau pakilusi,ne,0.933,bear_soft,AI infrastruktūra,3.82,125.40,122.77,127.91,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,11:44,NOKIA.HE,NOKIA,24.7,D,jau pakilusi,ne,0.964,bear_soft,telekomų įranga,5.18,9.01,8.72,9.19,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-07,22:36,SIE.DE,SIE,59.6,C,Ramus atsitraukimas,taip,0.100,bear_soft,kita,2.12,270.40,267.25,275.81,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-07,22:36,ENI.MI,ENI,60.1,C,Ramus atsitraukimas,taip,0.114,bear_soft,kita,2.33,23.24,22.94,23.70,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-07,22:36,ENEL.MI,ENEL,52.0,C,Kritimas sustojo,taip,0.353,bear_soft,kita,1.74,9.00,8.92,9.18,atviras,,,,,
