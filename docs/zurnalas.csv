@@ -42,7 +42,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-07 ibs40-trail-25akc,2026-09-07,00:20,SAP.DE,SAP,63.8,C,kritimas,ne,0.170,bear_soft,programinė įranga,3.11,185.80,182.62,189.52,baigta,stop,2026-09-07 09:15:00+02:00,182.62,-1.71,+0.00
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,CAP.PA,CAP,54.0,C,kritimas,ne,0.205,bear_soft,IT paslaugos,3.41,107.45,105.44,109.60,baigta,stop,2026-09-07 09:25:00+02:00,105.44,-1.87,+0.00
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,LDO.MI,LDO,53.3,C,kritimas,ne,0.282,bear_soft,gynyba,3.03,50.43,49.59,51.44,atviras,,,,,
-2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,ENR.DE,ENR,52.3,C,kritimas,ne,0.391,bear_soft,AI infrastruktūra,3.93,146.90,143.72,149.84,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,ENR.DE,ENR,52.3,C,kritimas,ne,0.391,bear_soft,AI infrastruktūra,3.93,146.90,143.72,149.84,baigta,slenkantis stop,2026-09-07 11:50:00+02:00,147.81,+0.62,+2.15
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:48,NEX.PA,NEX,50.0,D,kritimas,ne,0.091,bear_soft,AI infrastruktūra,2.98,136.70,134.46,139.43,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:48,TEP.PA,TEP,48.4,D,kritimas,ne,0.315,bear_soft,IT paslaugos,3.32,70.44,69.15,71.85,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:48,KER.PA,KER,46.8,D,kritimas,ne,0.468,bear_soft,prabanga,3.13,245.20,240.98,250.10,baigta,stop,2026-09-07 09:50:00+02:00,240.98,-1.72,+0.00
