@@ -1,0 +1,56 @@
+name: 1 faze - rangavimo backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      metai:
+        description: "Kiek metu istorijos"
+        required: false
+        default: "10"
+
+jobs:
+  rangavimas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Idiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+
+      - name: Patikrinti failus
+        run: |
+          ls -la
+          for f in universas.py rangavimas.py backtest_rangavimas_daily.py; do
+            test -f "$f" || (echo "KLAIDA: $f nerastas" && exit 1)
+          done
+
+      - name: Europos universas
+        env:
+          METAI: ${{ github.event.inputs.metai || '10' }}
+        run: |
+          python backtest_rangavimas_daily.py --rinka eu --metai "$METAI" \
+            | tee rangavimas_eu.txt
+
+      - name: JAV universas (nepriklausomas patikrinimas)
+        if: always()
+        env:
+          METAI: ${{ github.event.inputs.metai || '10' }}
+        run: |
+          python backtest_rangavimas_daily.py --rinka us --metai "$METAI" \
+            | tee rangavimas_us.txt
+
+      - name: Issaugoti rezultatus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rangavimo-rezultatai
+          path: |
+            rangavimas_eu.txt
+            rangavimas_us.txt
+          if-no-files-found: ignore
