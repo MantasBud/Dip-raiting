@@ -224,8 +224,11 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
 def outcome(sessions, day_idx, k, entry, stop, target_price, hold_hours):
     """Ka kaina padare po ijejimo: tikslas, stop ar nei viena."""
     bars = [sessions[day_idx][1].iloc[k + 1:]]
-    if hold_hours > 8 and day_idx + 1 < len(sessions):
-        bars.append(sessions[day_idx + 1][1])
+    # Kiek sesiju apima laikymo horizontas (8.5 val. = viena prekybos diena)
+    extra = max(0, int(round(hold_hours / 8.5)) - 1) if hold_hours > 8.5 else 0
+    for j in range(1, extra + 1):
+        if day_idx + j < len(sessions):
+            bars.append(sessions[day_idx + j][1])
     future = pd.concat(bars) if bars else None
     if future is None or future.empty:
         return None, 0.0
@@ -307,6 +310,14 @@ SIGNALS = [
     ("hl_struct", True, "Aukstesniu dugnu struktura"),
     ("vol_price", True, "Apyvarta + kilimas"),
     ("pd_break", True, "Vakar max pramusimas"),
+    # Sektoriaus momentumas — pirmas kartas matuojamas
+    ("sekt_mom5", True, "Sektorius kyla (5 d.)"),
+    ("sekt_mom10", True, "Sektorius kyla (10 d.)"),
+    ("likutis3", False, "Akcija atsilieka nuo sektoriaus (3 d.)"),
+    ("likutis5", False, "Akcija atsilieka nuo sektoriaus (5 d.)"),
+    ("r5", True, "Akcijos 5 d. momentumas"),
+    ("setup_sektorius", True, "SET-UP: kylantis sekt. + atsilikimas"),
+    ("setup_stiprus", True, "SET-UP: stiprus sekt. + gilesnis atsilikimas"),
 ]
 
 
@@ -356,8 +367,10 @@ def outcome_trailing(sessions, day_idx, k, entry, stop, min_target, trail_pct, h
     Kai bare paliesti abu lygiai, laikoma nepalankiu variantu (konservatyvu).
     """
     bars = [sessions[day_idx][1].iloc[k + 1:]]
-    if hold_hours > 8 and day_idx + 1 < len(sessions):
-        bars.append(sessions[day_idx + 1][1])
+    extra = max(0, int(round(hold_hours / 8.5)) - 1) if hold_hours > 8.5 else 0
+    for j in range(1, extra + 1):
+        if day_idx + j < len(sessions):
+            bars.append(sessions[day_idx + j][1])
     future = pd.concat(bars) if bars else None
     if future is None or future.empty:
         return None, 0.0
