@@ -116,11 +116,11 @@ MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 ACCOUNT_CURRENCY = "EUR"
 
 # Laikymo horizontas valandomis. Tikslas turi buti pasiektas per si laika.
-#   8    = visa prekybos diena
-#   16   = iki kitos dienos uzdarymo
-#   72   = 3 dienos (numatyta) — trumpalaikis grizimas prie vidurkio per 2-5 d.
-#          yra kelis kartus stipresnis nei per 16 val., todel horizontas ilgesnis
-HOLD_HOURS = 72.0        # 3 prekybos dienos (2-5 d. laikymas)
+# HOLD_DAYS matuojamas PREKYBOS dienomis, ne kalendorinemis. Anksciau cia buvo
+# 72 "valandos", ir backtestas jas verte 8 sesijomis, modulis — 3 kalendorinemis
+# dienomis, o zurnalas — 3 dienomis. Trys skirtingi modeliai viename projekte.
+HOLD_DAYS = 3            # kiek PREKYBOS dienu laikoma pozicija (2-5)
+HOLD_HOURS = HOLD_DAYS * 8.5    # tas pats dydis prekybos valandomis
 
 # Kiek akcija gali buti pakilusi siandien, kad dar laikytume tai atsigavimu, o ne
 # jau ivykusiu suoliu. Virs sios ribos nuolaidos nebera.
@@ -356,11 +356,7 @@ def expected_move(vol_bar, hours, bph=12):
     """
     if not vol_bar:
         return None
-    dienos = hours / 24.0
-    prekybos_val = max(0.25, dienos * SESSION_HOURS + min(hours, SESSION_HOURS) * 0.0)
-    if hours <= SESSION_HOURS:
-        prekybos_val = hours
-    bars = max(1.0, prekybos_val * bph)
+    bars = max(1.0, hours * bph)      # hours jau yra PREKYBOS valandos
     return vol_bar * math.sqrt(bars)
 
 
@@ -1544,7 +1540,7 @@ def resolve_entry(entry, intraday_all):
         last_ts = after.index[-1]
         # Laikymas 3 sesijos (HOLD_HOURS=72), todel uzdarom tik po 3 dienu,
         # o ne po vienos — anksciau zurnalas fiksuodavo per anksti.
-        if (last_ts.date() - start.date()).days >= max(1, int(HOLD_HOURS / 24)):
+        if (last_ts.date() - start.date()).days >= HOLD_DAYS:
             last_close = float(after["Close"].iloc[-1])
             pnl = (last_close - entry_px) / entry_px * 100
             entry.update(busena="baigta",
