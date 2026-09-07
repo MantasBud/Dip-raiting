@@ -116,10 +116,11 @@ MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 ACCOUNT_CURRENCY = "EUR"
 
 # Laikymo horizontas valandomis. Tikslas turi buti pasiektas per si laika.
-#   1-2  = "triuksmo" gaudymas per kelias valandas
 #   8    = visa prekybos diena
-#   16   = laikymas iki kitos dienos uzdarymo (numatyta)
-HOLD_HOURS = 16.0
+#   16   = iki kitos dienos uzdarymo
+#   72   = 3 dienos (numatyta) — trumpalaikis grizimas prie vidurkio per 2-5 d.
+#          yra kelis kartus stipresnis nei per 16 val., todel horizontas ilgesnis
+HOLD_HOURS = 72.0        # 3 prekybos dienos (2-5 d. laikymas)
 
 # Kiek akcija gali buti pakilusi siandien, kad dar laikytume tai atsigavimu, o ne
 # jau ivykusiu suoliu. Virs sios ribos nuolaidos nebera.
@@ -141,12 +142,13 @@ def currency_of(sym):
         return CURRENCY_BY_SUFFIX.get(suffix, ("?", ""))
     return ("USD", "$")
 
-# Svoriai po 2026 m. patikros. IBS yra VIENINTELIS signalas, isslaikes visus tris
-# etapus: paieska su daugybinio tikrinimo pataisa, patvirtinima nematytoje imties
-# puseje (+0.157%, intervalas +0.025..+0.285) ir atsparumo patikra isbraukiant
-# akcijas po viena. Neto po mokesciu +0.087% sandoriui.
-# Kiti kriterijai patvirtinimo NEISLAIKE, todel ju svoris mazas — jie palikti kaip
-# kontekstas ir rizikos filtrai, ne kaip prognoze.
+# BUKLE 2026-09-07 po pakartotinio patikrinimo su 25 akciju sarasu:
+# NE VIENAS kriterijus nepatvirtino pranasumo nematytoje imties dalyje.
+# IBS su ankstesniu 19 akciju sarasu rode +0.157%, su siuo — +0.060% (intervalas
+# kerta nuli). Todel balas laikomas ATITIKIMO KRITERIJAMS matu, ne prognoze.
+# Svoriu nekeiciam: perdelioti juos pagal tuos pacius duomenis, ant kuriu jau
+# derinta, reikstu persimokyma. Patvirtinta modulio verte yra kitur — rinkos
+# rezimo filtre, isejimo taisykleje ir rizikos skaiciavime.
 CRITERIA = [
     ("ibs",      "Padėtis dienos diapazone", 40),
     ("stab",     "Ar kritimas sustojo",      10),
@@ -231,7 +233,8 @@ def atr_pct(daily, n=14):
 
 def levels(daily, price):
     """Atramos ir pasipriešinimo kandidatai: pivotai + 20 d. swing lygiai."""
-    prev = daily.iloc[-2] if len(daily) > 1 else daily.iloc[-1]
+    # daily cia jau be siandienos, tad paskutine eilute yra vakar diena
+    prev = daily.iloc[-1]
     p = (float(prev["High"]) + float(prev["Low"]) + float(prev["Close"])) / 3
     s1, r1 = 2 * p - float(prev["High"]), 2 * p - float(prev["Low"])
     lo20 = float(daily["Low"].tail(20).min())
@@ -337,13 +340,23 @@ def intraday_vol(today_bars):
     return v if math.isfinite(v) and v > 0 else None
 
 
-def expected_move(vol_bar, hours, bph=12):
-    """Tikėtinas kainos judesys per N valandų. Svyravimas auga ~sqrt(laiko).
+SESSION_HOURS = 8.5      # kiek valandu per para birza realiai prekiauja
 
-    bph = kiek baru telpa i valanda (12 penkiaminuciu, 1 valandinis)."""
+
+def expected_move(vol_bar, hours, bph=12):
+    """Tiketinas kainos judesys per N PREKYBOS valandu.
+
+    Anksciau 16 val. horizontas buvo verciamas i 16*12 baru, lyg nakti rinka
+    prekiautu — judesys pervertinamas ~1.4 karto. Dabar naktys neskaiciuojamos:
+    16 val. horizontas = 1.9 prekybos dienos = ~16 realiu prekybos valandu.
+    """
     if not vol_bar:
         return None
-    bars = max(1.0, hours * bph)
+    dienos = hours / 24.0
+    prekybos_val = max(0.25, dienos * SESSION_HOURS + min(hours, SESSION_HOURS) * 0.0)
+    if hours <= SESSION_HOURS:
+        prekybos_val = hours
+    bars = max(1.0, prekybos_val * bph)
     return vol_bar * math.sqrt(bars)
 
 
@@ -644,9 +657,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
 
     if ibs_v is not None:
         if ibs_v <= 0.2:
-            flags.append(("info", f"IBS {ibs_v:.2f} — kaina prie dienos dugno. Tai vienintelis "
-                                  f"modulio signalas, patvirtintas nematytoje duomenų dalyje "
-                                  f"(+0,16% prieš dienos vidurkį)"))
+            flags.append(("info", f"IBS {ibs_v:.2f} — kaina prie dienos dugno. Tai stipriausias "
+                                  f"modulio kriterijus, bet paskutiniame patikrinime su šiuo "
+                                  f"sąrašu jis pranašumo nepatvirtino"))
         elif ibs_v >= 0.8:
             flags.append(("warn", f"IBS {ibs_v:.2f} — kaina prie dienos viršūnės. Istoriškai "
                                   f"tokie įėjimai pasirodo prasčiau už dienos vidurkį"))
@@ -878,7 +891,10 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     sup, res = levels(daily, price)
     rv = relative_volume(intra, mask)
     c = daily["Close"]
-    prev_close = float(c.iloc[-2]) if len(c) > 1 else None
+    # SVARBU: daily jau praeitas per completed_daily(), tad c.iloc[-1] yra VAKAR.
+    # Anksciau cia buvo iloc[-2] — tai grazindavo uzvakar ir iskreipdavo dienos
+    # pokyti, atsigavimo scenariju, sektoriaus mediana ir rinkos ploti.
+    prev_close = float(c.iloc[-1]) if len(c) > 0 else None
     sma20 = float(c.tail(20).mean())
     sma50 = float(c.tail(50).mean())
     ctx = multiday_context(daily, price)
@@ -1005,7 +1021,8 @@ def print_table(rows):
     best, bs = rows[0]
     print("-" * 68)
     if bs["score"] >= 50:
-        print(f"\nGERIAUSIAS: {best['tag']} ({best['name']})")
+        print(f"\nAUKŠČIAUSIAS BALAS: {best['tag']} ({best['name']}) — "
+              f"atitikimas kriterijams, ne prognozė")
         c = best.get('cur_sym', '')
         print(f"  Įėjimas {c}{best['price']:.2f} | Stop {c}{bs['stop']:.2f} | "
               f"Min. tikslas {c}{bs['tp']:.2f} (toliau slenkantis "
@@ -1195,6 +1212,26 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     except Exception:
         pass
 
+    # Pagrindinis atsakymas: ar siandien apskritai verta prekiauti. Backteste tai
+    # buvo vienintelis efektas, ~10 kartu didesnis uz akciju atranka
+    # (-0.45% krentanciomis dienomis pries +0.61% kylanciomis).
+    tinkami = [1 for _, s in rows if s.get("tradeable")]
+    if market == "bear":
+        v_cls, v_txt = "no", "Šiandien geriau neprekiauti"
+        v_sub = ("Rinka krenta ir šiandien. Per 2 metus tokiomis dienomis vidutinis "
+                 "sandoris prarado 0,45%, o geriausiai įvertinti — 0,35%.")
+    elif not tinkami:
+        v_cls, v_txt = "no", "Šiandien nėra tinkamų kandidatų"
+        v_sub = "Nė viena akcija nepraeina kietųjų filtrų. Praleisti dieną irgi yra sprendimas."
+    elif market == "bear_soft":
+        v_cls, v_txt = "care", f"Atsargiai · {len(tinkami)} kandidatai"
+        v_sub = "Bendra kryptis vis dar žemyn, nors šiandien kyla."
+    else:
+        v_cls, v_txt = "ok", f"Galima prekiauti · {len(tinkami)} kandidatai"
+        v_sub = "Rinkos režimas netrukdo. Sąrašas žemiau — peržiūrai, ne pirkimo eilei."
+    verdict_html = (f"<div class='verdict {v_cls}'><div class='vt'>{v_txt}</div>"
+                    f"<div class='vs'>{v_sub}</div></div>")
+
     problems_html = ""
     if problems:
         items = "".join(f"<li>{w}</li>" for w in problems)
@@ -1358,13 +1395,19 @@ font-variant-numeric:tabular-nums}}
 .fl .warn{{background:#FBF3E4;border-color:var(--warn);color:#6E4400}}
 .fl .stop{{background:#FBEBEA;border-color:var(--stop);color:#7A2320}}
 </style>
-<h1>Intraday modelis</h1>
+<h1>Kandidatų filtras</h1>
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {problems_html}
+{verdict_html}
 {rally_html}
 {movers_html}
 {stats_html}
+<div class="listhead">Kandidatai peržiūrai</div>
+<div class="listnote">Rikiuota pagal atitikimą tavo kriterijams. Patikrinimas nerado,
+kad aukštesnis balas duotų geresnį rezultatą, todėl tai <b>ne pirkimo eilė</b> —
+sąrašas, kurį verta peržiūrėti grafike. Išmatuota modulio vertė yra kitur:
+kietuosiuose filtruose, rizikos skaičiavime ir išėjimo taisyklėje.</div>
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
