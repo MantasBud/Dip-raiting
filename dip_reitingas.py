@@ -390,13 +390,19 @@ def completed_daily(daily):
         return daily
 
 
-def price_zscore(cont_close, price, n=20):
-    """Kiek standartiniu nuokrypiu kaina nutolusi nuo pastaruju N baru vidurkio.
+Z_SESIJOS = 2.0      # Z-balo langas SESIJOMIS (patvirtinta: 20 valandiniu baru)
 
-    Skaiciuojama IDENTISKAI kaip backteste (backtest_intraday.py, zscore) —
-    is istisines 5 min. sekos, 20 baru langas. Zemas z patvirtintas nematytoje
-    imties dalyje: +0.145% pries dienos vidurki, neto +0.075% po mokesciu.
+
+def price_zscore(cont_close, price, n=None):
+    """Kiek standartiniu nuokrypiu kaina nutolusi nuo pastaruju sesiju vidurkio.
+
+    SVARBU: langas matuojamas SESIJOMIS, ne barais. Patvirtinimas gautas su
+    20 valandiniu baru (~2 sesijos). Anksciau cia buvo 20 PENKIAMINUCIU baru
+    (~100 minuciu) — modulis skaiciavo visai kita dydi nei tas, kuris patvirtintas.
+    5 min. duomenims 2 sesijos = ~204 barai.
     """
+    if n is None:
+        n = int(Z_SESIJOS * 8.5 * 12)     # sesijos x valandos x barai valandoje
     try:
         seg = cont_close.tail(n).astype(float)
         if len(seg) < n:
