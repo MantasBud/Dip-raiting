@@ -211,6 +211,48 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
     except Exception:
         pass
 
+    # --- TESINYS IS VAKARYKSCIOS UZBAIGTOS DIENOS ---
+    # Tavo scenarijus: penktadieni stipriai kilo -> pirmadieni perku. Salygos
+    # imamos is paskutines UZBAIGTOS dienos, ne is siandienos vidurio.
+    tesinys_vakar = 0.0
+    try:
+        vd = daily_hist.iloc[-1]
+        vd_prev_close = float(daily_hist["Close"].iloc[-2])
+        vd_chg = (float(vd["Close"]) - vd_prev_close) / vd_prev_close * 100
+        vd_rng = float(vd["High"]) - float(vd["Low"])
+        vd_ibs = (float(vd["Close"]) - float(vd["Low"])) / vd_rng if vd_rng > 0 else 0.5
+        vd_rvol = (float(vd["Volume"]) / float(daily_hist["Volume"].tail(20).mean())
+                   if float(daily_hist["Volume"].tail(20).mean()) > 0 else 0)
+        vd_hi20 = float(daily_hist["High"].tail(21).head(20).max())
+        if (vd_chg >= 3.0 and vd_rvol >= 2.0 and vd_ibs >= 0.8
+                and float(vd["Close"]) > vd_hi20):
+            tesinys_vakar = 1.0
+    except Exception:
+        pass
+
+    # --- TESINIO SET-UP'AI: ar stiprus kilimas testiasi? ---
+    # Grieztas apibrezimas, uzrasytas PRIES matuojant: didelis dienos pokytis,
+    # apyvarta bent 2x iprastos, uzdarymas virsutineje diapazono dalyje ir
+    # nauja 20 d. virsune. Kiekvienas pozymis saugomas ir atskirai, kad matytusi,
+    # kuris is ju (jei kuris) turi verte.
+    try:
+        hi20 = float(daily_hist["High"].tail(20).max())
+        nauja_virsune = 1.0 if price > hi20 else 0.0
+    except Exception:
+        nauja_virsune = 0.0
+
+    rv_now2 = rvol_at(sessions, day_idx, k)
+    apyvarta_2x = 1.0 if (rv_now2 is not None and rv_now2 >= 2.0) else 0.0
+    stiprus_kilimas = 1.0 if (day_chg is not None and day_chg >= 3.0) else 0.0
+    laikosi_virsuje = 1.0 if (ibs is not None and ibs >= 0.8) else 0.0
+
+    # Pilnas tesinio set-up: visi keturi pozymiai kartu
+    setup_tesinys = 1.0 if (stiprus_kilimas and apyvarta_2x
+                            and laikosi_virsuje and nauja_virsune) else 0.0
+    # Svelnesnė versija: kilimas + apyvarta + laikosi virsuje (be naujos virsunes)
+    setup_tesinys_svelnus = 1.0 if (day_chg is not None and day_chg >= 2.0
+                                    and apyvarta_2x and laikosi_virsuje) else 0.0
+
     # SET-UP: svyravimo suspaudimas. Pats savaime prognozuoja judesio DYDI, ne
     # krypti — todel jis naudingas tik kartu su sektoriaus kryptimi (sujungiama
     # veliau, main() funkcijoje). Cia tik uzfiksuojam, ar suspaudimas yra.
@@ -257,7 +299,9 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
         span_h=mom["span_h"], mom_partial=mom["partial"],
         ibs=ibs, ibs2d=ibs2d, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
         sma_align=sma_align, setup_sma_pb=setup_sma_pb, setup_vwap_rec=setup_vwap_rec,
-        squeeze=squeeze,
+        squeeze=squeeze, setup_tesinys=setup_tesinys, tesinys_vakar=tesinys_vakar,
+        setup_tesinys_svelnus=setup_tesinys_svelnus, nauja_virsune=nauja_virsune,
+        apyvarta_2x=apyvarta_2x, laikosi_virsuje=laikosi_virsuje,
         macd_h=macd_h, zscore=zscore, vol_exp=vol_exp,
         hl_struct=hl_struct, vol_price=vol_price, pd_break=pd_break, tod=tod)
 
@@ -468,6 +512,13 @@ SIGNALS = [
     ("setup_sma_pb", True, "SET-UP: atsitraukimas prie kylancio SMA20"),
     ("setup_vwap_rec", True, "SET-UP: VWAP atgavimas"),
     ("setup_squeeze_sekt", True, "SET-UP: suspaudimas + kylantis sektorius"),
+    # TESINIO hipoteze — tavo scenarijus
+    ("setup_tesinys", True, "TESINYS: >3% + apyvarta 2x + virsune"),
+    ("tesinys_vakar", True, "TESINYS is vakar dienos (ijejimas ryte)"),
+    ("setup_tesinys_svelnus", True, "TESINYS svelnus: >2% + apyvarta 2x"),
+    ("nauja_virsune", True, "Nauja 20 d. virsune"),
+    ("apyvarta_2x", True, "Apyvarta 2x iprastos"),
+    ("laikosi_virsuje", True, "Uzdaro virsutineje diapazono dalyje"),
 ]
 
 
@@ -738,7 +789,21 @@ def main():
                     except Exception:
                         pass
 
+                    # Grynos busimos grazos: be stop ir tikslo, kad tesinio
+                    # hipoteze butu vertinama pati, o ne per dipo isejimo mechanika
+                    r1 = r3 = None
+                    try:
+                        if di + 1 < len(sessions):
+                            r1 = (float(sessions[di + 1][1]["Close"].iloc[-1])
+                                  / d["price"] - 1) * 100
+                        if di + 3 < len(sessions):
+                            r3 = (float(sessions[di + 3][1]["Close"].iloc[-1])
+                                  / d["price"] - 1) * 100
+                    except Exception:
+                        pass
+
                     rec = dict(tag=tag, _day=day, _k=k, pnl=pnl, result=res,
+                               ret_1d=r1, ret_3d=r3,
                                us_move=us_move, us_lag=us_lag,
                                pnl_trail=tr_pnl, res_trail=tr_res,
                                pnl_trail15=tr_pnl2, pnl_vwap=vw_pnl, res_vwap=vw_res,
@@ -748,7 +813,10 @@ def main():
                     for f in ["ibs", "gap_ret", "or_break", "pullback_atr", "sma_align",
                               "macd_h", "zscore", "vol_exp", "hl_struct", "vol_price",
                               "pd_break", "day_chg", "ibs2d", "atrPct",
-                              "setup_sma_pb", "setup_vwap_rec", "squeeze"]:
+                              "setup_sma_pb", "setup_vwap_rec", "squeeze",
+                              "setup_tesinys", "setup_tesinys_svelnus",
+                              "nauja_virsune", "apyvarta_2x", "laikosi_virsuje",
+                              "tesinys_vakar"]:
                         rec[f] = d.get(f)
                     rec["vwap_d"] = ((d["price"] - d["vwap"]) / d["vwap"] * 100
                                      if d.get("vwap") else None)
@@ -764,7 +832,14 @@ def main():
     # IBS VARIANTAS 2: kur siandienos IBS yra tos akcijos ISTORINIU IBS fone.
     # YDX su 8.6% ATR ir SAP su 2.5% nera palyginami absoliuciu IBS 0.15.
     try:
-        df["ibs_pct"] = df.groupby("tag")["ibs"].rank(pct=True)
+        # Procentilis pagal PIRMOS puses pasiskirstyma
+        mid0 = df["_day"].median()
+        bazes = df[df["_day"] <= mid0].groupby("tag")["ibs"]
+        ribos = {t: g.quantile(np.linspace(0, 1, 101)).to_numpy() for t, g in bazes}
+        df["ibs_pct"] = [
+            (np.searchsorted(ribos[t], v) / 100.0
+             if t in ribos and v == v else np.nan)
+            for t, v in zip(df["tag"], df["ibs"])]
     except Exception:
         df["ibs_pct"] = None
 
@@ -815,19 +890,29 @@ def main():
         # ivykis, o busena, ir tokia imtis beveik atsitiktine. Dabar matuojam
         # sektoriu SANTYKINAI pries rinka ir normalizuojam jo svyravimu (z-balas).
         if "sekt_vs_rinka" in df:
-            sv = df["sekt_vs_rinka"]
-            z = (sv - sv.rolling(200, min_periods=50).mean()) / \
-                sv.rolling(200, min_periods=50).std()
+            # Z-balas skaiciuojamas per LAIKO seka (viena reiksme dienai), o ne
+            # per df eilutes: anksciau rolling langas kirto akciju ribas ir kiekvienos
+            # akcijos pradzia buvo normalizuojama ankstesnes akcijos duomenimis.
+            dien = (df.groupby(["_dt", "sekt"])["sekt_vs_rinka"].first()
+                      .reset_index().sort_values("_dt"))
+            dien["z"] = (dien.groupby("sekt")["sekt_vs_rinka"]
+                         .transform(lambda x: (x - x.rolling(200, min_periods=50).mean())
+                                    / x.rolling(200, min_periods=50).std()))
+            df = df.merge(dien[["_dt", "sekt", "z"]], on=["_dt", "sekt"], how="left")
+            z = df["z"]
             df["sekt_z"] = z
             lik_z = ((df["likutis3"] - df["likutis3"].rolling(200, min_periods=50).mean())
                      / df["likutis3"].rolling(200, min_periods=50).std())
             # Retumas apibreziamas procentiliais, ne fiksuotomis z ribomis: taip
             # ivykis lieka retas, bet imtis niekada nebuna nuline. Ribos nustatytos
             # pries matant rezultatus ir nederinamos.
-            z_riba = z.quantile(0.90)
-            z_riba_st = z.quantile(0.95)
-            lik_riba = lik_z.quantile(0.25)
-            lik_riba_st = lik_z.quantile(0.15)
+            # Slenksciai imami TIK is pirmos puses — kitaip jie zvilgteletu i ateiti
+            mid_r = df["_day"].median()
+            pirma = df["_day"] <= mid_r
+            z_riba = z[pirma].quantile(0.90)
+            z_riba_st = z[pirma].quantile(0.95)
+            lik_riba = lik_z[pirma].quantile(0.25)
+            lik_riba_st = lik_z[pirma].quantile(0.15)
             df["setup_sektorius"] = np.where((z >= z_riba) & (lik_z <= lik_riba), 1.0, 0.0)
             df["setup_stiprus"] = np.where((z >= z_riba_st) & (lik_z <= lik_riba_st), 1.0, 0.0)
         else:
@@ -943,6 +1028,80 @@ def main():
                     print(f"{lab:<34} {len(g):>7} {g['pnl'].mean()-am_base:>+11.3f}%")
     except Exception as e:
         print(f"(rytinio ralio analize praleista: {str(e)[:60]})")
+
+    # ---------- TESINIO HIPOTEZE: atskira lentele ----------
+    # Klausimas tiesiogiai: kai akcija stipriai kyla su apyvarta ir nauja virsune,
+    # ar kitos dienos rezultatas geresnis uz vidurki? Tikrinama per abi puses.
+    try:
+        mid_t = df["_day"].median()
+        h1t, h2t = df[df["_day"] <= mid_t], df[df["_day"] > mid_t]
+        print("\n" + "=" * 92)
+        print("TESINIO HIPOTEZE — ar stiprus kilimas testiasi?")
+        print("Slenksciai uzrasyti pries matuojant ir nederinami.")
+        print("=" * 92)
+        print(f"{'POZYMIS':<34} {'ATVEJU':>8} {'VISA IMTIS':>12} {'1-OJI':>10} "
+              f"{'2-OJI':>10} {'STABILUS':>9}")
+        print("-" * 92)
+        # Vertinama per within_day_edge (atmeta "geros dienos" efekta) ir ant
+        # GRYNU busimu grazu, o ne per dipo stop/tiksla.
+        for ret_col, ret_lab in [("ret_1d", "kitos dienos uzdarymas"),
+                                 ("ret_3d", "po 3 sesiju")]:
+            if ret_col not in df or df[ret_col].notna().sum() < 1000:
+                continue
+            tmp = df.copy()
+            tmp["pnl"] = tmp[ret_col]
+            print(f"\n  Grynos grazos iki {ret_lab}:")
+            for col, lab in [("setup_tesinys", "Pilnas tesinys (siandien)"),
+                             ("tesinys_vakar", "Tesinys is vakar (ijejimas ryte)"),
+                             ("setup_tesinys_svelnus", "Svelnus tesinys"),
+                             ("nauja_virsune", "Nauja 20 d. virsune"),
+                             ("laikosi_virsuje", "Uzdaro virsuje")]:
+                if col not in tmp:
+                    continue
+                r = within_day_edge(tmp, col, True)
+                if r is None:
+                    n = int((tmp[col] > 0).sum())
+                    print(f"    {lab:<34} per maza imtis (n={n})")
+                else:
+                    print(f"    {lab:<34} {r['mean']:>+7.3f}% "
+                          f"[{r['lo']:+.3f}..{r['hi']:+.3f}] n={r['n']} d={r['dienos']}")
+
+        for col, lab in [("setup_tesinys", "Pilnas: >3% + 2x + virsune"),
+                         ("tesinys_vakar", "Is vakar dienos"),
+                         ("setup_tesinys_svelnus", "Svelnus: >2% + 2x + virsuje"),
+                         ("nauja_virsune", "Nauja 20 d. virsune"),
+                         ("apyvarta_2x", "Apyvarta 2x"),
+                         ("laikosi_virsuje", "Uzdaro virsuje (IBS>0.8)")]:
+            if col not in df:
+                continue
+            g = df[df[col] > 0]
+            g1, g2 = h1t[h1t[col] > 0], h2t[h2t[col] > 0]
+            if len(g) < 40:
+                print(f"{lab:<34} {len(g):>8}  per maza imtis")
+                continue
+            d_all = g["pnl"].mean() - df["pnl"].mean()
+            d1 = (g1["pnl"].mean() - h1t["pnl"].mean()) if len(g1) >= 15 else float("nan")
+            d2 = (g2["pnl"].mean() - h2t["pnl"].mean()) if len(g2) >= 15 else float("nan")
+            stab = ("TAIP" if (d1 > 0.02 and d2 > 0.02) or (d1 < -0.02 and d2 < -0.02)
+                    else "ne")
+            print(f"{lab:<34} {len(g):>8} {d_all:>+11.3f}% {d1:>+9.3f}% "
+                  f"{d2:>+9.3f}% {stab:>9}")
+
+        # Ar tesinys veikia geriau ilgesniame horizonte
+        if "setup_tesinys_svelnus" in df and "pnl_trail" in df:
+            print(f"\n{'TESINIO REZULTATAS PAGAL ISEJIMA':<40} {'VID.':>10} {'PRIES BAZE':>12}")
+            print("-" * 66)
+            g = df[df["setup_tesinys_svelnus"] > 0]
+            if len(g) >= 40:
+                for c, lab in [("pnl", "fiksuotas tikslas"),
+                               ("pnl_trail", "slenkantis 1.0%"),
+                               ("pnl_trail15", "slenkantis 1.5%"),
+                               ("pnl_vwap", "isejimas praradus VWAP")]:
+                    if c in df:
+                        print(f"{lab:<40} {g[c].mean():>+9.3f}% "
+                              f"{g[c].mean() - df[c].mean():>+11.3f}%")
+    except Exception as e:
+        print(f"(tesinio analize praleista: {type(e).__name__}: {e})")
 
     # ---------- 1 etapas: paieska pirmoje laiko puseje ----------
     mid = df["_day"].median()
