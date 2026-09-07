@@ -39,8 +39,8 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-06 ibs40-trail,2026-09-06,23:57,YDX.DE,YDX,24.2,D,jau pakilusi,ne,0.805,bear_soft,programinė įranga,8.02,185.42,178.74,189.13,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,00:20,BAYN.DE,BAYN,70.8,B,kritimas,taip,0.275,bear_soft,farmacija,2.31,48.78,48.16,49.76,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,00:20,MONC.MI,MONC,69.0,B,kritimas,taip,0.118,bear_soft,prabanga,2.56,45.85,45.20,46.77,atviras,,,,,
-2026-09-07 ibs40-trail-25akc,2026-09-07,00:20,SAP.DE,SAP,63.8,C,kritimas,ne,0.170,bear_soft,programinė įranga,3.11,185.80,182.62,189.52,atviras,,,,,
-2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,CAP.PA,CAP,54.0,C,kritimas,ne,0.205,bear_soft,IT paslaugos,3.41,107.45,105.44,109.60,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,00:20,SAP.DE,SAP,63.8,C,kritimas,ne,0.170,bear_soft,programinė įranga,3.11,185.80,182.62,189.52,baigta,stop,2026-09-07 09:15:00+02:00,182.62,-1.71,+0.00
+2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,CAP.PA,CAP,54.0,C,kritimas,ne,0.205,bear_soft,IT paslaugos,3.41,107.45,105.44,109.60,baigta,stop,2026-09-07 09:25:00+02:00,105.44,-1.87,+0.00
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,LDO.MI,LDO,53.3,C,kritimas,ne,0.282,bear_soft,gynyba,3.03,50.43,49.59,51.44,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:24,ENR.DE,ENR,52.3,C,kritimas,ne,0.391,bear_soft,AI infrastruktūra,3.93,146.90,143.72,149.84,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,09:48,NEX.PA,NEX,50.0,D,kritimas,ne,0.091,bear_soft,AI infrastruktūra,2.98,136.70,134.46,139.43,atviras,,,,,
@@ -52,3 +52,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,LHA.DE,LHA,50.2,C,atsigavimas,taip,0.912,bear_soft,aviakompanijos,2.57,7.83,7.72,7.98,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,IFX.DE,IFX,45.0,D,jau pakilusi,ne,0.136,bear_soft,puslaidininkiai,4.45,58.29,56.86,59.46,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,BMW.DE,BMW,45.0,D,kritimas,ne,0.452,bear_soft,automobiliai,2.40,62.68,61.85,63.93,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:46,ADS.DE,ADS,53.7,C,kritimas,ne,0.222,bear_soft,vartojimo prekės,2.87,147.90,145.57,150.86,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:46,KGX.DE,KGX,45.0,D,jau pakilusi,ne,0.000,bear_soft,pramonė,3.47,44.90,43.28,45.80,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:46,MT.AS,MT,45.0,D,kritimas,ne,0.387,bear_soft,metalai,3.15,67.28,66.11,68.63,atviras,,,,,
