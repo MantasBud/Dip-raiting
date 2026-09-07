@@ -75,40 +75,24 @@ OPEN_BROWSER = True     # ar automatiškai atidaryti HTML ataskaitą
 LOOP_INTERVAL_SEC = 300     # kas kiek atsinaujina --loop režime (biržos valandomis)
 LOOP_INTERVAL_OFF_SEC = 1800  # kas kiek tikrina ne prekybos metu (kad netrukdytų Yahoo)
 
-WATCHLIST = [
-    # AI infrastruktura — duomenu centru maitinimas, tinklai, lustu iranga
-    ("AIXA",  "AIXA.DE",  "Aixtron SE"),
-    ("SOI",   "SOI.PA",   "Soitec SA"),
-    ("PRY",   "PRY.MI",   "Prysmian SpA"),
-    ("NEX",   "NEX.PA",   "Nexans SA"),
-    ("ENR",   "ENR.DE",   "Siemens Energy AG"),
-    # Puslaidininkiai
-    ("BESI",  "BESI.AS",  "BE Semiconductor"),
-    ("IFX",   "IFX.DE",   "Infineon Technologies"),
-    # Automobiliai ir komponentai
-    ("STLAM", "STLAM.MI", "Stellantis NV"),
-    ("P911",  "P911.DE",  "Porsche AG"),
-    ("BMW",   "BMW.DE",   "BMW AG"),
-    ("CON",   "CON.DE",   "Continental AG"),
-    # IT paslaugos ir programine iranga
-    ("TEP",   "TEP.PA",   "Teleperformance SE"),
-    ("CAP",   "CAP.PA",   "Capgemini SE"),
-    ("SAP",   "SAP.DE",   "SAP SE"),
-    # Prabanga
-    ("KER",   "KER.PA",   "Kering SA"),
-    ("MONC",  "MONC.MI",  "Moncler SpA"),
-    ("MC",    "MC.PA",    "LVMH Moet Hennessy"),
-    # Gynyba
-    ("LDO",   "LDO.MI",   "Leonardo SpA"),
-    ("HO",    "HO.PA",    "Thales SA"),
-    # Kiti sektoriai
-    ("KGX",   "KGX.DE",   "Kion Group AG"),
-    ("MT",    "MT.AS",    "ArcelorMittal"),
-    ("BAYN",  "BAYN.DE",  "Bayer AG"),
-    ("LHA",   "LHA.DE",   "Deutsche Lufthansa AG"),
-    ("ADS",   "ADS.DE",   "Adidas AG"),
-    ("NOKIA", "NOKIA.HE", "Nokia Oyj"),
-]
+# Universas imamas is universas.py — TO PACIO failo, kuri naudoja backtestai.
+# Anksciau cia buvo atskiras 25 akciju sarasas, todel skeneris ir matavimas
+# dirbo su skirtingomis imtimis.
+try:
+    import universas as _U
+    _SEKT = _U.sektoriai()
+    WATCHLIST = [(s.split(".")[0], s, s) for s in _U.visi_tikeriai()]
+    SECTORS = dict(_SEKT)
+except Exception:                     # atsarginis variantas, jei failo nera
+    WATCHLIST = [("SAP", "SAP.DE", "SAP SE"), ("IFX", "IFX.DE", "Infineon"),
+                 ("BESI", "BESI.AS", "BE Semiconductor")]
+    SECTORS = {"SAP.DE": "Technologijos", "IFX.DE": "Technologijos",
+               "BESI.AS": "Technologijos"}
+
+# Kiek akciju rodoma puslapyje ir kiek ju tikrinama 5 min. duomenimis
+RODOMA = 5
+INTRADAY_KANDIDATU = 45      # tiek geriausiai atitinkanciu tikrinama detaliai
+MIN_APYVARTA_EUR = 5e6
 
 MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
 
@@ -923,12 +907,67 @@ def _earnings_soon_uncached(yf, symbol):
         return False
 
 
+def collect_daily(yf, symbols):
+    """1 pakopa: dienos duomenys VISOMS akcijoms — viena bendra uzklausa."""
+    return yf.download(symbols, period="6mo", interval="1d", group_by="ticker",
+                       progress=False, auto_adjust=False, threads=True)
+
+
+def preatranka(daily_all, symbols, n=None):
+    """Kurias akcijas verta tikrinti 5 min. duomenimis.
+
+    Su 200+ akciju kas 5 min. siusti intraday duomenis visoms reikstu ~30 tuks.
+    uzklausu per diena — Yahoo blokuotu. Todel pirma dienos barais atmetam tas,
+    kurios akivaizdziai netinka, ir detaliai tikrinam tik likusias.
+
+    Atmetama: per maza apyvarta; kaina virs 20 d. vidurkio (ne atsitraukimas);
+    vakar uzdare dienos virsuje (IBS aukstas); kelios kritimo dienos is eiles.
+    """
+    n = n or INTRADAY_KANDIDATU
+    kand = []
+    for sym in symbols:
+        try:
+            d = flatten(daily_all, sym).dropna(subset=["Close", "High", "Low", "Volume"])
+            if len(d) < 60:
+                continue
+            c = d["Close"]
+            apyv = float((c * d["Volume"]).tail(20).median())
+            if apyv < MIN_APYVARTA_EUR:
+                continue
+            px = float(c.iloc[-1])
+            sma20 = float(c.tail(20).mean())
+            rng = float(d["High"].iloc[-1] - d["Low"].iloc[-1])
+            ibs_v = ((px - float(d["Low"].iloc[-1])) / rng) if rng > 0 else 0.5
+            # kritimo dienos is eiles
+            zem = (c.diff() < 0).astype(int).tail(5).tolist()
+            serija = 0
+            for v in reversed(zem):
+                if v:
+                    serija += 1
+                else:
+                    break
+            if px > sma20 * 1.01 or ibs_v > 0.75 or serija >= 3:
+                continue
+            # atstumas nuo 20 d. vidurkio — kuo zemiau, tuo idomiau
+            kand.append((sym, (px - sma20) / sma20, apyv))
+        except Exception:
+            continue
+    kand.sort(key=lambda x: x[1])          # labiausiai atsitrauke pirmi
+    return [s for s, _, _ in kand[:n]]
+
+
+def collect_intraday(yf, symbols):
+    """2 pakopa: 5 min. duomenys TIK preatranka praejusioms akcijoms."""
+    if not symbols:
+        return None
+    return yf.download(symbols, period="10d", interval="5m", group_by="ticker",
+                       progress=False, auto_adjust=False, threads=True)
+
+
 def collect(yf, symbols):
-    """Vienu kreipimusi paimam visų akcijų 5 min ir dienos duomenis."""
-    intraday = yf.download(symbols, period="10d", interval="5m", group_by="ticker",
-                           progress=False, auto_adjust=False, threads=True)
-    daily = yf.download(symbols, period="6mo", interval="1d", group_by="ticker",
-                        progress=False, auto_adjust=False, threads=True)
+    """Suderinamumui: viskas vienu kartu (naudojama testuose)."""
+    daily = collect_daily(yf, symbols)
+    intraday = collect_intraday(yf, symbols)
     return intraday, daily
 
 
@@ -1342,8 +1381,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
             f"<u>{s['parts'][k]:.0f}</u></div>"
             for k, lbl, _ in CRITERIA)
 
+    # Rodom tik tuos, kurie praejo filtrus; jei tokiu nera — nieko
+    rodomi = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
     cards = []
-    for i, (d, s) in enumerate(rows, 1):
+    for i, (d, s) in enumerate(rodomi, 1):
         fl = "".join(f"<li class='{lvl}'>{txt}</li>" for lvl, txt in s["flags"])
         cs = d.get("cur_sym", "")
         cur = d.get("cur", "")
@@ -1470,11 +1511,13 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {rally_html}
 {movers_html}
 {stats_html}
-<div class="listhead">Kandidatai peržiūrai</div>
-<div class="listnote">Rikiuota pagal atitikimą tavo kriterijams. Patikrinimas nerado,
-kad aukštesnis balas duotų geresnį rezultatą, todėl tai <b>ne pirkimo eilė</b> —
-sąrašas, kurį verta peržiūrėti grafike. Išmatuota modulio vertė yra kitur:
-kietuosiuose filtruose, rizikos skaičiavime ir išėjimo taisyklėje.</div>
+<div class="listhead">Atitinka tavo taisykles ({len(cards)} iš {len(rows)})</div>
+<div class="listnote">Šios pozicijos praėjo <b>kietuosius filtrus</b> (ataskaita,
+rinkos režimas, krintantis peilis, vieta tikslui, likvidumas, nakties šuolis) ir
+atitinka vieną iš tavo scenarijų. <b>Eilė nieko nereiškia</b> — rikiuota pagal
+apyvartą, nes tai vienintelis dydis, kuris mažina įvykdymo kaštus. Matavimas
+parodė, kad modulis <b>neatskiria</b>, kuri iš jų geresnė: viršutinės, apatinės ir
+atsitiktinės pozicijos istoriškai davė vienodą rezultatą.</div>
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
@@ -1657,12 +1700,23 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
     if not quiet:
         print(f"[{datetime.now():%H:%M:%S}] Renkami duomenys ({len(symbols)} akcijos)…")
 
-    intraday_all, daily_all = collect(yf, symbols)
+    # 1 pakopa: dienos duomenys visoms
+    daily_all = collect_daily(yf, symbols)
     market = market_bias(yf)
+
+    # 2 pakopa: 5 min. duomenys tik preatranka praejusioms
+    atrinkti = preatranka(daily_all, symbols)
+    if not quiet:
+        print(f"Preatranka: {len(atrinkti)} is {len(symbols)} akciju tikrinamos "
+              f"5 min. duomenimis")
+    intraday_all = collect_intraday(yf, atrinkti)
+    symbols_intraday = set(atrinkti)
 
     rows, failed = [], []
     collected = []
     for tag, sym, name in WATCHLIST:
+        if sym not in symbols_intraday:      # 5 min. duomenu siai akcijai nesiuntem
+            continue
         try:
             collected.append(build_row(yf, tag, sym, name, intraday_all, daily_all))
         except Exception as e:
@@ -1698,9 +1752,19 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
         print("Nepavyko gauti nė vienos akcijos duomenų šį kartą. Bandysiu vėl.")
         return [], failed
 
-    # Pirma tinkami sandoriai pagal balą, tada visi kiti — kad viršuje būtų tai,
-    # ką realiai galima pirkti, o ne tik aukščiausias balas
-    rows.sort(key=lambda x: (bool(x[1].get("tradeable")), x[1]["score"]), reverse=True)
+    # RIKIAVIMAS NE PAGAL BALĄ.
+    # Matavimas (2026-09, 93 akcijos, 716 dienu, demeanuota pagal diena ir taska)
+    # parode, kad TOP pagal ranga, BLOGIAUSI ir ATSITIKTINIAI duoda vienoda
+    # rezultata — atrankos pranasumo nera. Todel balas nebeleidziamas nustatyti
+    # eiles: jis lieka kortelėje kaip informacija, kiek kriteriju sutampa.
+    # Eile nustatoma pagal LIKVIDUMA — vienintelis dydis, kuris tau realiai
+    # svarbus (mazesne ivykdymo kaina) ir kuris nieko neprognozuoja.
+    def _apyvarta(x):
+        d = x[0]
+        av, px = d.get("avgVolume"), d.get("price")
+        return (av * px) if (av and px) else 0.0
+
+    rows.sort(key=lambda x: (bool(x[1].get("tradeable")), _apyvarta(x)), reverse=True)
     print_table(rows)
     if failed:
         print("Nepavyko:", ", ".join(f"{t} ({m})" for t, _, m in failed), "\n")
