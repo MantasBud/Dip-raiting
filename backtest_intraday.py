@@ -198,6 +198,44 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
     sma50_v = float(daily_hist["Close"].tail(50).mean())
     sma_align = (1 if price > sma20_v else 0) + (1 if sma20_v > sma50_v else 0)
 
+    # SET-UP: atsitraukimas prie kylancio 20 d. vidurkio. Klasikinis trendo pirkimas:
+    # akcija virs 50 d., SMA20 kyla, kaina prie pat jo, ir siandien jau zalia.
+    setup_sma_pb = 0.0
+    try:
+        sma20_prev = float(daily_hist["Close"].tail(25).head(20).mean())
+        atstumas = abs(price - sma20_v) / sma20_v * 100
+        if (price > sma50_v and sma20_v > sma20_prev and atstumas <= 1.5
+                and day_chg is not None and day_chg > 0):
+            setup_sma_pb = 1.0
+    except Exception:
+        pass
+
+    # SET-UP: svyravimo suspaudimas. Pats savaime prognozuoja judesio DYDI, ne
+    # krypti — todel jis naudingas tik kartu su sektoriaus kryptimi (sujungiama
+    # veliau, main() funkcijoje). Cia tik uzfiksuojam, ar suspaudimas yra.
+    squeeze = 0.0
+    try:
+        dh = daily_hist.tail(20)
+        rng20 = (dh["High"] - dh["Low"]) / dh["Close"] * 100
+        if len(rng20) >= 20:
+            # NR7: paskutines 5 dienos ramesnes nei 80% pastaruju 20 dienu
+            if float(rng20.tail(5).mean()) <= float(rng20.quantile(0.2)):
+                squeeze = 1.0
+    except Exception:
+        pass
+
+    # SET-UP: VWAP atgavimas. Diena praleido zemiau VWAP, dabar virs jo.
+    setup_vwap_rec = 0.0
+    try:
+        if vwap and price > vwap:
+            tp_run = (bars["High"] + bars["Low"] + bars["Close"]) / 3
+            v_run = (tp_run * bars["Volume"]).cumsum() / bars["Volume"].cumsum().replace(0, np.nan)
+            zemiau = float((bars["Close"] < v_run).mean())
+            if zemiau > 0.5:
+                setup_vwap_rec = 1.0
+    except Exception:
+        pass
+
     res_intra = high if high > price * 1.001 else None
     sup_intra = low if low < price * 0.999 else None
     hi20 = float(daily_hist["High"].tail(20).max())
@@ -217,7 +255,9 @@ def build_snapshot(sessions, day_idx, k, daily_hist, rsi_series, target, bph=12,
         m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
         span_h=mom["span_h"], mom_partial=mom["partial"],
         ibs=ibs, ibs2d=ibs2d, gap_ret=gap_ret, or_break=or_break, pullback_atr=pullback_atr,
-        sma_align=sma_align, macd_h=macd_h, zscore=zscore, vol_exp=vol_exp,
+        sma_align=sma_align, setup_sma_pb=setup_sma_pb, setup_vwap_rec=setup_vwap_rec,
+        squeeze=squeeze,
+        macd_h=macd_h, zscore=zscore, vol_exp=vol_exp,
         hl_struct=hl_struct, vol_price=vol_price, pd_break=pd_break, tod=tod)
 
 
@@ -293,6 +333,51 @@ def benjamini_hochberg(pvals, alpha=0.05):
     return passed
 
 
+# Sektoriu ETF (iShares STOXX Europe 600, Xetra, EUR). Kiekvienas apima ~30-90
+# bendroviu, todel rodo TIKRA sektoriaus judejima, o ne 1-2 saraso akciju vidurki.
+# Dalis tikeriu patvirtinti (EXV3/4/5/6, EXH4), dalis speliami — kodas pats
+# patikrina, kurie grazina duomenis, ir netinkamus praleidzia.
+SEKTORIU_ETF = {
+    "AI infrastruktūra": "EXV3.DE",     # technologijos
+    "puslaidininkiai":   "EXV3.DE",
+    "programinė įranga": "EXV3.DE",
+    "IT paslaugos":      "EXV3.DE",
+    "telekomų įranga":   "EXV3.DE",
+    "automobiliai":      "EXV5.DE",     # automobiliai ir dalys
+    "auto komponentai":  "EXV5.DE",
+    "pramonė":           "EXH4.DE",     # pramones prekes ir paslaugos
+    "gynyba":            "EXH4.DE",
+    "metalai":           "EXV6.DE",     # baziniai istekliai
+    "farmacija":         "EXV4.DE",     # sveikatos apsauga
+    "aviakompanijos":    "EXV9.DE",     # keliones ir laisvalaikis
+    "prabanga":          "EXH6.DE",     # asmenines ir namu prekes (tikrinama)
+    "vartojimo prekės":  "EXH6.DE",
+}
+PLATUS_INDEKSAS = "EXSA.DE"             # visas STOXX Europe 600
+
+# JAV sektoriu ETF. Jie prekiauja 15:30-22:00 Berlyno laiku ir yra likvidus, todel
+# ju 5 min. barai patikimi — skirtingai nei europietisku sektoriu ETF. Mechanizmas
+# priezastinis: JAV puslaidininkiai juda pirmi, Europos atitikmenys Tradegate
+# reaguoja veliau ir nepilnai. Tai vienintelis TIKRAI reaktyvus kanalas.
+JAV_ETF = {
+    "AI infrastruktūra": "SMH",      # puslaidininkiu iranga ir gamintojai
+    "puslaidininkiai":   "SMH",
+    "programinė įranga": "XLK",      # technologijos
+    "IT paslaugos":      "XLK",
+    "telekomų įranga":   "XLK",
+    "automobiliai":      "XLY",      # vartojimo cikliskos prekes
+    "auto komponentai":  "XLY",
+    "vartojimo prekės":  "XLY",
+    "prabanga":          "XLY",
+    "gynyba":            "ITA",      # aviacija ir gynyba
+    "pramonė":           "XLI",      # pramone
+    "metalai":           "XLB",      # medziagos
+    "farmacija":         "XLV",      # sveikata
+    "aviakompanijos":    "JETS",     # aviakompanijos
+}
+JAV_ATIDARYMAS = 15 * 60 + 30       # 15:30 Berlyno laiku
+
+
 SIGNALS = [
     ("score", True, "Dabartinis balas"),
     ("ibs", False, "IBS zemas (dabartinis)"),
@@ -318,6 +403,15 @@ SIGNALS = [
     ("r5", True, "Akcijos 5 d. momentumas"),
     ("setup_sektorius", True, "SET-UP: kylantis sekt. + atsilikimas"),
     ("setup_stiprus", True, "SET-UP: stiprus sekt. + gilesnis atsilikimas"),
+    ("sekt_vs_rinka", True, "Sektorius stipresnis uz visa rinka"),
+    # JAV kanalas — reaktyvumas dienos viduje (15:30-22:00)
+    ("us_move", True, "JAV sektorius kyla nuo 15:30"),
+    ("us_move", False, "JAV sektorius krenta nuo 15:30"),
+    ("us_lag", True, "Akcija atsilieka nuo JAV judesio"),
+    # Klasikiniai set-up'ai kaip atskiri ivykiai
+    ("setup_sma_pb", True, "SET-UP: atsitraukimas prie kylancio SMA20"),
+    ("setup_vwap_rec", True, "SET-UP: VWAP atgavimas"),
+    ("setup_squeeze_sekt", True, "SET-UP: suspaudimas + kylantis sektorius"),
 ]
 
 
@@ -357,6 +451,44 @@ def report_signals(df, label, correct=True):
         if passed[i]:
             out.append((name, col, hb, r))
     return out
+
+
+def outcome_vwap_exit(sessions, day_idx, k, entry, stop, min_target, hold_hours):
+    """Isejimas, kai kaina uzdaro barа zemiau slenkancio VWAP po to, kai pasieke tiksla.
+
+    Skirtumas nuo slenkancio stopo: slenkantis stop iseina mechaniskai, praradus
+    fiksuota % nuo virsunes. Sis iseina, kai kaina praranda dienos vidutine kaina —
+    t. y. kai pirkejai nustoja kontroliuoti diena.
+    """
+    bars = [sessions[day_idx][1].iloc[k + 1:]]
+    extra = max(0, int(round(hold_hours / 8.5)) - 1) if hold_hours > 8.5 else 0
+    for j in range(1, extra + 1):
+        if day_idx + j < len(sessions):
+            bars.append(sessions[day_idx + j][1])
+    future = pd.concat(bars) if bars else None
+    if future is None or future.empty:
+        return None, 0.0
+
+    trigger = entry * (1 + min_target / 100)
+    armed = False
+    tp_run = (future["High"] + future["Low"] + future["Close"]) / 3
+    vol = future["Volume"].replace(0, np.nan)
+    vwap_run = (tp_run * vol).cumsum() / vol.cumsum()
+
+    for i, (_, b) in enumerate(future.iterrows()):
+        lo, hi, cl = float(b["Low"]), float(b["High"]), float(b["Close"])
+        if lo <= stop:
+            return "stop", (stop - entry) / entry * 100
+        if not armed and hi >= trigger:
+            armed = True
+            continue
+        if armed:
+            v = vwap_run.iloc[i]
+            if not pd.isna(v) and cl < v:
+                return "vwap prarastas", (cl - entry) / entry * 100
+
+    last = float(future["Close"].iloc[-1])
+    return ("uzdaryta pabaigoje" if armed else "be rezultato"), (last - entry) / entry * 100
 
 
 def outcome_trailing(sessions, day_idx, k, entry, stop, min_target, trail_pct, hold_hours):
@@ -426,6 +558,59 @@ def main():
                         interval="1d", group_by="ticker", progress=False,
                         auto_adjust=False, threads=True)
 
+    # --- Sektoriu ETF: tikras sektoriaus judejimas ---
+    etf_syms = sorted(set(SEKTORIU_ETF.values()) | {PLATUS_INDEKSAS})
+    print(f"Siunciama {len(etf_syms)} sektoriu ETF…")
+    etf_ret = {}
+    try:
+        etf_raw = yf.download(etf_syms, period="2y", interval="1d", group_by="ticker",
+                              progress=False, auto_adjust=False, threads=True)
+        veikia, neveikia = [], []
+        for e in etf_syms:
+            try:
+                ed = dr.flatten(etf_raw, e).dropna(subset=["Close"])
+                if len(ed) < 100:
+                    neveikia.append(e)
+                    continue
+                c = ed["Close"]
+                d = pd.DataFrame(index=pd.Index([i.date() for i in ed.index], name="_d"))
+                for n in (3, 5, 10):
+                    d[f"e{n}"] = (c / c.shift(n) - 1).values * 100
+                etf_ret[e] = d
+                veikia.append(e)
+            except Exception:
+                neveikia.append(e)
+        print(f"  veikia: {', '.join(veikia)}")
+        if neveikia:
+            print(f"  NEVEIKIA (sektoriai kris atgal i saraso mediana): {', '.join(neveikia)}")
+    except Exception as e:
+        print(f"  ETF atsisiuntimas nepavyko: {str(e)[:60]}")
+
+    # --- JAV sektoriu ETF intraday ---
+    jav_intra = {}
+    try:
+        jav_syms = sorted(set(JAV_ETF.values()))
+        print(f"Siunciama {len(jav_syms)} JAV sektoriu ETF ({args.interval})…")
+        jav_raw = yf.download(jav_syms, period=f"{days}d", interval=args.interval,
+                              group_by="ticker", progress=False, auto_adjust=False,
+                              threads=True)
+        ok_j, bad_j = [], []
+        for e in jav_syms:
+            try:
+                ed = dr.flatten(jav_raw, e).dropna(subset=["Close"])
+                if len(ed) < 200:
+                    bad_j.append(e)
+                    continue
+                if ed.index.tz is None:
+                    ed.index = ed.index.tz_localize("UTC")
+                jav_intra[e] = ed["Close"].tz_convert("Europe/Berlin").sort_index()
+                ok_j.append(e)
+            except Exception:
+                bad_j.append(e)
+        print(f"  veikia: {', '.join(ok_j)}" + (f" | neveikia: {', '.join(bad_j)}" if bad_j else ""))
+    except Exception as e:
+        print(f"  JAV ETF atsisiuntimas nepavyko: {str(e)[:60]}")
+
     rows = []
     for tag, sym, _ in dr.WATCHLIST:
         try:
@@ -458,15 +643,41 @@ def main():
                                                       2.0, 1.0, dr.HOLD_HOURS)
                     tr_res2, tr_pnl2 = outcome_trailing(sessions, di, k, d["price"], s["stop"],
                                                         2.0, 1.5, dr.HOLD_HOURS)
+                    vw_res, vw_pnl = outcome_vwap_exit(sessions, di, k, d["price"], s["stop"],
+                                                       2.0, dr.HOLD_HOURS)
+                    # --- JAV atsilikimas: kiek akcija dar neatkartojo JAV judesio ---
+                    us_move = us_lag = None
+                    try:
+                        etf_sym = JAV_ETF.get(dr.SECTORS.get(sym, ""))
+                        ser = jav_intra.get(etf_sym) if etf_sym else None
+                        if ser is not None:
+                            ts = sessions[di][1].index[k]
+                            atid = ts.replace(hour=JAV_ATIDARYMAS // 60,
+                                              minute=JAV_ATIDARYMAS % 60,
+                                              second=0, microsecond=0)
+                            if ts > atid:      # tik po JAV atidarymo
+                                e_now, e_open = ser.asof(ts), ser.asof(atid)
+                                bars_day = sessions[di][1]
+                                s_open = bars_day["Close"].asof(atid)
+                                if (e_now and e_open and s_open
+                                        and not pd.isna(e_now) and not pd.isna(e_open)):
+                                    us_move = (e_now / e_open - 1) * 100
+                                    stock_move = (d["price"] / s_open - 1) * 100
+                                    us_lag = us_move - stock_move
+                    except Exception:
+                        pass
+
                     rec = dict(tag=tag, _day=day, _k=k, pnl=pnl, result=res,
+                               us_move=us_move, us_lag=us_lag,
                                pnl_trail=tr_pnl, res_trail=tr_res,
-                               pnl_trail15=tr_pnl2,
+                               pnl_trail15=tr_pnl2, pnl_vwap=vw_pnl, res_vwap=vw_res,
                                score=s["score"], setup=s.get("setup"))
                     for key, _l, _w in dr.CRITERIA:
                         rec[f"c_{key}"] = s["parts"].get(key)
                     for f in ["ibs", "gap_ret", "or_break", "pullback_atr", "sma_align",
                               "macd_h", "zscore", "vol_exp", "hl_struct", "vol_price",
-                              "pd_break", "day_chg", "ibs2d", "atrPct"]:
+                              "pd_break", "day_chg", "ibs2d", "atrPct",
+                              "setup_sma_pb", "setup_vwap_rec", "squeeze"]:
                         rec[f] = d.get(f)
                     rec["vwap_d"] = ((d["price"] - d["vwap"]) / d["vwap"] * 100
                                      if d.get("vwap") else None)
@@ -485,6 +696,62 @@ def main():
         df["ibs_pct"] = df.groupby("tag")["ibs"].rank(pct=True)
     except Exception:
         df["ibs_pct"] = None
+
+    # --- SEKTORIAUS MOMENTUMAS (is ETF, ne is saraso) ---
+    # Moskowitz & Grinblatt (1999): sektoriaus momentumas paaiskina 60-73% viso
+    # akciju momentumo, o akcijos graza PRIES savo sektoriu prognozuoja geriau nei
+    # jos pacios graza. Sektorius imamas is ETF (30-90 bendroviu), nes sarase
+    # 8 sektoriai turi po viena akcija — ju "mediana" butu ta pati akcija.
+    try:
+        df["sekt"] = df["tag"].map(
+            {t: dr.SECTORS.get(s, "kita") for t, s, _ in dr.WATCHLIST})
+        df["_dt"] = df["_day"].dt.date
+        df["_etf"] = df["sekt"].map(SEKTORIU_ETF)
+
+        daily_ret = (df.groupby(["tag", "_day"])["day_chg"].mean()
+                       .reset_index().sort_values(["tag", "_day"]))
+        for n in (3, 5, 10):
+            daily_ret[f"r{n}"] = (daily_ret.groupby("tag")["day_chg"]
+                                  .transform(lambda x: x.rolling(n, min_periods=2).sum()))
+        df = df.merge(daily_ret[["tag", "_day", "r3", "r5", "r10"]],
+                      on=["tag", "_day"], how="left")
+
+        is_etf = 0.0
+        for n in (3, 5, 10):
+            saraso_med = df.groupby(["_day", "sekt"])[f"r{n}"].transform("median")
+            etf_val = pd.Series(np.nan, index=df.index)
+            for e, tab in etf_ret.items():
+                mask = df["_etf"] == e
+                if mask.any():
+                    etf_val.loc[mask] = df.loc[mask, "_dt"].map(tab[f"e{n}"])
+            df[f"sekt_mom{n}"] = etf_val.fillna(saraso_med)
+            df[f"likutis{n}"] = df[f"r{n}"] - df[f"sekt_mom{n}"]
+            if n == 10:
+                is_etf = float(etf_val.notna().mean() * 100)
+
+        if PLATUS_INDEKSAS in etf_ret:
+            rinka = df["_dt"].map(etf_ret[PLATUS_INDEKSAS]["e10"])
+            df["sekt_vs_rinka"] = df["sekt_mom10"] - rinka
+
+        # SET-UP: suspaudimas + kylantis sektorius. Suspaudimas duoda judesio
+        # dydi, sektorius — krypti.
+        df["setup_squeeze_sekt"] = np.where(
+            (df["squeeze"] > 0) & (df["sekt_mom10"] > 0.5), 1.0, 0.0)
+
+        # SET-UP: kylantis sektorius + akcija jame trumpam atsilikusi.
+        # Slenksciai uzrasyti PRIES matant rezultatus ir nebus derinami.
+        df["setup_sektorius"] = np.where(
+            (df["sekt_mom10"] > 0.5) & (df["likutis3"] < 0), 1.0, 0.0)
+        df["setup_stiprus"] = np.where(
+            (df["sekt_mom10"] > 1.5) & (df["likutis3"] < -0.5), 1.0, 0.0)
+
+        print(f"Sektoriaus judejimas is ETF: {is_etf:.0f}% eiluciu; "
+              f"set-up'ai suveikia {df['setup_sektorius'].mean()*100:.1f}% / "
+              f"{df['setup_stiprus'].mean()*100:.1f}% atveju")
+    except Exception as e:
+        import traceback
+        print(f"!!! SEKTORIAUS MOMENTUMAS NEVEIKIA: {type(e).__name__}: {e}")
+        traceback.print_exc()
 
     base = df["pnl"].mean()
     n_days = df["_day"].nunique()
@@ -507,7 +774,8 @@ def main():
             print("=" * 84)
             rules = [("pnl", f"Fiksuotas tikslas {args.target}%"),
                      ("pnl_trail", "Min 2%, tada slenkantis stop 1.0%"),
-                     ("pnl_trail15", "Min 2%, tada slenkantis stop 1.5%")]
+                     ("pnl_trail15", "Min 2%, tada slenkantis stop 1.5%"),
+                     ("pnl_vwap", "Min 2%, tada isejimas praradus VWAP")]
             print(f"{'TAISYKLE':<34} {'VID. REZ.':>11} {'>0 dalis':>10} "
                   f"{'VID. PELNAS':>12} {'VID. NUOSTOLIS':>15}")
             print("-" * 84)
