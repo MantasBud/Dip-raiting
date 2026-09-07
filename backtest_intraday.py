@@ -338,10 +338,24 @@ def within_day_edge(df, col, higher_better=True, top_pct=0.9, min_dienu=30):
     sub = df.dropna(subset=[col, "pnl"])
     if len(sub) < 1500:
         return None
-    q = sub[col].quantile(top_pct if higher_better else 1 - top_pct)
+    # Dvejetainiams signalams (set-up suveike / nesuveike) decilis netinka: kai
+    # ivykis retas, riba tampa 0 ir atrenkamos VISOS eilutes. Tokius atrenkam
+    # pagal pacia reiksme.
+    unikalios = sub[col].dropna().unique()
+    dvejetainis = len(unikalios) <= 2
+    if dvejetainis:
+        q = max(unikalios) if higher_better else min(unikalios)
+        if len(unikalios) < 2:
+            return None                      # signalas niekada nesuveike
+    else:
+        q = sub[col].quantile(top_pct if higher_better else 1 - top_pct)
+
     per_day, n_sel = [], 0
     for _, g in sub.groupby("_day"):
-        sel = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
+        if dvejetainis:
+            sel = g[g[col] == q]["pnl"]
+        else:
+            sel = g[g[col] >= q]["pnl"] if higher_better else g[g[col] <= q]["pnl"]
         # Jei atrenkama VISA diena, signalas nieko neskiria — praleidziam
         if 1 <= len(sel) < len(g):
             per_day.append(sel.mean() - g["pnl"].mean())
@@ -678,7 +692,13 @@ def main():
                 if len(hist) < 55:
                     continue
                 for k in checkpoints:
-                    if k + max(2, bph // 2) >= len(sessions[di][1]):
+                    barai_sesijoje = len(sessions[di][1])
+                    if k >= barai_sesijoje - 1:
+                        # Sioje sesijoje baru nebeliko — priimtina TIK jei laikymas
+                        # apima kitas sesijas (tada rezultatas skaiciuojamas is ju)
+                        if dr.HOLD_HOURS <= 8.5 or di + 1 >= len(sessions):
+                            continue
+                    if k >= barai_sesijoje:
                         continue
                     d = build_snapshot(sessions, di, k, hist, rsi_series, args.target,
                                        bph, full_series=intra)
