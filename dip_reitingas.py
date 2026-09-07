@@ -1299,16 +1299,21 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         done = sum(b["n"] for b in stats.values())
         if done >= 5:
             lines = []
-            for g in ["A", "B", "C", "D"]:
-                b = stats.get(g)
-                if b and b["n"]:
-                    pct = b["tikslas"] / b["n"] * 100
-                    lines.append(f"<div class='srow'><span>{g}</span>"
-                                 f"<i><b style='width:{pct:.0f}%'></b></i>"
-                                 f"<u>{pct:.0f}% ({b['n']})</u></div>")
-            stats_html = ("<div class='stats'><div class='sh'>Live backtest — "
-                          "Dalis sandorių, pasiekusių tikslą, pagal pakopą</div>"
-                          + "".join(lines) + "</div>")
+            for g, b in sorted(stats.items(), key=lambda x: -x[1]["n"]):
+                if not b["n"]:
+                    continue
+                pct = b["tikslas"] / b["n"] * 100
+                pel = b.get("pelnai") or []
+                vid = (f"{sum(pel) / len(pel):+.2f}%" if pel else "—")
+                lines.append(f"<div class='srow'><span class='sn2'>{g}</span>"
+                             f"<i><b style='width:{min(pct, 100):.0f}%'></b></i>"
+                             f"<u>{pct:.0f}% · {vid} · n={b['n']}</u></div>")
+            stats_html = ("<div class='stats'><div class='sh'>Live backtest — tavo "
+                          "realūs sandoriai pagal scenarijų<br>"
+                          "(dalis pasiekusių tikslą · vidutinis rezultatas · kiek sandorių)"
+                          "</div>" + "".join(lines) +
+                          f"<div class='sn3'>Iš viso užbaigtų: {done}. "
+                          f"Patikimai vertinti galima nuo ~40.</div></div>")
 
     # Naujausio 5 min. baro laikas — parodo tikrą duomenų šviežumą
     data_lt = "?"
@@ -1407,10 +1412,12 @@ padding:12px 14px;border-radius:6px;margin-bottom:18px;font-size:13px;line-heigh
 .stats{{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px;margin-bottom:20px}}
 .sh{{font-size:11.5px;color:var(--ink2);margin-bottom:9px}}
 .srow{{display:flex;align-items:center;gap:9px;margin-bottom:5px}}
-.srow span{{font-size:12px;font-weight:600;width:14px}}
+.srow span.sn2{{font-size:11.5px;font-weight:600;width:200px}}
+.sn3{{font-size:11px;color:var(--ink2);margin-top:9px;padding-top:8px;
+border-top:1px solid var(--line)}}
 .srow i{{flex:1;height:5px;background:#E4E9F1;border-radius:3px;overflow:hidden}}
 .srow b{{display:block;height:100%;background:var(--up)}}
-.srow u{{font-size:11px;color:var(--ink2);width:64px;text-align:right;text-decoration:none;
+.srow u{{font-size:11px;color:var(--ink2);width:135px;text-align:right;text-decoration:none;
 font-variant-numeric:tabular-nums}}
 .card{{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:7px;overflow:hidden}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
@@ -1594,13 +1601,20 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
 
 
 def journal_stats(entries):
-    """Ar auksciau ivertinti sandoriai realiai baigesi geriau?"""
+    """Statistika pagal SCENARIJU, ne pagal raide.
+
+    Raides (A/B/C/D) nieko nesako apie tai, kas realiai vyko — "atsitraukimas,
+    kryptis stabilizavosi" ir "kylancio trendo tesinys" gali turėti ta pati bala,
+    bet tai skirtingi sandoriai. Seni irasai su raidemis sugrupuojami atskirai.
+    """
     out = {}
     for e in entries:
         if e.get("busena") != "baigta":
             continue
-        g = e.get("pakopa", "?")
-        b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0})
+        # Naujuose irasuose scenarijus yra fraze; senuose — "kritimas"/"atsigavimas"
+        # arba tuscia, tada griztam prie raides
+        g = (e.get("scenarijus") or "").strip() or f"(sena pakopa {e.get('pakopa', '?')})"
+        b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0, "pelnai": []})
         b["n"] += 1
         r = e.get("rezultatas", "")
         if r in ("slenkantis stop", "uzdaryta pabaigoje"):
@@ -1610,7 +1624,7 @@ def journal_stats(entries):
         else:
             b["kita"] += 1
         try:
-            b.setdefault("pelnai", []).append(float(e.get("pelnas_pct", "")))
+            b["pelnai"].append(float(e.get("pelnas_pct", "")))
         except (TypeError, ValueError):
             pass
     return out
@@ -1691,12 +1705,13 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
                              rows, intraday_all, now_local, market=market)
     stats = journal_stats(entries)
     if stats:
-        print("\nŽurnalas (užbaigti sandoriai):")
-        for g in ["A", "B", "C", "D"]:
-            b = stats.get(g)
-            if b and b["n"]:
-                print(f"  {g}: {b['n']:>3} sandorių, tikslą pasiekė "
-                      f"{b['tikslas']/b['n']*100:>5.1f}%")
+        print("\nŽurnalas pagal scenarijų (užbaigti sandoriai):")
+        for g, b in sorted(stats.items(), key=lambda x: -x[1]["n"]):
+            if b["n"]:
+                pel = b.get("pelnai") or []
+                vid = f"{sum(pel)/len(pel):+.2f}%" if pel else "—"
+                print(f"  {g[:38]:<40} n={b['n']:>3}  tikslą {b['tikslas']/b['n']*100:>5.1f}%"
+                      f"  vid. {vid}")
 
     problems = sanity_check(rows, market)
     if problems:
