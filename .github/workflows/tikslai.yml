@@ -1,0 +1,48 @@
+name: Tikslu ir stop tinklelis
+
+on:
+  workflow_dispatch:
+    inputs:
+      metai:
+        description: "Kiek metu istorijos"
+        required: false
+        default: "8"
+      pozicija:
+        description: "Pozicijos dydis EUR"
+        required: false
+        default: "18000"
+      sanaudos_eur:
+        description: "Mokesciai + spread EURAIS visam ciklui"
+        required: false
+        default: "10"
+
+jobs:
+  tikslai:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          ls -la
+          test -f backtest_tikslai.py || (echo "KLAIDA: backtest_tikslai.py nerastas" && exit 1)
+          test -f universas.py || (echo "KLAIDA: universas.py nerastas" && exit 1)
+      - name: Paleisti tinkleli
+        env:
+          METAI: ${{ github.event.inputs.metai || '8' }}
+          POZ: ${{ github.event.inputs.pozicija || '18000' }}
+          SAN: ${{ github.event.inputs.sanaudos_eur || '10' }}
+        run: |
+          python backtest_tikslai.py --metai "$METAI" --pozicija "$POZ" \
+            --sanaudos-eur "$SAN" | tee tikslai_rezultatas.txt
+      - name: Issaugoti rezultata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tikslu-tinklelis
+          path: tikslai_rezultatas.txt
+          if-no-files-found: ignore
