@@ -32,7 +32,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 ,2026-09-06,19:08,RMS.PA,RMS,45.0,D,kritimas,ne,,,,,1459.00,1436.02,,atviras,,,,,
 ,2026-09-06,19:11,RHM.DE,RHM,41.2,D,krintantis peilis,ne,0.025,bear_soft,pramonė ir gynyba,4.07,1033.00,1009.89,1053.66,atviras,,,,,
 ,2026-09-06,19:11,PTX.DE,PTX,39.4,D,krintantis peilis,ne,0.033,bear_soft,programinė įranga,4.67,151.50,147.61,154.53,atviras,,,,,
-,2026-09-06,19:11,IFX.DE,IFX,37.2,D,"kyla, prie viršūnės",ne,0.683,bear_soft,puslaidininkiai,4.45,56.99,55.29,58.13,atviras,,,,,
+,2026-09-06,19:11,IFX.DE,IFX,37.2,D,"kyla, prie viršūnės",ne,0.683,bear_soft,puslaidininkiai,4.45,56.99,55.29,58.13,baigta,uzdaryta pabaigoje,2026-09-07 09:10:00+02:00,58.29,+2.28,+3.28
 ,2026-09-06,19:16,AMD.DE,AMD,34.1,D,"kyla, prie viršūnės",ne,0.728,bear_soft,puslaidininkiai,4.76,404.35,393.42,412.44,atviras,,,,,
 ,2026-09-06,19:16,ASM.AS,ASM,28.8,D,jau pakilusi,ne,0.986,bear_soft,puslaidininkiai,4.10,820.60,791.06,837.01,atviras,,,,,
 ,2026-09-06,19:16,ASML.AS,ASML,25.5,D,jau pakilusi,ne,0.826,bear_soft,puslaidininkiai,3.57,1471.80,1418.82,1501.24,atviras,,,,,
@@ -49,3 +49,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:04,CON.DE,CON,45.0,D,kritimas,ne,0.470,bear_soft,auto komponentai,2.43,71.58,70.11,73.01,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:04,MC.PA,MC,45.0,D,kritimas,ne,0.344,bear_soft,prabanga,2.53,429.65,423.67,438.24,atviras,,,,,
 2026-09-07 ibs40-trail-25akc,2026-09-07,10:04,HO.PA,HO,45.0,D,kritimas,ne,0.316,bear_soft,gynyba,2.17,233.50,230.71,238.17,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,LHA.DE,LHA,50.2,C,atsigavimas,taip,0.912,bear_soft,aviakompanijos,2.57,7.83,7.72,7.98,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,IFX.DE,IFX,45.0,D,jau pakilusi,ne,0.136,bear_soft,puslaidininkiai,4.45,58.29,56.86,59.46,atviras,,,,,
+2026-09-07 ibs40-trail-25akc,2026-09-07,10:26,BMW.DE,BMW,45.0,D,kritimas,ne,0.452,bear_soft,automobiliai,2.40,62.68,61.85,63.93,atviras,,,,,
