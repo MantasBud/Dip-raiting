@@ -1,0 +1,51 @@
+name: Tesinio backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      metai:
+        description: "Kiek metu istorijos (10 = maksimali imtis)"
+        required: false
+        default: "10"
+      sanaudos:
+        description: "Mokesciai ir spread'as procentais sandoriui"
+        required: false
+        default: "0.07"
+
+jobs:
+  tesinys:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Idiegti bibliotekas
+        run: pip install yfinance pandas numpy tzdata
+
+      - name: Patikrinti ar failas vietoje
+        run: |
+          ls -la
+          test -f backtest_tesinys_daily.py || \
+            (echo "KLAIDA: backtest_tesinys_daily.py nerastas repozitorijoje" && exit 1)
+
+      - name: Paleisti tesinio backtesta
+        env:
+          METAI: ${{ github.event.inputs.metai || '10' }}
+          SANAUDOS: ${{ github.event.inputs.sanaudos || '0.07' }}
+        run: |
+          echo "Parametrai: metai=$METAI sanaudos=$SANAUDOS"
+          python backtest_tesinys_daily.py --metai "$METAI" --sanaudos "$SANAUDOS" \
+            | tee tesinio_rezultatas.txt
+
+      - name: Issaugoti rezultata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tesinio-rezultatas
+          path: tesinio_rezultatas.txt
+          if-no-files-found: ignore
