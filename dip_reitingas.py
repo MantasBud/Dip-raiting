@@ -150,17 +150,21 @@ def currency_of(sym):
 # derinta, reikstu persimokyma. Patvirtinta modulio verte yra kitur — rinkos
 # rezimo filtre, isejimo taisykleje ir rizikos skaiciavime.
 CRITERIA = [
-    ("ibs",      "Padėtis dienos diapazone", 40),
-    ("stab",     "Ar kritimas sustojo",      10),
-    ("multiday", "Vienadienis ar tęstinis",  10),
-    ("dip",      "Kritimo gylis",             8),
-    ("room",     "Vieta iki pasipriešinimo",  8),
-    ("vwap",     "Padėtis prieš VWAP",        6),
-    ("atr",      "Judrumas (ATR)",            6),
-    ("support",  "Atstumas iki atramos",      5),
-    ("rsi",      "RSI (5 min)",               3),
-    ("rvol",     "Apyvarta (RVOL)",           2),
-    ("trend",    "Trendas (20/50 SMA)",       2),
+    # Du virsutiniai patvirtinti nematytoje imties dalyje (2026-09, 732 dienos,
+    # savaitiniai blokai, atsparumo patikra isbraukiant akcijas):
+    #   Z-balas zemas  +0.145% (+0.032..+0.256), neto +0.075%
+    #   IBS zemas      +0.103% (+0.019..+0.188), neto +0.033%
+    # Likusieji patvirtinimo NEISLAIKE — ju svoris mazas, nes kompozitas su
+    # 60% nepatvirtintu kriteriju praskiede signala iki triuksmo (+0.061%).
+    ("zbal",     "Nutolimas nuo vidurkio",   40),
+    ("ibs",      "Padėtis dienos diapazone", 30),
+    ("stab",     "Ar kritimas sustojo",       8),
+    ("multiday", "Vienadienis ar tęstinis",   6),
+    ("room",     "Vieta iki pasipriešinimo",  6),
+    ("dip",      "Kritimo gylis",             4),
+    ("atr",      "Judrumas (ATR)",            3),
+    ("vwap",     "Padėtis prieš VWAP",        2),
+    ("trend",    "Trendas (20/50 SMA)",       1),
 ]
 
 # Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
@@ -390,6 +394,23 @@ def completed_daily(daily):
         return daily
 
 
+def price_zscore(cont_close, price, n=20):
+    """Kiek standartiniu nuokrypiu kaina nutolusi nuo pastaruju N baru vidurkio.
+
+    Skaiciuojama IDENTISKAI kaip backteste (backtest_intraday.py, zscore) —
+    is istisines 5 min. sekos, 20 baru langas. Zemas z patvirtintas nematytoje
+    imties dalyje: +0.145% pries dienos vidurki, neto +0.075% po mokesciu.
+    """
+    try:
+        seg = cont_close.tail(n).astype(float)
+        if len(seg) < n:
+            return None
+        m, s = float(seg.mean()), float(seg.std())
+        return (price - m) / s if s > 0 else None
+    except Exception:
+        return None
+
+
 def multiday_context(daily, price):
     """Ar tai vienos dienos kritimas, ar tęstinis kelių dienų slydimas."""
     closes = daily["Close"].tail(6).tolist()
@@ -537,7 +558,11 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     # IBS: 0 = uzdaro prie dienos dugno (geriausia), 1 = prie virsunes.
     # Kreive pagal ismatuotas reiksmes: <0.2 stipriai geriau, >0.8 stipriai blogiau.
     ibs_v = num(d.get("ibs"))
+    z_v = num(d.get("zscore"))
     parts = {
+        # Zemas z = kaina toli zemiau pastaruju baru vidurkio
+        "zbal": curve(z_v, [(-3.0, 100), (-1.5, 95), (-0.7, 80), (0.0, 55),
+                            (0.7, 35), (1.5, 18), (3.0, 8)]),
         "ibs":  curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
                               (0.6, 40), (0.8, 20), (1.0, 8)]),
         "dip":  dip_part,
@@ -551,14 +576,14 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                       [(0.3, 5), (0.6, 30), (0.9, 65), (1.2, 92), (1.8, 100), (3.5, 90)]),
         # Kritimo scenarijuje ieškom išpardavimo zonos, atsigavimo - jau pakilusio,
         # bet dar neperpirkto RSI
-        "rsi":  curve(d.get("rsi"),
+        "_nenaudojamas_rsi":  curve(d.get("rsi"),
                       [(25, 20), (40, 60), (50, 90), (60, 100), (70, 70), (80, 25)]
                       if recovering else
                       [(10, 25), (20, 55), (28, 85), (35, 100), (45, 85), (55, 55), (65, 30), (80, 10)]),
         "vwap": curve(vw_d, [(-4, 20), (-2, 45), (-0.8, 85), (-0.2, 100), (0.3, 90), (1.5, 60), (3, 35), (6, 15)]),
-        "rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
+        "_nenaudojamas_rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
         "trend": trend,
-        "support": 15.0 if (sup_d is not None and sup_d < 0) else
+        "_nenaudojamas_support": 15.0 if (sup_d is not None and sup_d < 0) else
                    curve(sup_d, [(0, 95), (0.3, 100), (1, 85), (2, 55), (3.5, 30), (6, 10)]),
     }
 
@@ -765,7 +790,47 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     tradeable = (not blocking) and rr >= MIN_RR and (room_far is None or room_far >= target * 1.2)
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
-    return dict(score=score, grade=grade, tradeable=tradeable, blocking=blocking,
+    # --- Frazė vietoj raidės: ka konkreciai rodo duomenys ---
+    if blocking:
+        if setup == "krintantis peilis":
+            fraze, spalva = "Krintantis peilis", "raus"
+        elif any("Rinka krenta" in t for t in blocking):
+            fraze, spalva = "Rinka krenta — praleisti", "raus"
+        elif any("Ataskaita" in t for t in blocking):
+            fraze, spalva = "Ataskaita per 2 dienas", "raus"
+        elif any("netelpa" in t for t in blocking):
+            fraze, spalva = "Tikslui nėra vietos", "raus"
+        else:
+            fraze, spalva = "Netinkama", "raus"
+    elif setup == "krintantis peilis":
+        fraze, spalva = "Krintantis peilis", "raus"
+    elif setup == "jau pakilusi":
+        fraze, spalva = "Jau pakilusi — nuolaidos nėra", "gelt"
+    elif setup == "kyla, prie viršūnės":
+        fraze = ("Kylančio trendo tęsinys" if trend >= 85 else "Kyla, prie viršūnės")
+        spalva = "gelt"
+    elif setup == "atsigavimas":
+        fraze = ("Atsigavimas su sektoriumi"
+                 if (sector_chg is not None and sector_chg > 0.3) else "Atsigavimas po kritimo")
+        spalva = "zal" if (tradeable and score >= 64) else "gelt"
+    else:
+        # Kritimo šeima — skiriam pagal tai, ar kritimas jau sustojo
+        stabilu = parts.get("stab", 50) >= 70
+        gilus = (dip or 0) >= 2.0
+        if stabilu and ibs_v is not None and ibs_v <= 0.25:
+            fraze = "Atsitraukimas, kryptis stabilizavosi"
+        elif stabilu:
+            fraze = "Kritimas sustojo"
+        elif gilus:
+            fraze = "Neapibrėžtas kritimas"
+        else:
+            fraze = "Ramus atsitraukimas"
+        if sector_chg is not None and sector_chg > 0.5 and fraze.startswith("Atsitraukimas"):
+            fraze = "Atsitraukimas kylančiame sektoriuje"
+        spalva = "zal" if (tradeable and score >= 64) else "gelt"
+
+    return dict(score=score, grade=grade, fraze=fraze, spalva=spalva,
+                tradeable=tradeable, blocking=blocking,
                 setup=setup, recovering=recovering,
                 parts=parts, flags=flags, dip=dip, rng=rng,
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
@@ -902,6 +967,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     gap = overnight_gap(daily)
     v5 = intraday_vol(today)
     mom = short_momentum(today)
+    zbal = price_zscore(intra["Close"], price)
 
     # IBS ir nakties tarpas — rodomi kaip informacija. I bala neijungti, kol
     # nepatvirtinta tavo akcijose (backtest_intraday.py juos matuoja atskirai).
@@ -923,7 +989,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
-                ibs=ibs, gap_ret=gap_ret,
+                ibs=ibs, gap_ret=gap_ret, zscore=zbal,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -1087,49 +1153,37 @@ def market_overview(rows, market, sector_state, target):
 
 
 def explain(d, s, target, rows):
-    """Kodėl būtent ši, o ne kitos — palyginimas su likusiu sąrašu."""
+    """Kodėl būtent ši — palyginimas su likusiu sąrašu, tik iš turimų dedamųjų."""
     others = [x for x in rows if x[0]["sym"] != d["sym"]]
     med = float(np.median([x[1]["score"] for x in others])) if others else 0
+    P = s.get("parts", {})
 
     reasons = []
-    setup = s.get("setup", "kritimas")
-    if setup == "atsigavimas":
-        reasons.append(f"akcija buvo nukritusi ir dabar kyla nuo dugno, dar nepasiekusi "
-                       f"ankstesnės viršūnės — kelias aukštyn dar neišnaudotas")
-    elif setup == "jau pakilusi":
-        reasons.append("akcija šiandien jau smarkiai pakilo, todėl tai nebėra nuolaidos "
-                       "pirkimas — balas surinktas iš kitų rodiklių")
-    elif s["parts"]["multiday"] >= 70 and (s.get("down_days") or 0) <= 1:
-        reasons.append("kritimas prasidėjo šiandien, o ne tęsiasi kelias dienas — "
-                       "būtent toks vienadienis nuosmukis dažniausiai ir atšoka")
-    if s["parts"]["trend"] >= 85:
-        reasons.append("bendra akcijos kryptis vis dar kylanti, tad perki nuolaidą "
-                       "augančioje akcijoje, o ne bandai gaudyti krentančią")
-    if s["parts"]["room"] >= 80:
-        reasons.append(f"virš kainos yra pakankamai laisvos erdvės — {target}% tikslas "
-                       f"telpa neatsimušant į pasipriešinimą")
-    if s["parts"]["atr"] >= 80:
-        reasons.append("akcija juda pakankamai gyvai, kad toks judesys realiai įvyktų per dieną")
-    if s["parts"]["rvol"] >= 85:
-        reasons.append("apyvarta didesnė nei įprastai — kritimą pastebėjo ir kiti")
-    if s["parts"]["vwap"] >= 85:
-        reasons.append("kaina nusileidusi kiek žemiau dienos vidurkio, iš kur dažnai grįžtama")
+    if P.get("zbal", 50) >= 80:
+        reasons.append("kaina nutolusi žemyn nuo pastarųjų valandų vidurkio — "
+                       "tai vienintelis modulio kriterijus, patvirtintas nematytoje "
+                       "duomenų dalyje")
+    if P.get("ibs", 50) >= 80:
+        reasons.append("uždaro prie apatinio dienos diapazono krašto")
+    if P.get("stab", 50) >= 75:
+        reasons.append("kritimas jau sustojo — pastaroji valanda nebe žemyn")
+    if P.get("multiday", 50) >= 75:
+        reasons.append("kritimas prasidėjo neseniai, o ne tęsiasi kelias dienas")
+    if P.get("room", 50) >= 80:
+        reasons.append(f"virš kainos pakanka vietos {target}% tikslui")
 
     if not reasons:
-        reasons.append("nė vienas rodiklis nėra išskirtinis, bet ir silpnų vietų nedaug — "
-                       "balą surinko tolygumu")
+        reasons.append("nė vienas kriterijus nėra išskirtinis — balą surinko tolygumu")
 
-    lead = ("Stipriausia šiandienos pozicija" if s["score"] == max(x[1]["score"] for x in rows)
-            else "Viena iš stipresnių pozicijų")
-    diff = s["score"] - med
-    comp = (f"{lead}: balas {s['score']:.0f} prieš sąrašo medianą {med:.0f} "
-            f"({diff:+.0f}). ")
-
-    body = comp + "Ją į priekį kelia tai, kad " + "; ".join(reasons[:3]) + "."
+    lead = ("Aukščiausias balas sąraše" if s["score"] == max(x[1]["score"] for x in rows)
+            else "Vienas iš aukštesnių")
+    body = (f"{lead}: {s['score']:.0f} prieš medianą {med:.0f} "
+            f"({s['score'] - med:+.0f}). Į priekį kelia tai, kad "
+            + "; ".join(reasons[:3]) + ".")
 
     risks = [t for lvl, t in s["flags"] if lvl in ("warn", "stop")]
     if risks:
-        body += " Prieš perkant verta žinoti: " + risks[0].lower() + "."
+        body += " Prieš perkant: " + risks[0].lower() + "."
     return body
 
 
@@ -1283,11 +1337,11 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         cs = d.get("cur_sym", "")
         cur = d.get("cur", "")
         cards.append(f"""
-        <details class="card" {'open' if i == 1 else ''}>
+        <details class="card c{s.get('spalva','gelt')}" {'open' if i == 1 else ''}>
           <summary><span class="rk">{i}</span><span class="tk">{d['tag']}</span>
             <span class="bar"><i style="width:{s['score']:.0f}%"></i></span>
             <span class="sc">{s['score']:.0f}</span>
-            <span class="gr g{s['grade']}">{s['grade']}</span></summary>
+            <span class="fr f{s.get('spalva','gelt')}">{s.get('fraze','')}</span></summary>
           <div class="in">
             <div class="nm">{d['name']} · {d['sym']} · {s.get('setup','')}</div>
             <div class="verdict {'ok' if s.get('tradeable') else 'no'}">{
@@ -1488,7 +1542,9 @@ def resolve_entry(entry, intraday_all):
 
         # Nei tikslas, nei stop. Jei nuo irasymo praejo daugiau nei diena - uzdarom.
         last_ts = after.index[-1]
-        if (last_ts.date() - start.date()).days >= 1:
+        # Laikymas 3 sesijos (HOLD_HOURS=72), todel uzdarom tik po 3 dienu,
+        # o ne po vienos — anksciau zurnalas fiksuodavo per anksti.
+        if (last_ts.date() - start.date()).days >= max(1, int(HOLD_HOURS / 24)):
             last_close = float(after["Close"].iloc[-1])
             pnl = (last_close - entry_px) / entry_px * 100
             entry.update(busena="baigta",
@@ -1519,7 +1575,8 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
                 continue
             entries.append(dict(
                 versija=MODEL_VERSION, data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
-                balas=f"{s['score']:.1f}", pakopa=s["grade"], scenarijus=s.get("setup", ""),
+                balas=f"{s['score']:.1f}", pakopa=s["grade"],
+                scenarijus=s.get("fraze", s.get("setup", "")),
                 tinkamas="taip" if s.get("tradeable") else "ne",
                 ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
                 rinka=market, sektorius=d.get("sector", ""),
