@@ -167,23 +167,10 @@ CRITERIA = [
     ("trend",    "Trendas (20/50 SMA)",       1),
 ]
 
-# Sektoriai — skaičiuojami iš paties sąrašo, be papildomų atsisiuntimų
-SECTORS = {
-    "AIXA.DE": "AI infrastruktūra", "SOI.PA": "AI infrastruktūra",
-    "PRY.MI": "AI infrastruktūra", "NEX.PA": "AI infrastruktūra",
-    "ENR.DE": "AI infrastruktūra",
-    "BESI.AS": "puslaidininkiai", "IFX.DE": "puslaidininkiai",
-    "STLAM.MI": "automobiliai", "P911.DE": "automobiliai", "BMW.DE": "automobiliai",
-    "CON.DE": "auto komponentai",
-    "TEP.PA": "IT paslaugos", "CAP.PA": "IT paslaugos",
-    "SAP.DE": "programinė įranga",
-    "KER.PA": "prabanga", "MONC.MI": "prabanga", "MC.PA": "prabanga",
-    "LDO.MI": "gynyba", "HO.PA": "gynyba",
-    "KGX.DE": "pramonė", "MT.AS": "metalai", "BAYN.DE": "farmacija",
-    "LHA.DE": "aviakompanijos", "ADS.DE": "vartojimo prekės",
-    "NOKIA.HE": "telekomų įranga",
-}
-
+# Sektoriai imami is universas.py kartu su WATCHLIST (zr. virsuje).
+# Anksciau cia buvo senas 25 akciju zodynas, kuris PERRASYDAVO importuota:
+# modulis dirbo su 270 instrumentu, bet sektoriu zinojo tik 25, o likusios
+# gaudavo "kita" — todel sektoriaus filtras ir zaliavu atpazinimas neveike.
 # ----------------------------- SKAIČIAVIMAI -----------------------------
 
 
