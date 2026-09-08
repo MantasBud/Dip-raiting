@@ -1558,6 +1558,8 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>arba</span><b>IBS virš {s.get('exit_ibs', 0.8):.2f}</b></div>
               <div><span>IBS dabar</span><b>{(d.get('ibs') or 0):.2f}</b></div>
               <div><span>RSI(2) dabar</span><b>{(s.get('rsi2') or 0):.0f}</b></div>
+              <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
+              <div><span>Stop atstumas</span><b>{((d['price'] - s['stop']) / d['price'] * 100):.1f}%</b></div>
               <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
               <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
               <div><span>Pelnas ties {TARGET_PCT}%</span><b>{cs}{s['net']:.0f}</b></div>
