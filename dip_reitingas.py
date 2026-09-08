@@ -510,15 +510,15 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # Čia "nuolaida" matuojama ne nuo šios dienos maksimumo, o nuo 5 d. viršūnės
         rec_part = curve(dd5, [(0.5, 30), (1.5, 80), (3, 100), (5, 92), (8, 55), (12, 20)])
         dip_part = max(dip_part, rec_part)
-        setup = "atsigavimas"
+        setup = "Atsigavimas"
     elif overextended:
         dip_part = min(dip_part, 12.0)
-        setup = "jau pakilusi"
+        setup = "Jau pakilusi"
     elif (day_chg is not None and day_chg > 0.5
           and d.get("ibs") is not None and d["ibs"] > 0.6):
-        setup = "kyla, prie viršūnės"
+        setup = "Kyla, prie viršūnės"
     else:
-        setup = "kritimas"
+        setup = "Kritimas"
 
     # dd5 = kritimas nuo 5 d. maksimumo. Sveikas dip: 1.5-4%. Tęstinis slydimas: 7%+
     # Tikėtinas judesys per laikymo horizontą prieš tikslą
@@ -558,7 +558,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     # tokia akcija nera "neidomi", ji yra pavojinga, ir tai turi matytis atskirai.
     # Rytoj ji dazniausiai tampa "atsigavimo" kandidate, todel ja verta stebeti.
     if knife:
-        setup = "krintantis peilis"
+        setup = "Krintantis peilis"
 
     # IBS: 0 = uzdaro prie dienos dugno (geriausia), 1 = prie virsunes.
     # Kreive pagal ismatuotas reiksmes: <0.2 stipriai geriau, >0.8 stipriai blogiau.
@@ -824,7 +824,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
 
     # --- Frazė vietoj raidės: ka konkreciai rodo duomenys ---
     if blocking:
-        if setup == "krintantis peilis":
+        if setup == "Krintantis peilis":
             fraze, spalva = "Krintantis peilis", "raus"
         elif any("Rinka krenta" in t for t in blocking):
             fraze, spalva = "Rinka krenta — praleisti", "raus"
@@ -834,14 +834,14 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
             fraze, spalva = "Tikslui nėra vietos", "raus"
         else:
             fraze, spalva = "Netinkama", "raus"
-    elif setup == "krintantis peilis":
+    elif setup == "Krintantis peilis":
         fraze, spalva = "Krintantis peilis", "raus"
-    elif setup == "jau pakilusi":
+    elif setup == "Jau pakilusi":
         fraze, spalva = "Jau pakilusi — nuolaidos nėra", "gelt"
-    elif setup == "kyla, prie viršūnės":
+    elif setup == "Kyla, prie viršūnės":
         fraze = ("Kylančio trendo tęsinys" if trend >= 85 else "Kyla, prie viršūnės")
         spalva = "gelt"
-    elif setup == "atsigavimas":
+    elif setup == "Atsigavimas":
         fraze = ("Atsigavimas su sektoriumi"
                  if (sector_chg is not None and sector_chg > 0.3) else "Atsigavimas po kritimo")
         spalva = "zal" if (tradeable and score >= 64) else "gelt"
@@ -1409,7 +1409,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         # Krentancios rodomos tik tos, kurias modulis laiko tesiancioms kritima
         fallers = sorted([(d, s) for d, s in rows
                           if d.get("day_chg") is not None and d["day_chg"] < -0.5
-                          and (s.get("setup") == "krintantis peilis"
+                          and (s.get("setup") == "Krintantis peilis"
                                or (s.get("down_days") or 0) >= 2)],
                          key=lambda x: x[0]["day_chg"])[:5]
         cols = ""
@@ -1710,11 +1710,20 @@ font-variant-numeric:tabular-nums}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
 .rk{{font-size:11px;color:var(--ink2);width:16px}}
-.tk{{font-weight:600;font-size:15px;min-width:56px;font-variant-numeric:tabular-nums}}
+.tk{{font-weight:600;font-size:15px;width:74px;flex:none;
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .bar{{flex:1;height:5px;background:#DFE5EE;border-radius:3px;overflow:hidden}}
 .bar i{{display:block;height:100%;background:var(--ink)}}
-.px{{font-size:12.5px;color:var(--ink2);
-font-variant-numeric:tabular-nums;margin-left:auto;padding-right:10px}}
+.px{{font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;
+width:82px;flex:none;text-align:right;padding-right:14px}}
+.fr{{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:12px;
+white-space:nowrap;flex:1;text-align:left;display:inline-block}}
+.fzal{{background:#D8EFE2;color:#14543E}}
+.fgelt{{background:#FAF0D2;color:#6E5200}}
+.fraus{{background:#F8DEDC;color:#7A2320}}
+.card.czal{{border-left:4px solid #4C9A78}}
+.card.cgelt{{border-left:4px solid #D9A400}}
+.card.craus{{border-left:4px solid #C25C55}}
 .sc_nenaudojamas{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
 .gr{{width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:12px;
 display:flex;align-items:center;justify-content:center}}
@@ -1933,7 +1942,10 @@ def journal_stats(entries):
             continue
         # Naujuose irasuose scenarijus yra fraze; senuose — "kritimas"/"atsigavimas"
         # arba tuscia, tada griztam prie raides
-        g = (e.get("scenarijus") or "").strip() or f"(sena pakopa {e.get('pakopa', '?')})"
+        # Senuose irasuose scenarijai rasyti mazaja raide ("kritimas"), naujuose —
+        # didziaja. Suvienodinam, kad statistikoje nesidubliuotu dvi eilutes.
+        g = (e.get("scenarijus") or "").strip()
+        g = (g[0].upper() + g[1:]) if g else f"(sena pakopa {e.get('pakopa', '?')})"
         b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0, "pelnai": []})
         b["n"] += 1
         # Salyginio isejimo rezultatai: "salyga (IBS)" = isejimas ivykus salygai,
