@@ -1716,14 +1716,10 @@ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .bar i{{display:block;height:100%;background:var(--ink)}}
 .px{{font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;
 width:82px;flex:none;text-align:right;padding-right:14px}}
-.fr{{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:12px;
-white-space:nowrap;flex:1;text-align:left;display:inline-block}}
-.fzal{{background:#D8EFE2;color:#14543E}}
-.fgelt{{background:#FAF0D2;color:#6E5200}}
-.fraus{{background:#F8DEDC;color:#7A2320}}
-.card.czal{{border-left:4px solid #4C9A78}}
-.card.cgelt{{border-left:4px solid #D9A400}}
-.card.craus{{border-left:4px solid #C25C55}}
+.fr{{font-size:12px;flex:1;text-align:left;white-space:nowrap;color:var(--ink)}}
+.fzal,.fgelt{{color:var(--ink)}}
+.fraus{{color:var(--stop)}}
+.card.craus{{border-left:3px solid var(--stop)}}
 .sc_nenaudojamas{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
 .gr{{width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:12px;
 display:flex;align-items:center;justify-content:center}}
