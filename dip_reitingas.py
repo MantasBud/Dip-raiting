@@ -1103,7 +1103,20 @@ def sanity_check(rows, market):
             now = (pd.Timestamp.now(tz=newest.tz) if newest.tzinfo
                    else pd.Timestamp.now())
             amz = (now - newest).total_seconds() / 60
-            if amz > 45 and market_open_now():
+            # Sesijos pradzioje siandienos baru dar NERA: 9:01 Berlyno laiku
+            # naujausias egzistuojantis baras yra vakarykstis uzdarymas, o su
+            # 15 min. velavimu pirmas siandienos baras pasirodo apie 9:20.
+            # Anksciau si patikra tuo metu duodavo klaidinga ispejima.
+            nuo_atidarymo = None
+            try:
+                dabar = new_intl_now()
+                if dabar is not None:
+                    nuo_atidarymo = dabar - SESSION_OPEN_MIN
+            except Exception:
+                pass
+            per_anksti = nuo_atidarymo is not None and nuo_atidarymo < 35
+
+            if amz > 45 and market_open_now() and not per_anksti:
                 warn.append(f"Naujausias baras {amz:.0f} min. senumo, nors birža dirba — "
                             f"duomenys nebeatnaujinami")
     except Exception:
