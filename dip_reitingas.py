@@ -26,7 +26,7 @@ import sys
 import tempfile
 import time
 import webbrowser
-from datetime import datetime
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
@@ -943,6 +943,73 @@ def market_bias(yf):
 
 
 _EARNINGS_CACHE = {}
+_NAUJIENU_CACHE = {}
+
+# Raktazodziai antrasciu vertinimui. APYTIKSLU: tai zodziu paieska, ne analize.
+# Rodoma tik kaip uzuomina — tikra prasme pamatysi tik perskaites antraste.
+NEIG_ZODZIAI = (
+    "profit warning", "guidance cut", "cuts guidance", "lowers guidance", "downgrade",
+    "downgraded", "investigation", "probe", "lawsuit", "recall", "fraud", "loss",
+    "miss", "misses", "slump", "plunge", "falls", "cut to", "warns", "warning",
+    "resigns", "layoff", "job cuts", "delay", "halted", "suspend", "weak", "fine",
+    "penalty", "strike", "bankruptcy", "restructuring", "impairment", "writedown",
+)
+TEIG_ZODZIAI = (
+    "beats", "beat", "raises guidance", "raised", "upgrade", "upgraded", "record",
+    "surge", "jumps", "soars", "rally", "wins", "win", "contract", "deal",
+    "approval", "approved", "launch", "buyback", "dividend increase", "expands",
+    "partnership", "breakthrough", "strong", "outperform", "profit rises", "growth",
+)
+
+
+def naujienos(yf, symbol, kiek=3, cache_min=30):
+    """Paskutines antrastes su apytiksliu atspalviu.
+
+    Grazina saraso elementus: (antraste, saltinis, valandu_senumas, atspalvis),
+    kur atspalvis yra "teig" / "neig" / "neutr". Vertinimas paremtas raktazodziu
+    paieska antrasteje — tai NERA turinio analize ir gali klysti; todel puslapyje
+    antraste rodoma visa, kad galetum perskaityti pats.
+    """
+    now = time.time()
+    hit = _NAUJIENU_CACHE.get(symbol)
+    if hit and now - hit[1] < cache_min * 60:
+        return hit[0]
+    out = []
+    try:
+        raw = yf.Ticker(symbol).news or []
+        for n in raw[:kiek]:
+            turinys = n.get("content", n) if isinstance(n, dict) else {}
+            antr = (turinys.get("title") or n.get("title") or "").strip()
+            if not antr:
+                continue
+            saltinis = ""
+            try:
+                saltinis = (turinys.get("provider", {}).get("displayName")
+                            or n.get("publisher") or "")
+            except Exception:
+                pass
+            val = None
+            try:
+                ts = n.get("providerPublishTime")
+                if ts:
+                    val = (now - float(ts)) / 3600
+                else:
+                    pub = turinys.get("pubDate") or ""
+                    if pub:
+                        val = (datetime.now(timezone.utc)
+                               - datetime.fromisoformat(pub.replace("Z", "+00:00"))
+                               ).total_seconds() / 3600
+            except Exception:
+                pass
+            z = antr.lower()
+            neig = sum(1 for w in NEIG_ZODZIAI if w in z)
+            teig = sum(1 for w in TEIG_ZODZIAI if w in z)
+            atsp = "neig" if neig > teig else ("teig" if teig > neig else "neutr")
+            out.append((antr, saltinis, val, atsp))
+    except Exception:
+        pass
+    _NAUJIENU_CACHE[symbol] = (out, now)
+    return out
 
 
 def earnings_soon(yf, symbol, cache_hours=6):
@@ -1291,7 +1358,7 @@ def market_overview(rows, market, sector_state, target):
 
 
 def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
-               stats=None, problems=None):
+               stats=None, problems=None, yf_mod=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "bear_soft": "kryptis žemyn, šiandien kyla",
                  "neutral": "šoninė"}.get(market, "šoninė")
     overview = market_overview(rows, market, sector_state or {}, TARGET_PCT)
@@ -1432,6 +1499,21 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     refresh_tag = (f'<meta http-equiv="refresh" content="{refresh_seconds}">'
                    if refresh_seconds else "")
 
+    def nws(d):
+        """Antrastes su apytiksliu atspalviu. Zalsvas / rausvas fonas — tik
+        raktazodziu paieskos rezultatas, todel antraste rodoma visa."""
+        n = d.get("naujienos") or []
+        if not n:
+            return ""
+        eil = []
+        for antr, salt, val, atsp in n[:3]:
+            laikas = (f"prieš {val:.0f} val." if val is not None and val < 48
+                      else ("prieš {:.0f} d.".format(val / 24) if val else ""))
+            meta = " · ".join(x for x in (salt, laikas) if x)
+            eil.append(f"<div class='nw n{atsp}'><div class='nt'>{antr}</div>"
+                       f"<div class='nm'>{meta}</div></div>")
+        return f"<div class='news'>{''.join(eil)}</div>"
+
     def bars(d, s):
         """Kainos grafikas. Visi stiliai — TIESIOGIAI elementuose.
 
@@ -1540,6 +1622,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 
     # Rodom tik tuos, kurie praejo filtrus; jei tokiu nera — nieko
     rodomi = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
+    # Naujienos siunciamos TIK rodomoms pozicijoms — penkios uzklausos, ne 270
+    for d, _ in rodomi:
+        if "naujienos" not in d:
+            d["naujienos"] = naujienos(yf_mod, d["sym"]) if yf_mod else []
     cards = []
     for i, (d, s) in enumerate(rodomi, 1):
         fl = "".join(f"<li class='{lvl}'>{txt}</li>" for lvl, txt in s["flags"])
@@ -1569,6 +1655,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>Pelnas ties {TARGET_PCT}%</span><b>{cs}{s['net']:.0f}</b></div>
               <div><span>Rizikuoji</span><b>{cs}{s['real_risk']:.0f}</b></div></div>
             {bars(d, s)}
+            {nws(d)}
             <ul class="fl">{fl}</ul>
           </div>
         </details>""")
@@ -1577,6 +1664,13 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {refresh_tag}
 <title>Dip reitingas</title><style>
+.news{{margin:8px 0 4px}}
+.nw{{border-left:3px solid #D9D6D0;background:#FAF9F7;border-radius:0 5px 5px 0;
+padding:7px 10px;margin-bottom:5px}}
+.nw.nteig{{border-left-color:#4C9A78;background:#EEF7F2}}
+.nw.nneig{{border-left-color:#C25C55;background:#FBF0EF}}
+.nw .nt{{font-size:12px;line-height:1.4}}
+.nw .nm{{font-size:10px;color:#8A857E;margin-top:3px}}
 :root{{--ink:#16233A;--ink2:#54637E;--line:#C9D2E0;--bg:#E9EDF3;--card:#FDFDFB;--up:#1F7A5C;--warn:#B26B00;--stop:#A8322D}}
 *{{box-sizing:border-box}}body{{margin:0;padding:22px 16px 50px;background:var(--bg);color:var(--ink);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:760px;margin:0 auto}}
@@ -1986,7 +2080,7 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
 
     html_path = os.path.join(out_dir, "index.html")
     write_html(rows, market, html_path, refresh_seconds=refresh_seconds,
-               sector_state=sector_state, stats=stats, problems=problems)
+               sector_state=sector_state, stats=stats, problems=problems, yf_mod=yf)
 
     with open(os.path.join(out_dir, "dip_reitingas.json"), "w", encoding="utf-8") as f:
         json.dump([{**d, **{k: v for k, v in s.items() if k != "parts"}}
