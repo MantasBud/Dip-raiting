@@ -1054,12 +1054,12 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     mom = short_momentum(today)
     zbal = price_zscore(intra["Close"], price)
 
-    # Grafikui: 5 MIN. barai (smulki kreive), paskutines 3 sesijos.
+    # Grafikui: 5 MIN. barai (smulki kreive), paskutines 5 sesijos.
     # Horizontale zymima valandomis, ne dienomis.
     grafikas = []
     try:
         ser = intra["Close"].dropna()
-        dienos = sorted({i.date() for i in ser.index})[-3:]
+        dienos = sorted({i.date() for i in ser.index})[-5:]
         ser = ser[[i.date() in set(dienos) for i in ser.index]]
         grafikas = [(i, float(v)) for i, v in ser.items()]
     except Exception:
@@ -1453,7 +1453,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                 f"text-anchor='end'>{cs_}{v:.{tiksl}f}</text>")
             v += z
 
-        # --- Horizontale: valandos ---
+        # --- Horizontale: valandos. Kai dienu daugiau, zymos retesnes,
+        # kitaip skaiciai susigrudzia ir tampa neiskaitomi.
+        dienu = len({ts.date() for ts, _ in taskai})
+        zymos_kas = 2 if dienu <= 3 else 3
         pr_h, pr_d = None, None
         for i, (ts, _) in enumerate(taskai):
             if ts.hour != pr_h:
@@ -1463,7 +1466,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                         f"<line x1='{X(i):.1f}' y1='{PAD_T}' x2='{X(i):.1f}' "
                         f"y2='{H - PAD_B}' stroke='{TEKST}' stroke-width='.8' "
                         f"stroke-dasharray='3 3' opacity='.4'/>")
-                if ts.hour % 2 == 0 or nauja:
+                if ts.hour % zymos_kas == 0 or nauja:
                     dalys.append(
                         f"<text x='{X(i):.1f}' y='{H - 5:.1f}' font-size='{FS}' "
                         f"fill='{TEKST}' text-anchor='middle'>{ts.hour:02d}</text>")
