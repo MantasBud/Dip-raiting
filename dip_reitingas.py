@@ -1405,18 +1405,26 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                    if refresh_seconds else "")
 
     def bars(d, s):
-        """Kainos grafikas: 5 min. kreive, valandu zymos, trendo linija."""
+        """Kainos grafikas. Visi stiliai — TIESIOGIAI elementuose.
+
+        Anksciau stiliai buvo CSS klasese, o joms dingus polyline buvo uzpildomas
+        juodai (SVG numatytoji fill reiksme yra black). Su tiesioginiais atributais
+        grafikas atrodo taip pat, net jei stiliu lentele pasikeistu.
+        """
         taskai = d.get("grafikas") or []
         if len(taskai) < 10:
-            return "<div class='nochart'>Grafikui nepakanka duomenų</div>"
+            return ""
 
-        W, H = 700, 190
-        PAD_L, PAD_R, PAD_T, PAD_B = 52, 10, 12, 20
+        W, H = 700, 170
+        PAD_L, PAD_R, PAD_T, PAD_B = 54, 8, 14, 18
+        LINIJA, PILKA, TEKST = "#2F7A57", "#E3E1DC", "#8A857E"
+        FS = 9                                   # toks pat kaip smulkus puslapio tekstas
+
         kainos = [v for _, v in taskai]
         lo, hi = min(kainos), max(kainos)
         if hi <= lo:
-            return "<div class='nochart'>Grafikui nepakanka duomenų</div>"
-        marza = (hi - lo) * 0.06
+            return ""
+        marza = (hi - lo) * 0.10
         lo, hi = lo - marza, hi + marza
         n = len(taskai)
 
@@ -1426,77 +1434,78 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         def Y(v):
             return PAD_T + (hi - v) * (H - PAD_T - PAD_B) / (hi - lo)
 
-        # --- Kainos asis: smulkus zingsnis, kad judesiai butu matomi ---
-        diapaz = hi - lo
-        zingsnis = 10 ** math.floor(math.log10(diapaz / 5)) if diapaz > 0 else 1
-        for mult in (1, 2, 2.5, 5, 10):
-            if diapaz / (zingsnis * mult) <= 6:
-                zingsnis *= mult
+        # --- Kainos asis: smulkus zingsnis ---
+        diap = hi - lo
+        z = 10 ** math.floor(math.log10(diap / 4)) if diap > 0 else 1
+        for m in (1, 2, 2.5, 5, 10):
+            if diap / (z * m) <= 5:
+                z *= m
                 break
         cs_ = d.get("cur_sym", "")
-        tikslumas = 2 if zingsnis >= 0.05 else 3
-        asis, v = [], math.ceil(lo / zingsnis) * zingsnis
+        tiksl = 2 if z >= 0.05 else 3
+        dalys, v = [], math.ceil(lo / z) * z
         while v <= hi:
-            asis.append(
-                f"<line x1='{PAD_L}' y1='{Y(v):.1f}' x2='{W - PAD_R}' y2='{Y(v):.1f}' "
-                f"class='grid'/>"
-                f"<text x='{PAD_L - 5}' y='{Y(v) + 3.5:.1f}' class='ax ayr'>"
-                f"{cs_}{v:.{tikslumas}f}</text>")
-            v += zingsnis
+            y = Y(v)
+            dalys.append(
+                f"<line x1='{PAD_L}' y1='{y:.1f}' x2='{W - PAD_R}' y2='{y:.1f}' "
+                f"stroke='{PILKA}' stroke-width='.8'/>"
+                f"<text x='{PAD_L - 5}' y='{y + 3:.1f}' font-size='{FS}' fill='{TEKST}' "
+                f"text-anchor='end'>{cs_}{v:.{tiksl}f}</text>")
+            v += z
 
-        # --- Horizontale: VALANDU zymos ---
-        val_zymos, pr_val, pr_dien = [], None, None
+        # --- Horizontale: valandos ---
+        pr_h, pr_d = None, None
         for i, (ts, _) in enumerate(taskai):
-            if ts.hour != pr_val:
-                nauja_diena = pr_dien is not None and ts.date() != pr_dien
-                if nauja_diena:
-                    val_zymos.append(
+            if ts.hour != pr_h:
+                nauja = pr_d is not None and ts.date() != pr_d
+                if nauja:
+                    dalys.append(
                         f"<line x1='{X(i):.1f}' y1='{PAD_T}' x2='{X(i):.1f}' "
-                        f"y2='{H - PAD_B}' class='daysep'/>")
-                if ts.hour % 2 == 0 or nauja_diena:
-                    val_zymos.append(
-                        f"<line x1='{X(i):.1f}' y1='{H - PAD_B}' x2='{X(i):.1f}' "
-                        f"y2='{H - PAD_B + 3}' class='tick'/>"
-                        f"<text x='{X(i):.1f}' y='{H - 6:.1f}' class='ax axc'>"
-                        f"{ts.hour:02d}</text>")
-                pr_val, pr_dien = ts.hour, ts.date()
+                        f"y2='{H - PAD_B}' stroke='{TEKST}' stroke-width='.8' "
+                        f"stroke-dasharray='3 3' opacity='.4'/>")
+                if ts.hour % 2 == 0 or nauja:
+                    dalys.append(
+                        f"<text x='{X(i):.1f}' y='{H - 5:.1f}' font-size='{FS}' "
+                        f"fill='{TEKST}' text-anchor='middle'>{ts.hour:02d}</text>")
+                pr_h, pr_d = ts.hour, ts.date()
 
-        # --- Kreive ir uzpildas po ja ---
+        # --- Kreive ---
         pts = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, (_, v) in enumerate(taskai))
-        uzpildas = (f"<polygon points='{PAD_L},{H - PAD_B} {pts} "
-                    f"{X(n - 1):.1f},{H - PAD_B}' class='fill'/>")
+        dalys.append(f"<polygon points='{PAD_L},{H - PAD_B} {pts} "
+                     f"{X(n - 1):.1f},{H - PAD_B}' fill='{LINIJA}' opacity='.06' "
+                     f"stroke='none'/>")
+        dalys.append(f"<polyline points='{pts}' fill='none' stroke='{LINIJA}' "
+                     f"stroke-width='1.3' stroke-linejoin='round'/>")
 
-        # --- Trendo linija (maziausiu kvadratu tiesė) ---
+        # --- Trendo linija ---
         xs = list(range(n))
-        vidx, vidy = sum(xs) / n, sum(kainos) / n
-        var = sum((x - vidx) ** 2 for x in xs)
-        nuolydis = (sum((x - vidx) * (y - vidy) for x, y in zip(xs, kainos)) / var
-                    if var else 0.0)
-        y0, y1 = vidy + nuolydis * (0 - vidx), vidy + nuolydis * (n - 1 - vidx)
-        kryptis = "up" if nuolydis > 0 else "dn"
-        pokytis = nuolydis * (n - 1) / kainos[0] * 100 if kainos[0] else 0
-        trend = (f"<line x1='{X(0):.1f}' y1='{Y(max(lo, min(hi, y0))):.1f}' "
-                 f"x2='{X(n - 1):.1f}' y2='{Y(max(lo, min(hi, y1))):.1f}' "
-                 f"class='trend {kryptis}'/>"
-                 f"<text x='{PAD_L + 4}' y='{PAD_T + 10}' class='ax tlab {kryptis}'>"
-                 f"trendas {pokytis:+.1f}%</text>")
+        mx, my = sum(xs) / n, sum(kainos) / n
+        var = sum((x - mx) ** 2 for x in xs)
+        k = (sum((x - mx) * (y - my) for x, y in zip(xs, kainos)) / var) if var else 0.0
+        y0, y1 = my + k * (0 - mx), my + k * (n - 1 - mx)
+        sp = "#2F7A57" if k > 0 else "#C25C55"
+        pok = k * (n - 1) / kainos[0] * 100 if kainos[0] else 0
+        dalys.append(
+            f"<line x1='{X(0):.1f}' y1='{Y(max(lo, min(hi, y0))):.1f}' "
+            f"x2='{X(n - 1):.1f}' y2='{Y(max(lo, min(hi, y1))):.1f}' stroke='{sp}' "
+            f"stroke-width='1.2' stroke-dasharray='6 4' opacity='.75'/>"
+            f"<text x='{PAD_L + 3}' y='{PAD_T + 8}' font-size='{FS}' fill='{sp}' "
+            f"font-weight='600'>trendas {pok:+.1f}%</text>")
 
         # --- Dabartine kaina ir stop ---
         dab = taskai[-1][1]
-        zenklai = (f"<line x1='{PAD_L}' y1='{Y(dab):.1f}' x2='{W - PAD_R}' "
-                   f"y2='{Y(dab):.1f}' class='nowline'/>"
-                   f"<circle cx='{X(n - 1):.1f}' cy='{Y(dab):.1f}' r='3.2' class='dot'/>")
+        dalys.append(f"<circle cx='{X(n - 1):.1f}' cy='{Y(dab):.1f}' r='3' "
+                     f"fill='{LINIJA}'/>")
         st = s.get("stop")
         if st and lo <= st <= hi:
-            zenklai += (f"<line x1='{PAD_L}' y1='{Y(st):.1f}' x2='{W - PAD_R}' "
-                        f"y2='{Y(st):.1f}' class='stopline'/>"
-                        f"<text x='{W - PAD_R - 4}' y='{Y(st) - 4:.1f}' "
-                        f"class='ax stoptxt aend'>stop</text>")
+            dalys.append(
+                f"<line x1='{PAD_L}' y1='{Y(st):.1f}' x2='{W - PAD_R}' y2='{Y(st):.1f}' "
+                f"stroke='#C25C55' stroke-width='1' stroke-dasharray='4 3' opacity='.8'/>"
+                f"<text x='{W - PAD_R - 2}' y='{Y(st) - 4:.1f}' font-size='{FS}' "
+                f"fill='#C25C55' text-anchor='end'>stop</text>")
 
-        return (f"<svg viewBox='0 0 {W} {H}' class='chart'>"
-                f"{''.join(asis)}{''.join(val_zymos)}{uzpildas}"
-                f"<polyline points='{pts}' class='line'/>"
-                f"{trend}{zenklai}</svg>")
+        return (f"<svg viewBox='0 0 {W} {H}' style='width:100%;height:auto;"
+                f"display:block;margin:6px 0 2px'>" + "".join(dalys) + "</svg>")
 
     # Rodom tik tuos, kurie praejo filtrus; jei tokiu nera — nieko
     rodomi = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
