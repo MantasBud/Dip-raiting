@@ -560,6 +560,47 @@ def main():
             print(f"  {sig:<6} {langas:>3} d. langas: teigiamu {teig:>5.1f}%, "
                   f"praeities rysys su ateitimi {ats:>+.3f}  -> {zyma}")
 
+    # ---------- I. TRUMPI PERIODAI: ar juos galima pagauti pradzioje? ----------
+    # Vartotojo hipoteze: signalai veikia trumpais periodais; jei pagautum
+    # periodo pradzia, likusia jo dali islostum. Tai teisinga TIK jei geros
+    # dienos grupuojasi. Cia tikrinam tiesiogiai, be gincu.
+    print("\n" + "=" * 100)
+    print("I. TRUMPI PERIODAI — ar praeitas langas prognozuoja kita")
+    print("Testuojama tavo taisykle: 'jei pastarosios N dienos buvo teigiamos,")
+    print("kitos N dienos irgi bus'. Veikia tik jei gretimu langu rysys > ~0.3.")
+    print("=" * 100)
+    print(f"{'SIGNALAS':<10} {'LANGAS':>7} {'LANGU':>7} {'TEIGIAMU':>9} "
+          f"{'RYSYS':>8} {'PO TEIG.':>10} {'PO NEIG.':>10} {'SKIRTUMAS':>11}")
+    print("-" * 100)
+    for sig in ["z20", "ibs", "rsi2"]:
+        if sig not in df:
+            continue
+        sel = df[df[sig] <= df[sig].quantile(0.2)]
+        if len(sel) < 1000:
+            continue
+        pagal_diena = sel.groupby("data")["r3_dm"].mean().sort_index()
+        for langas in (5, 10, 20):
+            # Nepersidengiantys langai — kitaip rysys butu dirbtinai auksts
+            grup = [pagal_diena.iloc[i:i + langas].mean()
+                    for i in range(0, len(pagal_diena) - langas + 1, langas)]
+            grup = [g for g in grup if g == g]
+            if len(grup) < 20:
+                continue
+            g = pd.Series(grup)
+            teig = float((g > 0).mean() * 100)
+            rysys = float(g.autocorr(lag=1)) if len(g) > 3 else float("nan")
+            # Tavo taisykle: kas buna PO teigiamo lango ir PO neigiamo
+            po_teig = g.shift(1) > 0
+            v_teig = float(g[po_teig].mean()) if po_teig.sum() >= 5 else float("nan")
+            v_neig = float(g[~po_teig.fillna(True)].mean()) if (~po_teig.fillna(True)).sum() >= 5 else float("nan")
+            skirt = v_teig - v_neig if v_teig == v_teig and v_neig == v_neig else float("nan")
+            print(f"{sig:<10} {langas:>6}d {len(g):>7} {teig:>8.0f}% {rysys:>+8.3f} "
+                  f"{v_teig:>+9.3f}% {v_neig:>+9.3f}% {skirt:>+10.3f}")
+    print("\n  RYSYS > +0.30 reikstu, kad periodai turi inercija ir juos galima gaudyti.")
+    print("  SKIRTUMAS rodo, kiek daugiau duotu prekyba tik po teigiamo lango.")
+    print("  Jei abu apie nuli — periodai keiciasi atsitiktinai, ir vidurkis yra tai,")
+    print("  ka realiai gauni, kad ir kaip juos dalintum.")
+
     # ---------- ADX / OBV (jei praejo koreliacijos vartus) ----------
     if tirti:
         print("\n" + "=" * 100)
