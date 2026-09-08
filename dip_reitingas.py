@@ -106,7 +106,8 @@ except Exception:                     # atsarginis variantas, jei failo nera
 
 # Kiek akciju rodoma puslapyje ir kiek ju tikrinama 5 min. duomenimis
 RODOMA = 5
-INTRADAY_KANDIDATU = 45      # tiek geriausiai atitinkanciu tikrinama detaliai
+INTRADAY_KANDIDATU = 60      # tiek geriausiai atitinkanciu tikrinama detaliai
+                             # (universas isaugo iki 266, tad ir kandidatu daugiau)
 MIN_APYVARTA_EUR = 5e6
 
 MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
