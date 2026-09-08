@@ -82,6 +82,22 @@ UNIVERSAS = {
         "VNA.DE", "URW.AS", "LEG.DE", "TEG.DE", "DIC.DE", "COL.MC", "MRL.MC",
         "IGD.MI", "GFC.PA", "ICAD.PA", "KOJAMO.HE", "SPS.MI",
     ],
+    # JAV akciju antriniai listingai Frankfurte (kotiruojami EUR). Judrumas
+    # didziausias visame sarase, bet: europietiska sesija daugiausia atkartoja
+    # tai, kas jau ivyko JAV; likvidumas plonesnis; naktiniai suoliai dazniau
+    # virsija stop atstuma. Modulis juos rodo su ispejimais, sprendzia vartotojas.
+    "JAV antriniai listingai": [
+        "NVD.DE", "AMD.DE", "APC.DE", "MSF.DE", "ABEA.DE", "AMZ.DE", "TL0.DE",
+        "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "TXN.DE", "AVG.DE",
+        "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
+        "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
+    ],
+    # Judrios Europos vidutines kapitalizacijos akcijos
+    "Judrios Europos": [
+        "YDX.DE", "PTX.DE", "EVT.DE", "NDX1.DE", "AFX.DE", "COK.DE", "B4B.DE",
+        "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
+        "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
+    ],
     "Logistika ir mazmena": [
         "DHL.DE", "DPW.DE", "GLPG.AS", "PST.MI", "BIM.PA", "ATO.PA", "SES.PA",
         "ZAL.DE", "HFG.DE", "TKWY.AS",
@@ -105,6 +121,8 @@ SEKTORIU_ETF = {
     "Keliones ir laisvalaikis": "EXV9.DE",
     "Nekilnojamas turtas ir statyba": "EXV8.DE",
     "Logistika ir mazmena": "EXH4.DE",
+    "JAV antriniai listingai": "EXV3.DE",     # daugiausia technologijos
+    "Judrios Europos": "EXV3.DE",
 }
 INDEKSAS = "EXSA.DE"
 
@@ -131,6 +149,22 @@ UNIVERSAS_US = {
     "Telekomai ir ziniasklaida": ["T", "VZ", "TMUS", "DIS", "NFLX", "CMCSA", "META"],
     "Keliones ir laisvalaikis": ["DAL", "UAL", "LUV", "AAL", "MAR", "HLT", "RCL",
                                  "CCL", "BKNG", "ABNB"],
+    # JAV akciju antriniai listingai Frankfurte (kotiruojami EUR). Judrumas
+    # didziausias visame sarase, bet: europietiska sesija daugiausia atkartoja
+    # tai, kas jau ivyko JAV; likvidumas plonesnis; naktiniai suoliai dazniau
+    # virsija stop atstuma. Modulis juos rodo su ispejimais, sprendzia vartotojas.
+    "JAV antriniai listingai": [
+        "NVD.DE", "AMD.DE", "APC.DE", "MSF.DE", "ABEA.DE", "AMZ.DE", "TL0.DE",
+        "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "TXN.DE", "AVG.DE",
+        "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
+        "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
+    ],
+    # Judrios Europos vidutines kapitalizacijos akcijos
+    "Judrios Europos": [
+        "YDX.DE", "PTX.DE", "EVT.DE", "NDX1.DE", "AFX.DE", "COK.DE", "B4B.DE",
+        "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
+        "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
+    ],
     "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
 }
 US_ETF = {
