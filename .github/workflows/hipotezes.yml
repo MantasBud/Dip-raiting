@@ -1,0 +1,55 @@
+name: Hipoteziu backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      metai:
+        description: "Kiek metu istorijos"
+        required: false
+        default: "10"
+      sanaudos_eur:
+        description: "Sanaudos EURAIS visam ciklui"
+        required: false
+        default: "5"
+
+jobs:
+  hipotezes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          ls -la
+          test -f backtest_hipotezes.py || (echo "KLAIDA: backtest_hipotezes.py nerastas" && exit 1)
+          test -f universas.py || (echo "KLAIDA: universas.py nerastas" && exit 1)
+
+      - name: Europos universas
+        env:
+          M: ${{ github.event.inputs.metai || '10' }}
+          S: ${{ github.event.inputs.sanaudos_eur || '5' }}
+        run: |
+          python backtest_hipotezes.py --rinka eu --metai "$M" --sanaudos-eur "$S" \
+            | tee hipotezes_eu.txt
+
+      - name: JAV universas (nepriklausomas patikrinimas)
+        if: always()
+        env:
+          M: ${{ github.event.inputs.metai || '10' }}
+          S: ${{ github.event.inputs.sanaudos_eur || '5' }}
+        run: |
+          python backtest_hipotezes.py --rinka us --metai "$M" --sanaudos-eur "$S" \
+            | tee hipotezes_us.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hipoteziu-rezultatai
+          path: |
+            hipotezes_eu.txt
+            hipotezes_us.txt
+          if-no-files-found: ignore
