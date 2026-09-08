@@ -1318,7 +1318,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                 f"<span class='mvc {'up' if d['day_chg'] > 0 else 'dn'}'>{d['day_chg']:+.1f}%</span>"
                 f"<span class='mvi'>IBS {(d.get('ibs') or 0):.2f}</span>"
                 f"<span class='mvs'>{s.get('setup','')}</span>"
-                f"<span class='mvb'>{s['score']:.0f}</span></div>"
+                f"</div>"
                 for d, s in sel)
 
         risers = sorted([(d, s) for d, s in rows
@@ -1508,8 +1508,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         cards.append(f"""
         <details class="card c{s.get('spalva','gelt')}" {'open' if i == 1 else ''}>
           <summary><span class="rk">{i}</span><span class="tk">{d['tag']}</span>
-            <span class="bar"><i style="width:{s['score']:.0f}%"></i></span>
-            <span class="sc">{s['score']:.0f}</span>
+            <span class="px">{cs}{d['price']:.2f}</span>
             <span class="fr f{s.get('spalva','gelt')}">{s.get('fraze','')}</span></summary>
           <div class="in">
             <div class="nm">{d['name']} · {d['sym']} · {s.get('setup','')}</div>
@@ -1591,7 +1590,9 @@ summary::-webkit-details-marker{{display:none}}
 .tk{{font-weight:600;font-size:15px;min-width:56px;font-variant-numeric:tabular-nums}}
 .bar{{flex:1;height:5px;background:#DFE5EE;border-radius:3px;overflow:hidden}}
 .bar i{{display:block;height:100%;background:var(--ink)}}
-.sc{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
+.px{{font-size:12.5px;color:var(--ink2);
+font-variant-numeric:tabular-nums;margin-left:auto;padding-right:10px}}
+.sc_nenaudojamas{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
 .gr{{width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:12px;
 display:flex;align-items:center;justify-content:center}}
 .gA{{background:var(--up)}}.gB{{background:#3F7FA8}}.gC{{background:var(--warn)}}.gD{{background:var(--stop)}}
