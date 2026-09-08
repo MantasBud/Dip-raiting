@@ -126,6 +126,56 @@ def adx(h, l, c, n=14):
     return dx.ewm(alpha=1 / n, adjust=False).mean()
 
 
+def sablonai(t, c, h, l, v):
+    """Grafiku sablonai kaip TAISYKLES, ne kaip vaizdas.
+
+    Slenksciai uzrasyti pries matavima (2026-09) ir nederinami. Kiekvienas
+    sablonas fiksuojamas D dienos uzdarymo metu is UZBAIGTU baru — jokio
+    zvilgsnio i ateiti. Butent cia zlunga dauguma "sablonu": ekrane juos
+    matai PO to, kai jie jau pasitvirtino, o realiu laiku tuo pat metu
+    atrodo ir tie, kurie prasilauzia zemyn.
+    """
+    out = {}
+
+    # 1. DVIGUBAS DUGNAS: du minimumai per 1% vienas nuo kito, tarp ju
+    #    atsokimas bent 3%, antrasis dugnas per pastarasias 3 dienas.
+    lo20 = l.rolling(20)
+    min20 = lo20.min()
+    dugnas1 = l.shift(5).rolling(15).min()          # ankstesnis dugnas
+    atsokimas = h.rolling(10).max() / min20 - 1
+    out["dvigubas_dugnas"] = (
+        ((l - dugnas1).abs() / dugnas1 <= 0.01)
+        & (atsokimas >= 0.03)
+        & (l <= min20 * 1.005)
+    ).astype(float)
+
+    # 2. INSIDE DAY: dienos diapazonas telpa i vakarykscio ribas.
+    #    Pramusimas tikrinamas kaip atskiras ivykis kita diena.
+    out["inside_day"] = ((h <= h.shift(1)) & (l >= l.shift(1))).astype(float)
+
+    # 3. TRIJU DIENU ATSITRAUKIMAS KYLANCIAME TRENDE:
+    #    kaina virs SMA50, trys raudonos dienos is eiles, bet virs SMA20 * 0.98
+    sma20 = c.rolling(20).mean()
+    sma50 = c.rolling(50).mean()
+    raud3 = ((c < c.shift(1)) & (c.shift(1) < c.shift(2))
+             & (c.shift(2) < c.shift(3)))
+    out["trys_raudonos_trende"] = (
+        raud3 & (c > sma50) & (c >= sma20 * 0.98)
+    ).astype(float)
+
+    # 4. HIGHER LOW: kiekvienas is triju paskutiniu dugnu auksciau uz ankstesni
+    d1 = l.rolling(5).min()
+    d2 = l.shift(5).rolling(5).min()
+    d3 = l.shift(10).rolling(5).min()
+    out["auksteja_dugnai"] = ((d1 > d2) & (d2 > d3)).astype(float)
+
+    # 5. NR7: siandienos diapazonas siauriausias per 7 dienas (suspaudimas)
+    rng = h - l
+    out["nr7"] = (rng <= rng.rolling(7).min()).astype(float)
+
+    return out
+
+
 def paruosk(d):
     c, h, l, v = d["Close"], d["High"], d["Low"], d["Volume"]
     pc = c.shift(1)
@@ -153,6 +203,9 @@ def paruosk(d):
     tr = pd.concat([h - l, (h - pc).abs(), (l - pc).abs()], axis=1).max(axis=1)
     t["atr"] = tr.ewm(alpha=1 / 14, adjust=False).mean() / c * 100
     t["apyv"] = (c * v).rolling(20).median()
+
+    for pav, ser in sablonai(t, c, h, l, v).items():
+        t[pav] = ser
 
     # Busimi barai — salyginiams isejimams
     for n in range(1, 11):
@@ -422,6 +475,56 @@ def main():
         if b:
             rez_c.append((lab, f, b))
 
+    # ---------- H. GRAFIKU SABLONAI ----------
+    print("\n" + "=" * 100)
+    print("H. GRAFIKU SABLONAI — kaip taisykles, ne kaip vaizdas")
+    print("Pirma daznis: sablonas, suveikiantis daugiau nei 15% laiko, nera ivykis.")
+    print("=" * 100)
+    SABL = ["dvigubas_dugnas", "inside_day", "trys_raudonos_trende",
+            "auksteja_dugnai", "nr7"]
+    esami = [s for s in SABL if s in df]
+    print(f"{'SABLONAS':<26} {'DAZNIS':>8} {'N':>7} {'DEMEAN. r3':>12} "
+          f"{'95% INTERVALAS':>22}")
+    print("-" * 100)
+    rez_h = []
+    for s in esami:
+        dazn = float(df[s].mean() * 100)
+        sub = df[df[s] > 0]
+        r, n = ivertink(sub, "r3_dm")
+        if r is None:
+            print(f"{s:<26} {dazn:>7.1f}% {n:>7}   per maza imtis")
+            continue
+        ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}"
+        zyma = "  (per daznas — tai busena)" if dazn > 15 else ""
+        print(f"{s:<26} {dazn:>7.1f}% {r['n']:>7} {r['mean']:>+11.3f}% {ci:>22}{zyma}")
+        rez_h.append((s, df[s] > 0, r))
+
+    # Ar sablonai duoda ka nors NAUJO, ar dubliuoja patvirtintus signalus
+    print("\n  Koreliacija su patvirtintais signalais (jei >0.6 — tas pats kitu vardu):")
+    print(f"  {'':<24}" + "".join(f"{b:>12}" for b in ("z20", "ibs", "vwap_d")))
+    for s in esami:
+        eil = f"  {s:<24}"
+        for b in ("z20", "ibs", "vwap_d"):
+            if b in df:
+                r_ = df[[s, b]].corr().iloc[0, 1]
+                eil += f"{r_:>12.3f}"
+            else:
+                eil += f"{'-':>12}"
+        print(eil)
+
+    # Sablonas + patvirtintas signalas kartu
+    print("\n  Sablonas KARTU su zemu IBS (ar prideda prie to, ka jau turim):")
+    for s in esami:
+        sub = df[(df[s] > 0) & (df["ibs"] <= IBS_RIBA)]
+        r, n = ivertink(sub, "r3_dm")
+        bazine, _ = ivertink(df[df["ibs"] <= IBS_RIBA], "r3_dm")
+        if r and bazine:
+            skirt = r["mean"] - bazine["mean"]
+            print(f"    {s:<24} n={r['n']:>5} {r['mean']:>+7.3f}% "
+                  f"(vien IBS: {bazine['mean']:+.3f}%, skirtumas {skirt:+.3f})")
+        else:
+            print(f"    {s:<24} n={n:>5}   per maza imtis")
+
     # ---------- G. ZALIAVU SEKTORIAI ----------
     print("\n" + "=" * 100)
     print("G. ZALIAVU SEKTORIAI — literatura sako, kad IBS ten silpnesnis")
@@ -489,6 +592,7 @@ def main():
     print("\n" + "=" * 100)
     print("PATVIRTINIMAS 2-OJE PUSEJE — tik tai, kas 1-oje islaike BH pataisa")
     print("=" * 100)
+    rez_b = rez_b + [(s, k, r) for s, k, r in rez_h]
     if rez_b:
         pv = np.array([r["p_two"] for _, _, r in rez_b])
         ok = bh(pv)
