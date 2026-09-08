@@ -105,13 +105,18 @@ UNIVERSAS = {
     # AKCIJOSE; zaliavose trendai stipresni, o grizimas silpnesnis, ir to
     # netikrinom. Zurnale jos matuojamos atskirai — jei neveiks, isimsim.
     "Zaliavos": [
-        # Patikrinti Yahoo tikeriai (2026-09):
+        # Visi tikeriai patikrinti (2026-09). Xetra, EUR.
         "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
-        "XAD6.DE",    # Xtrackers Physical Silver ETC (EUR)
-        "8PSB.DE",    # Invesco Physical Silver ETC
+        "VZLC.DE",    # WisdomTree fizinis sidabras, ~2.31 mlrd EUR
+        "XAD6.DE",    # Xtrackers fizinis sidabras (alternatyva)
+        "8PSB.DE",    # Invesco fizinis sidabras (alternatyva)
+        "VZLA.DE",    # WisdomTree fizine platina, ~452 mln EUR
+        "VZLB.DE",    # WisdomTree fizinis paladis
+        "00XL.DE",    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
         "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
-        # Nepatikrinti tikeriai cia neidedami: jei ju nera, Yahoo tiesiog
-        # negrazina duomenu, o modulis irasytu i "nepavyko" sarasa.
+        # MEDIENOS: Europoje eurais kotiruojamo medienos ETC nera. Artimiausia
+        # alternatyva butu popieriaus ir medienos bendroves (UPM.HE, STERV.HE),
+        # kurios jau yra Medziagu sektoriuje.
     ],
     "Logistika ir mazmena": [
         "DHL.DE", "DPW.DE", "GLPG.AS", "PST.MI", "BIM.PA", "ATO.PA", "SES.PA",
@@ -190,13 +195,18 @@ UNIVERSAS_US = {
     # AKCIJOSE; zaliavose trendai stipresni, o grizimas silpnesnis, ir to
     # netikrinom. Zurnale jos matuojamos atskirai — jei neveiks, isimsim.
     "Zaliavos": [
-        # Patikrinti Yahoo tikeriai (2026-09):
+        # Visi tikeriai patikrinti (2026-09). Xetra, EUR.
         "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
-        "XAD6.DE",    # Xtrackers Physical Silver ETC (EUR)
-        "8PSB.DE",    # Invesco Physical Silver ETC
+        "VZLC.DE",    # WisdomTree fizinis sidabras, ~2.31 mlrd EUR
+        "XAD6.DE",    # Xtrackers fizinis sidabras (alternatyva)
+        "8PSB.DE",    # Invesco fizinis sidabras (alternatyva)
+        "VZLA.DE",    # WisdomTree fizine platina, ~452 mln EUR
+        "VZLB.DE",    # WisdomTree fizinis paladis
+        "00XL.DE",    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
         "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
-        # Nepatikrinti tikeriai cia neidedami: jei ju nera, Yahoo tiesiog
-        # negrazina duomenu, o modulis irasytu i "nepavyko" sarasa.
+        # MEDIENOS: Europoje eurais kotiruojamo medienos ETC nera. Artimiausia
+        # alternatyva butu popieriaus ir medienos bendroves (UPM.HE, STERV.HE),
+        # kurios jau yra Medziagu sektoriuje.
     ],
     "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
 }
