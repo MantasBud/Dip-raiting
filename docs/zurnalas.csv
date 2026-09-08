@@ -119,3 +119,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:30,RMS.PA,RMS,31.8,D,Netinkama,ne,0.638,neutral,kita,2.86,1458.00,1435.04,1487.16,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:30,BESI.AS,BESI,69.3,B,Neapibrėžtas kritimas,ne,0.000,neutral,puslaidininkiai,4.67,190.70,185.80,194.51,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:30,CAP.PA,CAP,41.2,D,Kritimas sustojo,ne,0.667,neutral,IT paslaugos,3.41,105.40,103.42,107.51,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:47,UCB.BR,UCB,58.3,C,Ramus atsitraukimas,ne,0.292,neutral,kita,3.07,208.40,204.89,212.57,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:47,RYA.IR,RYA,50.6,C,Ramus atsitraukimas,ne,0.500,neutral,kita,2.87,22.83,22.47,23.29,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,14:47,FRE.DE,FRE,29.0,D,Atsigavimas po kritimo,ne,0.679,neutral,kita,2.08,44.78,43.34,45.68,atviras,,,,,
