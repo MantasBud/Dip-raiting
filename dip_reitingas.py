@@ -1716,12 +1716,16 @@ def journal_stats(entries):
         g = (e.get("scenarijus") or "").strip() or f"(sena pakopa {e.get('pakopa', '?')})"
         b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0, "pelnai": []})
         b["n"] += 1
+        # Salyginio isejimo rezultatai: "salyga (IBS)" = isejimas ivykus salygai,
+        # "laikas" = pasibaige laikymo langas, "stop" = apsauginis stop.
+        # Be sio atnaujinimo nauji irasai butu skaiciuojami kaip "kita" ir
+        # statistika rodytu nuli.
         r = e.get("rezultatas", "")
-        if r in ("slenkantis stop", "uzdaryta pabaigoje"):
+        if r in ("salyga (IBS)", "slenkantis stop", "uzdaryta pabaigoje"):
             b["tikslas"] += 1
         elif r == "stop":
             b["stop"] += 1
-        else:
+        else:                       # "laikas", "be rezultato" — nei viena, nei kita
             b["kita"] += 1
         try:
             b["pelnai"].append(float(e.get("pelnas_pct", "")))
