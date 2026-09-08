@@ -98,6 +98,21 @@ UNIVERSAS = {
         "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
         "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
     ],
+    # Zaliavos — fiziniais metalais padengti ETC ir naftos instrumentai, visi
+    # Xetra, EUR. Jie juda pagal palukanu normas ir geopolitika, t. y. pagal
+    # kitus veiksnius nei akcijos, todel yra vienintele nekoreliuojanti dalis
+    # sarase. DEMESIO: musu patvirtinti signalai matuoja grizima prie vidurkio
+    # AKCIJOSE; zaliavose trendai stipresni, o grizimas silpnesnis, ir to
+    # netikrinom. Zurnale jos matuojamos atskirai — jei neveiks, isimsim.
+    "Zaliavos": [
+        # Patikrinti Yahoo tikeriai (2026-09):
+        "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
+        "XAD6.DE",    # Xtrackers Physical Silver ETC (EUR)
+        "8PSB.DE",    # Invesco Physical Silver ETC
+        "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
+        # Nepatikrinti tikeriai cia neidedami: jei ju nera, Yahoo tiesiog
+        # negrazina duomenu, o modulis irasytu i "nepavyko" sarasa.
+    ],
     "Logistika ir mazmena": [
         "DHL.DE", "DPW.DE", "GLPG.AS", "PST.MI", "BIM.PA", "ATO.PA", "SES.PA",
         "ZAL.DE", "HFG.DE", "TKWY.AS",
@@ -123,6 +138,9 @@ SEKTORIU_ETF = {
     "Logistika ir mazmena": "EXH4.DE",
     "JAV antriniai listingai": "EXV3.DE",     # daugiausia technologijos
     "Judrios Europos": "EXV3.DE",
+    # Zaliavos savo sektoriaus ETF neturi — filtrui naudojam pati auksa,
+    # nes visi sio sektoriaus instrumentai juda panasiai
+    "Zaliavos": "4GLD.DE",
 }
 INDEKSAS = "EXSA.DE"
 
@@ -164,6 +182,21 @@ UNIVERSAS_US = {
         "YDX.DE", "PTX.DE", "EVT.DE", "NDX1.DE", "AFX.DE", "COK.DE", "B4B.DE",
         "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
         "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
+    ],
+    # Zaliavos — fiziniais metalais padengti ETC ir naftos instrumentai, visi
+    # Xetra, EUR. Jie juda pagal palukanu normas ir geopolitika, t. y. pagal
+    # kitus veiksnius nei akcijos, todel yra vienintele nekoreliuojanti dalis
+    # sarase. DEMESIO: musu patvirtinti signalai matuoja grizima prie vidurkio
+    # AKCIJOSE; zaliavose trendai stipresni, o grizimas silpnesnis, ir to
+    # netikrinom. Zurnale jos matuojamos atskirai — jei neveiks, isimsim.
+    "Zaliavos": [
+        # Patikrinti Yahoo tikeriai (2026-09):
+        "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
+        "XAD6.DE",    # Xtrackers Physical Silver ETC (EUR)
+        "8PSB.DE",    # Invesco Physical Silver ETC
+        "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
+        # Nepatikrinti tikeriai cia neidedami: jei ju nera, Yahoo tiesiog
+        # negrazina duomenu, o modulis irasytu i "nepavyko" sarasa.
     ],
     "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
 }
