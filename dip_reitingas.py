@@ -1053,6 +1053,16 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     v5 = intraday_vol(today)
     mom = short_momentum(today)
     zbal = price_zscore(intra["Close"], price)
+
+    # Savaites grafikui: 5 min. barai suvedami i valandinius, paskutines 5 sesijos
+    grafikas = []
+    try:
+        val = intra["Close"].resample("60min").last().dropna()
+        dienos = sorted({i.date() for i in val.index})[-5:]
+        val = val[[i.date() in set(dienos) for i in val.index]]
+        grafikas = [(i, float(v)) for i, v in val.items()]
+    except Exception:
+        pass
     rsi2_v = rsi2_daily(daily["Close"])
 
     # IBS ir nakties tarpas — rodomi kaip informacija. I bala neijungti, kol
@@ -1075,7 +1085,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
-                ibs=ibs, gap_ret=gap_ret, zscore=zbal, rsi2=rsi2_v,
+                ibs=ibs, gap_ret=gap_ret, zscore=zbal, rsi2=rsi2_v, grafikas=grafikas,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -1393,12 +1403,68 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     refresh_tag = (f'<meta http-equiv="refresh" content="{refresh_seconds}">'
                    if refresh_seconds else "")
 
-    def bars(s):
-        return "".join(
-            f"<div class='br'><span>{lbl}</span>"
-            f"<i><b style='width:{s['parts'][k]:.0f}%'></b></i>"
-            f"<u>{s['parts'][k]:.0f}</u></div>"
-            for k, lbl, _ in CRITERIA)
+    def bars(d, s):
+        """Savaites kainos grafikas: valandiniai uzdarymai, 5 sesijos.
+
+        Pakeite kriteriju balu juostas — jos rode modulio vidines reiksmes,
+        kurios nieko nesako apie pacia akcija.
+        """
+        taskai = d.get("grafikas") or []
+        if len(taskai) < 6:
+            return "<div class='nochart'>Grafikui nepakanka duomenų</div>"
+
+        W, H, PAD_L, PAD_R, PAD_T, PAD_B = 640, 150, 46, 8, 10, 16
+        kainos = [v for _, v in taskai]
+        lo, hi = min(kainos), max(kainos)
+        if hi <= lo:
+            return "<div class='nochart'>Grafikui nepakanka duomenų</div>"
+        marza = (hi - lo) * 0.08
+        lo, hi = lo - marza, hi + marza
+
+        n = len(taskai)
+        def X(i):
+            return PAD_L + i * (W - PAD_L - PAD_R) / max(1, n - 1)
+        def Y(v):
+            return PAD_T + (hi - v) * (H - PAD_T - PAD_B) / (hi - lo)
+
+        linija = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, (_, v) in enumerate(taskai))
+
+        # Dienu ribos ir zymos
+        ribos, zymos = [], []
+        pr = None
+        for i, (ts, _) in enumerate(taskai):
+            dd = ts.date()
+            if pr is not None and dd != pr:
+                ribos.append(f"<line x1='{X(i):.1f}' y1='{PAD_T}' x2='{X(i):.1f}' "
+                             f"y2='{H - PAD_B}' class='sep'/>")
+                zymos.append(f"<text x='{X(i) + 3:.1f}' y='{H - 1}' class='ax'>"
+                             f"{dd.strftime('%m-%d')}</text>")
+            pr = dd
+        if taskai:
+            zymos.insert(0, f"<text x='{PAD_L + 2}' y='{H - 1}' class='ax'>"
+                            f"{taskai[0][0].date().strftime('%m-%d')}</text>")
+
+        # Kainos asis
+        cs_ = d.get("cur_sym", "")
+        asis = "".join(
+            f"<line x1='{PAD_L}' y1='{Y(v):.1f}' x2='{W - PAD_R}' y2='{Y(v):.1f}' "
+            f"class='grid'/><text x='2' y='{Y(v) + 3:.1f}' class='ax'>{cs_}{v:.2f}</text>"
+            for v in (hi - marza, (hi + lo) / 2, lo + marza))
+
+        # Dabartine kaina ir stop
+        dab = taskai[-1][1]
+        zenklai = (f"<circle cx='{X(n - 1):.1f}' cy='{Y(dab):.1f}' r='3' class='dot'/>")
+        st = s.get("stop")
+        if st and lo <= st <= hi:
+            zenklai += (f"<line x1='{PAD_L}' y1='{Y(st):.1f}' x2='{W - PAD_R}' "
+                        f"y2='{Y(st):.1f}' class='stopline'/>"
+                        f"<text x='{W - PAD_R - 30}' y='{Y(st) - 3:.1f}' "
+                        f"class='ax stoptxt'>stop</text>")
+
+        return (f"<svg viewBox='0 0 {W} {H}' class='chart' preserveAspectRatio='none'>"
+                f"{asis}{''.join(ribos)}"
+                f"<polyline points='{linija}' class='line'/>"
+                f"{zenklai}{''.join(zymos)}</svg>")
 
     # Rodom tik tuos, kurie praejo filtrus; jei tokiu nera — nieko
     rodomi = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
@@ -1429,7 +1495,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
               <div><span>Pelnas ties {TARGET_PCT}%</span><b>{cs}{s['net']:.0f}</b></div>
               <div><span>Rizikuoji</span><b>{cs}{s['real_risk']:.0f}</b></div></div>
-            {bars(s)}
+            {bars(d, s)}
             <ul class="fl">{fl}</ul>
           </div>
         </details>""")
