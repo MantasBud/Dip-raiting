@@ -1495,11 +1495,13 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         eil = []
         for antr, salt, val, atsp in n[:3]:
             laikas = (f"prieš {val:.0f} val." if val is not None and val < 48
-                      else ("prieš {:.0f} d.".format(val / 24) if val else ""))
-            meta = " · ".join(x for x in (salt, laikas) if x)
-            eil.append(f"<div class='nw n{atsp}'><div class='nt'>{antr}</div>"
-                       f"<div class='nm'>{meta}</div></div>")
-        return f"<div class='news'>{''.join(eil)}</div>"
+                      else ("prieš {:.0f} d.".format(val / 24) if val else "—"))
+            zenklas = {"teig": "+", "neig": "−", "neutr": "·"}[atsp]
+            eil.append(f"<tr class='n{atsp}'><td class='nz'>{zenklas}</td>"
+                       f"<td class='nt'>{antr}</td>"
+                       f"<td class='ns'>{salt or '—'}</td>"
+                       f"<td class='nl'>{laikas}</td></tr>")
+        return f"<table class='news'>{''.join(eil)}</table>"
 
     def bars(d, s):
         """Kainos grafikas. Visi stiliai — TIESIOGIAI elementuose.
@@ -1651,13 +1653,19 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {refresh_tag}
 <title>Dip reitingas</title><style>
-.news{{margin:8px 0 4px}}
-.nw{{border-left:3px solid #D9D6D0;background:#FAF9F7;border-radius:0 5px 5px 0;
-padding:7px 10px;margin-bottom:5px}}
-.nw.nteig{{border-left-color:#4C9A78;background:#EEF7F2}}
-.nw.nneig{{border-left-color:#C25C55;background:#FBF0EF}}
-.nw .nt{{font-size:12px;line-height:1.4}}
-.nw .nm{{font-size:10px;color:#8A857E;margin-top:3px}}
+.news{{width:100%;border-collapse:collapse;background:#fff;margin:8px 0 4px;
+border:1px solid var(--line);border-radius:6px;overflow:hidden}}
+.news td{{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top;
+background:#fff}}
+.news tr:first-child td{{border-top:none}}
+.news .nz{{width:14px;font-weight:700;font-size:13px;text-align:center;
+color:var(--ink2)}}
+.news tr.nteig .nz{{color:#2F7A57}}
+.news tr.nneig .nz{{color:#C25C55}}
+.news .nt{{font-size:12px;line-height:1.4}}
+.news .ns{{font-size:10.5px;color:var(--ink2);white-space:nowrap;width:70px}}
+.news .nl{{font-size:10.5px;color:var(--ink2);white-space:nowrap;width:80px;
+text-align:right}}
 :root{{--ink:#16233A;--ink2:#54637E;--line:#C9D2E0;--bg:#E9EDF3;--card:#FDFDFB;--up:#1F7A5C;--warn:#B26B00;--stop:#A8322D}}
 *{{box-sizing:border-box}}body{{margin:0;padding:22px 16px 50px;background:var(--bg);color:var(--ink);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:760px;margin:0 auto}}
