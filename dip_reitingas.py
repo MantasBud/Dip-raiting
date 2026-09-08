@@ -1531,8 +1531,6 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {rally_html}
 {movers_html}
 {stats_html}
-<div class="listhead">Atitinka tavo taisykles ({len(cards)} iš {len(rows)})</div>
-<div class="listnote">Praėjo kietuosius filtrus. Eilė pagal apyvartą.</div>
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
