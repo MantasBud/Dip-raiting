@@ -1609,8 +1609,24 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         return (f"<svg viewBox='0 0 {W} {H}' style='width:100%;height:auto;"
                 f"display:block;margin:6px 0 2px'>" + "".join(dalys) + "</svg>")
 
-    # Rodom tik tuos, kurie praejo filtrus; jei tokiu nera — nieko
-    rodomi = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
+    # Rodom praejusias filtrus. Jei tokiu nera — rodom artimiausias su aiskia
+    # zyma, kodel netinka. Anksciau puslapis likdavo tuscias be paaiskinimo,
+    # ir nesimate, ar tai teisingas verdiktas, ar modulio gedimas.
+    tinkami = [(d, s) for d, s in rows if s.get("tradeable")]
+    rodomi = tinkami[:RODOMA]
+    tik_informacijai = False
+    if not rodomi:
+        tik_informacijai = True
+        # Artimiausi: be blokuojanciu zymu, tada pagal apyvarta
+        be_kliuciu = [(d, s) for d, s in rows if not s.get("blocking")]
+        rodomi = (be_kliuciu or rows)[:RODOMA]
+
+    info_html = ""
+    if tik_informacijai and rodomi:
+        info_html = ("<div class='rally flat'><div class='rh'>Šiandien nė viena "
+                     "nepraėjo filtrų</div><div class='rb'>Žemiau — artimiausios "
+                     "pagal apyvartą, tik informacijai. Kiekvienos kortelėje "
+                     "nurodyta, kas netinka.</div></div>")
     # Naujienos siunciamos TIK rodomoms pozicijoms — penkios uzklausos, ne 270
     for d, _ in rodomi:
         if "naujienos" not in d:
@@ -1763,6 +1779,7 @@ font-variant-numeric:tabular-nums}}
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {problems_html}
 {verdict_html}
+{info_html}
 {rally_html}
 {movers_html}
 {stats_html}
@@ -1838,9 +1855,23 @@ def resolve_entry(entry, intraday_all):
                     return entry
                 d_rng = hi - lo
                 ibs_now = (cl - lo) / d_rng if d_rng > 0 else 0.5
-                if ibs_now >= EXIT_IBS and cl > entry_px:
+                # RSI(2) is dienos uzdarymu iki sio baro imtinai. Anksciau zurnalas
+                # tikrino TIK IBS, nors kortele zada "RSI(2) virs 70 ARBA IBS virs
+                # 0.8" — live testas matavo kita taisykle, nei rodo puslapis.
+                rsi_now = None
+                try:
+                    dien = intra["Close"][intra.index <= ts].resample("1D").last().dropna()
+                    if len(dien) >= 4:
+                        rsi_now = rsi2_daily(dien)
+                except Exception:
+                    pass
+                salyga = (ibs_now >= EXIT_IBS
+                          or (rsi_now is not None and rsi_now >= EXIT_RSI))
+                if salyga and cl > entry_px:
                     pnl = (cl - entry_px) / entry_px * 100
-                    entry.update(busena="baigta", rezultatas="salyga (IBS)",
+                    entry.update(busena="baigta",
+                                 rezultatas=("salyga (RSI)" if (rsi_now is not None
+                                             and rsi_now >= EXIT_RSI) else "salyga (IBS)"),
                                  baigties_laikas=str(ts), baigties_kaina=f"{cl:.2f}",
                                  pelnas_pct=f"{pnl:+.2f}",
                                  virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
@@ -1957,7 +1988,7 @@ def journal_stats(entries):
         # Be sio atnaujinimo nauji irasai butu skaiciuojami kaip "kita" ir
         # statistika rodytu nuli.
         r = e.get("rezultatas", "")
-        if r in ("salyga (IBS)", "slenkantis stop", "uzdaryta pabaigoje"):
+        if r in ("salyga (IBS)", "salyga (RSI)", "slenkantis stop", "uzdaryta pabaigoje"):
             b["tikslas"] += 1
         elif r == "stop":
             b["stop"] += 1
