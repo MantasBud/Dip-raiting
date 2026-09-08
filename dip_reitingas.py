@@ -1108,7 +1108,10 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
 
     return dict(tag=tag, sym=sym, name=name, price=price, dayHigh=high, dayLow=low,
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
-                sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
+                # ETC (zaliavos) ataskaitu neturi — uzklausos joms nesiunciam
+                sma20=sma20, sma50=sma50,
+                earnings=(False if SECTORS.get(sym) == "Zaliavos"
+                          else earnings_soon(yf, sym)),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
                 ibs=ibs, gap_ret=gap_ret, zscore=zbal, rsi2=rsi2_v, grafikas=grafikas,
