@@ -2089,19 +2089,19 @@
    [
     "Salesforce Stock Gains 34% in a Month: Time to Hold or Book Profits?",
     "Zacks",
-    6.268665228888889,
+    6.483774886388889,
     "neutr"
    ],
    [
     "Workday's Q2 Beat and AI Gains Raise the Stakes for Fiscal 2028 Growth",
     "Zacks",
-    28.335331902222222,
+    28.550441561944446,
     "teig"
    ],
    [
     "Is Workday a Buy as AI Growth Rises but Valuation Sends Mixed Signals?",
     "Zacks",
-    28.368665238333335,
+    28.58377489777778,
     "teig"
    ]
   ],
@@ -4247,19 +4247,19 @@
    [
     "Goldman Sachs Adds 3 European Stocks to Conviction List",
     "BeInCrypto",
-    155.70843343361113,
+    155.923536705,
     "neutr"
    ],
    [
     "Goldman Sachs refreshes conviction lists on both sides of the Atlantic",
     "Investing.com",
-    169.92648899583332,
+    170.14159226805558,
     "neutr"
    ],
    [
     "Block Pushes Square Further Into Restaurants: Can Growth Accelerate?",
     "Zacks",
-    290.3020445536111,
+    290.5171478258333,
     "teig"
    ]
   ],
@@ -6401,19 +6401,19 @@
    [
     "Is UBER Stock a Buy as It Closes in on Delivery Hero Buyout?",
     "Zacks",
-    28.335427926944444,
+    28.55052580111111,
     "neutr"
    ],
    [
     "Delivery Hero board backs Uber’s $15B takeover bid",
     "TechCrunch",
-    143.94237237805555,
+    144.15747025305555,
     "neutr"
    ],
    [
     "Alibaba raises $10 billion in Hong Kong share sale for AI",
     "Quartz",
-    367.8634834927778,
+    368.0785813675,
     "neutr"
    ]
   ],
@@ -8555,19 +8555,19 @@
    [
     "European Chip Stocks Rise, Buoyed By Asian Peers",
     "The Wall Street Journal",
-    34.53550750944444,
+    34.75056123805556,
     "neutr"
    ],
    [
     "Is BE Semiconductor Industries (BESIY) Stock Outpacing Its Computer and Technology Peers This Year?",
     "Zacks",
-    125.70078529361112,
+    125.91583902222223,
     "neutr"
    ],
    [
     "Chip Stocks Driven Higher by Nvidia Results and Guidance",
     "Barrons.com",
-    297.9060630741667,
+    298.1211168025,
     "neutr"
    ]
   ],
@@ -10709,19 +10709,19 @@
    [
     "Kering Expands Generation Award to India",
     "WWD",
-    33.18975151194444,
+    33.40478053166667,
     "teig"
    ],
    [
     "Icicle Names Sabato De Sarno as Creative Director",
     "WWD",
-    33.36891818527778,
+    33.583947205277774,
     "neutr"
    ],
    [
     "Is Kering (ENXTPA:KER) Undervalued After Its Jewelry Leadership Reshuffle?",
     "Simply Wall St.",
-    81.16391818722222,
+    81.37894720694445,
     "neutr"
    ]
   ],
@@ -23485,7 +23485,7 @@
   "atrPct": 2.810417283959156,
   "support": 40.0433349609375,
   "resistance": 40.606666564941406,
-  "rvol": 0.9219876064987601,
+  "rvol": 0.7555071822015486,
   "sma20": 40.531500053405765,
   "sma50": 42.013800048828124,
   "earnings": false,
@@ -57252,12 +57252,12 @@
   "price": 56.36000061035156,
   "dayHigh": 57.41999816894531,
   "dayLow": 56.2400016784668,
-  "vwap": 56.8857071710066,
+  "vwap": 56.90040515563432,
   "rsi": 38.18620560323478,
   "atrPct": 1.783915120428993,
   "support": 55.91999816894531,
   "resistance": 57.40000025431315,
-  "rvol": 2.291603840556764,
+  "rvol": 2.226041389212466,
   "sma20": 57.78699989318848,
   "sma50": 56.569599838256835,
   "earnings": true,
@@ -59331,7 +59331,7 @@
   "dd5": 3.691045506691463,
   "chg3d": -1.9826076341711956,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 25.698424018896503,
+  "score": 25.72913484535434,
   "grade": "D",
   "fraze": "Ataskaita per 2 dienas",
   "spalva": "raus",
@@ -59375,7 +59375,7 @@
   "rng": 10.169431252808499,
   "room": 1.8452796889618397,
   "sup_d": 0.21291506491347623,
-  "vw_d": -0.9241452498334758,
+  "vw_d": -0.9497376052150015,
   "stop": 54.669200592041015,
   "tp": 57.487200622558596,
   "rr": 0.6666666666666681,
@@ -78023,12 +78023,12 @@
   "price": 3.624000072479248,
   "dayHigh": 3.634999990463257,
   "dayLow": 3.6010000705718994,
-  "vwap": 3.620799442398856,
+  "vwap": 3.6207757171729793,
   "rsi": 49.07290350079718,
   "atrPct": 1.6499127857674445,
   "support": 3.561000108718872,
   "resistance": 3.6713333129882812,
-  "rvol": 1.1055723116880796,
+  "rvol": 1.0974371662559215,
   "sma20": 3.655049979686737,
   "sma50": 3.616159996986389,
   "earnings": false,
@@ -80102,7 +80102,7 @@
   "dd5": 2.2390057810234376,
   "chg3d": -0.2751785990658374,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 37.159456804684005,
+  "score": 37.15722697662126,
   "grade": "D",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
@@ -80136,7 +80136,7 @@
   "rng": 67.64722381947463,
   "room": 0.30352973962507496,
   "sup_d": 0.6346578765825988,
-  "vw_d": 0.08839567425119432,
+  "vw_d": 0.08905150603435469,
   "stop": 3.5152800703048706,
   "tp": 3.696480073928833,
   "rr": 0.6666666666666666,
@@ -98694,7 +98694,7 @@
   "atrPct": 3.381756474741113,
   "support": 237.1999969482422,
   "resistance": 239.79999796549478,
-  "rvol": 1.100702093928226,
+  "rvol": 1.0955367023238658,
   "sma20": 242.04999923706055,
   "sma50": 234.82399932861327,
   "earnings": false,
@@ -104706,7 +104706,7 @@
   "atrPct": 0.6635281045980151,
   "support": 51.900001525878906,
   "resistance": 52.20000076293945,
-  "rvol": 0.6856383274014767,
+  "rvol": 0.6203953831041258,
   "sma20": 52.57500019073486,
   "sma50": 51.96800003051758,
   "earnings": false,
