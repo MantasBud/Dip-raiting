@@ -101,3 +101,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:40,PUB.PA,PUB,66.5,B,Ramus atsitraukimas,taip,0.120,neutral,kita,2.36,99.82,98.52,101.82,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:40,GFC.PA,GFC,51.5,C,Kritimas sustojo,taip,0.563,neutral,kita,1.63,67.30,66.65,68.65,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:40,RED.MC,RED,42.2,D,Kritimas sustojo,taip,0.714,neutral,kita,1.27,14.90,14.78,15.20,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:56,MUV2.DE,MUV2,69.2,B,Neapibrėžtas kritimas,taip,0.032,neutral,kita,1.50,502.00,497.87,512.04,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:56,CS.PA,CS,82.3,A,Kritimas sustojo,taip,0.257,neutral,kita,1.53,43.51,43.14,44.38,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,12:56,HNR1.DE,HNR1,67.2,B,Kritimas sustojo,taip,0.250,neutral,kita,1.35,249.60,247.26,254.59,atviras,,,,,
