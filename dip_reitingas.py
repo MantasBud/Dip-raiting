@@ -45,8 +45,23 @@ except Exception:
 # fiksuotu 3% tikslu; IBS signalo pranasumas +0.199% vs +0.154%).
 # Pelnas nefiksuojamas ties riba — pasiekus MIN_TARGET_PCT ijungiamas slenkantis
 # stop, ir pozicija laikoma tol, kol kaina atsitraukia TRAIL_PCT nuo virsunes.
-TARGET_PCT = 2.0        # MINIMALUS tikslas — nuo cia ijungiamas slenkantis stop
-TRAIL_PCT = 1.5         # kiek kaina gali atsitraukti nuo pasiektos virsunes
+# ISEJIMO TAISYKLE. Patikrinta 2026-09 dviejose nepriklausomose imtyse
+# (Europa 194 akcijos, JAV 143 akcijos, 10 metu):
+#   RSI(2) > 70          Europa +27.31 EUR   JAV +101.19 EUR   67-70% pelningu
+#   IBS > 0.8            Europa +16.74 EUR   JAV  +85.48 EUR   62-66%
+#   uzdarymas virs SMA5  Europa +13.37 EUR   JAV  +81.57 EUR   66-68%
+#   fiksuotas 2%/1.5%    Europa -19.13 EUR   JAV   -6.32 EUR   42-44%
+# Fiksuotas stop 1.5% yra triuksmo lygyje ir uzbaigia 58% sandoriu nuostoliu.
+# Salyginis isejimas laukia, kol grizimas prie vidurkio realiai ivyks.
+EXIT_MODE = "salyginis"   # "salyginis" arba "fiksuotas"
+EXIT_RSI = 70.0           # parduoti, kai RSI(2) pakyla virs sios ribos
+EXIT_IBS = 0.80           # arba kai IBS pakyla virs sios ribos
+EXIT_MAX_DIENU = 10       # ilgiausiai laikoma
+EXIT_STOP_PCT = 3.0       # apsauginis stop (be jo Europoje +27 EUR, su juo +11 EUR,
+                          # bet be jo YDX tipo epizodas neturi pabaigos)
+
+TARGET_PCT = 2.0        # orientacinis tikslas rodmenims; isejima lemia EXIT_MODE
+TRAIL_PCT = 1.5
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas)
@@ -377,6 +392,22 @@ def completed_daily(daily):
 Z_SESIJOS = 2.0      # Z-balo langas SESIJOMIS (patvirtinta: 20 valandiniu baru)
 
 
+def rsi2_daily(daily_close, n=2):
+    """RSI(2) is dienos uzdarymu — isejimo salygai.
+
+    Butent sis periodas naudojamas isejime: RSI(14) beveik niekada nepasiekia 70,
+    o RSI(2) reaguoja per viena dvi dienas, todel tinka trumpam laikymui.
+    """
+    try:
+        d = daily_close.astype(float).diff()
+        up = d.clip(lower=0).ewm(alpha=1 / n, adjust=False).mean()
+        dn = (-d.clip(upper=0)).ewm(alpha=1 / n, adjust=False).mean()
+        val = 100 - 100 / (1 + up / dn.replace(0, np.nan))
+        return float(val.iloc[-1]) if len(val) else None
+    except Exception:
+        return None
+
+
 def price_zscore(cont_close, price, n=None):
     """Kiek standartiniu nuokrypiu kaina nutolusi nuo pastaruju sesiju vidurkio.
 
@@ -589,9 +620,16 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         stop = min(stop, sup_stop)      # jei atrama dar žemiau, stop dedam po ja
     if (price - stop) / price * 100 > target * 1.8:
         stop = price * (1 - target * 1.8 / 100)
-    tp = price * (1 + target / 100)          # minimalus tikslas, ne virsutine riba
-    trail_from = tp * (1 - TRAIL_PCT / 100)  # kur atsidurtu stop, vos pasiekus tiksla
+    tp = price * (1 + target / 100)          # orientacinis, rodmenims
+    trail_from = tp * (1 - TRAIL_PCT / 100)
     rr = (tp - price) / (price - stop) if price > stop else 0.0
+
+    # Salyginio isejimo stop platesnis: 1.5% yra triuksmo lygyje ir uzbaigia
+    # 58% sandoriu nuostoliu. 3% leidzia grizimui prie vidurkio ivykti.
+    if EXIT_MODE == "salyginis":
+        # Tik stop'o korekcija — kiekis, pozicija ir rizika skaiciuojami zemiau,
+        # bendrame sizingo bloke, is jau pakoreguoto stop'o.
+        stop = min(stop, price * (1 - EXIT_STOP_PCT / 100))
     risk_cash = ACCOUNT * RISK_PCT / 100
     max_shares = int((ACCOUNT * MAX_POSITION_PCT / 100) / price) if price > 0 else 0
     risk_shares = int(risk_cash / (price - stop)) if price > stop else 0
@@ -827,6 +865,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
                 pos_value=pos_value, gross=gross, net=net, real_risk=real_risk,
                 trail_from=trail_from, trail_pct=TRAIL_PCT,
+                exit_mode=EXIT_MODE, exit_rsi=EXIT_RSI, exit_ibs=EXIT_IBS,
+                exit_dienu=EXIT_MAX_DIENU, rsi2=num(d.get("rsi2")),
                 exp_move=exp_mv, move_ratio=move_ratio)
 
 
@@ -1013,6 +1053,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     v5 = intraday_vol(today)
     mom = short_momentum(today)
     zbal = price_zscore(intra["Close"], price)
+    rsi2_v = rsi2_daily(daily["Close"])
 
     # IBS ir nakties tarpas — rodomi kaip informacija. I bala neijungti, kol
     # nepatvirtinta tavo akcijose (backtest_intraday.py juos matuoja atskirai).
@@ -1034,7 +1075,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sma20=sma20, sma50=sma50, earnings=earnings_soon(yf, sym),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
-                ibs=ibs, gap_ret=gap_ret, zscore=zbal,
+                ibs=ibs, gap_ret=gap_ret, zscore=zbal, rsi2=rsi2_v,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -1210,41 +1251,6 @@ def market_overview(rows, market, sector_state, target):
     return " ".join(p)
 
 
-def explain(d, s, target, rows):
-    """Kodėl būtent ši — palyginimas su likusiu sąrašu, tik iš turimų dedamųjų."""
-    others = [x for x in rows if x[0]["sym"] != d["sym"]]
-    med = float(np.median([x[1]["score"] for x in others])) if others else 0
-    P = s.get("parts", {})
-
-    reasons = []
-    if P.get("zbal", 50) >= 80:
-        reasons.append("kaina nutolusi žemyn nuo pastarųjų valandų vidurkio — "
-                       "tai vienintelis modulio kriterijus, patvirtintas nematytoje "
-                       "duomenų dalyje")
-    if P.get("ibs", 50) >= 80:
-        reasons.append("uždaro prie apatinio dienos diapazono krašto")
-    if P.get("stab", 50) >= 75:
-        reasons.append("kritimas jau sustojo — pastaroji valanda nebe žemyn")
-    if P.get("multiday", 50) >= 75:
-        reasons.append("kritimas prasidėjo neseniai, o ne tęsiasi kelias dienas")
-    if P.get("room", 50) >= 80:
-        reasons.append(f"virš kainos pakanka vietos {target}% tikslui")
-
-    if not reasons:
-        reasons.append("nė vienas kriterijus nėra išskirtinis — balą surinko tolygumu")
-
-    lead = ("Aukščiausias balas sąraše" if s["score"] == max(x[1]["score"] for x in rows)
-            else "Vienas iš aukštesnių")
-    body = (f"{lead}: {s['score']:.0f} prieš medianą {med:.0f} "
-            f"({s['score'] - med:+.0f}). Į priekį kelia tai, kad "
-            + "; ".join(reasons[:3]) + ".")
-
-    risks = [t for lvl, t in s["flags"] if lvl in ("warn", "stop")]
-    if risks:
-        body += " Prieš perkant: " + risks[0].lower() + "."
-    return body
-
-
 def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                stats=None, problems=None):
     market_lt = {"bull": "kyla", "bear": "krenta", "bear_soft": "kryptis žemyn, šiandien kyla",
@@ -1413,14 +1419,15 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               'Atitinka visas sąlygas' if s.get('tradeable')
               else 'NETINKAMA: ' + (s['blocking'][0] if s.get('blocking')
                    else f"rizika/nauda {s['rr']:.2f} per maža")}</div>
-            {f'<p class="why">{explain(d, s, TARGET_PCT, rows)}</p>' if i <= 3 else ''}
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
-              <div><span>Min. tikslas</span><b>{cs}{s['tp']:.2f}</b></div>
-              <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f}</b></div>
+              <div><span>Parduoti kai</span><b>RSI(2) virš {s.get('exit_rsi', 70):.0f}</b></div>
+              <div><span>arba</span><b>IBS virš {s.get('exit_ibs', 0.8):.2f}</b></div>
+              <div><span>IBS dabar</span><b>{(d.get('ibs') or 0):.2f}</b></div>
+              <div><span>RSI(2) dabar</span><b>{(s.get('rsi2') or 0):.0f}</b></div>
               <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
               <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
-              <div><span>Pelnas neto</span><b>{cs}{s['net']:.0f}</b></div>
+              <div><span>Pelnas ties {TARGET_PCT}%</span><b>{cs}{s['net']:.0f}</b></div>
               <div><span>Rizikuoji</span><b>{cs}{s['real_risk']:.0f}</b></div></div>
             {bars(s)}
             <ul class="fl">{fl}</ul>
@@ -1525,12 +1532,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {movers_html}
 {stats_html}
 <div class="listhead">Atitinka tavo taisykles ({len(cards)} iš {len(rows)})</div>
-<div class="listnote">Šios pozicijos praėjo <b>kietuosius filtrus</b> (ataskaita,
-rinkos režimas, krintantis peilis, vieta tikslui, likvidumas, nakties šuolis) ir
-atitinka vieną iš tavo scenarijų. <b>Eilė nieko nereiškia</b> — rikiuota pagal
-apyvartą, nes tai vienintelis dydis, kuris mažina įvykdymo kaštus. Matavimas
-parodė, kad modulis <b>neatskiria</b>, kuri iš jų geresnė: viršutinės, apatinės ir
-atsitiktinės pozicijos istoriškai davė vienodą rezultatą.</div>
+<div class="listnote">Praėjo kietuosius filtrus. Eilė pagal apyvartą.</div>
 {''.join(cards)}
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
@@ -1540,7 +1542,7 @@ atsitiktinės pozicijos istoriškai davė vienodą rezultatą.</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-hold3d"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-salyginis-isejimas"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
@@ -1584,7 +1586,43 @@ def resolve_entry(entry, intraday_all):
         stop = float(entry["stop"])
         trigger = float(entry["min_tikslas"])
 
-        # Rezultatas skaiciuojamas TA PACIA taisykle, kuria rekomenduoja modulis:
+        # Rezultatas skaiciuojamas TA PACIA taisykle, kuria rekomenduoja modulis.
+        # Prie salyginio isejimo tai reiskia: parduodam, kai dienos IBS pakyla virs
+        # EXIT_IBS, arba suveikia apsauginis stop, arba praeina EXIT_MAX_DIENU.
+        if EXIT_MODE == "salyginis":
+            entry_px = float(entry["ijejimas"])
+            stop_k = entry_px * (1 - EXIT_STOP_PCT / 100)
+            peak = entry_px
+            for ts, bar in after.iterrows():
+                hi, lo, cl = float(bar["High"]), float(bar["Low"]), float(bar["Close"])
+                peak = max(peak, hi)
+                if lo <= stop_k:
+                    pnl = (stop_k - entry_px) / entry_px * 100
+                    entry.update(busena="baigta", rezultatas="stop",
+                                 baigties_laikas=str(ts), baigties_kaina=f"{stop_k:.2f}",
+                                 pelnas_pct=f"{pnl:+.2f}",
+                                 virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
+                    return entry
+                d_rng = hi - lo
+                ibs_now = (cl - lo) / d_rng if d_rng > 0 else 0.5
+                if ibs_now >= EXIT_IBS and cl > entry_px:
+                    pnl = (cl - entry_px) / entry_px * 100
+                    entry.update(busena="baigta", rezultatas="salyga (IBS)",
+                                 baigties_laikas=str(ts), baigties_kaina=f"{cl:.2f}",
+                                 pelnas_pct=f"{pnl:+.2f}",
+                                 virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
+                    return entry
+            last_ts = after.index[-1]
+            if (last_ts.date() - start.date()).days >= EXIT_MAX_DIENU:
+                cl = float(after["Close"].iloc[-1])
+                pnl = (cl - entry_px) / entry_px * 100
+                entry.update(busena="baigta", rezultatas="laikas",
+                             baigties_laikas=str(last_ts), baigties_kaina=f"{cl:.2f}",
+                             pelnas_pct=f"{pnl:+.2f}",
+                             virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
+            return entry
+
+        # Fiksuoto isejimo variantas (EXIT_MODE = "fiksuotas"):
         # pasiekus minimalu tiksla ijungiamas slenkantis stop TRAIL_PCT nuo virsunes.
         # Anksciau cia buvo fiksuotas tikslas — zurnalas rodydavo mazesni pelna,
         # nei realiai duotu modulio rekomenduojamas isejimas.
