@@ -15,7 +15,7 @@
   "sma20": 183.74800033569335,
   "sma50": 161.33359985351564,
   "earnings": false,
-  "sector": "programinė įranga",
+  "sector": "Technologijos",
   "day_chg": -2.283493322718142,
   "avgVolume": 2194236.75,
   "cur": "EUR",
@@ -2089,23 +2089,23 @@
    [
     "Salesforce Stock Gains 34% in a Month: Time to Hold or Book Profits?",
     "Zacks",
-    6.083264245833333,
+    6.108291362499999,
     "neutr"
    ],
    [
     "Workday's Q2 Beat and AI Gains Raise the Stakes for Fiscal 2028 Growth",
     "Zacks",
-    28.14993091888889,
+    28.174958033888892,
     "teig"
    ],
    [
     "Is Workday a Buy as AI Growth Rises but Valuation Sends Mixed Signals?",
     "Zacks",
-    28.18326425472222,
+    28.20829136972222,
     "teig"
    ]
   ],
-  "score": 59.577784717081514,
+  "score": 50.641117009519284,
   "grade": "C",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -2127,6 +2127,10 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-2.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
     "info",
     "Kritimas sustojo: po -0.8% per 3 val. pastarąją valandą jau +0.4%"
    ]
@@ -2140,7 +2144,7 @@
   "tp": 185.0688024902344,
   "rr": 0.6666666666666684,
   "shares": 99,
-  "sector_chg": null,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17962.56024169922,
   "gross": 359.2512048339844,
   "net": 355.2512048339844,
@@ -2169,7 +2173,7 @@
   "sma20": 1036.6899963378905,
   "sma50": 930.0619982910156,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Technologijos",
   "day_chg": -3.6917946892872893,
   "avgVolume": 140855.5,
   "cur": "EUR",
@@ -4243,26 +4247,26 @@
    [
     "Goldman Sachs Adds 3 European Stocks to Conviction List",
     "BeInCrypto",
-    155.5230350575,
+    155.5480505011111,
     "neutr"
    ],
    [
     "Goldman Sachs refreshes conviction lists on both sides of the Atlantic",
     "Investing.com",
-    169.74109061888888,
+    169.76610606166668,
     "neutr"
    ],
    [
     "Block Pushes Square Further Into Restaurants: Can Growth Accelerate?",
     "Zacks",
-    290.1166461763889,
+    290.14166162055557,
     "teig"
    ]
   ],
-  "score": 51.95489135097802,
-  "grade": "C",
+  "score": 64.94361418872252,
+  "grade": "B",
   "fraze": "Atsitraukimas, kryptis stabilizavosi",
-  "spalva": "gelt",
+  "spalva": "zal",
   "tradeable": true,
   "blocking": [],
   "setup": "kritimas",
@@ -4283,10 +4287,6 @@
    [
     "warn",
     "Nuo 5 d. maksimumo nukritusi 8.6% — kritimas prasidėjo ne šiandien"
-   ],
-   [
-    "warn",
-    "Akcija krinta 2.6 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
   "dip": 1.8172778344556852,
@@ -4298,7 +4298,7 @@
   "tp": 1008.4740124511719,
   "rr": 0.666666666666668,
   "shares": 18,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17796.600219726562,
   "gross": 355.93200439453125,
   "net": 351.93200439453125,
@@ -4327,7 +4327,7 @@
   "sma20": 38.117749786376955,
   "sma50": 38.800599822998045,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Technologijos",
   "day_chg": -2.356902356902357,
   "avgVolume": 2992015.6,
   "cur": "EUR",
@@ -6401,23 +6401,23 @@
    [
     "Is UBER Stock a Buy as It Closes in on Delivery Hero Buyout?",
     "Zacks",
-    28.150039424722223,
+    28.175065164166668,
     "neutr"
    ],
    [
     "Delivery Hero board backs Uber’s $15B takeover bid",
     "TechCrunch",
-    143.7569838752778,
+    143.78200961277778,
     "neutr"
    ],
    [
     "Alibaba raises $10 billion in Hong Kong share sale for AI",
     "Quartz",
-    367.6780949897222,
+    367.7031207275,
     "neutr"
    ]
   ],
-  "score": 62.45104992905908,
+  "score": 53.083392439700226,
   "grade": "C",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -6437,6 +6437,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-2.4%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.7393221642369211,
@@ -6448,7 +6452,7 @@
   "tp": 36.975,
   "rr": 0.6666666666666689,
   "shares": 496,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17980.0,
   "gross": 359.6,
   "net": 355.6,
@@ -6477,7 +6481,7 @@
   "sma20": 209.9099998474121,
   "sma50": 225.31900024414062,
   "earnings": false,
-  "sector": "puslaidininkiai",
+  "sector": "Technologijos",
   "day_chg": -1.2458667807189734,
   "avgVolume": 392574.5,
   "cur": "EUR",
@@ -8551,24 +8555,24 @@
    [
     "European Chip Stocks Rise, Buoyed By Asian Peers",
     "The Wall Street Journal",
-    34.35009425277778,
+    34.37510495888889,
     "neutr"
    ],
    [
     "Is BE Semiconductor Industries (BESIY) Stock Outpacing Its Computer and Technology Peers This Year?",
     "Zacks",
-    125.51537203583332,
+    125.54038274027778,
     "neutr"
    ],
    [
     "Chip Stocks Driven Higher by Nvidia Results and Guidance",
     "Barrons.com",
-    297.7206498158333,
+    297.7456605208333,
     "neutr"
    ]
   ],
-  "score": 57.242574146186065,
-  "grade": "C",
+  "score": 48.65618802425816,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": true,
@@ -8587,6 +8591,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-1.2%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 2.997003042687949,
@@ -8598,7 +8606,7 @@
   "tp": 198.08399688720704,
   "rr": 0.6666666666666666,
   "shares": 92,
-  "sector_chg": null,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17866.39971923828,
   "gross": 357.32799438476565,
   "net": 353.32799438476565,
@@ -8627,7 +8635,7 @@
   "sma20": 257.88499908447267,
   "sma50": 258.68799896240233,
   "earnings": false,
-  "sector": "prabanga",
+  "sector": "Vartojimas ir prabanga",
   "day_chg": -0.5505672355336628,
   "avgVolume": 281555.45,
   "cur": "EUR",
@@ -10687,7 +10695,7 @@
    251.89999389648438,
    290.3999938964844
   ],
-  "m1h": -0.04730368946012732,
+  "m1h": -0.04730368946016023,
   "m3h": -3.772037602424267,
   "pos1h": 39.535279839888716,
   "span_h": 3.0,
@@ -10701,23 +10709,23 @@
    [
     "Kering Expands Generation Award to India",
     "WWD",
-    33.00433968833333,
+    33.02932070111111,
     "teig"
    ],
    [
     "Icicle Names Sabato De Sarno as Creative Director",
     "WWD",
-    33.183506360833334,
+    33.20848737138889,
     "neutr"
    ],
    [
     "Is Kering (ENXTPA:KER) Undervalued After Its Jewelry Leadership Reshuffle?",
     "Simply Wall St.",
-    80.9785063625,
+    81.00348737361112,
     "neutr"
    ]
   ],
-  "score": 48.22286041085146,
+  "score": 48.22286041085125,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -10737,10 +10745,6 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "info",
-    "Izoliuotas atsitraukimas: akcija -0.6%, sektorius +0.1% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 3.1957078158075727,
@@ -10752,7 +10756,7 @@
   "tp": 248.72700622558594,
   "rr": 0.6666666666666654,
   "shares": 73,
-  "sector_chg": 0.08466186135506587,
+  "sector_chg": -0.5505672355336628,
   "pos_value": 17801.05044555664,
   "gross": 356.0210089111328,
   "net": 352.0210089111328,
@@ -10781,7 +10785,7 @@
   "sma20": 162.6075012207031,
   "sma50": 166.04000122070312,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Medziagos",
   "day_chg": -3.061228041220344,
   "avgVolume": 366662.5,
   "cur": "EUR",
@@ -12829,7 +12833,7 @@
    166.23333740234375,
    172.64999389648438
   ],
-  "m1h": 0.6031340710881453,
+  "m1h": 0.6031340710881287,
   "m3h": -0.19332199805771666,
   "pos1h": 72.97306214018245,
   "span_h": 3.0,
@@ -12839,8 +12843,8 @@
   "dd5": 4.832054858989275,
   "chg3d": -1.7938564931507104,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 62.39056494427232,
-  "grade": "C",
+  "score": 49.912451955417886,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": true,
@@ -12859,6 +12863,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Akcija krinta 2.6 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
   "dip": 1.5844034167040308,
@@ -12870,7 +12878,7 @@
   "tp": 164.73,
   "rr": 0.6666666666666647,
   "shares": 111,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.4825414874344044,
   "pos_value": 17926.5,
   "gross": 358.53,
   "net": 354.53,
@@ -12899,7 +12907,7 @@
   "sma20": 27.20250005722046,
   "sma50": 27.528999900817873,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Logistika ir mazmena",
   "day_chg": -2.2676532031722685,
   "avgVolume": 1863413.3,
   "cur": "EUR",
@@ -14965,7 +14973,7 @@
   "dd5": 5.905510332825504,
   "chg3d": -1.6828678363597571,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 46.96783794534579,
+  "score": 39.922662253543926,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -14985,6 +14993,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-2.3%), o akcija juda kartu (-2.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 1.6460854255299868,
@@ -14996,7 +15008,7 @@
   "tp": 26.81580093383789,
   "rr": 0.6666666666666666,
   "shares": 684,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.2676532031722685,
   "pos_value": 17982.360626220703,
   "gross": 359.64721252441404,
   "net": 355.64721252441404,
@@ -15025,7 +15037,7 @@
   "sma20": 219.18500061035155,
   "sma50": 232.78,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": -1.7568908356121289,
   "avgVolume": 210550.55,
   "cur": "EUR",
@@ -17055,7 +17067,7 @@
   "dd5": 7.30286885063785,
   "chg3d": -5.308927278496854,
   "asOf": "2026-09-08 17:35:00+02:00",
-  "score": 62.807428782261844,
+  "score": 53.38631446492257,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -17086,6 +17098,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (-1.8%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
@@ -17098,7 +17114,7 @@
   "tp": 211.03799377441408,
   "rr": 0.6666666666666697,
   "shares": 86,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17793.399475097656,
   "gross": 355.8679895019531,
   "net": 351.8679895019531,
@@ -17127,7 +17143,7 @@
   "sma20": 46.0290002822876,
   "sma50": 44.332400207519534,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": 2.418061607490481,
   "avgVolume": 779895.9,
   "cur": "EUR",
@@ -19187,7 +19203,7 @@
    47.97999954223633,
    47.97999954223633
   ],
-  "m1h": -0.052412721484013235,
+  "m1h": -0.052412721484036986,
   "m3h": -1.0876940579797294,
   "pos1h": 61.905540417801994,
   "span_h": 3.0,
@@ -19197,7 +19213,7 @@
   "dd5": 2.8586926667586616,
   "chg3d": -0.22328564131249437,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 38.29787132000455,
+  "score": 32.55319062200374,
   "grade": "D",
   "fraze": "Atsigavimas po kritimo",
   "spalva": "gelt",
@@ -19221,6 +19237,10 @@
    [
     "info",
     "Atsigavimo faze: nukritusi 2.9% nuo 5 d. viršūnės, šiandien +2.4% ir laikosi dienos viršuje"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (+2.4%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 1.5748901510065507,
@@ -19232,7 +19252,7 @@
   "tp": 45.578701400756835,
   "rr": 0.6642584220984252,
   "shares": 402,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17963.37055206299,
   "gross": 359.2674110412598,
   "net": 355.2674110412598,
@@ -19261,7 +19281,7 @@
   "sma20": 22.153999996185302,
   "sma50": 20.398299942016603,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Technologijos",
   "day_chg": -2.9495757646589538,
   "avgVolume": 1645221.9,
   "cur": "EUR",
@@ -21319,10 +21339,10 @@
   "dd5": 11.917099512374294,
   "chg3d": -8.314608456043715,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 64.07554708232219,
-  "grade": "B",
+  "score": 54.464215019973864,
+  "grade": "C",
   "fraze": "Atsitraukimas, kryptis stabilizavosi",
-  "spalva": "zal",
+  "spalva": "gelt",
   "tradeable": true,
   "blocking": [],
   "setup": "kritimas",
@@ -21345,6 +21365,10 @@
     "Nuo 5 d. maksimumo nukritusi 11.9% — kritimas prasidėjo ne šiandien"
    ],
    [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-2.9%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
     "info",
     "Kritimas sustojo: po -1.4% per 3 val. pastarąją valandą jau +0.7%"
    ]
@@ -21358,7 +21382,7 @@
   "tp": 20.80799961090088,
   "rr": 0.6666666666666666,
   "shares": 882,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17992.7996635437,
   "gross": 359.855993270874,
   "net": 355.855993270874,
@@ -21387,7 +21411,7 @@
   "sma20": 23.488000011444093,
   "sma50": 25.733600006103515,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Pramone",
   "day_chg": -0.25520827459913836,
   "avgVolume": 1251975.75,
   "cur": "EUR",
@@ -23384,7 +23408,7 @@
    24.920000076293945
   ],
   "m1h": 0.6520338317182289,
-  "m3h": -2.319167601913385,
+  "m3h": -2.3191676019133514,
   "pos1h": 54.54600625959096,
   "span_h": 3.0,
   "mom_partial": false,
@@ -23415,6 +23439,10 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -0.3%, sektorius +0.1% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
     "warn",
     "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ],
@@ -23432,7 +23460,7 @@
   "tp": 23.919000778198242,
   "rr": 0.666666666666665,
   "shares": 767,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.1253463187883436,
   "pos_value": 17986.15058517456,
   "gross": 359.72301170349124,
   "net": 355.72301170349124,
@@ -23457,11 +23485,11 @@
   "atrPct": 2.810417283959156,
   "support": 40.0433349609375,
   "resistance": 40.606666564941406,
-  "rvol": 0.7555071822015486,
+  "rvol": 0.9219876064987601,
   "sma20": 40.531500053405765,
   "sma50": 42.013800048828124,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Medziagos",
   "day_chg": -1.0309326616070587,
   "avgVolume": 449016.65,
   "cur": "EUR",
@@ -25503,6 +25531,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -1.0%, sektorius -0.5% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 0.6896521916752028,
@@ -25514,7 +25546,7 @@
   "tp": 41.1263996887207,
   "rr": 0.6666666666666647,
   "shares": 446,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.4825414874344044,
   "pos_value": 17982.7198638916,
   "gross": 359.654397277832,
   "net": 355.654397277832,
@@ -25543,7 +25575,7 @@
   "sma20": 70.32099952697754,
   "sma50": 62.128799743652344,
   "earnings": false,
-  "sector": "IT paslaugos",
+  "sector": "Technologijos",
   "day_chg": -2.1294718171648808,
   "avgVolume": 236088.6,
   "cur": "EUR",
@@ -27473,10 +27505,10 @@
   "dd5": 4.51522803965341,
   "chg3d": -4.249996609157987,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 65.37154306179355,
-  "grade": "B",
+  "score": 55.56581160252452,
+  "grade": "C",
   "fraze": "Kritimas sustojo",
-  "spalva": "zal",
+  "spalva": "gelt",
   "tradeable": true,
   "blocking": [],
   "setup": "kritimas",
@@ -27495,6 +27527,10 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-2.1%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
     "info",
     "Kritimas sustojo: po -0.9% per 3 val. pastarąją valandą jau +0.4%"
    ]
@@ -27508,7 +27544,7 @@
   "tp": 70.31880249023438,
   "rr": 0.6666666666666644,
   "shares": 261,
-  "sector_chg": null,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17993.34063720703,
   "gross": 359.86681274414065,
   "net": 355.86681274414065,
@@ -27537,7 +27573,7 @@
   "sma20": 64.39250087738037,
   "sma50": 60.09700035095215,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Technologijos",
   "day_chg": -2.3734176928675,
   "avgVolume": 239040.3,
   "cur": "EUR",
@@ -29483,10 +29519,10 @@
   "dd5": 13.281799803619496,
   "chg3d": -9.131076028881134,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 70.94406232465114,
-  "grade": "B",
+  "score": 60.30245297595348,
+  "grade": "C",
   "fraze": "Atsitraukimas, kryptis stabilizavosi",
-  "spalva": "zal",
+  "spalva": "gelt",
   "tradeable": true,
   "blocking": [],
   "setup": "kritimas",
@@ -29509,6 +29545,10 @@
     "Nuo 5 d. maksimumo nukritusi 13.3% — kritimas prasidėjo ne šiandien"
    ],
    [
+    "warn",
+    "Krenta visas sektorius (-2.4%), o akcija juda kartu (-2.4%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
     "info",
     "Kritimas sustojo: po -3.4% per 3 val. pastarąją valandą jau +0.3%"
    ]
@@ -29522,7 +29562,7 @@
   "tp": 62.93400077819825,
   "rr": 0.666666666666668,
   "shares": 291,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.356902356902357,
   "pos_value": 17954.70022201538,
   "gross": 359.09400444030763,
   "net": 355.09400444030763,
@@ -29551,7 +29591,7 @@
   "sma20": 6.805250024795532,
   "sma50": 6.543960037231446,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Bankai ir finansai",
   "day_chg": -0.6977424422443739,
   "avgVolume": 36577740.7,
   "cur": "EUR",
@@ -31652,7 +31692,7 @@
   "tp": 6.822780132293701,
   "rr": 0.6666666666666666,
   "shares": 2690,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.6977424422443739,
   "pos_value": 17993.410348892212,
   "gross": 359.86820697784424,
   "net": 355.86820697784424,
@@ -31681,7 +31721,7 @@
   "sma20": 9.463800048828125,
   "sma50": 9.79791997909546,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": -1.3456843239126524,
   "avgVolume": 17997785.35,
   "cur": "EUR",
@@ -33775,6 +33815,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -1.3%, sektorius +0.4% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 0.5890796708684022,
@@ -33786,7 +33830,7 @@
   "tp": 9.122880249023437,
   "rr": 0.6666666666666644,
   "shares": 2012,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17995.328491210938,
   "gross": 359.90656982421876,
   "net": 355.90656982421876,
@@ -33815,7 +33859,7 @@
   "sma20": 28.607999992370605,
   "sma50": 27.36700008392334,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Telekomai ir ziniasklaida",
   "day_chg": -0.31690194998864657,
   "avgVolume": 4585688.1,
   "cur": "EUR",
@@ -35885,8 +35929,8 @@
   "dd5": 2.7147797428566354,
   "chg3d": -0.24665150420789483,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 53.60219550483852,
-  "grade": "C",
+  "score": 45.56186617911274,
+  "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
   "tradeable": false,
@@ -35909,6 +35953,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.5%), o akcija juda kartu (-0.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.8753501564246295,
@@ -35920,7 +35968,7 @@
   "tp": 28.87619945526123,
   "rr": 0.6666666666666639,
   "shares": 635,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5484901354879481,
   "pos_value": 17976.849660873413,
   "gross": 359.53699321746825,
   "net": 355.53699321746825,
@@ -35949,7 +35997,7 @@
   "sma20": 518.2799942016602,
   "sma50": 512.7899969482422,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -4.890066146101697,
   "avgVolume": 224920.25,
   "cur": "EUR",
@@ -38015,8 +38063,8 @@
   "dd5": 5.641218632686221,
   "chg3d": -4.346166384682525,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 53.224319577086526,
-  "grade": "C",
+  "score": 66.53039947135815,
+  "grade": "B",
   "fraze": "Atsitraukimas, kryptis stabilizavosi",
   "spalva": "gelt",
   "tradeable": false,
@@ -38037,10 +38085,6 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
-    "warn",
-    "Akcija krinta 3.8 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
-   ],
-   [
     "info",
     "Kritimas sustojo: po -0.9% per 3 val. pastarąją valandą jau +0.2%"
    ]
@@ -38054,7 +38098,7 @@
   "tp": 511.83598754882814,
   "rr": 0.6666666666666666,
   "shares": 35,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17562.999572753906,
   "gross": 351.25999145507814,
   "net": 347.25999145507814,
@@ -38083,7 +38127,7 @@
   "sma20": 44.07749977111816,
   "sma50": 44.33519966125488,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -2.419350428145083,
   "avgVolume": 2363273.6,
   "cur": "EUR",
@@ -40149,8 +40193,8 @@
   "dd5": 2.419350428145083,
   "chg3d": -0.34316566992316666,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 57.66227932173547,
-  "grade": "C",
+  "score": 49.01293742347515,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": false,
@@ -40169,6 +40213,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-4.2%), o akcija juda kartu (-2.4%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 1.134816124411421,
@@ -40180,7 +40228,7 @@
   "tp": 44.431201400756834,
   "rr": 0.6666666666666631,
   "shares": 413,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17990.28056716919,
   "gross": 359.8056113433838,
   "net": 355.8056113433838,
@@ -40209,7 +40257,7 @@
   "sma20": 31.427000045776367,
   "sma50": 33.68479995727539,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Maistas ir kasdienes prekes",
   "day_chg": -1.010738143924456,
   "avgVolume": 2793122.85,
   "cur": "EUR",
@@ -42299,6 +42347,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -1.0%, sektorius -0.1% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 1.1044505382496823,
@@ -42310,7 +42362,7 @@
   "tp": 31.96680015563965,
   "rr": 0.666666666666668,
   "shares": 574,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.06549196638445823,
   "pos_value": 17989.16008758545,
   "gross": 359.783201751709,
   "net": 355.783201751709,
@@ -42339,7 +42391,7 @@
   "sma20": 154.30499954223632,
   "sma50": 167.89199951171875,
   "earnings": false,
-  "sector": "vartojimo prekės",
+  "sector": "Vartojimas ir prabanga",
   "day_chg": -1.1062648099265306,
   "avgVolume": 568973.45,
   "cur": "EUR",
@@ -44392,7 +44444,7 @@
    167.89999389648438
   ],
   "m1h": 0.36854350274702563,
-  "m3h": -1.4334873822922312,
+  "m3h": -1.4334873822921985,
   "pos1h": 52.381090782264984,
   "span_h": 3.0,
   "mom_partial": false,
@@ -44424,6 +44476,10 @@
    ],
    [
     "info",
+    "Izoliuotas atsitraukimas: akcija -1.1%, sektorius -0.6% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
+    "info",
     "Kritimas sustojo: po -1.4% per 3 val. pastarąją valandą jau +0.4%"
    ]
   ],
@@ -44436,7 +44492,7 @@
   "tp": 150.45,
   "rr": 0.6666666666666624,
   "shares": 122,
-  "sector_chg": null,
+  "sector_chg": -0.5505672355336628,
   "pos_value": 17995.0,
   "gross": 359.9,
   "net": 355.9,
@@ -44465,7 +44521,7 @@
   "sma20": 17.780499935150146,
   "sma50": 18.496099967956543,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": 0.5999973842075893,
   "avgVolume": 4601371.1,
   "cur": "EUR",
@@ -46525,7 +46581,7 @@
   "asOf": "2026-09-08 17:25:00+02:00",
   "score": 49.82901893472199,
   "grade": "D",
-  "fraze": "Atsigavimas po kritimo",
+  "fraze": "Atsigavimas su sektoriumi",
   "spalva": "gelt",
   "tradeable": false,
   "blocking": [],
@@ -46566,7 +46622,7 @@
   "tp": 17.957099533081056,
   "rr": 0.6666666666666666,
   "shares": 1022,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17992.309532165527,
   "gross": 359.84619064331054,
   "net": 355.84619064331054,
@@ -46595,7 +46651,7 @@
   "sma20": 19.23124990463257,
   "sma50": 18.615399894714354,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Bankai ir finansai",
   "day_chg": -0.7178953825631114,
   "avgVolume": 4281094.2,
   "cur": "EUR",
@@ -48656,7 +48712,7 @@
    20.399999618530273
   ],
   "m1h": 0.2883549145276291,
-  "m3h": -0.28902887058844895,
+  "m3h": -0.28902887058842114,
   "pos1h": 90.47593097184378,
   "span_h": 3.0,
   "mom_partial": false,
@@ -48696,7 +48752,7 @@
   "tp": 19.043400077819825,
   "rr": 0.6666666666666666,
   "shares": 964,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.6977424422443739,
   "pos_value": 17997.880073547363,
   "gross": 359.9576014709473,
   "net": 355.9576014709473,
@@ -48725,7 +48781,7 @@
   "sma20": 25.136999988555907,
   "sma50": 26.247599906921387,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": 0.1665931186897524,
   "avgVolume": 3179037.1,
   "cur": "EUR",
@@ -50830,7 +50886,7 @@
   "tp": 24.530999221801757,
   "rr": 0.6666666666666634,
   "shares": 748,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17989.39942932129,
   "gross": 359.7879885864258,
   "net": 355.7879885864258,
@@ -50859,7 +50915,7 @@
   "sma20": 55.64699993133545,
   "sma50": 56.05120010375977,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Logistika ir mazmena",
   "day_chg": 0.36390241315698546,
   "avgVolume": 1344164.05,
   "cur": "EUR",
@@ -52909,8 +52965,8 @@
   "dd5": 2.6817227409663085,
   "chg3d": -0.7556710503883194,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 54.062106918537545,
-  "grade": "C",
+  "score": 45.952790880756915,
+  "grade": "D",
   "fraze": "Atsitraukimas, kryptis stabilizavosi",
   "spalva": "gelt",
   "tradeable": false,
@@ -52933,6 +52989,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-2.3%), o akcija juda kartu (+0.4%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.9694809840768237,
@@ -52944,7 +53004,7 @@
   "tp": 56.26319984436035,
   "rr": 0.6666666666666652,
   "shares": 326,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.2676532031722685,
   "pos_value": 17982.159950256348,
   "gross": 359.643199005127,
   "net": 355.643199005127,
@@ -52973,7 +53033,7 @@
   "sma20": 16.49624991416931,
   "sma50": 16.003999977111818,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Bankai ir finansai",
   "day_chg": -0.031062534141243547,
   "avgVolume": 4147374.35,
   "cur": "EUR",
@@ -55046,7 +55106,7 @@
   "tp": 16.416899299621583,
   "rr": 0.6666666666666691,
   "shares": 1118,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.6977424422443739,
   "pos_value": 17994.209232330322,
   "gross": 359.88418464660646,
   "net": 355.88418464660646,
@@ -55075,7 +55135,7 @@
   "sma20": 65.6620002746582,
   "sma50": 68.90360000610352,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Maistas ir kasdienes prekes",
   "day_chg": 2.0715625698942084,
   "avgVolume": 984968.6,
   "cur": "EUR",
@@ -57172,7 +57232,7 @@
   "tp": 66.3408009338379,
   "rr": 0.6666666666666691,
   "shares": 276,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.06549196638445823,
   "pos_value": 17951.040252685547,
   "gross": 359.02080505371094,
   "net": 355.02080505371094,
@@ -57201,7 +57261,7 @@
   "sma20": 57.78699989318848,
   "sma50": 56.569599838256835,
   "earnings": true,
-  "sector": "kita",
+  "sector": "Vartojimas ir prabanga",
   "day_chg": -1.8802194327616755,
   "avgVolume": 1082911.3,
   "cur": "EUR",
@@ -59304,6 +59364,10 @@
    ],
    [
     "info",
+    "Izoliuotas atsitraukimas: akcija -1.9%, sektorius -0.6% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
+    "info",
     "Kritimas sustojo: po -1.4% per 3 val. pastarąją valandą jau +0.1%"
    ]
   ],
@@ -59316,7 +59380,7 @@
   "tp": 57.487200622558596,
   "rr": 0.6666666666666681,
   "shares": 319,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.5505672355336628,
   "pos_value": 17978.84019470215,
   "gross": 359.576803894043,
   "net": 355.576803894043,
@@ -59345,7 +59409,7 @@
   "sma20": 101.21149978637695,
   "sma50": 94.28580001831055,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Telekomai ir ziniasklaida",
   "day_chg": -1.8991080098154312,
   "avgVolume": 569393.85,
   "cur": "EUR",
@@ -61395,7 +61459,7 @@
   "dd5": 4.6346150911771336,
   "chg3d": -0.2213291924807943,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 58.95194684585341,
+  "score": 50.109154818975405,
   "grade": "C",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -61419,6 +61483,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.5%), o akcija juda kartu (-1.9%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 1.3625089060184579,
@@ -61430,7 +61498,7 @@
   "tp": 101.1636003112793,
   "rr": 0.6666666666666651,
   "shares": 181,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5484901354879481,
   "pos_value": 17951.580055236816,
   "gross": 359.03160110473635,
   "net": 355.03160110473635,
@@ -61459,7 +61527,7 @@
   "sma20": 19.967999744415284,
   "sma50": 20.760399894714354,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Nekilnojamas turtas ir statyba",
   "day_chg": -1.9843298607635471,
   "avgVolume": 2582042.05,
   "cur": "EUR",
@@ -63525,7 +63593,7 @@
   "dd5": 4.817438583516967,
   "chg3d": -1.7020103025797202,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 31.308521597084194,
+  "score": 26.612243357521567,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -63548,6 +63616,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-1.6%), o akcija juda kartu (-2.0%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
@@ -63560,7 +63632,7 @@
   "tp": 19.145400466918947,
   "rr": 0.6666666666666687,
   "shares": 958,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5786718645172746,
   "pos_value": 17981.660438537598,
   "gross": 359.63320877075193,
   "net": 355.63320877075193,
@@ -63589,7 +63661,7 @@
   "sma20": 47.75599975585938,
   "sma50": 49.25199966430664,
   "earnings": false,
-  "sector": "prabanga",
+  "sector": "Vartojimas ir prabanga",
   "day_chg": 0.7198909582437946,
   "avgVolume": 913673.2,
   "cur": "EUR",
@@ -65694,7 +65766,7 @@
   "tp": 47.09339813232422,
   "rr": 0.666666666666665,
   "shares": 389,
-  "sector_chg": 0.08466186135506587,
+  "sector_chg": -0.5505672355336628,
   "pos_value": 17960.129287719727,
   "gross": 359.20258575439453,
   "net": 355.20258575439453,
@@ -65723,7 +65795,7 @@
   "sma20": 23.605999755859376,
   "sma50": 24.926799850463865,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Keliones ir laisvalaikis",
   "day_chg": -1.5450588617630614,
   "avgVolume": 1630422.4,
   "cur": "EUR",
@@ -67744,7 +67816,7 @@
   "dd5": 2.2165326969650554,
   "chg3d": 0.9238935154005189,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 31.982241478422676,
+  "score": 27.184905256659274,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -67772,6 +67844,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.5%), o akcija juda kartu (-1.5%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.043573980607376245,
@@ -67783,7 +67859,7 @@
   "tp": 23.39880054473877,
   "rr": 0.6666666666666666,
   "shares": 784,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5450588617630614,
   "pos_value": 17984.960418701172,
   "gross": 359.69920837402344,
   "net": 355.69920837402344,
@@ -67812,7 +67888,7 @@
   "sma20": 8.02169997692108,
   "sma50": 7.955719985961914,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -0.32589649478076105,
   "avgVolume": 4300885.65,
   "cur": "EUR",
@@ -69868,7 +69944,7 @@
    8.02400016784668,
    8.331999778747559
   ],
-  "m1h": -0.008291966137618872,
+  "m1h": -0.008291966137635552,
   "m3h": -1.0182933649264934,
   "pos1h": 72.72746976461919,
   "span_h": 3.0,
@@ -69878,7 +69954,7 @@
   "dd5": 1.2909585137454116,
   "chg3d": -0.5253917577557469,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 63.24040571996463,
+  "score": 53.75434486196985,
   "grade": "C",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
@@ -69902,6 +69978,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-4.2%), o akcija juda kartu (-0.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.8973083897903603,
@@ -69913,7 +69993,7 @@
   "tp": 8.111040143966674,
   "rr": 0.6666666666666642,
   "shares": 2263,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17995.376319408417,
   "gross": 359.9075263881683,
   "net": 355.9075263881683,
@@ -69942,7 +70022,7 @@
   "sma20": 23.256999969482422,
   "sma50": 23.41119987487793,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": -2.1923926745183433,
   "avgVolume": 1396672.7,
   "cur": "EUR",
@@ -71976,12 +72056,16 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
+    "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (-2.2%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
     "stop",
     "Krintantis peilis: per 3 val. -1.9%, per pastarąją valandą -0.3% — dugno ženklo dar nėra. Nepirkti, stebėti."
    ],
    [
     "info",
-    "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama, kad nustotų kristi sektorius (-1.1%)"
+    "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama, kad nustotų kristi sektorius (-1.8%)"
    ],
    [
     "warn",
@@ -71997,7 +72081,7 @@
   "tp": 22.297200622558595,
   "rr": 0.6666666666666685,
   "shares": 823,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17990.780502319336,
   "gross": 359.8156100463867,
   "net": 355.8156100463867,
@@ -72026,7 +72110,7 @@
   "sma20": 254.65,
   "sma50": 251.92399963378907,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -4.834998391562065,
   "avgVolume": 123002.1,
   "cur": "EUR",
@@ -73868,8 +73952,8 @@
   "dd5": 5.846618926854091,
   "chg3d": -4.394754882312616,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 53.980004198340815,
-  "grade": "C",
+  "score": 67.475005247926,
+  "grade": "B",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
   "tradeable": false,
@@ -73892,10 +73976,6 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "warn",
-    "Akcija krinta 3.7 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
   "dip": 2.5157209316162716,
@@ -73907,7 +73987,7 @@
   "tp": 252.96,
   "rr": 0.666666666666668,
   "shares": 72,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17856.0,
   "gross": 357.12,
   "net": 353.12,
@@ -73936,7 +74016,7 @@
   "sma20": 40.393500328063965,
   "sma50": 41.51900032043457,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": -1.0708872273590624,
   "avgVolume": 761032.6,
   "cur": "EUR",
@@ -75976,7 +76056,7 @@
    39.77000045776367,
    42.689998626708984
   ],
-  "m1h": -0.18482410247769138,
+  "m1h": -0.18482410247773082,
   "m3h": -1.9043235437773198,
   "pos1h": 13.635733111388543,
   "span_h": 3.0,
@@ -75986,8 +76066,8 @@
   "dd5": 3.6024863675514363,
   "chg3d": -1.871526710501917,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 68.76395638618817,
-  "grade": "B",
+  "score": 58.44936292825977,
+  "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
   "tradeable": false,
@@ -76017,6 +76097,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (-1.1%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
@@ -76029,7 +76113,7 @@
   "tp": 39.57599922180176,
   "rr": 0.6666666666666687,
   "shares": 463,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17964.399646759033,
   "gross": 359.2879929351807,
   "net": 355.2879929351807,
@@ -76058,7 +76142,7 @@
   "sma20": 21.060999870300293,
   "sma50": 20.10240005493164,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": 2.7777762285992607,
   "avgVolume": 1337455.15,
   "cur": "EUR",
@@ -77882,7 +77966,7 @@
   "asOf": "2026-09-08 17:35:00+02:00",
   "score": 31.749880812450677,
   "grade": "D",
-  "fraze": "Atsigavimas po kritimo",
+  "fraze": "Atsigavimas su sektoriumi",
   "spalva": "gelt",
   "tradeable": false,
   "blocking": [],
@@ -77919,7 +78003,7 @@
   "tp": 21.511800155639648,
   "rr": 0.6666666666666666,
   "shares": 853,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17989.77013015747,
   "gross": 359.7954026031494,
   "net": 355.7954026031494,
@@ -77939,16 +78023,16 @@
   "price": 3.624000072479248,
   "dayHigh": 3.634999990463257,
   "dayLow": 3.6010000705718994,
-  "vwap": 3.6207757171729793,
+  "vwap": 3.620799442398856,
   "rsi": 49.07290350079718,
   "atrPct": 1.6499127857674445,
   "support": 3.561000108718872,
   "resistance": 3.6713333129882812,
-  "rvol": 1.0974371662559215,
+  "rvol": 1.1055723116880796,
   "sma20": 3.655049979686737,
   "sma50": 3.616159996986389,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Telekomai ir ziniasklaida",
   "day_chg": -1.5484901354879481,
   "avgVolume": 7485334.5,
   "cur": "EUR",
@@ -80018,7 +80102,7 @@
   "dd5": 2.2390057810234376,
   "chg3d": -0.2751785990658374,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 43.714384678377954,
+  "score": 37.159456804684005,
   "grade": "D",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
@@ -80042,18 +80126,22 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.5%), o akcija juda kartu (-1.5%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.30261122456308237,
   "rng": 67.64722381947463,
   "room": 0.30352973962507496,
   "sup_d": 0.6346578765825988,
-  "vw_d": 0.08905150603435469,
+  "vw_d": 0.08839567425119432,
   "stop": 3.5152800703048706,
   "tp": 3.696480073928833,
   "rr": 0.6666666666666666,
   "shares": 4966,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5484901354879481,
   "pos_value": 17996.784359931946,
   "gross": 359.9356871986389,
   "net": 355.9356871986389,
@@ -80082,7 +80170,7 @@
   "sma20": 5.760299968719482,
   "sma50": 5.985399961471558,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": -1.9434568841471016,
   "avgVolume": 4833107.0,
   "cur": "EUR",
@@ -82151,7 +82239,7 @@
   "tp": 5.661000194549561,
   "rr": 0.6666666666666684,
   "shares": 3243,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17998.65061855316,
   "gross": 359.97301237106325,
   "net": 355.97301237106325,
@@ -82180,7 +82268,7 @@
   "sma20": 58.64000015258789,
   "sma50": 57.64400009155273,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Keliones ir laisvalaikis",
   "day_chg": -4.092074106460035,
   "avgVolume": 437715.0,
   "cur": "EUR",
@@ -83969,7 +84057,7 @@
    ],
    [
     "warn",
-    "Akcija krinta 3.0 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
+    "Akcija krinta 2.5 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
   "dip": 2.088774146219967,
@@ -83981,7 +84069,7 @@
   "tp": 57.375,
   "rr": 0.6666666666666666,
   "shares": 320,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5450588617630614,
   "pos_value": 18000.0,
   "gross": 360.0,
   "net": 356.0,
@@ -84010,7 +84098,7 @@
   "sma20": 76.17799911499023,
   "sma50": 75.65719970703125,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Maistas ir kasdienes prekes",
   "day_chg": -0.6281022494634365,
   "avgVolume": 322234.6,
   "cur": "EUR",
@@ -85998,6 +86086,10 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
+    "info",
+    "Izoliuotas atsitraukimas: akcija -0.6%, sektorius -0.1% — būtent toks triukšmas, kurio ieškai"
+   ],
+   [
     "warn",
     "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
@@ -86011,7 +86103,7 @@
   "tp": 77.45880249023438,
   "rr": 0.6666666666666666,
   "shares": 237,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.06549196638445823,
   "pos_value": 17997.78057861328,
   "gross": 359.95561157226564,
   "net": 355.95561157226564,
@@ -86040,7 +86132,7 @@
   "sma20": 41.591499710083006,
   "sma50": 40.86540016174317,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": 0.460937945371908,
   "avgVolume": 588371.35,
   "cur": "EUR",
@@ -88100,7 +88192,7 @@
   "asOf": "2026-09-08 17:25:00+02:00",
   "score": 38.29425512629173,
   "grade": "D",
-  "fraze": "Atsigavimas po kritimo",
+  "fraze": "Atsigavimas su sektoriumi",
   "spalva": "gelt",
   "tradeable": false,
   "blocking": [],
@@ -88137,7 +88229,7 @@
   "tp": 42.23819984436035,
   "rr": 0.6666666666666666,
   "shares": 434,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17971.939933776855,
   "gross": 359.4387986755371,
   "net": 355.4387986755371,
@@ -88157,16 +88249,16 @@
   "price": 4.948999881744385,
   "dayHigh": 4.984000205993652,
   "dayLow": 4.9120001792907715,
-  "vwap": 4.94102533984209,
+  "vwap": 4.941109602814999,
   "rsi": 60.56958108347443,
   "atrPct": 2.1692860246034793,
   "support": 4.869999885559082,
   "resistance": 5.010000069936116,
-  "rvol": 0.8759503915938686,
+  "rvol": 0.8872070194254951,
   "sma20": 5.053050017356872,
   "sma50": 5.195100002288818,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Keliones ir laisvalaikis",
   "day_chg": -1.4928400397414905,
   "avgVolume": 4869502.1,
   "cur": "EUR",
@@ -90228,8 +90320,8 @@
   "dd5": 2.731917135670579,
   "chg3d": 0.2836867097704273,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 52.30708478396479,
-  "grade": "C",
+  "score": 44.46682959780768,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": false,
@@ -90252,18 +90344,22 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.5%), o akcija juda kartu (-1.5%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.7022536677903211,
   "rng": 51.38845657140965,
   "room": 0.7072201472134798,
   "sup_d": 0.747619788598013,
-  "vw_d": 0.16139447490769954,
+  "vw_d": 0.15968637742605055,
   "stop": 4.800529885292053,
   "tp": 5.047979879379272,
   "rr": 0.6666666666666646,
   "shares": 3637,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5450588617630614,
   "pos_value": 17999.512569904327,
   "gross": 359.99025139808657,
   "net": 355.99025139808657,
@@ -90292,7 +90388,7 @@
   "sma20": 5.870099973678589,
   "sma50": 5.747399997711182,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Vartojimas ir prabanga",
   "day_chg": -0.06929504845242297,
   "avgVolume": 4098318.65,
   "cur": "EUR",
@@ -92389,7 +92485,7 @@
   "tp": 5.88336012840271,
   "rr": 0.6666666666666701,
   "shares": 3120,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.5505672355336628,
   "pos_value": 17996.16039276123,
   "gross": 359.92320785522463,
   "net": 355.92320785522463,
@@ -92418,7 +92514,7 @@
   "sma20": 78.71399993896485,
   "sma50": 78.63799942016601,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Maistas ir kasdienes prekes",
   "day_chg": 0.49711831669452006,
   "avgVolume": 302189.6,
   "cur": "EUR",
@@ -94515,7 +94611,7 @@
   "tp": 78.3563996887207,
   "rr": 0.6666666666666625,
   "shares": 234,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.06549196638445823,
   "pos_value": 17975.879928588867,
   "gross": 359.51759857177734,
   "net": 355.51759857177734,
@@ -94544,7 +94640,7 @@
   "sma20": 123.9260009765625,
   "sma50": 118.58920028686524,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Zaliavos",
   "day_chg": -1.0010607385355574,
   "avgVolume": 189332.65,
   "cur": "EUR",
@@ -96481,7 +96577,7 @@
   "tp": 124.07279937744141,
   "rr": 0.6666666666666666,
   "shares": 147,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": null,
   "pos_value": 17881.07991027832,
   "gross": 357.6215982055664,
   "net": 353.6215982055664,
@@ -96510,7 +96606,7 @@
   "sma20": 61.22099990844727,
   "sma50": 60.09759994506836,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Medziagos",
   "day_chg": 0.06584968673824991,
   "avgVolume": 367146.4,
   "cur": "EUR",
@@ -98561,7 +98657,7 @@
    ],
    [
     "info",
-    "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama, kad nustotų kristi sektorius (-1.1%)"
+    "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama"
    ]
   ],
   "dip": 1.2349725786869632,
@@ -98573,7 +98669,7 @@
   "tp": 61.99559875488281,
   "rr": 0.6666666666666654,
   "shares": 296,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.4825414874344044,
   "pos_value": 17990.879638671875,
   "gross": 359.8175927734375,
   "net": 355.8175927734375,
@@ -98598,11 +98694,11 @@
   "atrPct": 3.381756474741113,
   "support": 237.1999969482422,
   "resistance": 239.79999796549478,
-  "rvol": 1.0955367023238658,
+  "rvol": 1.100702093928226,
   "sma20": 242.04999923706055,
   "sma50": 234.82399932861327,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Pramone",
   "day_chg": 0.5059009121758256,
   "avgVolume": 73565.45,
   "cur": "EUR",
@@ -100647,7 +100743,7 @@
   "tp": 243.16799377441407,
   "rr": 0.6666666666666666,
   "shares": 75,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.1253463187883436,
   "pos_value": 17879.999542236328,
   "gross": 357.59999084472656,
   "net": 353.59999084472656,
@@ -100676,7 +100772,7 @@
   "sma20": 47.540750122070314,
   "sma50": 46.793300018310546,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Gynyba ir aviacija",
   "day_chg": 3.875972604433723,
   "avgVolume": 387361.35,
   "cur": "EUR",
@@ -102771,7 +102867,7 @@
   "tp": 45.10440124511719,
   "rr": 0.555555555555555,
   "shares": 407,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": null,
   "pos_value": 17997.540496826172,
   "gross": 359.95080993652346,
   "net": 355.95080993652346,
@@ -102800,7 +102896,7 @@
   "sma20": 121.225,
   "sma50": 116.46600006103516,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -5.188678170178448,
   "avgVolume": 137919.0,
   "cur": "EUR",
@@ -104546,8 +104642,8 @@
   "dd5": 6.366463030549445,
   "chg3d": -4.133548848561859,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 51.39076992238901,
-  "grade": "C",
+  "score": 64.23846240298626,
+  "grade": "B",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
   "tradeable": false,
@@ -104574,10 +104670,6 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "warn",
-    "Akcija krinta 4.1 p. p. labiau nei sektorius — toks atsilikimas dažniau reiškia naujieną, ne triukšmą"
    ]
   ],
   "dip": 1.7114902415253714,
@@ -104589,7 +104681,7 @@
   "tp": 123.01199844360352,
   "rr": 0.6666666666666666,
   "shares": 149,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17969.399772644043,
   "gross": 359.3879954528809,
   "net": 355.3879954528809,
@@ -104614,11 +104706,11 @@
   "atrPct": 0.6635281045980151,
   "support": 51.900001525878906,
   "resistance": 52.20000076293945,
-  "rvol": 0.6203953831041258,
+  "rvol": 0.6856383274014767,
   "sma20": 52.57500019073486,
   "sma50": 51.96800003051758,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": 0.2890129224887349,
   "avgVolume": 295246.55,
   "cur": "EUR",
@@ -106146,7 +106238,7 @@
    52.20000076293945,
    53.20000076293945
   ],
-  "m1h": 0.12674747253474297,
+  "m1h": 0.12674747253471724,
   "m3h": -0.209834587508047,
   "pos1h": 100.0,
   "span_h": 3.0,
@@ -106156,7 +106248,7 @@
   "dd5": 1.3270156643401956,
   "chg3d": -0.5730644619003183,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 33.62496097522932,
+  "score": 28.58121682894488,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -106183,6 +106275,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (+0.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
@@ -106195,7 +106291,7 @@
   "tp": 53.09099922180176,
   "rr": 0.6666666666666682,
   "shares": 345,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17957.24973678589,
   "gross": 359.1449947357178,
   "net": 355.1449947357178,
@@ -106224,7 +106320,7 @@
   "sma20": 162.9199996948242,
   "sma50": 162.84799926757813,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": -3.4608360982747564,
   "avgVolume": 84466.55,
   "cur": "EUR",
@@ -107841,7 +107937,7 @@
   "tp": 162.18,
   "rr": 0.6666666666666666,
   "shares": 113,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17967.0,
   "gross": 359.34,
   "net": 355.34,
@@ -107870,7 +107966,7 @@
   "sma20": 71.34750022888184,
   "sma50": 72.81400024414063,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Nekilnojamas turtas ir statyba",
   "day_chg": -1.1730138682710023,
   "avgVolume": 189598.9,
   "cur": "EUR",
@@ -109536,7 +109632,7 @@
   "dd5": 3.5765378332279876,
   "chg3d": -0.22205998386702197,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 39.27888638649285,
+  "score": 33.387053428518925,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -109560,6 +109656,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Krenta visas sektorius (-1.6%), o akcija juda kartu (-1.2%) — tai trendinis judesys, ne šios akcijos triukšmas"
    ]
   ],
   "dip": 0.3695491417015929,
@@ -109571,7 +109671,7 @@
   "tp": 68.74800155639649,
   "rr": 0.666666666666669,
   "shares": 267,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.5786718645172746,
   "pos_value": 17995.800407409668,
   "gross": 359.9160081481934,
   "net": 355.9160081481934,
@@ -109600,7 +109700,7 @@
   "sma20": 6.603500032424927,
   "sma50": 6.6476999950408935,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Automobiliai",
   "day_chg": -0.5307027827986069,
   "avgVolume": 1781718.15,
   "cur": "EUR",
@@ -111401,7 +111501,7 @@
    6.860000133514404
   ],
   "m1h": 0.01755470332260948,
-  "m3h": -0.3522329320112238,
+  "m3h": -0.3522329320113,
   "pos1h": 6.6668362091985305,
   "span_h": 3.0,
   "mom_partial": false,
@@ -111445,7 +111545,7 @@
   "tp": 6.691199941635132,
   "rr": 0.6666666666666666,
   "shares": 2743,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": null,
   "pos_value": 17994.07984304428,
   "gross": 359.8815968608856,
   "net": 355.8815968608856,
@@ -111474,7 +111574,7 @@
   "sma20": 74.27500038146972,
   "sma50": 72.3329997253418,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Logistika ir mazmena",
   "day_chg": -3.2323252873789983,
   "avgVolume": 162508.6,
   "cur": "EUR",
@@ -113210,7 +113310,7 @@
    74.88333384195964,
    77.9000015258789
   ],
-  "m1h": -0.0641667792643638,
+  "m1h": -0.0641667792644754,
   "m3h": -0.6756121981430935,
   "pos1h": 33.33248563145313,
   "span_h": 3.0,
@@ -113220,7 +113320,7 @@
   "dd5": 7.766370902763025,
   "chg3d": -5.211087623492012,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 58.98091954115263,
+  "score": 58.98091954115191,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -113263,7 +113363,7 @@
   "tp": 73.28699844360352,
   "rr": 0.6666666666666711,
   "shares": 250,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -2.2676532031722685,
   "pos_value": 17962.499618530273,
   "gross": 359.24999237060547,
   "net": 355.24999237060547,
@@ -113292,7 +113392,7 @@
   "sma20": 75.43900032043457,
   "sma50": 72.14520034790038,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Sveikata",
   "day_chg": -2.2558345733461596,
   "avgVolume": 151126.95,
   "cur": "EUR",
@@ -115266,8 +115366,8 @@
   "dd5": 4.832038488421802,
   "chg3d": -2.874463055178311,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 55.88813216605528,
-  "grade": "C",
+  "score": 47.50491234114699,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": false,
@@ -115293,6 +115393,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-1.8%), o akcija juda kartu (-2.3%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ],
    [
@@ -115309,7 +115413,7 @@
   "tp": 75.13320373535156,
   "rr": 0.6666666666666645,
   "shares": 244,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -1.7568908356121289,
   "pos_value": 17973.040893554688,
   "gross": 359.46081787109375,
   "net": 355.46081787109375,
@@ -115338,7 +115442,7 @@
   "sma20": 13.568500089645386,
   "sma50": 13.730000057220458,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Energetika",
   "day_chg": 0.38051168762681636,
   "avgVolume": 788020.25,
   "cur": "EUR",
@@ -117029,7 +117133,7 @@
   "tp": 13.453799571990967,
   "rr": 0.6666666666666666,
   "shares": 1364,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": 0.38051168762681636,
   "pos_value": 17991.159427642822,
   "gross": 359.82318855285644,
   "net": 355.82318855285644,
@@ -117058,7 +117162,7 @@
   "sma20": 427.1649993896484,
   "sma50": 385.8679992675781,
   "earnings": false,
-  "sector": "kita",
+  "sector": "JAV antriniai listingai",
   "day_chg": -1.6355383349076502,
   "avgVolume": 23783.3,
   "cur": "EUR",
@@ -118763,7 +118867,7 @@
   "tp": 432.48,
   "rr": 0.6666666666666666,
   "shares": 42,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": null,
   "pos_value": 17808.0,
   "gross": 356.16,
   "net": 352.16,
@@ -118792,7 +118896,7 @@
   "sma20": 33.956999969482425,
   "sma50": 33.287599906921386,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Draudimas",
   "day_chg": -3.4808267022495007,
   "avgVolume": 306602.2,
   "cur": "EUR",
@@ -120610,8 +120714,8 @@
   "dd5": 5.269252016742257,
   "chg3d": -4.6064083134155345,
   "asOf": "2026-09-08 17:25:00+02:00",
-  "score": 51.26398383624738,
-  "grade": "C",
+  "score": 43.57438626081027,
+  "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
   "tradeable": false,
@@ -120637,6 +120741,10 @@
    ],
    [
     "warn",
+    "Krenta visas sektorius (-4.2%), o akcija juda kartu (-3.5%) — tai trendinis judesys, ne šios akcijos triukšmas"
+   ],
+   [
+    "warn",
     "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
@@ -120649,7 +120757,7 @@
   "tp": 33.37440124511719,
   "rr": 0.6666666666666691,
   "shares": 550,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -4.1579125469057825,
   "pos_value": 17996.00067138672,
   "gross": 359.9200134277344,
   "net": 355.9200134277344,
@@ -120678,7 +120786,7 @@
   "sma20": 23.38400011062622,
   "sma50": 21.790200080871582,
   "earnings": false,
-  "sector": "kita",
+  "sector": "Medziagos",
   "day_chg": 0.6980796111671768,
   "avgVolume": 353345.7,
   "cur": "EUR",
@@ -122598,7 +122706,7 @@
    23.399999618530273,
    24.600000381469727
   ],
-  "m1h": -0.01711695221892708,
+  "m1h": -0.01711695221894155,
   "m3h": -0.3761676850656207,
   "pos1h": 14.285908911322734,
   "span_h": 3.0,
@@ -122608,7 +122716,7 @@
   "dd5": 3.269072366691842,
   "chg3d": 0.34782575524371606,
   "asOf": "2026-09-08 17:35:00+02:00",
-  "score": 30.514823906078647,
+  "score": 30.514823906078576,
   "grade": "D",
   "fraze": "Atsigavimas po kritimo",
   "spalva": "gelt",
@@ -122647,7 +122755,7 @@
   "tp": 23.541599922180175,
   "rr": 0.5555555555555546,
   "shares": 779,
-  "sector_chg": -1.1219505478150325,
+  "sector_chg": -0.4825414874344044,
   "pos_value": 17979.319940567017,
   "gross": 359.58639881134036,
   "net": 355.58639881134036,
