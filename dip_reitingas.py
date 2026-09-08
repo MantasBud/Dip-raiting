@@ -630,6 +630,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # Tik stop'o korekcija — kiekis, pozicija ir rizika skaiciuojami zemiau,
         # bendrame sizingo bloke, is jau pakoreguoto stop'o.
         stop = min(stop, price * (1 - EXIT_STOP_PCT / 100))
+        rr = (tp - price) / (price - stop) if price > stop else 0.0
     risk_cash = ACCOUNT * RISK_PCT / 100
     max_shares = int((ACCOUNT * MAX_POSITION_PCT / 100) / price) if price > 0 else 0
     risk_shares = int(risk_cash / (price - stop)) if price > stop else 0
@@ -815,7 +816,22 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     if blocking:
         score = min(score, 45.0)
 
-    tradeable = (not blocking) and rr >= MIN_RR and (room_far is None or room_far >= target * 1.2)
+    # Prie salyginio isejimo nera fiksuoto tikslo, todel R:R pries ji nieko nemat
+    # uoja: stop 3%, "tikslas" 2% -> santykis visada zemiau 1.3, ir joks sandoris
+    # nepraeitu. Vietoj to reikalaujam, kad (a) stop butu protingo dydzio ir
+    # (b) akcija per laikymo laika realiai galetu nueiti bent stop atstuma.
+    stop_dist = (price - stop) / price * 100 if price > 0 else 99
+    if EXIT_MODE == "salyginis":
+        exp_mv = num(d.get("exp_move")) or 0.0
+        tradeable = (
+            (not blocking)
+            and stop_dist <= EXIT_STOP_PCT * 1.25
+            and (exp_mv <= 0 or exp_mv >= stop_dist * 0.8)
+            and (room_far is None or room_far >= stop_dist)
+        )
+    else:
+        tradeable = ((not blocking) and rr >= MIN_RR
+                     and (room_far is None or room_far >= target * 1.2))
     grade = "A" if score >= 78 else "B" if score >= 64 else "C" if score >= 50 else "D"
 
     # --- Frazė vietoj raidės: ka konkreciai rodo duomenys ---
@@ -843,14 +859,22 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         spalva = "zal" if (tradeable and score >= 64) else "gelt"
     else:
         # Kritimo šeima — skiriam pagal tai, ar kritimas jau sustojo
-        stabilu = parts.get("stab", 50) >= 70
-        gilus = (dip or 0) >= 2.0
-        if stabilu and ibs_v is not None and ibs_v <= 0.25:
-            fraze = "Atsitraukimas, kryptis stabilizavosi"
-        elif stabilu:
-            fraze = "Kritimas sustojo"
-        elif gilus:
+        # Frazes skiriamos pagal FAKTUS, ne pagal kriterijaus bala: anksciau
+        # "stab >= 70" buvo tenkinamas beveik visada, todel gilus kritimas ir
+        # ramus atsitraukimas gaudavo ta pacia fraze "Kritimas sustojo".
+        val_teig = m1h is not None and m1h > 0.05        # pastaroji valanda kyla
+        val_neig = m1h is not None and m1h < -0.10       # pastaroji valanda krenta
+        gilus = (dd5 or 0) >= 3.0 or (day_chg is not None and day_chg <= -2.0)
+        zemai = ibs_v is not None and ibs_v <= 0.25
+
+        if gilus and not val_teig:
             fraze = "Neapibrėžtas kritimas"
+        elif val_teig and zemai:
+            fraze = "Atsitraukimas, kryptis stabilizavosi"
+        elif val_teig:
+            fraze = "Kritimas sustojo"
+        elif val_neig:
+            fraze = "Kritimas dar tęsiasi"
         else:
             fraze = "Ramus atsitraukimas"
         if sector_chg is not None and sector_chg > 0.5 and fraze.startswith("Atsitraukimas"):
