@@ -145,7 +145,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,17:29,ENR.DE,ENR,36.8,D,"Kyla, prie viršūnės",ne,0.663,neutral,AI infrastruktūra,3.93,148.08,143.64,151.04,baigta,salyga (RSI),2026-09-09 09:00:00+02:00,148.90,+0.55,+1.28
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,17:29,R3NK.DE,R3NK,16.6,D,Netinkama,ne,0.681,neutral,kita,4.25,44.15,42.56,45.03,baigta,stop,2026-09-09 09:10:00+02:00,42.83,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,18:05,SRT3.DE,SRT3,21.0,D,Netinkama,ne,0.623,neutral,kita,3.38,237.30,230.18,242.05,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,18:48,UMI.BR,UMI,25.5,D,Atsigavimas po kritimo,ne,0.727,neutral,kita,3.34,23.10,22.27,23.56,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,18:48,UMI.BR,UMI,25.5,D,Atsigavimas po kritimo,ne,0.727,neutral,kita,3.34,23.10,22.27,23.56,baigta,salyga (RSI),2026-09-09 09:10:00+02:00,23.26,+0.69,+0.87
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,19:02,DHL.DE,DHL,57.4,C,"Atsitraukimas, kryptis stabilizavosi",taip,0.250,neutral,kita,1.62,55.16,53.51,56.26,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,19:02,PIRC.MI,PIRC,36.3,D,Ramus atsitraukimas,ne,0.677,neutral,kita,2.11,6.56,6.36,6.69,baigta,stop,2026-09-09 10:10:00+02:00,6.36,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,ZAL.DE,ZAL,54.2,C,Kritimas sustojo,taip,0.257,neutral,kita,3.53,23.45,22.75,23.92,atviras,,,,,
@@ -228,7 +228,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,16:47,HEN3.DE,HEN3,52.7,C,"Atsitraukimas, kryptis stabilizavosi",ne,0.200,bear_soft,Maistas ir kasdienes prekes,1.53,74.74,72.50,76.23,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,16:47,TUI1.DE,TUI1,40.3,D,Kritimas sustojo,ne,0.549,bear_soft,Keliones ir laisvalaikis,2.30,6.81,6.60,6.94,baigta,salyga (IBS),2026-09-09 17:10:00+02:00,6.81,+0.06,+0.15
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,16:47,AVIO.MI,AVIO,8.2,D,Ataskaita per 2 dienas,ne,0.711,bear_soft,Gynyba ir aviacija,3.24,29.13,28.26,29.71,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,17:00,PIRC.MI,PIRC,47.3,D,Kritimas sustojo,ne,0.308,bear_soft,Automobiliai,2.16,6.36,6.17,6.49,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,17:00,PIRC.MI,PIRC,47.3,D,Kritimas sustojo,ne,0.308,bear_soft,Automobiliai,2.16,6.36,6.17,6.49,baigta,salyga (IBS),2026-09-09 17:25:00+02:00,6.36,+0.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,17:00,DIA.MI,DIA,36.0,D,Atsigavimas po kritimo,ne,0.571,bear_soft,Sveikata,2.28,74.22,71.99,75.70,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,17:00,EDPR.LS,EDPR,49.5,D,Kritimas sustojo,ne,0.474,bear_soft,Energetika,2.39,13.24,12.84,13.50,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,17:22,DIM.PA,DIM,38.9,D,Kritimas sustojo,taip,0.595,bear_soft,Sveikata,3.31,189.00,183.33,192.78,atviras,,,,,
@@ -240,3 +240,5 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,18:20,SY1.DE,SY1,45.0,D,Krintantis peilis,ne,0.011,bear_soft,Medziagos,1.96,88.90,85.70,90.68,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,18:20,RED.MC,RED,51.6,C,Kritimas dar tęsiasi,ne,0.063,bear_soft,Energetika,1.30,14.89,14.44,15.19,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,18:39,IPN.PA,IPN,24.4,D,Rinka krenta — praleisti,ne,0.739,bear,Sveikata,2.88,159.20,154.42,162.38,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,18:54,AD.AS,AD,50.3,C,Ramus atsitraukimas,ne,0.220,bear_soft,Maistas ir kasdienes prekes,1.72,30.99,30.06,31.61,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,18:54,UMI.BR,UMI,34.4,D,Kritimas dar tęsiasi,ne,0.485,bear_soft,Medziagos,3.42,23.10,22.41,23.56,atviras,,,,,
