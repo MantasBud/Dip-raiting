@@ -150,7 +150,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,19:02,PIRC.MI,PIRC,36.3,D,Ramus atsitraukimas,ne,0.677,neutral,kita,2.11,6.56,6.36,6.69,baigta,stop,2026-09-09 10:10:00+02:00,6.36,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,ZAL.DE,ZAL,54.2,C,Kritimas sustojo,taip,0.257,neutral,kita,3.53,23.45,22.75,23.92,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,AD.AS,AD,48.6,D,Ramus atsitraukimas,ne,0.271,neutral,kita,1.71,31.34,30.40,31.97,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,ML.PA,ML,29.3,D,Tikslui nėra vietos,ne,0.756,neutral,kita,1.72,34.67,33.63,35.36,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,ML.PA,ML,29.3,D,Tikslui nėra vietos,ne,0.756,neutral,kita,1.72,34.67,33.63,35.36,baigta,stop,2026-09-09 13:00:00+02:00,33.63,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,AGN.AS,AGN,63.2,C,Ramus atsitraukimas,ne,0.200,neutral,kita,1.69,7.95,7.71,8.11,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,HEN3.DE,HEN3,63.2,C,Kritimas dar tęsiasi,ne,0.043,neutral,kita,1.54,75.94,73.66,77.46,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,4GLD.DE,4GLD,55.9,C,Kritimas sustojo,ne,0.324,neutral,kita,1.89,121.64,117.99,124.07,atviras,,,,,
@@ -191,7 +191,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,12:36,MTX.DE,MTX,50.1,C,Kritimas dar tęsiasi,taip,0.103,bear_soft,Gynyba ir aviacija,2.56,349.60,339.11,356.59,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,12:53,SHL.DE,SHL,37.8,D,Ramus atsitraukimas,taip,0.500,bear_soft,Sveikata,1.88,38.76,37.60,39.54,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,12:53,CPR.MI,CPR,35.0,D,Kritimas sustojo,taip,0.605,bear_soft,Vartojimas ir prabanga,1.99,5.75,5.58,5.87,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,12:53,R3NK.DE,R3NK,35.4,D,Neapibrėžtas kritimas,taip,0.494,bear_soft,Gynyba ir aviacija,4.18,43.18,41.88,44.04,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,12:53,R3NK.DE,R3NK,35.4,D,Neapibrėžtas kritimas,taip,0.494,bear_soft,Gynyba ir aviacija,4.18,43.18,41.88,44.04,baigta,salyga (IBS),2026-09-09 12:55:00+02:00,43.28,+0.23,+0.23
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,13:12,NEM.DE,NEM,41.7,D,Neapibrėžtas kritimas,taip,0.421,bear_soft,Technologijos,4.73,61.95,60.09,63.19,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,13:12,ASML.AS,ASML,45.0,D,Krintantis peilis,ne,0.006,bear_soft,Technologijos,3.54,1488.60,1443.94,1518.37,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,13:12,SU.PA,SU,45.0,D,Krintantis peilis,ne,0.000,bear_soft,Technologijos,2.35,291.40,282.66,297.23,atviras,,,,,
@@ -204,3 +204,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:05,BPE.MI,BPE,39.7,D,Krintantis peilis,ne,0.067,bear,Bankai ir finansai,1.69,14.00,13.58,14.28,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:05,BN.PA,BN,39.8,D,Rinka krenta — praleisti,ne,0.089,bear,Maistas ir kasdienes prekes,1.61,63.66,61.75,64.93,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:05,ITX.MC,ITX,14.5,D,Rinka krenta — praleisti,ne,0.127,bear,Vartojimas ir prabanga,1.84,53.94,52.32,55.02,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:25,HEI.DE,HEI,38.3,D,Krintantis peilis,ne,0.120,bear,Medziagos,2.84,157.35,152.63,160.50,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:25,VIE.PA,VIE,36.3,D,Krintantis peilis,ne,0.000,bear,Pramone,1.69,31.80,30.85,32.44,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,14:25,FRE.DE,FRE,33.3,D,Rinka krenta — praleisti,ne,0.352,bear,Sveikata,2.19,44.45,43.12,45.34,atviras,,,,,
