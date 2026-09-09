@@ -77,7 +77,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:23,UCG.MI,UCG,31.6,D,Ramus atsitraukimas,taip,0.750,neutral,kita,1.84,83.91,83.06,85.59,baigta,stop,2026-09-08 10:25:00+02:00,83.06,-1.01,+0.00
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:23,ISP.MI,ISP,46.1,D,Ramus atsitraukimas,taip,0.667,neutral,kita,1.38,6.73,6.67,6.86,baigta,stop,2026-09-08 10:25:00+02:00,6.67,-0.89,+0.00
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:23,BNP.PA,BNP,66.1,B,Ramus atsitraukimas,taip,0.235,neutral,kita,1.99,103.86,102.72,105.94,baigta,stop,2026-09-08 10:40:00+02:00,102.72,-1.10,+0.00
-2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:25,ENEL.MI,ENEL,60.6,C,Ramus atsitraukimas,taip,0.595,neutral,kita,1.74,8.98,8.90,9.16,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:25,ENEL.MI,ENEL,60.6,C,Ramus atsitraukimas,taip,0.595,neutral,kita,1.74,8.98,8.90,9.16,baigta,salyga (IBS),2026-09-09 09:15:00+02:00,8.99,+0.16,+0.18
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:25,IBE.MC,IBE,63.6,C,Ramus atsitraukimas,taip,0.500,neutral,kita,1.38,19.79,19.63,20.19,baigta,salyga (IBS),2026-09-08 13:50:00+02:00,19.80,+0.03,+0.03
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:25,GLE.PA,GLE,73.8,B,Ramus atsitraukimas,taip,0.232,neutral,kita,2.49,73.48,72.48,74.95,baigta,salyga (IBS),2026-09-08 11:10:00+02:00,73.57,+0.12,+0.14
 2026-09-08 z35-ibs25-vwap15-hold3d,2026-09-08,10:42,ENGI.PA,ENGI,59.7,C,Ramus atsitraukimas,taip,0.231,neutral,kita,2.30,24.08,23.78,24.56,baigta,salyga (IBS),2026-09-08 11:00:00+02:00,24.10,+0.08,+0.12
@@ -171,3 +171,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:42,UCG.MI,UCG,48.8,D,Kritimas dar tęsiasi,taip,0.392,neutral,Bankai ir finansai,1.84,82.92,80.43,84.58,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:42,SIE.DE,SIE,51.2,C,Neapibrėžtas kritimas,taip,0.259,neutral,Pramone,2.12,268.55,260.49,273.92,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:42,ALV.DE,ALV,47.8,D,Neapibrėžtas kritimas,taip,0.508,neutral,Draudimas,1.17,438.00,424.86,446.76,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:58,BNP.PA,BNP,49.8,D,Kritimas dar tęsiasi,taip,0.364,neutral,Bankai ir finansai,1.99,102.50,99.42,104.55,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:58,ENEL.MI,ENEL,35.6,D,Kritimas sustojo,taip,0.736,neutral,Energetika,1.74,8.98,8.71,9.16,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-09,10:58,IBE.MC,IBE,29.4,D,Kritimas sustojo,taip,0.639,neutral,Energetika,1.38,19.98,19.38,20.37,atviras,,,,,
