@@ -278,3 +278,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:54,MONC.MI,MONC,61.2,C,Kritimas sustojo,taip,0.257,bear_soft,Vartojimas ir prabanga,2.66,43.99,42.67,44.87,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:54,SRG.MI,SRG,44.8,D,Neapibrėžtas kritimas,taip,0.333,bear_soft,Energetika,1.80,5.54,5.38,5.65,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:54,KRZ.IR,KRZ,54.2,C,Neapibrėžtas kritimas,taip,0.313,bear_soft,Pramone,1.91,82.90,80.41,84.56,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,13:14,ALV.DE,ALV,23.9,D,Rinka krenta — praleisti,ne,0.538,bear,Draudimas,1.39,439.40,426.22,448.19,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,13:14,DTE.DE,DTE,39.2,D,Rinka krenta — praleisti,ne,0.130,bear,Telekomai ir ziniasklaida,2.20,27.79,26.96,28.35,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,13:14,ACA.PA,ACA,22.2,D,Rinka krenta — praleisti,ne,0.519,bear,Bankai ir finansai,1.64,18.58,18.03,18.96,atviras,,,,,
