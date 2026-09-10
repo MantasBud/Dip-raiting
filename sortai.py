@@ -47,12 +47,15 @@ AMF_URL = ("https://www.amf-france.org/sites/institutionnel/files/"
 _CACHE = {"laikas": 0, "duomenys": None}
 
 
-def imk_isin(yf, symbols, kelias=ISIN_CACHE):
+def imk_isin(yf, symbols, kelias=None):
     """ISIN kodai tikeriams. Traukiami po viena, todel kesuojami faile.
 
     Be ISIN registro duomenu prie akciju nepriskirsim: registrai nezino
     Yahoo tikeriu.
     """
+    # Kelias imamas KVIETIMO metu, ne funkcijos apibrezimo — kitaip jo
+    # nebeimanoma pakeisti (Python numatytieji argumentai susiejami vienаkart).
+    kelias = kelias or ISIN_CACHE
     zemelapis = {}
     try:
         if os.path.exists(kelias):
@@ -61,14 +64,20 @@ def imk_isin(yf, symbols, kelias=ISIN_CACHE):
     except Exception:
         zemelapis = {}
 
-    truksta = [s for s in symbols if s not in zemelapis]
+    # Tusciu reiksmiu NEKESUOJAM: jei yfinance karta negrazino ISIN (laikinas
+    # sutrikimas), uzrasius tuscia reiksme ta akcija daugiau niekada nebutu
+    # bandoma ir sortu duomenu jai nebutu visa laika.
+    truksta = [s for s in symbols if not zemelapis.get(s)]
     if truksta:
+        rasta = 0
         for s in truksta[:40]:            # po truputi, kad neuzkrautume Yahoo
             try:
                 isin = yf.Ticker(s).isin
-                zemelapis[s] = isin if isin and isin != "-" else ""
+                if isin and isin != "-" and len(str(isin)) >= 10:
+                    zemelapis[s] = str(isin).strip()
+                    rasta += 1
             except Exception:
-                zemelapis[s] = ""
+                pass
         try:
             os.makedirs(os.path.dirname(kelias) or ".", exist_ok=True)
             with open(kelias, "w", encoding="utf-8") as f:
