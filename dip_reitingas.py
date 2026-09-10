@@ -1396,9 +1396,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                     f"<div class='rb'>{verb} {cnt:.0f}% sąrašo · mediana {med:+.1f}% · "
                     f"{strong} akcijos virš {'+' if wide_up else '−'}1%</div>"
                     f"<div class='secs'>{sec_items}</div></div>")
-            elif sec_items:
-                rally_html = (f"<div class='rally flat'><div class='rh'>Sektoriai šiandien</div>"
-                              f"<div class='secs'>{sec_items}</div></div>")
+            # Sektoriu juosta nerodoma — pertekline informacija sprendimui
     except Exception:
         pass
 
@@ -1438,7 +1436,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     # (-0.45% krentanciomis dienomis pries +0.61% kylanciomis).
     tinkami = [1 for _, s in rows if s.get("tradeable")]
     if market == "bear":
-        v_cls, v_txt = "no", "Šiandien geriau neprekiauti"
+        v_cls, v_txt = "no stipri", "Šiandien geriau neprekiauti"
         v_sub = ("Rinka krenta ir šiandien. Per 2 metus tokiomis dienomis vidutinis "
                  "sandoris prarado 0,45%, o geriausiai įvertinti — 0,35%.")
     elif not tinkami:
@@ -1453,7 +1451,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     verdict_html = (f"<div class='verdict {v_cls}'><div class='vt'>{v_txt}</div>"
                     f"<div class='vs'>{v_sub}</div></div>")
 
+    # Savikontrole toliau veikia ir raso i log'a, bet puslapyje nerodoma —
+    # ji skirta modulio klaidoms gaudyti, ne prekybos sprendimams.
     problems_html = ""
+    _ = problems
     if problems:
         items = "".join(f"<li>{w}</li>" for w in problems)
         problems_html = (f"<div class='selfcheck'><b>Modulio savikontrolė įspėja</b>"
@@ -1775,6 +1776,10 @@ display:flex;align-items:center;justify-content:center}}
 .verdict{{font-size:12px;font-weight:600;padding:7px 10px;border-radius:5px;margin-bottom:12px}}
 .verdict.ok{{background:#E6F2EC;color:#14543E}}
 .verdict.no{{background:#F3F0EC;color:#6B5E4E}}
+.verdict.stipri{{background:#F6DAD8;color:#7A2320;
+border:1px solid #C25C55;border-left:5px solid #C25C55}}
+.verdict.stipri .vt{{font-size:17px;font-weight:700}}
+.verdict.stipri .vs{{opacity:1}}
 .why{{font-size:12.5px;line-height:1.55;color:var(--ink);background:var(--bg);border-left:3px solid var(--up);
 padding:9px 11px;border-radius:5px;margin:0 0 12px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}}
@@ -1799,10 +1804,7 @@ font-variant-numeric:tabular-nums}}
 <h1>Kandidatų filtras</h1>
 <div class="meta">Atnaujinta {now_lt:%H:%M} (Vilnius) · duomenys iš {data_lt} ·
 tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
-{problems_html}
 {verdict_html}
-{info_html}
-{rally_html}
 {movers_html}
 {stats_html}
 {''.join(cards)}
