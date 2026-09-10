@@ -1728,19 +1728,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         if "naujienos" not in d:
             d["naujienos"] = naujienos(yf_mod, d["sym"]) if yf_mod else []
 
-    # Viesi sortai is ES registro. Vienas failas visoms, kesuojamas 6 val.
-    # Rodoma kaip INFORMACIJA — signalas nematuotas, i bala neieina.
-    try:
-        import sortai as _S
-        if yf_mod and rodomi:
-            duom = _S.surink(yf_mod, [d["sym"] for d, _ in rodomi], verbose=False)
-            for d, s in rodomi:
-                z = _S.zyma(duom.get(d["sym"]))
-                if z:
-                    d["sortai"] = duom.get(d["sym"])
-                    s.setdefault("flags", []).append(z)
-    except Exception:
-        pass
+
     # Korteles generuojamos VISOMS tikrintoms akcijoms, bet matomos tik penkios.
     # Likusios paslėptos — jos reikalingos, kad prisegta (pin) akcija isliktu
     # puslapyje po atnaujinimo, net jei ta diena nepateko i penketuka.
@@ -2282,6 +2270,25 @@ def run_once(yf, out_dir, refresh_seconds=None, quiet=False):
 
     # Rezultatų žurnalas: įrašom šiandienos geriausius, užbaigiam senus įrašus
     now_local = datetime.now(_DTZ) if _DTZ else datetime.now()
+    # Sortu duomenys traukiami CIA — pries zurnala. Anksciau jie buvo imami
+    # write_html viduje, o zurnalas rasomas anksciau, todel sortu stulpeliai
+    # zurnale visada likdavo tusti ir ju nebutu buve galima ismatuoti.
+    try:
+        import sortai as _S
+        _tinkami = [(d, s) for d, s in rows if s.get("tradeable")][:RODOMA]
+        if _tinkami:
+            _duom = _S.surink(yf, [d["sym"] for d, _ in _tinkami], verbose=not quiet)
+            for d, s in _tinkami:
+                inf = _duom.get(d["sym"])
+                if inf:
+                    d["sortai"] = inf
+                    z = _S.zyma(inf)
+                    if z:
+                        s.setdefault("flags", []).append(z)
+    except Exception as e:
+        if not quiet:
+            print(f"  sortu duomenys praleisti: {str(e)[:60]}")
+
     entries = update_journal(os.path.join(out_dir, "zurnalas.csv"),
                              rows, intraday_all, now_local, market=market)
     stats = journal_stats(entries)
