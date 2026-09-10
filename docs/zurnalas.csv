@@ -152,7 +152,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,AD.AS,AD,48.6,D,Ramus atsitraukimas,ne,0.271,neutral,kita,1.71,31.34,30.40,31.97,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,21:47,ML.PA,ML,29.3,D,Tikslui nėra vietos,ne,0.756,neutral,kita,1.72,34.67,33.63,35.36,baigta,stop,2026-09-09 13:00:00+02:00,33.63,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,AGN.AS,AGN,63.2,C,Ramus atsitraukimas,ne,0.200,neutral,kita,1.69,7.95,7.71,8.11,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,HEN3.DE,HEN3,63.2,C,Kritimas dar tęsiasi,ne,0.043,neutral,kita,1.54,75.94,73.66,77.46,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,HEN3.DE,HEN3,63.2,C,Kritimas dar tęsiasi,ne,0.043,neutral,kita,1.54,75.94,73.66,77.46,baigta,stop,2026-09-10 11:05:00+02:00,73.66,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:10,4GLD.DE,4GLD,55.9,C,Kritimas sustojo,ne,0.324,neutral,kita,1.89,121.64,117.99,124.07,baigta,salyga (IBS),2026-09-09 09:05:00+02:00,121.68,+0.03,+0.03
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:12,AKZA.AS,AKZA,34.6,D,Krintantis peilis,ne,0.568,neutral,Medziagos,1.96,60.78,58.96,62.00,baigta,salyga (RSI),2026-09-09 09:10:00+02:00,60.82,+0.07,+0.23
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-08,22:12,MSF.DE,MSF,62.1,C,Kritimas sustojo,ne,0.323,neutral,JAV antriniai listingai,2.37,424.00,411.28,432.48,baigta,salyga (IBS),2026-09-09 09:10:00+02:00,425.00,+0.24,+0.24
@@ -250,14 +250,14 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,09:44,PST.MI,PST,58.0,C,Neapibrėžtas kritimas,taip,0.138,bear_soft,Logistika ir mazmena,1.93,25.68,24.91,26.19,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:01,UCB.BR,UCB,46.0,D,Kritimas sustojo,taip,0.479,bear_soft,Sveikata,3.03,204.60,198.46,208.69,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:01,BZU.MI,BZU,42.4,D,Kritimas sustojo,taip,0.439,bear_soft,Medziagos,2.77,39.87,38.67,40.67,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:01,R3NK.DE,R3NK,55.2,C,Kritimas sustojo,taip,0.376,bear_soft,Gynyba ir aviacija,4.17,42.84,41.55,43.70,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:01,R3NK.DE,R3NK,55.2,C,Kritimas sustojo,taip,0.376,bear_soft,Gynyba ir aviacija,4.17,42.84,41.55,43.70,baigta,stop,2026-09-10 11:20:00+02:00,41.55,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:24,ASML.AS,ASML,51.6,C,Neapibrėžtas kritimas,taip,0.000,bear_soft,Technologijos,3.54,1481.80,1428.46,1511.44,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:24,SAP.DE,SAP,51.1,C,Neapibrėžtas kritimas,taip,0.176,bear_soft,Technologijos,3.17,177.88,172.54,181.44,baigta,salyga (IBS),2026-09-10 10:35:00+02:00,177.96,+0.04,+0.15
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:24,ISP.MI,ISP,28.7,D,Ramus atsitraukimas,taip,0.531,bear_soft,Bankai ir finansai,1.39,6.69,6.49,6.83,baigta,salyga (IBS),2026-09-10 10:25:00+02:00,6.70,+0.21,+0.21
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:43,ENR.DE,ENR,45.2,D,Kritimas sustojo,taip,0.394,bear_soft,Pramone,3.79,145.40,141.04,148.31,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:43,SIE.DE,SIE,49.5,D,Kritimas sustojo,taip,0.359,bear_soft,Pramone,2.08,264.90,256.95,270.20,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:43,IFX.DE,IFX,40.8,D,Kritimas sustojo,taip,0.545,bear_soft,Technologijos,4.39,56.84,55.13,57.98,atviras,,,,,
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:57,SU.PA,SU,38.3,D,Kritimas sustojo,taip,0.667,bear_soft,Technologijos,2.35,291.60,282.85,297.43,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:57,SU.PA,SU,38.3,D,Kritimas sustojo,taip,0.667,bear_soft,Technologijos,2.35,291.60,282.85,297.43,baigta,salyga (IBS),2026-09-10 11:15:00+02:00,291.65,+0.02,+0.03
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:57,BNP.PA,BNP,34.4,D,Ramus atsitraukimas,taip,0.469,bear_soft,Bankai ir finansai,2.00,103.46,100.36,105.53,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,10:57,RHM.DE,RHM,45.6,D,Neapibrėžtas kritimas,taip,0.557,bear_soft,Gynyba ir aviacija,4.00,1005.00,974.85,1025.10,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,11:21,ENEL.MI,ENEL,24.1,D,Rinka krenta — praleisti,ne,0.656,bear,Energetika,1.76,8.97,8.70,9.15,atviras,,,,,
@@ -272,3 +272,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,tinkamas,ibs,rinka,sektorius
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:19,AIR.PA,AIR,23.8,D,Rinka krenta — praleisti,ne,0.639,bear,Gynyba ir aviacija,2.20,197.28,191.36,201.23,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:19,ORA.PA,ORA,35.7,D,Rinka krenta — praleisti,ne,0.037,bear,Telekomai ir ziniasklaida,2.03,15.38,14.92,15.69,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:19,DHL.DE,DHL,34.1,D,Rinka krenta — praleisti,ne,0.440,bear,Logistika ir mazmena,1.60,54.74,53.10,55.83,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:37,ABI.BR,ABI,28.8,D,Rinka krenta — praleisti,ne,0.607,bear,Maistas ir kasdienes prekes,1.96,67.56,65.53,68.91,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:37,BAMI.MI,BAMI,29.5,D,Krintantis peilis,ne,0.450,bear,Bankai ir finansai,1.90,16.04,15.56,16.36,atviras,,,,,
+2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-10,12:37,SGO.PA,SGO,37.2,D,Rinka krenta — praleisti,ne,0.450,bear,Medziagos,2.52,71.68,69.53,73.11,atviras,,,,,
