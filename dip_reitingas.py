@@ -1462,15 +1462,22 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                 pct = b["tikslas"] / b["n"] * 100
                 pel = b.get("pelnai") or []
                 vid = (f"{sum(pel) / len(pel):+.2f}%" if pel else "—")
+                atv = b.get("atviros", 0)
+                dalis_atv = atv / (atv + b["n"]) * 100 if (atv + b["n"]) else 0
+                zyma = (f" · atvirų {atv}" if atv else "")
+                if dalis_atv >= 30:
+                    zyma += " ⚠"
                 lines.append(f"<div class='srow'><span class='sn2'>{g}</span>"
                              f"<i><b style='width:{min(pct, 100):.0f}%'></b></i>"
-                             f"<u>{pct:.0f}% · {vid} · n={b['n']}</u></div>")
+                             f"<u>{pct:.0f}% · {vid} · n={b['n']}{zyma}</u></div>")
             stats_html = ("<div class='stats'><div class='sh'>Live backtest — tavo "
                           "realūs sandoriai pagal scenarijų<br>"
                           "(dalis pasiekusių tikslą · vidutinis rezultatas · kiek sandorių)"
                           "</div>" + "".join(lines) +
-                          f"<div class='sn3'>Iš viso užbaigtų: {done}. "
-                          f"Patikimai vertinti galima nuo ~40.</div></div>")
+                          f"<div class='sn3'>Iš viso užbaigtų: {done}. Patikimai vertinti "
+                          f"galima nuo ~40. Ženklas ⚠ reiškia, kad daug pozicijų dar "
+                          f"atviros — tada užbaigtųjų vidurkis per gražus, nes "
+                          f"nuostolingos linksta likti atviros ilgiau.</div></div>")
 
     # Naujausio 5 min. baro laikas — parodo tikrą duomenų šviežumą
     data_lt = "?"
@@ -1865,9 +1872,14 @@ def resolve_entry(entry, intraday_all):
                         rsi_now = rsi2_daily(dien)
                 except Exception:
                     pass
+                # SVARBU: anksciau cia buvo "and cl > entry_px" — isejimas suveikdavo
+                # TIK su pelnu. Todel pelningos pozicijos uzsidarydavo greitai, o
+                # nuostolingos likdavo atviros, ir uzbaigtuju aibeje buvo beveik vien
+                # laimetojai. Tai atrankos salismas, kuris visa statistika padarydavo
+                # per graziа. Salyga turi suveikti nepriklausomai nuo pelno.
                 salyga = (ibs_now >= EXIT_IBS
                           or (rsi_now is not None and rsi_now >= EXIT_RSI))
-                if salyga and cl > entry_px:
+                if salyga:
                     pnl = (cl - entry_px) / entry_px * 100
                     entry.update(busena="baigta",
                                  rezultatas=("salyga (RSI)" if (rsi_now is not None
@@ -1944,6 +1956,11 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
                 break
             if (d["sym"], today) in have or not d.get("price"):
                 continue
+            # I zurnala rasom TIK tas, kurias modulis leidzia pirkti. Anksciau
+            # buvo rasomos ir blokuotos (peilis, krentanti rinka, ataskaita) —
+            # puse statistikos matavo sandorius, kuriu niekada nedarytum.
+            if not s.get("tradeable"):
+                continue
             entries.append(dict(
                 versija=MODEL_VERSION, data=today, laikas=now.strftime("%H:%M"), sym=d["sym"], tag=d["tag"],
                 balas=f"{s['score']:.1f}", pakopa=s["grade"],
@@ -1972,7 +1989,15 @@ def journal_stats(entries):
     bet tai skirtingi sandoriai. Seni irasai su raidemis sugrupuojami atskirai.
     """
     out = {}
+    # Skaiciuojam ir atviras: jei kuriame nors scenarijuje ju daug, uzbaigtuju
+    # statistika yra salinga (nuostolingos linksta likti atviros ilgiau).
     for e in entries:
+        g0 = (e.get("scenarijus") or "").strip()
+        g0 = (g0[0].upper() + g0[1:]) if g0 else "(be scenarijaus)"
+        if e.get("busena") == "atviras":
+            out.setdefault(g0, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0,
+                                "pelnai": [], "atviros": 0})["atviros"] += 1
+            continue
         if e.get("busena") != "baigta":
             continue
         # Naujuose irasuose scenarijus yra fraze; senuose — "kritimas"/"atsigavimas"
@@ -1981,7 +2006,8 @@ def journal_stats(entries):
         # didziaja. Suvienodinam, kad statistikoje nesidubliuotu dvi eilutes.
         g = (e.get("scenarijus") or "").strip()
         g = (g[0].upper() + g[1:]) if g else f"(sena pakopa {e.get('pakopa', '?')})"
-        b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0, "pelnai": []})
+        b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0,
+                               "pelnai": [], "atviros": 0})
         b["n"] += 1
         # Salyginio isejimo rezultatai: "salyga (IBS)" = isejimas ivykus salygai,
         # "laikas" = pasibaige laikymo langas, "stop" = apsauginis stop.
