@@ -2098,21 +2098,21 @@
    [
     "3 Chip Equipment Stocks Set to Win the Memory Boom",
     "24/7 Wall St.",
-    0.5221641083333334,
+    0.8502294302777778,
     "teig",
     "https://247wallst.com/investing/2026/09/10/3-chip-equipment-stocks-set-to-win-the-memory-boom/"
    ],
    [
     "ASML Expands High-NA Ties With Samsung and Intel as AI Demand Builds",
     "Zacks",
-    1.3996641169444444,
+    1.7277294352777777,
     "teig",
     "https://finance.yahoo.com/technology/articles/asml-expands-high-na-ties-143900733.html"
    ],
    [
     "Should Investors Buy ASML as AI Growth Meets a Premium Valuation?",
     "Zacks",
-    1.4163307858333332,
+    1.7443961044444445,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/investors-buy-asml-ai-growth-143800513.html"
    ]
@@ -4270,21 +4270,21 @@
    [
     "Workday's Q2 Beat and AI Gains Raise the Stakes for Fiscal 2028 Growth",
     "Zacks",
-    73.01636535694445,
+    73.34444221166666,
     "teig",
     "https://finance.yahoo.com/technology/ai/articles/workdays-q2-beat-ai-gains-150200481.html"
    ],
    [
     "Is Workday a Buy as AI Growth Rises but Valuation Sends Mixed Signals?",
     "Zacks",
-    73.04969869277778,
+    73.37777554805555,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/workday-buy-ai-growth-rises-150000959.html"
    ],
    [
     "WDAY Jumps 49.7% in 3 Months as AI Momentum Builds: Can it Continue?",
     "Zacks",
-    73.13303202833333,
+    73.46110888444446,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/wday-jumps-49-7-3-145500996.html"
    ]
@@ -6442,14 +6442,14 @@
    [
     "Is Intesa Sanpaolo (BIT:ISP) Still Undervalued Or Is Its Strong Run Already Priced In?",
     "Simply Wall St.",
-    471.7730720213889,
+    472.1011886588889,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/intesa-sanpaolo-bit-isp-still-001636081.html"
    ],
    [
     "Monte Paschi launches €34bn bids for Banco BPM and Banca Generali",
     "Retail Banker International",
-    484.34251647055555,
+    484.67063310916666,
     "teig",
     "https://www.retailbankerinternational.com/news/monte-paschi-banco-bpm-generali-bids/"
    ]
@@ -8608,7 +8608,7 @@
    [
     "ORLEN and partners launch Baltic Energy Initiative",
     "Energy Monitor",
-    148.7936619822222,
+    149.1217894702778,
     "teig",
     "https://www.energymonitor.ai/news/orlen-launch-baltic-energy-initiative/"
    ]
@@ -10779,7 +10779,7 @@
    [
     "Morgan Stanley upgrades Synopsys as it turns selective on chip stocks",
     "Investing.com",
-    51.28120340583333,
+    51.609333041944446,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/morgan-stanley-upgrades-synopsys-turns-124607125.html"
    ]
@@ -121573,27 +121573,27 @@
   "tag": "UMI",
   "sym": "UMI.BR",
   "name": "UMI.BR",
-  "price": 22.079999923706055,
+  "price": 22.1200008392334,
   "dayHigh": 23.139999389648438,
   "dayLow": 21.940000534057617,
-  "vwap": 22.346934205845525,
-  "rsi": 42.15662889250423,
+  "vwap": 22.186145339992777,
+  "rsi": 45.78859053205531,
   "atrPct": 3.3832606482000966,
   "support": null,
   "resistance": 23.08666737874349,
-  "rvol": 2.0283641667306362,
+  "rvol": 6.867333282832108,
   "sma20": 23.285000133514405,
   "sma50": 21.899000091552736,
   "earnings": false,
   "sector": "Medziagos",
-  "day_chg": -4.166670805877945,
+  "day_chg": -3.9930557280226924,
   "avgVolume": 364993.7,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5666633293731704,
-  "ibs": 0.11666626930198921,
+  "ibs": 0.15000039736467746,
   "gap_ret": -0.6076444940708282,
-  "zscore": -1.9594977641710054,
+  "zscore": -1.8391634815292006,
   "rsi2": 46.43985426512883,
   "grafikas": [
    [
@@ -123503,6 +123503,10 @@
    [
     "2026-09-10 17:25:00+02:00",
     22.079999923706055
+   ],
+   [
+    "2026-09-10 17:35:00+02:00",
+    22.1200008392334
    ]
   ],
   "rizika": {
@@ -123514,7 +123518,7 @@
    "dienu": 127,
    "max_dd": -27.283017140514442
   },
-  "vol5m": 0.18034677627127624,
+  "vol5m": 0.17953668053654098,
   "res_intra": 23.139999389648438,
   "sup_intra": 21.940000534057617,
   "res_list": [
@@ -123522,16 +123526,16 @@
    23.139999389648438,
    24.600000381469727
   ],
-  "m1h": -0.4525433282921353,
-  "m3h": -0.6017853402556431,
-  "pos1h": 16.66626930198921,
+  "m1h": -0.3871493393391665,
+  "m3h": -0.42061543528833223,
+  "pos1h": 40.00019073595468,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 3.1547801304847187,
+  "exp_move": 3.140609242706337,
   "down_days": 1,
-  "dd5": 6.361323175798576,
-  "chg3d": -4.498273692804189,
-  "asOf": "2026-09-10 17:25:00+02:00",
+  "dd5": 6.1916840084670755,
+  "chg3d": -4.325259358568248,
+  "asOf": "2026-09-10 17:35:00+02:00",
   "score": 45.0,
   "grade": "D",
   "fraze": "Rinka krenta — praleisti",
@@ -123549,7 +123553,7 @@
    ],
    [
     "info",
-    "IBS 0.12 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
+    "IBS 0.15 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
    ],
    [
     "warn",
@@ -123560,27 +123564,27 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ]
   ],
-  "dip": 4.580810258865297,
-  "rng": 11.666626930198921,
-  "room": 4.5591823302346635,
-  "sup_d": 0.6340552089319893,
-  "vw_d": -1.1945006848843058,
-  "stop": 21.41759992599487,
-  "tp": 22.521599922180176,
-  "rr": 0.6666666666666649,
-  "shares": 815,
+  "dip": 4.40794545081678,
+  "rng": 15.000039736467746,
+  "room": 4.370101730717616,
+  "sup_d": 0.8137445675703665,
+  "vw_d": -0.29813426237745866,
+  "stop": 21.456400814056394,
+  "tp": 22.562400856018066,
+  "rr": 0.6666666666666631,
+  "shares": 813,
   "sector_chg": -1.7159974691502413,
-  "pos_value": 17995.199937820435,
-  "gross": 359.90399875640867,
-  "net": 355.90399875640867,
-  "real_risk": 539.8559981346147,
-  "trail_from": 22.183775923347472,
+  "pos_value": 17983.560682296753,
+  "gross": 359.67121364593504,
+  "net": 355.67121364593504,
+  "real_risk": 539.5068204689044,
+  "trail_from": 22.223964843177793,
   "trail_pct": 1.5,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.5773900652423594
+  "move_ratio": 1.5703046213531684
  },
  {
   "tag": "AFX",
