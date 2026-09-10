@@ -2098,21 +2098,21 @@
    [
     "3 Chip Equipment Stocks Set to Win the Memory Boom",
     "24/7 Wall St.",
-    0.8502294302777778,
+    1.1449952733333333,
     "teig",
     "https://247wallst.com/investing/2026/09/10/3-chip-equipment-stocks-set-to-win-the-memory-boom/"
    ],
    [
     "ASML Expands High-NA Ties With Samsung and Intel as AI Demand Builds",
     "Zacks",
-    1.7277294352777777,
+    2.0224952786111112,
     "teig",
     "https://finance.yahoo.com/technology/articles/asml-expands-high-na-ties-143900733.html"
    ],
    [
     "Should Investors Buy ASML as AI Growth Meets a Premium Valuation?",
     "Zacks",
-    1.7443961044444445,
+    2.0391619475000002,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/investors-buy-asml-ai-growth-143800513.html"
    ]
@@ -4270,21 +4270,21 @@
    [
     "Workday's Q2 Beat and AI Gains Raise the Stakes for Fiscal 2028 Growth",
     "Zacks",
-    73.34444221166666,
+    73.63920371861111,
     "teig",
     "https://finance.yahoo.com/technology/ai/articles/workdays-q2-beat-ai-gains-150200481.html"
    ],
    [
     "Is Workday a Buy as AI Growth Rises but Valuation Sends Mixed Signals?",
     "Zacks",
-    73.37777554805555,
+    73.67253705416667,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/workday-buy-ai-growth-rises-150000959.html"
    ],
    [
     "WDAY Jumps 49.7% in 3 Months as AI Momentum Builds: Can it Continue?",
     "Zacks",
-    73.46110888444446,
+    73.75587039000001,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/wday-jumps-49-7-3-145500996.html"
    ]
@@ -6442,14 +6442,14 @@
    [
     "Is Intesa Sanpaolo (BIT:ISP) Still Undervalued Or Is Its Strong Run Already Priced In?",
     "Simply Wall St.",
-    472.1011886588889,
+    472.39591604388886,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/intesa-sanpaolo-bit-isp-still-001636081.html"
    ],
    [
     "Monte Paschi launches €34bn bids for Banco BPM and Banca Generali",
     "Retail Banker International",
-    484.67063310916666,
+    484.9653604930556,
     "teig",
     "https://www.retailbankerinternational.com/news/monte-paschi-banco-bpm-generali-bids/"
    ]
@@ -8608,7 +8608,7 @@
    [
     "ORLEN and partners launch Baltic Energy Initiative",
     "Energy Monitor",
-    149.1217894702778,
+    149.4165162061111,
     "teig",
     "https://www.energymonitor.ai/news/orlen-launch-baltic-energy-initiative/"
    ]
@@ -10779,7 +10779,7 @@
    [
     "Morgan Stanley upgrades Synopsys as it turns selective on chip stocks",
     "Investing.com",
-    51.609333041944446,
+    51.90405036166667,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/morgan-stanley-upgrades-synopsys-turns-124607125.html"
    ]
@@ -115813,12 +115813,12 @@
   "price": 13.119999885559082,
   "dayHigh": 13.260000228881836,
   "dayLow": 13.0,
-  "vwap": 13.106920383766212,
+  "vwap": 13.10693007183847,
   "rsi": 60.226057311149695,
   "atrPct": 2.441930579996883,
   "support": 13.039999961853027,
   "resistance": 13.206666628519693,
-  "rvol": 1.7554762724450366,
+  "rvol": 1.755595145650553,
   "sma20": 13.548500061035156,
   "sma50": 13.697800045013429,
   "earnings": false,
@@ -117485,7 +117485,7 @@
   "dd5": 4.720410679711435,
   "chg3d": -0.6060600368335035,
   "asOf": "2026-09-10 17:35:00+02:00",
-  "score": 37.89185456285814,
+  "score": 37.892076531084335,
   "grade": "D",
   "fraze": "Rinka krenta — praleisti",
   "spalva": "raus",
@@ -117525,7 +117525,7 @@
   "rng": 46.15376150827129,
   "room": 0.6605696929616875,
   "sup_d": 0.9146332820563776,
-  "vw_d": 0.09979080828986793,
+  "vw_d": 0.09971681888113698,
   "stop": 12.72639988899231,
   "tp": 13.382399883270264,
   "rr": 0.6666666666666666,
