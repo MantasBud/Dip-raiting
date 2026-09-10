@@ -1727,6 +1727,20 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     for d, _ in rodomi:
         if "naujienos" not in d:
             d["naujienos"] = naujienos(yf_mod, d["sym"]) if yf_mod else []
+
+    # Viesi sortai is ES registro. Vienas failas visoms, kesuojamas 6 val.
+    # Rodoma kaip INFORMACIJA — signalas nematuotas, i bala neieina.
+    try:
+        import sortai as _S
+        if yf_mod and rodomi:
+            duom = _S.surink(yf_mod, [d["sym"] for d, _ in rodomi], verbose=False)
+            for d, s in rodomi:
+                z = _S.zyma(duom.get(d["sym"]))
+                if z:
+                    d["sortai"] = duom.get(d["sym"])
+                    s.setdefault("flags", []).append(z)
+    except Exception:
+        pass
     # Korteles generuojamos VISOMS tikrintoms akcijoms, bet matomos tik penkios.
     # Likusios paslėptos — jos reikalingos, kad prisegta (pin) akcija isliktu
     # puslapyje po atnaujinimo, net jei ta diena nepateko i penketuka.
@@ -1948,6 +1962,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-salyginis-isejimas"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
+                  "sortai", "sortu_pokytis",
                   "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
                   "min_tikslas", "busena", "rezultatas", "baigties_laikas",
                   "baigties_kaina", "pelnas_pct", "virsune_pct"]
@@ -2113,6 +2128,8 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
                 scenarijus=s.get("fraze", s.get("setup", "")),
                 tinkamas="taip" if s.get("tradeable") else "ne",
                 ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
+                sortai=f"{(d.get('sortai') or {}).get('suma', '')}",
+                sortu_pokytis=f"{(d.get('sortai') or {}).get('pokytis', '')}",
                 rinka=market, sektorius=d.get("sector", ""),
                 atr=f"{d['atrPct']:.2f}" if d.get("atrPct") else "",
                 ijejimas=f"{d['price']:.2f}", stop=f"{s['stop']:.2f}",
