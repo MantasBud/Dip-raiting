@@ -1002,7 +1002,14 @@ def naujienos(yf, symbol, kiek=6, cache_min=30):
             teig = sum(1 for w in TEIG_ZODZIAI if w in z)
             if neig == teig:
                 continue            # neutralios praleidziamos — jos nieko nepasako
-            out.append((antr, saltinis, val, "neig" if neig > teig else "teig"))
+            nuoroda = ""
+            try:
+                nuoroda = (turinys.get("canonicalUrl", {}).get("url")
+                           or turinys.get("clickThroughUrl", {}).get("url")
+                           or n.get("link") or "")
+            except Exception:
+                pass
+            out.append((antr, saltinis, val, "neig" if neig > teig else "teig", nuoroda))
     except Exception:
         pass
     _NAUJIENU_CACHE[symbol] = (out, now)
@@ -1143,6 +1150,31 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     mom = short_momentum(today)
     zbal = price_zscore(intra["Close"], price)
 
+    # RIZIKOS FAKTAI is pastaruju 6 men. dienos baru. Ne prognoze — tai, kas
+    # su sia akcija realiai vyko. Rodo, ko tiketis blogiausiu atveju.
+    rizika = {}
+    try:
+        dc = daily["Close"].astype(float)
+        do = daily["Open"].astype(float)
+        dl_ = daily["Low"].astype(float)
+        dienos_pok = (dc / dc.shift(1) - 1) * 100
+        suoliai = (do / dc.shift(1) - 1) * 100
+        rizika = dict(
+            # blogiausia diena ir 5% blogiausiu dienu riba
+            blogiausia=float(dienos_pok.min()),
+            bloga_5=float(dienos_pok.quantile(0.05)),
+            # nakties suoliai — stop ju nesustabdo
+            suolis_bloga=float(suoliai.min()),
+            suolis_5=float(suoliai.quantile(0.05)),
+            # kiek kartu per 6 men. dienos kritimas virsijo 3%
+            virs_stop=int((dienos_pok <= -3.0).sum()),
+            dienu=int(dienos_pok.notna().sum()),
+            # giliausias atsitraukimas nuo virsunes per 6 men.
+            max_dd=float(((dc / dc.cummax() - 1) * 100).min()),
+        )
+    except Exception:
+        pass
+
     # Grafikui: 5 MIN. barai (smulki kreive), paskutines 5 sesijos.
     # Horizontale zymima valandomis, ne dienomis.
     grafikas = []
@@ -1179,6 +1211,7 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
                 cur=currency_of(sym)[0], cur_sym=currency_of(sym)[1], gap=gap,
                 ibs=ibs, gap_ret=gap_ret, zscore=zbal, rsi2=rsi2_v, grafikas=grafikas,
+                rizika=rizika,
                 vol5m=v5, res_intra=res_intra, sup_intra=sup_intra, res_list=cands,
                 m1h=mom["m1h"], m3h=mom["m3h"], pos1h=mom["pos1h"],
                 span_h=mom["span_h"], mom_partial=mom["partial"],
@@ -1504,6 +1537,49 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     refresh_tag = (f'<meta http-equiv="refresh" content="{refresh_seconds}">'
                    if refresh_seconds else "")
 
+    def rizika_html(d, s):
+        """Rizikos faktai: kas su sia akcija realiai vyko per 6 men.
+
+        Ne prognoze. Rodo, kiek galetum prarasti, jei pasikartotu blogiausia
+        diena arba blogiausias nakties suolis — su TAVO pozicijos dydziu.
+        """
+        r = d.get("rizika") or {}
+        if not r:
+            return ""
+        poz = s.get("pos_value") or 0
+        stop_pct = ((d["price"] - s["stop"]) / d["price"] * 100) if d.get("price") else 0
+        eil = []
+
+        def kaina(pct):
+            return f"{poz * pct / 100:,.0f}".replace(",", " ")
+
+        eil.append(f"<tr><td class='rl'>Stop suveiktų ties</td>"
+                   f"<td class='rv'>−{stop_pct:.1f}%</td>"
+                   f"<td class='re'>−{kaina(stop_pct)} €</td></tr>")
+        if r.get("bloga_5") is not None:
+            eil.append(f"<tr><td class='rl'>Bloga diena (5% blogiausių)</td>"
+                       f"<td class='rv'>{r['bloga_5']:.1f}%</td>"
+                       f"<td class='re'>{kaina(r['bloga_5'])} €</td></tr>")
+        if r.get("blogiausia") is not None:
+            eil.append(f"<tr><td class='rl'>Blogiausia diena per 6 mėn.</td>"
+                       f"<td class='rv'>{r['blogiausia']:.1f}%</td>"
+                       f"<td class='re'>{kaina(r['blogiausia'])} €</td></tr>")
+        if r.get("suolis_bloga") is not None:
+            pavojus = " ⚠" if abs(r["suolis_bloga"]) > stop_pct else ""
+            eil.append(f"<tr><td class='rl'>Blogiausias nakties šuolis{pavojus}</td>"
+                       f"<td class='rv'>{r['suolis_bloga']:.1f}%</td>"
+                       f"<td class='re'>{kaina(r['suolis_bloga'])} €</td></tr>")
+        if r.get("virs_stop") is not None and r.get("dienu"):
+            eil.append(f"<tr><td class='rl'>Dienų, kai krito daugiau nei stop</td>"
+                       f"<td class='rv'>{r['virs_stop']} iš {r['dienu']}</td>"
+                       f"<td class='re'>{r['virs_stop'] / r['dienu'] * 100:.0f}%</td></tr>")
+        if r.get("max_dd") is not None:
+            eil.append(f"<tr><td class='rl'>Giliausias kritimas nuo viršūnės</td>"
+                       f"<td class='rv'>{r['max_dd']:.1f}%</td>"
+                       f"<td class='re'>{kaina(r['max_dd'])} €</td></tr>")
+        return (f"<div class='rzh'>Rizika: kas su šia akcija vyko per 6 mėn.</div>"
+                f"<table class='rizika'>{''.join(eil)}</table>")
+
     def nws(d):
         """Antrastes su apytiksliu atspalviu. Zalsvas / rausvas fonas — tik
         raktazodziu paieskos rezultatas, todel antraste rodoma visa."""
@@ -1511,12 +1587,14 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         if not n:
             return ""
         eil = []
-        for antr, salt, val, atsp in n[:3]:
+        for antr, salt, val, atsp, url in n[:3]:
             laikas = (f"prieš {val:.0f} val." if val is not None and val < 48
                       else ("prieš {:.0f} d.".format(val / 24) if val else "—"))
             zenklas = {"teig": "+", "neig": "−"}[atsp]
             eil.append(f"<tr class='n{atsp}'><td class='nz'>{zenklas}</td>"
-                       f"<td class='nt'>{antr}</td>"
+                       f"<td class='nt'>" +
+                       (f"<a href='{url}' target='_blank' rel='noopener'>{antr}</a>"
+                        if url else antr) + "</td>"
                        f"<td class='ns'>{salt or '—'}</td>"
                        f"<td class='nl'>{laikas}</td></tr>")
         return f"<table class='news'>{''.join(eil)}</table>"
@@ -1679,6 +1757,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
               <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div></div>
             {bars(d, s)}
+            {rizika_html(d, s)}
             {nws(d)}
             <ul class="fl">{fl}</ul>
           </div>
@@ -1688,6 +1767,16 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {refresh_tag}
 <title>Dip reitingas</title><style>
+.rzh{{font-size:11px;color:var(--ink2);margin:10px 0 4px;font-weight:600}}
+.rizika{{width:100%;border-collapse:collapse;background:#fff;
+border:1px solid var(--line);border-radius:6px;overflow:hidden}}
+.rizika td{{padding:5px 9px;border-top:1px solid var(--line);font-size:11.5px}}
+.rizika tr:first-child td{{border-top:none}}
+.rizika .rl{{color:var(--ink)}}
+.rizika .rv{{text-align:right;width:78px;font-variant-numeric:tabular-nums;
+color:var(--stop);font-weight:600}}
+.rizika .re{{text-align:right;width:88px;font-variant-numeric:tabular-nums;
+color:var(--ink2)}}
 .news{{width:100%;border-collapse:collapse;background:#fff;margin:8px 0 4px;
 border:1px solid var(--line);border-radius:6px;overflow:hidden}}
 .news td{{padding:7px 9px;border-top:1px solid var(--line);vertical-align:top;
@@ -1698,6 +1787,8 @@ color:var(--ink2)}}
 .news tr.nteig .nz{{color:#2F7A57}}
 .news tr.nneig .nz{{color:#C25C55}}
 .news .nt{{font-size:12px;line-height:1.4}}
+.news .nt a{{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}}
+.news .nt a:hover{{border-bottom-color:var(--ink2)}}
 .news .ns{{font-size:10.5px;color:var(--ink2);white-space:nowrap;width:70px}}
 .news .nl{{font-size:10.5px;color:var(--ink2);white-space:nowrap;width:80px;
 text-align:right}}
