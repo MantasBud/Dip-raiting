@@ -847,12 +847,21 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         spalva = "zal" if (tradeable and score >= 64) else "gelt"
     else:
         # Kritimo šeima — skiriam pagal tai, ar kritimas jau sustojo
-        # Frazes skiriamos pagal FAKTUS, ne pagal kriterijaus bala: anksciau
-        # "stab >= 70" buvo tenkinamas beveik visada, todel gilus kritimas ir
-        # ramus atsitraukimas gaudavo ta pacia fraze "Kritimas sustojo".
-        val_teig = m1h is not None and m1h > 0.05        # pastaroji valanda kyla
-        val_neig = m1h is not None and m1h < -0.10       # pastaroji valanda krenta
-        gilus = (dd5 or 0) >= 3.0 or (day_chg is not None and day_chg <= -2.0)
+        # Ribos NORMALIZUOTOS pagal pacios akcijos svyravima (ATR), o ne fiksuotos.
+        # Anksciau buvo "m1h > 0.05%" ir "dd5 >= 3%" visoms vienodai — bet 0.05%
+        # judesys akcijoje su 8% ATR yra triuksmas, o akcijoje su 1.5% ATR jau
+        # kryptis. Todel matuojam ATR dalimis: valandos judesys lyginamas su
+        # tipiniu valandiniu judesiu (ATR / sqrt(8.5)), o kritimo gylis — su ATR.
+        atr_ref = max(0.5, a_pct or 2.0)
+        val_ref = atr_ref / (8.5 ** 0.5)          # tipinis vienos valandos judesys
+        val_sant = (m1h / val_ref) if (m1h is not None and val_ref > 0) else None
+        gylio_sant = ((dd5 or 0) / atr_ref) if atr_ref > 0 else 0
+        dienos_sant = ((-day_chg / atr_ref) if (day_chg is not None and atr_ref > 0)
+                       else 0)
+
+        val_teig = val_sant is not None and val_sant > 0.15
+        val_neig = val_sant is not None and val_sant < -0.30
+        gilus = gylio_sant >= 1.0 or dienos_sant >= 0.7
         zemai = ibs_v is not None and ibs_v <= 0.25
 
         if gilus and not val_teig:
@@ -949,7 +958,7 @@ TEIG_ZODZIAI = (
 )
 
 
-def naujienos(yf, symbol, kiek=3, cache_min=30):
+def naujienos(yf, symbol, kiek=6, cache_min=30):
     """Paskutines antrastes su apytiksliu atspalviu.
 
     Grazina saraso elementus: (antraste, saltinis, valandu_senumas, atspalvis),
@@ -991,8 +1000,9 @@ def naujienos(yf, symbol, kiek=3, cache_min=30):
             z = antr.lower()
             neig = sum(1 for w in NEIG_ZODZIAI if w in z)
             teig = sum(1 for w in TEIG_ZODZIAI if w in z)
-            atsp = "neig" if neig > teig else ("teig" if teig > neig else "neutr")
-            out.append((antr, saltinis, val, atsp))
+            if neig == teig:
+                continue            # neutralios praleidziamos — jos nieko nepasako
+            out.append((antr, saltinis, val, "neig" if neig > teig else "teig"))
     except Exception:
         pass
     _NAUJIENU_CACHE[symbol] = (out, now)
@@ -1503,7 +1513,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         for antr, salt, val, atsp in n[:3]:
             laikas = (f"prieš {val:.0f} val." if val is not None and val < 48
                       else ("prieš {:.0f} d.".format(val / 24) if val else "—"))
-            zenklas = {"teig": "+", "neig": "−", "neutr": "·"}[atsp]
+            zenklas = {"teig": "+", "neig": "−"}[atsp]
             eil.append(f"<tr class='n{atsp}'><td class='nz'>{zenklas}</td>"
                        f"<td class='nt'>{antr}</td>"
                        f"<td class='ns'>{salt or '—'}</td>"
@@ -1638,14 +1648,22 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     for d, _ in rodomi:
         if "naujienos" not in d:
             d["naujienos"] = naujienos(yf_mod, d["sym"]) if yf_mod else []
+    # Korteles generuojamos VISOMS tikrintoms akcijoms, bet matomos tik penkios.
+    # Likusios paslėptos — jos reikalingos, kad prisegta (pin) akcija isliktu
+    # puslapyje po atnaujinimo, net jei ta diena nepateko i penketuka.
+    rodomi_sym = {d["sym"] for d, _ in rodomi}
+    visos = rodomi + [(d, s) for d, s in rows if d["sym"] not in rodomi_sym]
     cards = []
-    for i, (d, s) in enumerate(rodomi, 1):
+    for i, (d, s) in enumerate(visos, 1):
+        paslepta = d["sym"] not in rodomi_sym
         fl = "".join(f"<li class='{lvl}'>{txt}</li>" for lvl, txt in s["flags"])
         cs = d.get("cur_sym", "")
         cur = d.get("cur", "")
         cards.append(f"""
-        <details class="card c{s.get('spalva','gelt')}" {'open' if i == 1 else ''}>
-          <summary><span class="rk">{i}</span><span class="tk">{d['tag']}</span>
+        <details class="card c{s.get('spalva','gelt')}{' hid' if paslepta else ''}"
+                 data-sym="{d['sym']}" {'open' if (i == 1 and not paslepta) else ''}>
+          <summary><span class="pin" data-pin="{d['sym']}" title="Prisegti">☆</span>
+            <span class="tk">{d['tag']}</span>
             <span class="px">{cs}{d['price']:.2f}</span>
             <span class="fr f{s.get('spalva','gelt')}">{s.get('fraze','')}</span></summary>
           <div class="in">
@@ -1656,16 +1674,9 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
                    else f"rizika/nauda {s['rr']:.2f} per maža")}</div>
             <div class="plan"><div><span>Įėjimas</span><b>{cs}{d['price']:.2f}</b></div>
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
-              <div><span>Parduoti kai</span><b>RSI(2) virš {s.get('exit_rsi', 70):.0f}</b></div>
-              <div><span>arba</span><b>IBS virš {s.get('exit_ibs', 0.8):.2f}</b></div>
-              <div><span>IBS dabar</span><b>{(d.get('ibs') or 0):.2f}</b></div>
-              <div><span>RSI(2) dabar</span><b>{(s.get('rsi2') or 0):.0f}</b></div>
-              <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
-              <div><span>Stop atstumas</span><b>{((d['price'] - s['stop']) / d['price'] * 100):.1f}%</b></div>
-              <div><span>Kiekis</span><b>{s['shares']} vnt.</b></div>
-              <div><span>Pozicija</span><b>{cs}{s['pos_value']:,.0f}</b></div>
-              <div><span>Pelnas ties {TARGET_PCT}%</span><b>{cs}{s['net']:.0f}</b></div>
-              <div><span>Rizikuoji</span><b>{cs}{s['real_risk']:.0f}</b></div></div>
+              <div><span>RSI(2)</span><b>{(s.get('rsi2') or 0):.0f} → {s.get('exit_rsi', 70):.0f}</b></div>
+              <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
+              <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div></div>
             {bars(d, s)}
             {nws(d)}
             <ul class="fl">{fl}</ul>
@@ -1740,7 +1751,11 @@ font-variant-numeric:tabular-nums}}
 .card{{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:7px;overflow:hidden}}
 summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
-.rk{{font-size:11px;color:var(--ink2);width:16px}}
+.pin{{width:18px;font-size:15px;color:#C9C5BE;cursor:pointer;user-select:none;
+line-height:1;flex:none}}
+.pin.on{{color:#D9A400}}
+.card.hid{{display:none}}
+.card.pinned{{display:block;border-left:3px solid #D9A400}}
 .tk{{font-weight:600;font-size:15px;width:74px;flex:none;
 overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .bar{{flex:1;height:5px;background:#DFE5EE;border-radius:3px;overflow:hidden}}
@@ -1791,6 +1806,44 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 {movers_html}
 {stats_html}
 {''.join(cards)}
+<script>
+(function () {{
+  // Prisegtos akcijos saugomos narsykleje, todel islieka ir po puslapio
+  // atnaujinimo. Ju korteles jau sugeneruotos (tik paslėptos), tad tereikia
+  // jas parodyti.
+  var RAKTAS = "prisegtos";
+  function imk() {{
+    try {{ return JSON.parse(localStorage.getItem(RAKTAS) || "[]"); }}
+    catch (e) {{ return []; }}
+  }}
+  function saugok(a) {{
+    try {{ localStorage.setItem(RAKTAS, JSON.stringify(a)); }} catch (e) {{}}
+  }}
+  function atnaujink() {{
+    var p = imk();
+    document.querySelectorAll(".card").forEach(function (k) {{
+      var sym = k.getAttribute("data-sym");
+      var yra = p.indexOf(sym) >= 0;
+      k.classList.toggle("pinned", yra);
+      var z = k.querySelector(".pin");
+      if (z) {{ z.classList.toggle("on", yra); z.textContent = yra ? "\u2605" : "\u2606"; }}
+    }});
+  }}
+  document.addEventListener("click", function (e) {{
+    var z = e.target.closest ? e.target.closest(".pin") : null;
+    if (!z) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var sym = z.getAttribute("data-pin");
+    var p = imk();
+    var i = p.indexOf(sym);
+    if (i >= 0) {{ p.splice(i, 1); }} else {{ p.push(sym); }}
+    saugok(p);
+    atnaujink();
+  }});
+  atnaujink();
+}})();
+</script>
 </html>"""
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
