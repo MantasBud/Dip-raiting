@@ -827,9 +827,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         if setup == "Krintantis peilis":
             fraze, spalva = "Krintantis peilis", "raus"
         elif any("Rinka krenta" in t for t in blocking):
-            fraze, spalva = "Rinka krenta — praleisti", "raus"
+            fraze, spalva = "Rinka krenta", "raus"
         elif any("Ataskaita" in t for t in blocking):
-            fraze, spalva = "Ataskaita per 2 dienas", "raus"
+            fraze, spalva = "Ataskaita artėja", "raus"
         elif any("netelpa" in t for t in blocking):
             fraze, spalva = "Tikslui nėra vietos", "raus"
         else:
@@ -837,9 +837,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     elif setup == "Krintantis peilis":
         fraze, spalva = "Krintantis peilis", "raus"
     elif setup == "Jau pakilusi":
-        fraze, spalva = "Jau pakilusi — nuolaidos nėra", "gelt"
+        fraze, spalva = "Jau pakilusi", "gelt"
     elif setup == "Kyla, prie viršūnės":
-        fraze = ("Kylančio trendo tęsinys" if trend >= 85 else "Kyla, prie viršūnės")
+        fraze = ("Trendo tęsinys" if trend >= 85 else "Kyla, prie viršūnės")
         spalva = "gelt"
     elif setup == "Atsigavimas":
         fraze = ("Atsigavimas su sektoriumi"
@@ -867,7 +867,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         if gilus and not val_teig:
             fraze = "Neapibrėžtas kritimas"
         elif val_teig and zemai:
-            fraze = "Atsitraukimas, kryptis stabilizavosi"
+            fraze = "Kryptis stabilizavosi"
         elif val_teig:
             fraze = "Kritimas sustojo"
         elif val_neig:
@@ -875,7 +875,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         else:
             fraze = "Ramus atsitraukimas"
         if sector_chg is not None and sector_chg > 0.5 and fraze.startswith("Atsitraukimas"):
-            fraze = "Atsitraukimas kylančiame sektoriuje"
+            fraze = "Dipas kylančiame sektoriuje"
         spalva = "zal" if (tradeable and score >= 64) else "gelt"
 
     return dict(score=score, grade=grade, fraze=fraze, spalva=spalva,
@@ -1843,20 +1843,21 @@ border-top:1px solid var(--line)}}
 .srow u{{font-size:11px;color:var(--ink2);width:135px;text-align:right;text-decoration:none;
 font-variant-numeric:tabular-nums}}
 .card{{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:7px;overflow:hidden}}
-summary{{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}}
+summary{{display:flex;align-items:center;gap:6px;padding:11px 10px;cursor:pointer;list-style:none}}
 summary::-webkit-details-marker{{display:none}}
-.pin{{width:18px;font-size:15px;color:#C9C5BE;cursor:pointer;user-select:none;
+.pin{{width:16px;font-size:14px;color:#C9C5BE;cursor:pointer;user-select:none;
 line-height:1;flex:none}}
 .pin.on{{color:#D9A400}}
 .card.hid{{display:none}}
 .card.pinned{{display:block;border-left:3px solid #D9A400}}
-.tk{{font-weight:600;font-size:15px;width:74px;flex:none;
+.tk{{font-weight:600;font-size:14px;width:58px;flex:none;
 overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .bar{{flex:1;height:5px;background:#DFE5EE;border-radius:3px;overflow:hidden}}
 .bar i{{display:block;height:100%;background:var(--ink)}}
-.px{{font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;
-width:82px;flex:none;text-align:right;padding-right:14px}}
-.fr{{font-size:12px;flex:1;text-align:left;white-space:nowrap;color:var(--ink)}}
+.px{{font-size:11.5px;color:var(--ink2);font-variant-numeric:tabular-nums;
+width:66px;flex:none;text-align:right;padding-right:8px}}
+.fr{{font-size:11.5px;flex:1;text-align:left;color:var(--ink);
+line-height:1.25;overflow-wrap:anywhere}}
 .fzal,.fgelt{{color:var(--ink)}}
 .fraus{{color:var(--stop)}}
 .card.craus{{border-left:3px solid var(--stop)}}
@@ -2132,6 +2133,25 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
         return []
 
 
+# Frazes laikui begant trumpintos (kad tilptu telefone). Kad statistikoje
+# nesidubliuotu dvi eilutes tam paciam scenarijui, senus pavadinimus
+# susiejam su naujais. Mazoji raide istaisoma atskirai, zemiau.
+SENOS_FRAZES = {
+    "Atsitraukimas, kryptis stabilizavosi": "Kryptis stabilizavosi",
+    "Atsitraukimas kylančiame sektoriuje": "Dipas kylančiame sektoriuje",
+    "Kylančio trendo tęsinys": "Trendo tęsinys",
+    "Jau pakilusi — nuolaidos nėra": "Jau pakilusi",
+    "Rinka krenta — praleisti": "Rinka krenta",
+    "Ataskaita per 2 dienas": "Ataskaita artėja",
+    # dar senesni, is pirmuju versiju
+    "kritimas": "Kritimas",
+    "atsigavimas": "Atsigavimas",
+    "jau pakilusi": "Jau pakilusi",
+    "kyla, prie viršūnės": "Kyla, prie viršūnės",
+    "krintantis peilis": "Krintantis peilis",
+}
+
+
 def journal_stats(entries):
     """Statistika pagal SCENARIJU, ne pagal raide.
 
@@ -2145,6 +2165,7 @@ def journal_stats(entries):
     for e in entries:
         g0 = (e.get("scenarijus") or "").strip()
         g0 = (g0[0].upper() + g0[1:]) if g0 else "(be scenarijaus)"
+        g0 = SENOS_FRAZES.get(g0, g0)
         if e.get("busena") == "atviras":
             out.setdefault(g0, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0,
                                 "pelnai": [], "atviros": 0})["atviros"] += 1
@@ -2153,10 +2174,9 @@ def journal_stats(entries):
             continue
         # Naujuose irasuose scenarijus yra fraze; senuose — "kritimas"/"atsigavimas"
         # arba tuscia, tada griztam prie raides
-        # Senuose irasuose scenarijai rasyti mazaja raide ("kritimas"), naujuose —
-        # didziaja. Suvienodinam, kad statistikoje nesidubliuotu dvi eilutes.
         g = (e.get("scenarijus") or "").strip()
         g = (g[0].upper() + g[1:]) if g else f"(sena pakopa {e.get('pakopa', '?')})"
+        g = SENOS_FRAZES.get(g, g)
         b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0,
                                "pelnai": [], "atviros": 0})
         b["n"] += 1
