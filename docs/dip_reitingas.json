@@ -2098,14 +2098,14 @@
    [
     "3 Chip Equipment Stocks Set to Win the Memory Boom",
     "24/7 Wall St.",
-    24.56377993,
+    24.925710665277776,
     "teig",
     "https://247wallst.com/investing/2026/09/10/3-chip-equipment-stocks-set-to-win-the-memory-boom/"
    ],
    [
     "ASML Expands High-NA Ties With Samsung and Intel as AI Demand Builds",
     "Zacks",
-    25.441279934444445,
+    25.80321067,
     "teig",
     "https://finance.yahoo.com/technology/articles/asml-expands-high-na-ties-143900733.html"
    ]
@@ -4265,7 +4265,7 @@
    [
     "He Built Products at Beats, Apple and LVMH. Here’s How He Ended Up at a $1.5 Billion Startup That’s Making Your Data Safer.",
     "Entrepreneur",
-    20.611586546944448,
+    20.973558038055554,
     "teig",
     "https://www.entrepreneur.com/building-a-business/he-built-apple-music-now-he-leads-a-startup-sold-over-8-million-security-devices"
    ]
@@ -6421,21 +6421,21 @@
    [
     "All You Need to Know About Leonardo S.P.A. - Unsponsored ADR (FINMY) Rating Upgrade to Buy",
     "Zacks",
-    168.09079910416668,
+    168.45280635222224,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/know-leonardo-p-unsponsored-adr-160002428.html"
    ],
    [
     "Q2 Earnings Highs And Lows: Leonardo DRS (NASDAQ:DRS) Vs The Rest Of The Defense Contractors Stocks",
     "StockStory",
-    184.1030213325,
+    184.46502858055555,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/q2-earnings-highs-lows-leonardo-235918110.html"
    ],
    [
     "Leonardo SpA (FINMF) (Q2 2026) Earnings Call Highlights: Orders Surge 40%, Guidance Raised on ...",
     "GuruFocus.com",
-    1005.0663546758334,
+    1005.4283619233333,
     "teig",
     "https://finance.yahoo.com/news/leonardo-spa-finmf-q2-2026-190130238.html"
    ]
@@ -8587,7 +8587,7 @@
    [
     "BASFY Adds Low-Emission PU Catalyst to Its Amine Catalyst Portfolio",
     "Zacks",
-    2.1080620361111113,
+    2.4700796841666666,
     "neig",
     "https://finance.yahoo.com/markets/stocks/articles/basfy-adds-low-emission-pu-135900726.html"
    ]
@@ -8647,12 +8647,12 @@
   "price": 54.060001373291016,
   "dayHigh": 54.81999969482422,
   "dayLow": 53.939998626708984,
-  "vwap": 54.35072369102168,
+  "vwap": 54.353527592320496,
   "rsi": 41.63269525400666,
   "atrPct": 2.1008876342265275,
   "support": 53.599998474121094,
   "resistance": 54.813334147135414,
-  "rvol": 1.3083970844656687,
+  "rvol": 1.2956082407829215,
   "sma20": 57.27199993133545,
   "sma50": 56.55599983215332,
   "earnings": false,
@@ -10739,26 +10739,26 @@
    [
     "Zara owner Inditex reports nearly 7% H1 profit growth",
     "Retail Insight Network",
-    28.965053434444446,
+    29.327063067777775,
     "teig",
     "https://www.retail-insight-network.com/news/inditex-reports-6-8-h1-profit-growth/"
    ],
    [
     "Inditex Breaks Records and Still Gets Marked Down",
     "Moby",
-    46.425331218055554,
+    46.78734085083334,
     "teig",
     "https://app.moby.co/home/news/news-inditex-breaks-records-and-still-gets-marked-down?utm_source=yahoo_finance&utm_medium=rss"
    ],
    [
     "Industria De Diseno Textil SA (IDEXF) (H1 2026) Earnings Call Highlights: Strong Sales Growth ...",
     "GuruFocus.com",
-    49.08338677611111,
+    49.44539640861112,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/industria-diseno-textil-sa-idexf-150029659.html"
    ]
   ],
-  "score": 61.73597523763356,
+  "score": 61.75216001525655,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -10796,7 +10796,7 @@
   "rng": 13.636659196226923,
   "room": 1.3935123098546416,
   "sup_d": 0.22198065766479988,
-  "vw_d": -0.5349005459124861,
+  "vw_d": -0.5400315895429618,
   "stop": 52.438201332092284,
   "tp": 55.141201400756835,
   "rr": 0.6666666666666652,
@@ -31580,27 +31580,27 @@
   "tag": "ABI",
   "sym": "ABI.BR",
   "name": "ABI.BR",
-  "price": 66.9800033569336,
+  "price": 67.18000030517578,
   "dayHigh": 68.27999877929688,
   "dayLow": 66.87999725341797,
-  "vwap": 67.6347879795982,
-  "rsi": 24.511158612519154,
+  "vwap": 67.44299793646628,
+  "rsi": 39.95423925904719,
   "atrPct": 2.0492748367336073,
-  "support": 66.77333323160806,
+  "support": 67.04000091552734,
   "resistance": 67.4066670735677,
-  "rvol": 1.1063847816507926,
+  "rvol": 0.9848055787810911,
   "sma20": 67.91700019836426,
   "sma50": 70.07920043945313,
   "earnings": false,
   "sector": "Maistas ir kasdienes prekes",
-  "day_chg": -0.2383021062992618,
+  "day_chg": 0.05957836742773496,
   "avgVolume": 1697236.5,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.4381963968127755,
-  "ibs": 0.07143285322695789,
+  "ibs": 0.21428766055770812,
   "gap_ret": 0.7149290457211415,
-  "zscore": -2.720817627674113,
+  "zscore": -1.8786649191120215,
   "rsi2": 4.789453267967929,
   "grafikas": [
    [
@@ -33658,6 +33658,10 @@
    [
     "2026-09-11 17:25:00+02:00",
     66.9800033569336
+   ],
+   [
+    "2026-09-11 17:35:00+02:00",
+    67.18000030517578
    ]
   ],
   "rizika": {
@@ -33677,24 +33681,24 @@
    68.27999877929688,
    69.9000015258789
   ],
-  "m1h": -0.8304779805526191,
-  "m3h": -1.827459210689964,
-  "pos1h": 15.625968576401306,
+  "m1h": -0.6206041424881074,
+  "m3h": -1.8494910702293996,
+  "pos1h": 49.180778947895035,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.5507219698175643,
   "down_days": 3,
-  "dd5": 3.9850898712244427,
-  "chg3d": -2.983773944490851,
-  "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 42.113437608687,
+  "dd5": 3.69839700695012,
+  "chg3d": -2.694091230716136,
+  "asOf": "2026-09-11 17:35:00+02:00",
+  "score": 39.17190682140791,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
   "tradeable": false,
   "blocking": [
    "3 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis",
-   "Krintantis peilis: per 3 val. -1.8%, per pastarąją valandą -0.8% — dugno ženklo dar nėra. Nepirkti, stebėti."
+   "Krintantis peilis: per 3 val. -1.8%, per pastarąją valandą -0.6% — dugno ženklo dar nėra. Nepirkti, stebėti."
   ],
   "setup": "Krintantis peilis",
   "recovering": false,
@@ -33705,15 +33709,11 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.6% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.3% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
     "Per 25.5 val. tikėtinas judesys ~1.6%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
-   ],
-   [
-    "info",
-    "IBS 0.07 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
    ],
    [
     "warn",
@@ -33729,28 +33729,28 @@
    ],
    [
     "stop",
-    "Krintantis peilis: per 3 val. -1.8%, per pastarąją valandą -0.8% — dugno ženklo dar nėra. Nepirkti, stebėti."
+    "Krintantis peilis: per 3 val. -1.8%, per pastarąją valandą -0.6% — dugno ženklo dar nėra. Nepirkti, stebėti."
    ],
    [
     "info",
     "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama, kad nutrūktų kritimo dienų serija (dabar 3)"
    ]
   ],
-  "dip": 1.9039183444705214,
-  "rng": 7.143285322695789,
-  "room": 0.637001635190188,
-  "sup_d": 0.14930740296129386,
-  "vw_d": -0.9681180975419347,
-  "stop": 64.97060325622559,
-  "tp": 68.31960342407227,
-  "rr": 0.6666666666666691,
-  "shares": 268,
+  "dip": 1.611011267994667,
+  "rng": 21.42876605577081,
+  "room": 0.3374021544540826,
+  "sup_d": 0.4465660172596028,
+  "vw_d": -0.3899554280464461,
+  "stop": 65.16460029602051,
+  "tp": 68.5236003112793,
+  "rr": 0.6666666666666666,
+  "shares": 267,
   "sector_chg": null,
-  "pos_value": 17950.640899658203,
-  "gross": 359.01281799316405,
-  "net": 355.01281799316405,
-  "real_risk": 538.5192269897458,
-  "trail_from": 67.29480937271119,
+  "pos_value": 17937.060081481934,
+  "gross": 358.7412016296387,
+  "net": 354.7412016296387,
+  "real_risk": 538.1118024444576,
+  "trail_from": 67.4957463066101,
   "trail_pct": 1.5,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
@@ -61665,27 +61665,27 @@
   "tag": "UCB",
   "sym": "UCB.BR",
   "name": "UCB.BR",
-  "price": 206.3000030517578,
+  "price": 205.60000610351562,
   "dayHigh": 210.0,
   "dayLow": 201.5,
-  "vwap": 207.26119832020183,
-  "rsi": 25.95709787319055,
+  "vwap": 206.09925138193418,
+  "rsi": 21.387810559000712,
   "atrPct": 2.989129700803559,
   "support": 202.4333292643229,
   "resistance": 226.1999969482422,
-  "rvol": 0.4580248525197521,
+  "rvol": 1.194543988423394,
   "sma20": 216.19000015258788,
   "sma50": 229.37600006103514,
   "earnings": false,
   "sector": "Sveikata",
-  "day_chg": 2.2806178349601183,
+  "day_chg": 1.933569268359588,
   "avgVolume": 221366.9,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.3620868490887854,
-  "ibs": 0.5647062413832721,
+  "ibs": 0.48235365923713236,
   "gap_ret": 0.14873726142633292,
-  "zscore": 0.7197570485406749,
+  "zscore": 0.4655308127807867,
   "rsi2": 2.0200540691984514,
   "grafikas": [
    [
@@ -63707,6 +63707,10 @@
    [
     "2026-09-11 17:25:00+02:00",
     206.3000030517578
+   ],
+   [
+    "2026-09-11 17:35:00+02:00",
+    205.60000610351562
    ]
   ],
   "rizika": {
@@ -63718,7 +63722,7 @@
    "dienu": 127,
    "max_dd": -26.65454656427557
   },
-  "vol5m": 0.12094757393680158,
+  "vol5m": 0.09876392505787036,
   "res_intra": 210.0,
   "sup_intra": 201.5,
   "res_list": [
@@ -63726,26 +63730,27 @@
    226.1999969482422,
    226.1999969482422
   ],
-  "m1h": -0.5721075930375188,
-  "m3h": -1.3279134854611885,
-  "pos1h": 4.545738283661282,
+  "m1h": -0.8906026694349678,
+  "m3h": -1.5131372720785268,
+  "pos1h": 0.0,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 2.115718456271206,
+  "exp_move": 1.7276630878756452,
   "down_days": 4,
-  "dd5": 7.571681956789324,
-  "chg3d": -2.0417867650223354,
-  "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 30.281905549597454,
+  "dd5": 7.885300665486936,
+  "chg3d": -2.3741689720285972,
+  "asOf": "2026-09-11 17:35:00+02:00",
+  "score": 24.37848489759393,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
   "tradeable": false,
   "blocking": [
-   "Krintantis peilis: per 3 val. -1.3%, per pastarąją valandą -0.6% — dugno ženklo dar nėra. Nepirkti, stebėti."
+   "4 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis",
+   "Krintantis peilis: per 3 val. -1.5%, per pastarąją valandą -0.9% — dugno ženklo dar nėra. Nepirkti, stebėti."
   ],
   "setup": "Krintantis peilis",
-  "recovering": true,
+  "recovering": false,
   "flags": [
    [
     "warn",
@@ -63753,7 +63758,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Per 25.5 val. tikėtinas judesys ~1.7%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
    ],
    [
     "warn",
@@ -63764,47 +63769,43 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
-    "info",
-    "Atsigavimo faze: nukritusi 7.6% nuo 5 d. viršūnės, šiandien +2.3% ir laikosi dienos viršuje"
+    "stop",
+    "4 kritimo dienos iš eilės — tai ne vienadienis dip, o kryptis"
    ],
    [
     "warn",
-    "Nuo 5 d. maksimumo nukritusi 7.6% — kritimas prasidėjo ne šiandien"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
+    "Nuo 5 d. maksimumo nukritusi 7.9% — kritimas prasidėjo ne šiandien"
    ],
    [
     "stop",
-    "Krintantis peilis: per 3 val. -1.3%, per pastarąją valandą -0.6% — dugno ženklo dar nėra. Nepirkti, stebėti."
+    "Krintantis peilis: per 3 val. -1.5%, per pastarąją valandą -0.9% — dugno ženklo dar nėra. Nepirkti, stebėti."
    ],
    [
     "info",
     "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama, kad nutrūktų kritimo dienų serija (dabar 4)"
    ]
   ],
-  "dip": 1.7619033086867562,
-  "rng": 56.47062413832721,
-  "room": 1.7935030991317578,
-  "sup_d": 2.3267101215473844,
-  "vw_d": -0.46376035468011056,
-  "stop": 200.11100296020507,
-  "tp": 210.42600311279298,
+  "dip": 2.0952351888020835,
+  "rng": 48.23536592371324,
+  "room": 2.140074788844638,
+  "sup_d": 1.994166333560978,
+  "vw_d": -0.24223536721798966,
+  "stop": 199.43200592041015,
+  "tp": 209.71200622558595,
   "rr": 0.6666666666666682,
   "shares": 87,
   "sector_chg": 0.6074247085073605,
-  "pos_value": 17948.10026550293,
-  "gross": 358.9620053100586,
-  "net": 354.9620053100586,
-  "real_risk": 538.4430079650886,
-  "trail_from": 207.26961306610107,
+  "pos_value": 17887.20053100586,
+  "gross": 357.7440106201172,
+  "net": 353.7440106201172,
+  "real_risk": 536.6160159301764,
+  "trail_from": 206.56632613220216,
   "trail_pct": 1.5,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.057859228135603
+  "move_ratio": 0.8638315439378226
  },
  {
   "tag": "VIE",
@@ -95219,7 +95220,7 @@
   "atrPct": 0.6369178247908368,
   "support": 52.0,
   "resistance": 53.20000076293945,
-  "rvol": 3.439452084670198,
+  "rvol": 3.100637087169405,
   "sma20": 52.47500019073486,
   "sma50": 52.00400009155273,
   "earnings": false,
@@ -96834,7 +96835,7 @@
   "atrPct": 2.9285975098653174,
   "support": 38.630001068115234,
   "resistance": 39.04333368937174,
-  "rvol": 0.9143608406733656,
+  "rvol": 0.8829280778090607,
   "sma20": 40.27350006103516,
   "sma50": 41.72620002746582,
   "earnings": false,
@@ -107124,12 +107125,12 @@
   "price": 9.814000129699707,
   "dayHigh": 9.920000076293945,
   "dayLow": 9.800000190734863,
-  "vwap": 9.86626380037788,
+  "vwap": 9.866655611213547,
   "rsi": 30.8535922938365,
   "atrPct": 2.075663810061703,
   "support": 9.789999961853027,
   "resistance": 9.866666475931803,
-  "rvol": 0.6845931646845423,
+  "rvol": 0.6790802981827582,
   "sma20": 9.939149951934814,
   "sma50": 9.72313995361328,
   "earnings": false,
@@ -109136,7 +109137,7 @@
   "dd5": 3.0237130367563236,
   "chg3d": -0.8085700755430734,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 58.77832987300523,
+  "score": 58.79078937941421,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -109186,7 +109187,7 @@
   "rng": 11.666626930198921,
   "room": 0.5366450533530538,
   "sup_d": 0.14265272854925187,
-  "vw_d": -0.5297209940420486,
+  "vw_d": -0.5336710187188107,
   "stop": 9.519580125808716,
   "tp": 10.010280132293701,
   "rr": 0.6666666666666666,
@@ -109211,12 +109212,12 @@
   "price": 14.819999694824219,
   "dayHigh": 15.0,
   "dayLow": 14.8100004196167,
-  "vwap": 14.889224308644247,
+  "vwap": 14.891006918268774,
   "rsi": 35.0315108691715,
   "atrPct": 1.2523906802065425,
   "support": 14.760000228881836,
   "resistance": 14.94333299001058,
-  "rvol": 1.4981546367671106,
+  "rvol": 1.4586914423069677,
   "sma20": 15.09299988746643,
   "sma50": 15.288399963378906,
   "earnings": false,
@@ -111131,7 +111132,7 @@
   "dd5": 1.4627677366144296,
   "chg3d": -1.1340899192106146,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 59.70413221058471,
+  "score": 59.741716758668545,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -111173,7 +111174,7 @@
   "rng": 5.26278804792475,
   "room": 0.8322084866805669,
   "sup_d": 0.4048547043043274,
-  "vw_d": -0.4649309620504413,
+  "vw_d": -0.47684635320020663,
   "stop": 14.375399703979491,
   "tp": 15.116399688720703,
   "rr": 0.6666666666666653,
@@ -119051,27 +119052,27 @@
   "tag": "UMI",
   "sym": "UMI.BR",
   "name": "UMI.BR",
-  "price": 22.440000534057617,
+  "price": 22.420000076293945,
   "dayHigh": 22.6200008392334,
   "dayLow": 21.920000076293945,
-  "vwap": 22.291047987846245,
-  "rsi": 51.274441787672835,
+  "vwap": 22.395837238907628,
+  "rsi": 48.79755520539711,
   "atrPct": 3.659731364825762,
-  "support": 22.400000254313152,
+  "support": 21.940000534057617,
   "resistance": 22.859999974568687,
-  "rvol": 0.9533487413957695,
+  "rvol": 4.951978091838232,
   "sma20": 23.180000209808348,
   "sma50": 21.92820011138916,
   "earnings": false,
   "sector": "Medziagos",
-  "day_chg": 1.4466531766881652,
+  "day_chg": 1.3562351974618814,
   "avgVolume": 377427.1,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5726049483917753,
-  "ibs": 0.7428569871553834,
+  "ibs": 0.7142849357769168,
   "gap_ret": 1.6274805124076388,
-  "zscore": 0.011214736765249663,
+  "zscore": -0.033410229723232175,
   "rsi2": 4.734465695986415,
   "grafikas": [
    [
@@ -120989,6 +120990,10 @@
    [
     "2026-09-11 17:25:00+02:00",
     22.440000534057617
+   ],
+   [
+    "2026-09-11 17:35:00+02:00",
+    22.420000076293945
    ]
   ],
   "rizika": {
@@ -121008,17 +121013,17 @@
    22.859999974568687,
    24.139999389648438
   ],
-  "m1h": 0.11161510720309846,
-  "m3h": 0.9217612819555207,
-  "pos1h": 57.14305177111717,
+  "m1h": 0.12926547656021092,
+  "m3h": 0.6962074220660116,
+  "pos1h": 42.856948228882835,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.5888515622678587,
   "down_days": 2,
-  "dd5": 4.266211506894081,
-  "chg3d": -2.09423883350153,
-  "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 35.622855011048244,
+  "dd5": 4.351537689948606,
+  "chg3d": -2.1815008653387737,
+  "asOf": "2026-09-11 17:35:00+02:00",
+  "score": 38.11073338571967,
   "grade": "D",
   "fraze": "Atsigavimas po kritimo",
   "spalva": "gelt",
@@ -121033,7 +121038,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.9% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -121049,24 +121054,24 @@
    ],
    [
     "info",
-    "Atsigavimo faze: nukritusi 4.3% nuo 5 d. viršūnės, šiandien +1.4% ir laikosi dienos viršuje"
+    "Atsigavimo faze: nukritusi 4.4% nuo 5 d. viršūnės, šiandien +1.4% ir laikosi dienos viršuje"
    ]
   ],
-  "dip": 0.7957572877874461,
-  "rng": 74.28569871553835,
-  "room": 0.8021403783061027,
-  "sup_d": 2.317292537379655,
-  "vw_d": 0.6682168837130762,
-  "stop": 21.76680051803589,
-  "tp": 22.88880054473877,
-  "rr": 0.6666666666666702,
+  "dip": 0.8841766380156829,
+  "rng": 71.42849357769168,
+  "room": 0.8920640600306078,
+  "sup_d": 2.230151642723146,
+  "vw_d": 0.10788985974741684,
+  "stop": 21.747400074005128,
+  "tp": 22.868400077819825,
+  "rr": 0.6666666666666684,
   "shares": 802,
   "sector_chg": 0.1939626232236031,
-  "pos_value": 17996.88042831421,
-  "gross": 359.93760856628415,
-  "net": 355.93760856628415,
-  "real_risk": 539.9064128494255,
-  "trail_from": 22.54546853656769,
+  "pos_value": 17980.840061187744,
+  "gross": 359.61680122375486,
+  "net": 355.61680122375486,
+  "real_risk": 539.4252018356315,
+  "trail_from": 22.525374076652525,
   "trail_pct": 1.5,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
