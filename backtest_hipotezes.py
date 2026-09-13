@@ -208,6 +208,8 @@ def paruosk(d):
         t[pav] = ser
 
     # Busimi barai — salyginiams isejimams
+    t["ibs1d"] = ((c.shift(-1) - l.shift(-1))
+                  / (h.shift(-1) - l.shift(-1)).replace(0, np.nan))
     for n in range(1, 11):
         t[f"H{n}"], t[f"L{n}"], t[f"C{n}"] = h.shift(-n), l.shift(-n), c.shift(-n)
         t[f"ibs{n}"] = ((c.shift(-n) - l.shift(-n))
@@ -339,6 +341,44 @@ def main():
     df["r3_dm"] = df["r3"] - df.groupby("data")["r3"].transform("mean")
     df = df.dropna(subset=["r3_dm"])
     print(f"  su rezultatu: {len(df):,}; IBS<0.25: {int((df['ibs'] < 0.25).sum()):,}")
+
+    # ================= RINKOS PLOTIS (sentimentas) =================
+    # Skaiciuojamas is VISO universo tą diena — tai rinkos busena, ne akcijos
+    # rodiklis. Niekada netikrinom: iki siol turejom tik indekso rezima
+    # (kaina virs SMA50), o plotis matuoja, KIEK akciju dalyvauja judesyje.
+    # Klasikiniai matai: dalis virs SMA50, nauji maksimumai pries minimumus,
+    # kylanciu ir krentanciu santykis.
+    try:
+        pl = df.groupby("data").agg(
+            virs50=("C", "size"),          # vieta, perrasoma zemiau
+        )
+        dien = df.groupby("data")
+        plotis = pd.DataFrame(index=sorted(df["data"].unique()))
+        plotis["dalis_virs_sma50"] = dien.apply(
+            lambda g: float((g["C"] > g["sma50"]).mean() * 100)
+            if "sma50" in g else float("nan"))
+        plotis["dalis_virs_sma200"] = dien.apply(
+            lambda g: float((g["virs200"] > 0).mean() * 100)
+            if "virs200" in g else float("nan"))
+        plotis["dalis_kyla"] = dien.apply(lambda g: float((g["ret"] > 0).mean() * 100))
+        plotis["nauji_max"] = dien.apply(
+            lambda g: float((g["C"] > g["hi20"]).mean() * 100) if "hi20" in g else float("nan"))
+        plotis["nauji_min"] = dien.apply(
+            lambda g: float((g["C"] < g["zem20"]).mean() * 100) if "zem20" in g else float("nan"))
+        plotis["max_minus_min"] = plotis["nauji_max"] - plotis["nauji_min"]
+        # Pokytis per savaite — ar plotis gereja ar blogeja
+        for c in ("dalis_virs_sma50", "dalis_kyla", "max_minus_min"):
+            plotis[c + "_d5"] = plotis[c] - plotis[c].shift(5)
+        # Vidutinis akciju tarpusavio panasumas: kai visos juda kartu, rinka
+        # valdoma vieno veiksnio ir atranka tarp ju beprasme
+        plotis["sklaida"] = dien["ret"].std()
+
+        for c in plotis.columns:
+            df[c] = df["data"].map(plotis[c])
+        print(f"  rinkos plocio rodikliu: {len(plotis.columns)}; "
+              f"dienu: {len(plotis)}")
+    except Exception as e:
+        print(f"  rinkos plotis praleistas: {type(e).__name__}: {e}")
 
     riba = pd.to_datetime(df["data"]).quantile(0.5)
     p1 = pd.to_datetime(df["data"]) <= riba
@@ -559,6 +599,123 @@ def main():
             zyma = ("prognozuoja" if ats == ats and abs(ats) > 0.3 else "neprognozuoja")
             print(f"  {sig:<6} {langas:>3} d. langas: teigiamu {teig:>5.1f}%, "
                   f"praeities rysys su ateitimi {ats:>+.3f}  -> {zyma}")
+
+    # ---------- K. IEJIMO TRIGERIS: ar verta palaukti ----------
+    # Visi ankstesni matavimai pirko SIGNALO momentu. Niekada neklausem:
+    # ar palaukus patvirtinimo rezultatas geresnis? Cia tikrinami trigeriai,
+    # kurie atideda pirkima 1 diena ir reikalauja salygos.
+    # DEMESIO: kiekvienas trigeris dali atveju PRALEIDZIA — ir butent tuos,
+    # kurie pakilo be patvirtinimo. Todel rodom ir praleistuju rezultata.
+    print("\n" + "=" * 100)
+    print("K. IEJIMO TRIGERIS — ar verta palaukti patvirtinimo")
+    print("Palyginimas: pirkti is karto vs pirkti tik ivykus salygai kita diena.")
+    print("=" * 100)
+    try:
+        k = df[df["ibs"] <= IBS_RIBA].copy()
+        # Kitos dienos duomenys trigeriui
+        k["C1_"] = k["C1"]
+        k["ret1"] = (k["C1"] / k["C"] - 1) * 100
+        k["ibs1"] = k["ibs1d"] if "ibs1d" in k else float("nan")
+        # Rezultatas nuo KITOS dienos uzdarymo iki 3 sesiju po jo
+        k["r_po_trigerio"] = (k["C3"] / k["C1"] - 1) * 100
+
+        trigeriai = [
+            ("be trigerio (dabar)", pd.Series(True, index=k.index), "r3"),
+            ("kita diena zalia", k["ret1"] > 0, "r_po_trigerio"),
+            ("kita diena zalia >0.5%", k["ret1"] > 0.5, "r_po_trigerio"),
+            ("kita diena raudona", k["ret1"] <= 0, "r_po_trigerio"),
+        ]
+        print(f"{'TRIGERIS':<26} {'N':>7} {'DALIS':>7} {'EUR':>9} "
+              f"{'DEMEAN.':>10} {'95% INTERVALAS':>22}")
+        print("-" * 100)
+        for lab, kauke, stulp in trigeriai:
+            sub = k[kauke].dropna(subset=[stulp])
+            if len(sub) < MIN_IVYKIU:
+                print(f"{lab:<26} {len(sub):>7}   per maza imtis")
+                continue
+            tmp = sub.copy()
+            tmp["_r"] = tmp[stulp]
+            tmp["_r_dm"] = tmp["_r"] - tmp.groupby("data")["_r"].transform("mean")
+            r, n = ivertink(tmp, "_r_dm")
+            eur = tmp["_r"].mean() / 100 * a.pozicija - a.sanaudos_eur
+            dalis = len(sub) / len(k) * 100
+            ci = (f"{r['lo']:+.3f} .. {r['hi']:+.3f}" if r else "—")
+            dm = (f"{r['mean']:+.3f}%" if r else "—")
+            print(f"{lab:<26} {len(sub):>7} {dalis:>6.0f}% {eur:>+8.2f}€ {dm:>10} {ci:>22}")
+        print("\n  'DALIS' rodo, kiek atveju trigeris praleidzia. Jei trigeris")
+        print("  pagerina rezultata, bet praleidzia 60% atveju — bendras pelnas")
+        print("  gali buti mazesnis, nes sandoriu skaicius krinta.")
+    except Exception as e:
+        print(f"  (trigerio analize praleista: {type(e).__name__}: {e})")
+
+    # ---------- J. RINKOS PLOTIS: ar "KADA" svarbiau uz "KURIA" ----------
+    # Esminis klausimas: jei atranka tarp akciju nieko neduoda, gal dienos
+    # pasirinkimas duoda? Cia matuojam NEdemeanuota rezultata — butent ta,
+    # kuri realiai gautum, nes demeanavimas atmestu visa dienos efekta.
+    print("\n" + "=" * 100)
+    print("J. RINKOS PLOTIS — ar dienos pasirinkimas ('kada') duoda daugiau")
+    print("nei akcijos pasirinkimas ('kuria'). Rezultatas EURAIS, be demeanavimo.")
+    print("=" * 100)
+    PLOCIO = [
+        ("dalis_virs_sma50", "Dalis virs SMA50"),
+        ("dalis_virs_sma200", "Dalis virs SMA200"),
+        ("dalis_kyla", "Dalis kylanciu"),
+        ("max_minus_min", "Nauji max minus min"),
+        ("dalis_virs_sma50_d5", "Plotis gereja (5 d.)"),
+        ("max_minus_min_d5", "Max/min gereja (5 d.)"),
+        ("sklaida", "Akciju sklaida ta diena"),
+    ]
+    esami_pl = [(c, l) for c, l in PLOCIO if c in df and df[c].notna().sum() > 1000]
+    if not esami_pl:
+        print("  plocio duomenu nepakako")
+    else:
+        kand = df[df["ibs"] <= IBS_RIBA].copy()
+        kand["eur"] = kand["r3"] / 100 * a.pozicija - a.sanaudos_eur
+        print(f"{'RODIKLIS':<26} {'LANGELIS':<14} {'N':>7} {'EUR':>9} "
+              f"{'DEMEAN.':>9} {'95% INTERVALAS':>22}")
+        print("-" * 100)
+        rez_j = []
+        for c, lab in esami_pl:
+            # Ribos IS 1-OS PUSES — kitaip zvilgteletume i ateiti
+            q = kand.loc[p1, c].quantile([0.33, 0.67])
+            langeliai = [("zemas", kand[c] <= q.iloc[0]),
+                         ("vidutinis", (kand[c] > q.iloc[0]) & (kand[c] <= q.iloc[1])),
+                         ("aukstas", kand[c] > q.iloc[1])]
+            for lname, kauke in langeliai:
+                sub = kand[kauke]
+                if len(sub) < MIN_IVYKIU:
+                    continue
+                r, n = ivertink(sub, "r3_dm")
+                eur = sub["eur"].mean()
+                ci = (f"{r['lo']:+.3f} .. {r['hi']:+.3f}" if r else "—")
+                dm = (f"{r['mean']:+.3f}%" if r else "—")
+                print(f"{lab:<26} {lname:<14} {len(sub):>7} {eur:>+8.2f}€ {dm:>9} {ci:>22}")
+                if r:
+                    rez_j.append((f"{lab} ({lname})", kauke, r))
+            print()
+
+        # Tiesioginis palyginimas: kiek duoda DIENOS pasirinkimas
+        print("  TIESIOGINIS PALYGINIMAS (eurais vienam sandoriui):")
+        geriausia_diena = None
+        for c, lab in esami_pl:
+            q = kand.loc[p1, c].quantile(0.67)
+            gera = kand[kand[c] > q]["eur"].mean()
+            bloga = kand[kand[c] <= q]["eur"].mean()
+            if gera == gera and bloga == bloga:
+                skirt = gera - bloga
+                if geriausia_diena is None or skirt > geriausia_diena[1]:
+                    geriausia_diena = (lab, skirt)
+                print(f"    {lab:<28} geros dienos {gera:>+7.2f}€  "
+                      f"blogos {bloga:>+7.2f}€  skirtumas {skirt:>+7.2f}€")
+        # Akcijos pasirinkimo efektas tam paciam rinkiniui
+        v_top = kand[kand["ibs"] <= kand["ibs"].quantile(0.25)]["eur"].mean()
+        v_bot = kand[kand["ibs"] >= kand["ibs"].quantile(0.75)]["eur"].mean()
+        print(f"\n    {'AKCIJOS pasirinkimas (IBS)':<28} geriausios {v_top:>+7.2f}€  "
+              f"blogiausios {v_bot:>+7.2f}€  skirtumas {v_top - v_bot:>+7.2f}€")
+        if geriausia_diena:
+            print(f"\n    Stipriausias DIENOS rodiklis: {geriausia_diena[0]} "
+                  f"({geriausia_diena[1]:+.2f}€)")
+            print(f"    Jei sis skirtumas didesnis uz akcijos — 'kada' svarbiau uz 'kuria'.")
 
     # ---------- I. TRUMPI PERIODAI: ar juos galima pagauti pradzioje? ----------
     # Vartotojo hipoteze: signalai veikia trumpais periodais; jei pagautum
