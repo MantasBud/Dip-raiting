@@ -65,6 +65,14 @@ except Exception:
 # taip gaunama nakties grazа ir isvengiama dienos lango.
 EXIT_RYTO_ATIDARYMAS = True   # jei salyga ivykdyta, parduodam kita ryta
 
+# PIRKIMO LANGAS. Matavimas (2026-09, valandiniai barai, 720 d.) rodo, kad IBS,
+# matuotas ~17:00, prognozuoja nakties grazа geriau (+0.035%) nei matuotas
+# 10:00 (-0.016%) — nors intervalai kerta nuli, kryptis nuosekli visose
+# valandose. O nakties langas patvirtintas abiejose rinkose.
+# Todel modulis pazymi, kada rodomas IBS jau yra beveik galutinis.
+PIRKIMO_LANGAS_NUO = 16 * 60 + 30     # 16:30 Berlyno laiku
+PIRKIMO_LANGAS_IKI = 17 * 60 + 25     # 17:25 — pries uzdarymo auckciona
+
 EXIT_MODE = "salyginis"   # "salyginis" arba "fiksuotas"
 EXIT_RSI = 70.0           # parduoti, kai RSI(2) pakyla virs sios ribos
 EXIT_IBS = 0.80           # arba kai IBS pakyla virs sios ribos
@@ -708,6 +716,22 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         elif share_pct > MAX_POS_OF_TURNOVER_PCT:
             flags.append(("warn", f"Pozicija sudaro {share_pct:.1f}% dienos apyvartos — "
                                   f"gali tekti pildyti dalimis"))
+
+    # Pirkimo lango zyma: ar dabar tas metas, kai IBS jau galutinis
+    try:
+        _dabar = new_intl_now()
+        if _dabar is not None:
+            if PIRKIMO_LANGAS_NUO <= _dabar <= PIRKIMO_LANGAS_IKI:
+                flags.append(("info", "Pirkimo langas: IBS jau beveik galutinis. "
+                                      "Nakties langas patvirtintas abiejose rinkose "
+                                      "(+0,05% Europa, +0,08% JAV), dienos — neigiamas"))
+            elif _dabar < PIRKIMO_LANGAS_NUO:
+                liko = (PIRKIMO_LANGAS_NUO - _dabar) / 60
+                flags.append(("info", f"Iki pirkimo lango ~{liko:.1f} val. "
+                                      f"(16:30–17:25). Dabartinis IBS dar keisis, "
+                                      f"nes dienos diapazonas nebaigtas"))
+    except Exception:
+        pass
 
     if ibs_v is not None:
         if ibs_v <= 0.2:
@@ -1493,8 +1517,22 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     else:
         v_cls, v_txt = "ok", f"Galima prekiauti · {len(tinkami)} kandidatai"
         v_sub = "Rinkos režimas netrukdo. Sąrašas žemiau — peržiūrai, ne pirkimo eilei."
+    # Pirkimo lango juosta — matavimas rodo, kad pranasumas naktinis
+    langas = ""
+    try:
+        dab = new_intl_now()
+        if dab is not None and PIRKIMO_LANGAS_NUO <= dab <= PIRKIMO_LANGAS_IKI:
+            langas = ("<div class='langas on'>Pirkimo langas atidarytas "
+                      "(16:30–17:25) · laikyti per naktį · parduoti ryto atidarymu</div>")
+        elif dab is not None and dab < PIRKIMO_LANGAS_NUO:
+            liko = (PIRKIMO_LANGAS_NUO - dab) / 60
+            langas = (f"<div class='langas'>Iki pirkimo lango ~{liko:.1f} val. "
+                      f"Dabartinis sąrašas dar keisis</div>")
+    except Exception:
+        pass
+
     verdict_html = (f"<div class='verdict {v_cls}'><div class='vt'>{v_txt}</div>"
-                    f"<div class='vs'>{v_sub}</div></div>")
+                    f"<div class='vs'>{v_sub}</div></div>{langas}")
 
     # Savikontrole toliau veikia ir raso i log'a, bet puslapyje nerodoma —
     # ji skirta modulio klaidoms gaudyti, ne prekybos sprendimams.
@@ -1883,6 +1921,9 @@ display:flex;align-items:center;justify-content:center}}
 .verdict{{font-size:12px;font-weight:600;padding:7px 10px;border-radius:5px;margin-bottom:12px}}
 .verdict.ok{{background:#E6F2EC;color:#14543E}}
 .verdict.no{{background:#F3F0EC;color:#6B5E4E}}
+.langas{{font-size:12px;padding:9px 14px;border-radius:8px;margin-bottom:18px;
+background:var(--card);border:1px solid var(--line);color:var(--ink2)}}
+.langas.on{{background:#E6F2EC;border-color:#4C9A78;color:#14543E;font-weight:600}}
 .verdict.stipri{{background:#F6DAD8;color:#7A2320;
 border:1px solid #C25C55;border-left:5px solid #C25C55}}
 .verdict.stipri .vt{{font-size:17px;font-weight:700}}
