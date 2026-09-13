@@ -9,6 +9,14 @@ Milanas .MI, Madridas .MC, Viena .VI, Helsinkis .HE, Dublinas .IR.
 Nera .L (GBP), .SW (CHF), .ST (SEK), .CO (DKK), .OL (NOK).
 """
 
+# UNIVERSO APIMTIS. 2026-09 vartotojo IBKR ataskaitos analize (30 uzdarytu
+# poziciju, 8 men.) parode aiskia riba:
+#   dideles likvidzios akcijos: 16 poziciju, +5 228 EUR, pataikymas 75%, PF 5.97
+#   spekuliatyvios ir mazos:    13 poziciju, -1 463 EUR, pataikymas 46%, PF 0.36
+# Didziausi pavieniai nuostoliai buvo butent mazose: PPCB -862, YDX -639,
+# DFTK -627. Todel universe paliekamos TIK dideles likvidzios bendroves.
+# Jei ju neuztektu, riba kelti geriau nei grazinti mazas.
+
 EUR_GALUNES = {"DE", "PA", "AS", "BR", "LS", "MI", "MC", "VI", "HE", "IR"}
 
 # Birzos prekybos valandos (Berlyno laiku) — skirtingos birzos, skirtingi grafikai
@@ -92,12 +100,6 @@ UNIVERSAS = {
         "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
         "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
     ],
-    # Judrios Europos vidutines kapitalizacijos akcijos
-    "Judrios Europos": [
-        "YDX.DE", "PTX.DE", "EVT.DE", "NDX1.DE", "AFX.DE", "COK.DE", "B4B.DE",
-        "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
-        "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
-    ],
     # Zaliavos — fiziniais metalais padengti ETC ir naftos instrumentai, visi
     # Xetra, EUR. Jie juda pagal palukanu normas ir geopolitika, t. y. pagal
     # kitus veiksnius nei akcijos, todel yra vienintele nekoreliuojanti dalis
@@ -113,7 +115,6 @@ UNIVERSAS = {
         "VZLA.DE",    # WisdomTree fizine platina, ~452 mln EUR
         "VZLB.DE",    # WisdomTree fizinis paladis
         "00XL.DE",    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
-        "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
         # MEDIENOS: Europoje eurais kotiruojamo medienos ETC nera. Artimiausia
         # alternatyva butu popieriaus ir medienos bendroves (UPM.HE, STERV.HE),
         # kurios jau yra Medziagu sektoriuje.
@@ -142,7 +143,6 @@ SEKTORIU_ETF = {
     "Nekilnojamas turtas ir statyba": "EXV8.DE",
     "Logistika ir mazmena": "EXH4.DE",
     "JAV antriniai listingai": "EXV3.DE",     # daugiausia technologijos
-    "Judrios Europos": "EXV3.DE",
     # Zaliavos savo sektoriaus ETF neturi — filtrui naudojam pati auksa,
     # nes visi sio sektoriaus instrumentai juda panasiai
     "Zaliavos": "4GLD.DE",
@@ -181,32 +181,6 @@ UNIVERSAS_US = {
         "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "TXN.DE", "AVG.DE",
         "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
         "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
-    ],
-    # Judrios Europos vidutines kapitalizacijos akcijos
-    "Judrios Europos": [
-        "YDX.DE", "PTX.DE", "EVT.DE", "NDX1.DE", "AFX.DE", "COK.DE", "B4B.DE",
-        "SHL.DE", "1U1.DE", "AOF.DE", "SANT.DE", "TMV.DE", "PNE3.DE", "VBK.DE",
-        "SBS.DE", "JEN.DE", "SFQ.DE", "ELG.DE", "HYQ.DE", "NA9.DE",
-    ],
-    # Zaliavos — fiziniais metalais padengti ETC ir naftos instrumentai, visi
-    # Xetra, EUR. Jie juda pagal palukanu normas ir geopolitika, t. y. pagal
-    # kitus veiksnius nei akcijos, todel yra vienintele nekoreliuojanti dalis
-    # sarase. DEMESIO: musu patvirtinti signalai matuoja grizima prie vidurkio
-    # AKCIJOSE; zaliavose trendai stipresni, o grizimas silpnesnis, ir to
-    # netikrinom. Zurnale jos matuojamos atskirai — jei neveiks, isimsim.
-    "Zaliavos": [
-        # Visi tikeriai patikrinti (2026-09). Xetra, EUR.
-        "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
-        "VZLC.DE",    # WisdomTree fizinis sidabras, ~2.31 mlrd EUR
-        "XAD6.DE",    # Xtrackers fizinis sidabras (alternatyva)
-        "8PSB.DE",    # Invesco fizinis sidabras (alternatyva)
-        "VZLA.DE",    # WisdomTree fizine platina, ~452 mln EUR
-        "VZLB.DE",    # WisdomTree fizinis paladis
-        "00XL.DE",    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
-        "IB1T.DE",    # iShares Bitcoin ETP — didziausio judrumo instrumentas
-        # MEDIENOS: Europoje eurais kotiruojamo medienos ETC nera. Artimiausia
-        # alternatyva butu popieriaus ir medienos bendroves (UPM.HE, STERV.HE),
-        # kurios jau yra Medziagu sektoriuje.
     ],
     "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
 }
