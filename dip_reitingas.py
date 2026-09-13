@@ -53,6 +53,18 @@ except Exception:
 #   fiksuotas 2%/1.5%    Europa -19.13 EUR   JAV   -6.32 EUR   42-44%
 # Fiksuotas stop 1.5% yra triuksmo lygyje ir uzbaigia 58% sandoriu nuostoliu.
 # Salyginis isejimas laukia, kol grizimas prie vidurkio realiai ivyks.
+# NAKTIES LANGAS. Patikrinta 2026-09 dviejose nepriklausomose imtyse:
+#   Europa: naktis +0.049% (+0.016..+0.084), diena -0.055% (-0.101..-0.007)
+#   JAV:    naktis +0.077% (+0.031..+0.125), diena -0.081% (-0.146..-0.021)
+# Keturi is keturiu intervalu nekerta nulio ir eina ta pacia kryptimi.
+# Svarbiausia: efektas priklauso nuo IBS monotoniskai — zemiausiame kvintilyje
+# naktis +0.063% ir diena -0.040%, aukstiausiame atvirksciai. Vadinasi musu
+# signalas veikia, bet TIK nakties lange; ankstesni matavimai rode nuli, nes
+# maise abu langus.
+# Praktine isvada: parduoti ne dienos viduryje, o kito ryto atidarymo metu —
+# taip gaunama nakties grazа ir isvengiama dienos lango.
+EXIT_RYTO_ATIDARYMAS = True   # jei salyga ivykdyta, parduodam kita ryta
+
 EXIT_MODE = "salyginis"   # "salyginis" arba "fiksuotas"
 EXIT_RSI = 70.0           # parduoti, kai RSI(2) pakyla virs sios ribos
 EXIT_IBS = 0.80           # arba kai IBS pakyla virs sios ribos
@@ -1757,6 +1769,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
               <div><span>RSI(2)</span><b>{(s.get('rsi2') or 0):.0f} → {s.get('exit_rsi', 70):.0f}</b></div>
               <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
+              <div><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
               <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div></div>
             {bars(d, s)}
             {rizika_html(d, s)}
@@ -2029,6 +2042,24 @@ def resolve_entry(entry, intraday_all):
                 # per graziа. Salyga turi suveikti nepriklausomai nuo pelno.
                 salyga = (ibs_now >= EXIT_IBS
                           or (rsi_now is not None and rsi_now >= EXIT_RSI))
+                if salyga and EXIT_RYTO_ATIDARYMAS:
+                    # Salyga ivykdyta — bet parduodam ne dabar, o kito ryto
+                    # atidarymu. Matavimas rodo, kad nakties langas teigiamas
+                    # (+0.05..+0.08%), o dienos neigiamas (-0.06..-0.08%).
+                    ryt = after[after.index > ts]
+                    if len(ryt):
+                        kita_diena = ryt[ryt.index.date > ts.date()]
+                        if len(kita_diena):
+                            atid = float(kita_diena["Open"].iloc[0])
+                            ats = kita_diena.index[0]
+                            pnl = (atid - entry_px) / entry_px * 100
+                            entry.update(
+                                busena="baigta", rezultatas="ryto atidarymas",
+                                baigties_laikas=str(ats), baigties_kaina=f"{atid:.2f}",
+                                pelnas_pct=f"{pnl:+.2f}",
+                                virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
+                            return entry
+                    continue          # rytojaus duomenu dar nera — laukiam
                 if salyga:
                     pnl = (cl - entry_px) / entry_px * 100
                     entry.update(busena="baigta",
@@ -2185,7 +2216,8 @@ def journal_stats(entries):
         # Be sio atnaujinimo nauji irasai butu skaiciuojami kaip "kita" ir
         # statistika rodytu nuli.
         r = e.get("rezultatas", "")
-        if r in ("salyga (IBS)", "salyga (RSI)", "slenkantis stop", "uzdaryta pabaigoje"):
+        if r in ("salyga (IBS)", "salyga (RSI)", "ryto atidarymas",
+                 "slenkantis stop", "uzdaryta pabaigoje"):
             b["tikslas"] += 1
         elif r == "stop":
             b["stop"] += 1
