@@ -1,0 +1,32 @@
+name: Dienos laiko backtestas
+
+on:
+  workflow_dispatch:
+
+jobs:
+  laikas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          test -f backtest_laikas.py || (echo "KLAIDA: backtest_laikas.py nerastas" && exit 1)
+          test -f universas.py || (echo "KLAIDA: universas.py nerastas" && exit 1)
+      - name: Europos universas
+        run: python backtest_laikas.py --rinka eu | tee laikas_eu.txt
+      - name: JAV universas
+        if: always()
+        run: python backtest_laikas.py --rinka us | tee laikas_us.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: laiko-rezultatai
+          path: |
+            laikas_eu.txt
+            laikas_us.txt
+          if-no-files-found: ignore
