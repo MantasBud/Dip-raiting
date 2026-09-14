@@ -1202,6 +1202,16 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     prev_close = float(c.iloc[-1]) if len(c) > 0 else None
     sma20 = float(c.tail(20).mean())
     sma50 = float(c.tail(50).mean())
+    # SMA200 ir jo kryptis. Ismatuota 2026-09 (Minervini palyginimas, 10 metu):
+    # pridejus si viena reikalavima prie musu modulio, rezultatas pagerejo
+    # +0.198 p. p. — daugiausia is visu astuoniu sablono salygu. Derinys
+    # (dipas + kylantis trendas) Europoje 2-oje puseje +0.483% [+0.185..+0.794].
+    # JAV nepasitvirtino (+0.118%), todel tai kandidatas, ne irodyta taisykle.
+    sma200 = float(c.tail(200).mean()) if len(c) >= 200 else None
+    sma200_pries20 = (float(c.tail(220).head(200).mean())
+                      if len(c) >= 220 else None)
+    sma200_kyla = (sma200 is not None and sma200_pries20 is not None
+                   and sma200 > sma200_pries20)
     ctx = multiday_context(daily, price)
     avg_vol = float(daily["Volume"].tail(20).mean())
     gap = overnight_gap(daily)
@@ -1264,7 +1274,8 @@ def build_row(yf, tag, sym, name, intraday_all, daily_all):
     return dict(tag=tag, sym=sym, name=name, price=price, dayHigh=high, dayLow=low,
                 vwap=vwap, rsi=r, atrPct=a, support=sup, resistance=res, rvol=rv,
                 # ETC (zaliavos) ataskaitu neturi — uzklausos joms nesiunciam
-                sma20=sma20, sma50=sma50,
+                sma20=sma20, sma50=sma50, sma200=sma200,
+                sma200_kyla=sma200_kyla,
                 earnings=(False if SECTORS.get(sym) == "Zaliavos"
                           else earnings_soon(yf, sym)),
                 sector=SECTORS.get(sym, "kita"), day_chg=day_chg, avgVolume=avg_vol,
@@ -1802,7 +1813,14 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
     # zyma, kodel netinka. Anksciau puslapis likdavo tuscias be paaiskinimo,
     # ir nesimate, ar tai teisingas verdiktas, ar modulio gedimas.
     tinkami = [(d, s) for d, s in rows if s.get("tradeable")]
-    rodomi = tinkami[:RODOMA]
+
+    # KYLANCIO TRENDO PIRMENYBE. Matavimas rodo, kad dipas akcijoje su
+    # kylanciu SMA200 elgiasi geriau (+0.198 p. p. prie musu modulio).
+    # Bet tai filtras su ATSILEIDIMU: jei kylanciu trendu neuztenka penkiems,
+    # papildom likusiomis — kitaip krentancioje rinkoje sarasas liktu tuscias.
+    kylantys = [(d, s) for d, s in tinkami if d.get("sma200_kyla")]
+    kiti = [(d, s) for d, s in tinkami if not d.get("sma200_kyla")]
+    rodomi = (kylantys + kiti)[:RODOMA]
     tik_informacijai = False
     if not rodomi:
         tik_informacijai = True
@@ -1854,6 +1872,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div class="pl2"><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
               <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
               <div class="pl2"><span>Vieta dienoje</span><b>{vietos_juosta(d.get('ibs'))}</b></div>
+              <div><span>Ilgas trendas</span><b>{'kyla' if d.get('sma200_kyla') else ('krenta' if d.get('sma200') else '—')}</b></div>
               <div><span>Nuo VWAP</span><b>{((d['price'] / d['vwap'] - 1) * 100) if d.get('vwap') else 0:+.2f}%</b></div></div>
             <div class="ivykd">Žalia juosta — <b>0,20–0,50</b>, išmatuota iš tavo 84
             pirkimų: ten grąža kitą dieną buvo +1,0 %, o žemiau 0,20 tik −0,1 %
@@ -2071,7 +2090,7 @@ MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-salyginis-isejimas"   # keiciant sv
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "sortai", "sortu_pokytis",
-                  "tinkamas", "ibs", "ibs_juostoje", "vwap_nuot", "rsi2",
+                  "tinkamas", "ibs", "ibs_juostoje", "sma200_kyla", "vwap_nuot", "rsi2",
                   "rinka", "sektorius", "atr", "ijejimas", "stop",
                   "min_tikslas", "busena", "rezultatas", "baigties_laikas",
                   "baigties_kaina", "pelnas_pct", "virsune_pct"]
@@ -2257,6 +2276,7 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
                 ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
                 # Ar ijejimas pateko i ismatuota 0.20-0.50 juosta — po 40-60
                 # sandoriu galesim patikrinti, ar ji veikia ir realiai
+                sma200_kyla=("taip" if d.get("sma200_kyla") else "ne"),
                 ibs_juostoje=("taip" if (d.get("ibs") is not None
                                          and 0.20 <= d["ibs"] <= 0.50) else "ne"),
                 vwap_nuot=(f"{(d['price'] / d['vwap'] - 1) * 100:+.2f}"
