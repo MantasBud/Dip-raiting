@@ -8,10 +8,10 @@
   "dayLow": 1463.0,
   "vwap": 1478.893757523953,
   "rsi": 51.93645751707475,
-  "atrPct": 3.5182631572033913,
+  "atrPct": 3.5182441352211207,
   "support": 1463.0,
   "resistance": 1479.5333251953125,
-  "rvol": 0.9383488293646245,
+  "rvol": 0.9426042501114424,
   "sma20": 1496.1400085449218,
   "sma50": 1513.4680102539062,
   "earnings": false,
@@ -2069,11 +2069,11 @@
   ],
   "rizika": {
    "blogiausia": -8.52206981265995,
-   "bloga_5": -4.1662496027893035,
+   "bloga_5": -4.189509525598066,
    "suolis_bloga": -4.260691868149669,
-   "suolis_5": -2.8326678921996353,
+   "suolis_5": -2.9015654955753134,
    "virs_stop": 16,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -20.8667403362245
   },
   "vol5m": 0.14911940342188107,
@@ -2098,7 +2098,7 @@
    [
     "3 Chip Equipment Stocks Set to Win the Memory Boom",
     "24/7 Wall St.",
-    87.28075957777777,
+    87.54004684833333,
     "teig",
     "https://247wallst.com/investing/2026/09/10/3-chip-equipment-stocks-set-to-win-the-memory-boom/"
    ]
@@ -2122,7 +2122,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -2168,10 +2168,10 @@
   "dayLow": 407.6000061035156,
   "vwap": 414.01904750508766,
   "rsi": 46.17319783843655,
-  "atrPct": 2.659126820747847,
+  "atrPct": 2.659200523513389,
   "support": 414.31666056315106,
   "resistance": 420.04998779296875,
-  "rvol": 2.1036597487277353,
+  "rvol": 1.735791027638809,
   "sma20": 441.50999755859374,
   "sma50": 465.1339990234375,
   "earnings": false,
@@ -4229,11 +4229,11 @@
   ],
   "rizika": {
    "blogiausia": -4.379101263480645,
-   "bloga_5": -2.94874009599869,
+   "bloga_5": -2.879903815684295,
    "suolis_bloga": -2.1619855073657823,
-   "suolis_5": -1.379150538165335,
-   "virs_stop": 5,
-   "dienu": 128,
+   "suolis_5": -1.379441433870714,
+   "virs_stop": 4,
+   "dienu": 125,
    "max_dd": -21.871995091848937
   },
   "vol5m": 0.1577966938706315,
@@ -4258,7 +4258,7 @@
    [
     "He Built Products at Beats, Apple and LVMH. Here’s How He Ended Up at a $1.5 Billion Startup That’s Making Your Data Safer.",
     "Entrepreneur",
-    83.32857037416667,
+    83.58787225638888,
     "teig",
     "https://www.entrepreneur.com/building-a-business/he-built-apple-music-now-he-leads-a-startup-sold-over-8-million-security-devices"
    ]
@@ -4282,7 +4282,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -4324,10 +4324,10 @@
   "dayLow": 49.90999984741211,
   "vwap": 50.22366935676619,
   "rsi": 43.49670286073608,
-  "atrPct": 2.9876965579856813,
+  "atrPct": 2.9874939893635193,
   "support": 49.90999984741211,
   "resistance": 50.15999984741211,
-  "rvol": 1.1339254189812635,
+  "rvol": 1.1809483389971778,
   "sma20": 53.83224983215332,
   "sma50": 53.909999771118166,
   "earnings": false,
@@ -6385,11 +6385,11 @@
   ],
   "rizika": {
    "blogiausia": -8.04689761740718,
-   "bloga_5": -3.9858821230804735,
+   "bloga_5": -3.9904083115215006,
    "suolis_bloga": -2.475247587078022,
-   "suolis_5": -1.2586846710655053,
+   "suolis_5": -1.2672187298600157,
    "virs_stop": 14,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -28.322440332877143
   },
   "vol5m": 0.13960848758739797,
@@ -6400,7 +6400,7 @@
    50.56999969482422,
    60.779998779296875
   ],
-  "m1h": -0.5086850745417423,
+  "m1h": -0.5086850745417211,
   "m3h": -0.6020575208004836,
   "pos1h": 34.78318558385232,
   "span_h": 3.0,
@@ -6414,26 +6414,26 @@
    [
     "All You Need to Know About Leonardo S.P.A. - Unsponsored ADR (FINMY) Rating Upgrade to Buy",
     "Zacks",
-    230.80776512694445,
+    231.06709677444445,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/know-leonardo-p-unsponsored-adr-160002428.html"
    ],
    [
     "Q2 Earnings Highs And Lows: Leonardo DRS (NASDAQ:DRS) Vs The Rest Of The Defense Contractors Stocks",
     "StockStory",
-    246.81998735333335,
+    247.0793190025,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/q2-earnings-highs-lows-leonardo-235918110.html"
    ],
    [
     "Leonardo SpA (FINMF) (Q2 2026) Earnings Call Highlights: Orders Surge 40%, Guidance Raised on ...",
     "GuruFocus.com",
-    1067.783320696111,
+    1068.0426523458334,
     "teig",
     "https://finance.yahoo.com/news/leonardo-spa-finmf-q2-2026-190130238.html"
    ]
   ],
-  "score": 45.47207182608172,
+  "score": 45.47207182608178,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -6452,7 +6452,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -6494,10 +6494,10 @@
   "dayLow": 51.209999084472656,
   "vwap": 51.890322191487144,
   "rsi": 53.675847396911074,
-  "atrPct": 2.2575357013843096,
+  "atrPct": 2.2574543395292213,
   "support": 51.209999084472656,
   "resistance": 52.163333892822266,
-  "rvol": 1.575502893187196,
+  "rvol": 1.5232418052210699,
   "sma20": 52.26649990081787,
   "sma50": 50.506499786376956,
   "earnings": false,
@@ -8555,11 +8555,11 @@
   ],
   "rizika": {
    "blogiausia": -4.472975370595977,
-   "bloga_5": -2.75824971771671,
+   "bloga_5": -2.7702562645307793,
    "suolis_bloga": -3.8911234979978393,
-   "suolis_5": -1.0736323109387296,
+   "suolis_5": -1.0793441523154979,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -14.541473611794142
   },
   "vol5m": 0.15415732811442345,
@@ -8584,7 +8584,7 @@
    [
     "BASFY Adds Low-Emission PU Catalyst to Its Amine Catalyst Portfolio",
     "Zacks",
-    64.82501965833333,
+    65.08436301222223,
     "neig",
     "https://finance.yahoo.com/markets/stocks/articles/basfy-adds-low-emission-pu-135900726.html"
    ]
@@ -8608,7 +8608,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -8650,10 +8650,10 @@
   "dayLow": 53.939998626708984,
   "vwap": 54.353527592320496,
   "rsi": 41.63269525400666,
-  "atrPct": 2.0874067216268974,
+  "atrPct": 2.087139442583289,
   "support": 53.939998626708984,
   "resistance": 54.25999959309896,
-  "rvol": 1.2956082407829215,
+  "rvol": 1.2153429875521728,
   "sma20": 57.07899990081787,
   "sma50": 56.50279983520508,
   "earnings": false,
@@ -10711,11 +10711,11 @@
   ],
   "rizika": {
    "blogiausia": -4.0396860998822115,
-   "bloga_5": -2.3447706318601798,
+   "bloga_5": -2.348078843525081,
    "suolis_bloga": -2.9016266390053835,
-   "suolis_5": -1.4026527360683954,
+   "suolis_5": -1.4101017954744366,
    "virs_stop": 2,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -11.886588260841258
   },
   "vol5m": 0.14662392658330034,
@@ -10740,21 +10740,21 @@
    [
     "Zara owner Inditex reports nearly 7% H1 profit growth",
     "Retail Insight Network",
-    91.681993365,
+    91.94134732444444,
     "teig",
     "https://www.retail-insight-network.com/news/inditex-reports-6-8-h1-profit-growth/"
    ],
    [
     "Inditex Breaks Records and Still Gets Marked Down",
     "Moby",
-    109.14227114805556,
+    109.40162510805557,
     "teig",
     "https://app.moby.co/home/news/news-inditex-breaks-records-and-still-gets-marked-down?utm_source=yahoo_finance&utm_medium=rss"
    ],
    [
     "Industria De Diseno Textil SA (IDEXF) (H1 2026) Earnings Call Highlights: Strong Sales Growth ...",
     "GuruFocus.com",
-    111.80032670583333,
+    112.05968066583333,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/industria-diseno-textil-sa-idexf-150029659.html"
    ]
@@ -10778,7 +10778,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -10824,10 +10824,10 @@
   "dayLow": 70.4800033569336,
   "vwap": 71.03545786801632,
   "rsi": 58.4700419376241,
-  "atrPct": 2.6352258254405894,
+  "atrPct": 2.6352753216693485,
   "support": 70.66000111897787,
   "resistance": 71.33999888102214,
-  "rvol": 1.0517012412446343,
+  "rvol": 0.9499403671192064,
   "sma20": 78.02999992370606,
   "sma50": 78.37880004882813,
   "earnings": false,
@@ -12885,11 +12885,11 @@
   ],
   "rizika": {
    "blogiausia": -4.474268873658305,
-   "bloga_5": -3.347879119575708,
+   "bloga_5": -3.3655025926893445,
    "suolis_bloga": -4.504275512182099,
-   "suolis_5": -1.755662337842742,
+   "suolis_5": -1.7865263081781713,
    "virs_stop": 9,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -16.62380297931688
   },
   "vol5m": 0.15478887115196602,
@@ -12929,7 +12929,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -12975,10 +12975,10 @@
   "dayLow": 152.5,
   "vwap": 154.24910571475846,
   "rsi": 63.441578740563045,
-  "atrPct": 3.035135488199202,
+  "atrPct": 3.035201903858958,
   "support": 154.56666564941406,
   "resistance": 156.25,
-  "rvol": 1.5410359022358908,
+  "rvol": 1.3301895347782715,
   "sma20": 161.80500106811525,
   "sma50": 165.1920016479492,
   "earnings": false,
@@ -15020,11 +15020,11 @@
   ],
   "rizika": {
    "blogiausia": -9.354664084036546,
-   "bloga_5": -3.5243728615535397,
+   "bloga_5": -3.372938543259578,
    "suolis_bloga": -2.5104602510460206,
-   "suolis_5": -1.878835355117765,
-   "virs_stop": 9,
-   "dienu": 128,
+   "suolis_5": -1.8835736929038416,
+   "virs_stop": 8,
+   "dienu": 125,
    "max_dd": -21.142563786290413
   },
   "vol5m": 0.16215350049446775,
@@ -15036,7 +15036,7 @@
    172.64999389648438
   ],
   "m1h": 1.3964817538641867,
-  "m3h": 0.09210424484423704,
+  "m3h": 0.09210424484420568,
   "pos1h": 94.339839926297,
   "span_h": 3.0,
   "mom_partial": false,
@@ -15064,7 +15064,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -15110,7 +15110,7 @@
   "dayLow": 43.790000915527344,
   "vwap": 44.79407375477385,
   "rsi": 42.20132168020435,
-  "atrPct": 2.825870900250492,
+  "atrPct": 2.8258472575541296,
   "support": 44.60333379109701,
   "resistance": 45.33000183105469,
   "rvol": 1.539614964709587,
@@ -17171,11 +17171,11 @@
   ],
   "rizika": {
    "blogiausia": -7.879383135268414,
-   "bloga_5": -2.960550700941014,
+   "bloga_5": -3.00568204367061,
    "suolis_bloga": -4.280156999279072,
-   "suolis_5": -1.544331722034078,
+   "suolis_5": -1.5444834681960606,
    "virs_stop": 7,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -24.279268691154755
   },
   "vol5m": 0.1563367907561092,
@@ -17215,7 +17215,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -17261,7 +17261,7 @@
   "dayLow": 19.93000030517578,
   "vwap": 20.13550011907722,
   "rsi": 48.40533168494083,
-  "atrPct": 3.1738145438450096,
+  "atrPct": 3.173793248079963,
   "support": 20.183333079020183,
   "resistance": 20.3799991607666,
   "rvol": 0.9125591025045906,
@@ -19318,11 +19318,11 @@
   ],
   "rizika": {
    "blogiausia": -6.494657981329366,
-   "bloga_5": -3.7786054189767144,
+   "bloga_5": -3.791081390623554,
    "suolis_bloga": -2.3311120858571788,
-   "suolis_5": -1.0438020276054483,
+   "suolis_5": -1.0505732970616255,
    "virs_stop": 9,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -17.530261495193255
   },
   "vol5m": 0.14881293091556708,
@@ -19362,7 +19362,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -19408,10 +19408,10 @@
   "dayLow": 121.19999694824219,
   "vwap": 121.71780103972146,
   "rsi": 47.74736081515332,
-  "atrPct": 1.867458023604513,
+  "atrPct": 1.8674638430746717,
   "support": 121.19999694824219,
   "resistance": 121.93333435058594,
-  "rvol": 0.7773236182690599,
+  "rvol": 0.7742278077705992,
   "sma20": 122.37499961853027,
   "sma50": 117.19399978637695,
   "earnings": false,
@@ -21213,11 +21213,11 @@
   ],
   "rizika": {
    "blogiausia": -5.440416999766374,
-   "bloga_5": -2.278692085150241,
+   "bloga_5": -2.3437747542145115,
    "suolis_bloga": -4.404150232393455,
-   "suolis_5": -0.8291465733526987,
+   "suolis_5": -0.8292956821576603,
    "virs_stop": 5,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -17.55050973730351
   },
   "vol5m": null,
@@ -21238,7 +21238,7 @@
   "dd5": 5.6677040984419325,
   "chg3d": 0.6628028765409701,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 41.70225511030418,
+  "score": 41.70225896512122,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -21257,7 +21257,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -21288,7 +21288,7 @@
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 0.9337290118022565
+  "move_ratio": 0.9337319215373359
  },
  {
   "tag": "IPN",
@@ -21299,10 +21299,10 @@
   "dayLow": 156.3000030517578,
   "vwap": 157.47156182960987,
   "rsi": 45.36419589467504,
-  "atrPct": 2.6435729147427187,
+  "atrPct": 2.643526136619723,
   "support": 156.3000030517578,
   "resistance": 158.10000101725262,
-  "rvol": 0.6661714376674714,
+  "rvol": 0.6759448691719608,
   "sma20": 163.1449996948242,
   "sma50": 162.05799896240234,
   "earnings": false,
@@ -22900,11 +22900,11 @@
   ],
   "rizika": {
    "blogiausia": -8.43300903234544,
-   "bloga_5": -2.9829043915288866,
+   "bloga_5": -3.018146478978949,
    "suolis_bloga": -3.2515356145753405,
-   "suolis_5": -1.0725172055008025,
+   "suolis_5": -1.0775837693458512,
    "virs_stop": 7,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -12.492765533386041
   },
   "vol5m": null,
@@ -22925,7 +22925,7 @@
   "dd5": 6.50623692791895,
   "chg3d": -1.1620545729834508,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 43.03780453943811,
+  "score": 43.03779994894497,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -22944,7 +22944,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -22979,7 +22979,7 @@
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.3217864573713594
+  "move_ratio": 1.3217630683098616
  },
  {
   "tag": "RAA",
@@ -22990,10 +22990,10 @@
   "dayLow": 583.0,
   "vwap": 587.3962096332788,
   "rsi": 38.74566441955202,
-  "atrPct": 2.0302169235906096,
+  "atrPct": 2.0302949345017964,
   "support": 583.0,
   "resistance": 586.5,
-  "rvol": 1.013732833957553,
+  "rvol": 0.8095712861415753,
   "sma20": 617.375,
   "sma50": 638.13,
   "earnings": false,
@@ -24295,11 +24295,11 @@
   ],
   "rizika": {
    "blogiausia": -5.487804878048785,
-   "bloga_5": -2.4974271856329966,
+   "bloga_5": -2.499367528392542,
    "suolis_bloga": -3.205629397967158,
-   "suolis_5": -1.179396411602898,
+   "suolis_5": -1.2034258564641132,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -17.28307254623044
   },
   "vol5m": null,
@@ -24310,7 +24310,7 @@
    592.0,
    644.0
   ],
-  "m1h": -0.3260594590036324,
+  "m1h": -0.3260594590036271,
   "m3h": -0.7782675025566935,
   "pos1h": 0.0,
   "span_h": 3.0,
@@ -24320,7 +24320,7 @@
   "dd5": 5.564516129032258,
   "chg3d": -3.779786359901397,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 49.86807392387404,
+  "score": 49.868125598301624,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -24339,7 +24339,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -24370,7 +24370,7 @@
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.0151084617953048
+  "move_ratio": 1.0151474672508982
  },
  {
   "tag": "RMS",
@@ -24381,10 +24381,10 @@
   "dayLow": 1395.0,
   "vwap": 1409.4529126951938,
   "rsi": 41.17185035671607,
-  "atrPct": 2.8057606944143965,
+  "atrPct": 2.805915848295586,
   "support": 1395.0,
   "resistance": 1407.5,
-  "rvol": 1.1215420919455263,
+  "rvol": 1.0024649945363524,
   "sma20": 1524.55,
   "sma50": 1584.97,
   "earnings": false,
@@ -26442,12 +26442,12 @@
   ],
   "rizika": {
    "blogiausia": -11.02919492774993,
-   "bloga_5": -3.3597343211838013,
+   "bloga_5": -3.374362707414007,
    "suolis_bloga": -9.141895681435786,
-   "suolis_5": -1.768892167852435,
+   "suolis_5": -1.7779912916828744,
    "virs_stop": 10,
-   "dienu": 128,
-   "max_dd": -27.12835199166883
+   "dienu": 125,
+   "max_dd": -25.51889302820649
   },
   "vol5m": 0.14232505614762714,
   "res_intra": 1428.0,
@@ -26457,7 +26457,7 @@
    1428.0,
    1628.5
   ],
-  "m1h": -0.4376899696048755,
+  "m1h": -0.4376899696048297,
   "m3h": -1.6180758237974107,
   "pos1h": 59.09090909090909,
   "span_h": 3.0,
@@ -26488,7 +26488,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -26542,10 +26542,10 @@
   "dayLow": 8.880000114440918,
   "vwap": 8.931276202005039,
   "rsi": 54.34888026035853,
-  "atrPct": 1.7105051508066595,
+  "atrPct": 1.7104798931308403,
   "support": 8.893666585286457,
   "resistance": 8.993000030517578,
-  "rvol": 0.7142034594088851,
+  "rvol": 0.6854144232390625,
   "sma20": 9.290850019454956,
   "sma50": 9.7078999710083,
   "earnings": false,
@@ -28603,11 +28603,11 @@
   ],
   "rizika": {
    "blogiausia": -3.348131506259089,
-   "bloga_5": -2.4004147103211793,
+   "bloga_5": -2.4010048638564796,
    "suolis_bloga": -2.8324164097633053,
-   "suolis_5": -0.8467573132490119,
+   "suolis_5": -0.8475331476732029,
    "virs_stop": 2,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -13.472755945366332
   },
   "vol5m": 0.11225491042231774,
@@ -28647,7 +28647,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -28656,6 +28656,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
   "dip": 0.6115901811313104,
@@ -28689,10 +28693,10 @@
   "dayLow": 976.0,
   "vwap": 999.9048167073419,
   "rsi": 41.64175864321671,
-  "atrPct": 4.301848725773662,
+  "atrPct": 4.301322287689613,
   "support": 976.0,
   "resistance": 999.066650390625,
-  "rvol": 1.2388362952381797,
+  "rvol": 1.234040672753144,
   "sma20": 1114.6300048828125,
   "sma50": 1093.8480017089844,
   "earnings": false,
@@ -30750,11 +30754,11 @@
   ],
   "rizika": {
    "blogiausia": -18.652492725850223,
-   "bloga_5": -4.6957658556765445,
+   "bloga_5": -4.718967726818133,
    "suolis_bloga": -7.851875321695456,
-   "suolis_5": -2.0020822992411507,
+   "suolis_5": -2.071918699301356,
    "virs_stop": 19,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -42.103977028383035
   },
   "vol5m": 0.21747688124432038,
@@ -30765,7 +30769,7 @@
    1030.5999755859375,
    1234.0
   ],
-  "m1h": -0.7082806108186542,
+  "m1h": -0.7082806108186434,
   "m3h": -2.912231183868829,
   "pos1h": 53.50885411786752,
   "span_h": 3.0,
@@ -30796,7 +30800,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -30854,10 +30858,10 @@
   "dayLow": 74.16999816894531,
   "vwap": 74.50060923605605,
   "rsi": 56.37431015828605,
-  "atrPct": 2.302788371972469,
+  "atrPct": 2.302833464064184,
   "support": 74.26333363850912,
   "resistance": 74.98999786376953,
-  "rvol": 0.7985991825941879,
+  "rvol": 0.7450137583560844,
   "sma20": 75.31649971008301,
   "sma50": 77.23240005493165,
   "earnings": false,
@@ -32915,11 +32919,11 @@
   ],
   "rizika": {
    "blogiausia": -5.787522774518827,
-   "bloga_5": -3.7020944842390677,
+   "bloga_5": -3.7274896239435518,
    "suolis_bloga": -3.8033484004655227,
-   "suolis_5": -1.8485313454806773,
-   "virs_stop": 9,
-   "dienu": 128,
+   "suolis_5": -1.8111638181931555,
+   "virs_stop": 8,
+   "dienu": 125,
    "max_dd": -15.671380804415136
   },
   "vol5m": 0.10747878006291033,
@@ -32959,7 +32963,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -33001,10 +33005,10 @@
   "dayLow": 501.3999938964844,
   "vwap": 505.3974994053607,
   "rsi": 45.22999375377426,
-  "atrPct": 1.8971750188259406,
+  "atrPct": 1.8972078774562227,
   "support": 501.3999938964844,
   "resistance": 507.1333312988281,
-  "rvol": 1.0847691736547869,
+  "rvol": 1.0364920096296548,
   "sma20": 515.4199951171875,
   "sma50": 513.521996459961,
   "earnings": false,
@@ -35058,11 +35062,11 @@
   ],
   "rizika": {
    "blogiausia": -6.0885228599463765,
-   "bloga_5": -2.3543947183169456,
+   "bloga_5": -2.3598952841627985,
    "suolis_bloga": -4.324526720575994,
-   "suolis_5": -1.010308850239146,
+   "suolis_5": -1.0129285364200635,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -22.7112676056338
   },
   "vol5m": 0.079212755259901,
@@ -35106,7 +35110,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -35148,7 +35152,7 @@
   "dayLow": 66.87999725341797,
   "vwap": 67.44299793646628,
   "rsi": 39.95423925904719,
-  "atrPct": 2.050619009233629,
+  "atrPct": 2.050664801871318,
   "support": 66.87999725341797,
   "resistance": 67.44666544596355,
   "rvol": 0.9848055787810911,
@@ -37229,11 +37233,11 @@
   ],
   "rizika": {
    "blogiausia": -4.113753805218323,
-   "bloga_5": -2.3242134605441542,
+   "bloga_5": -2.3274179175007492,
    "suolis_bloga": -6.082999917807264,
-   "suolis_5": -1.5185925534349376,
+   "suolis_5": -1.4712886443358397,
    "virs_stop": 2,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -11.56914534747937
   },
   "vol5m": 0.08864887459103886,
@@ -37244,7 +37248,7 @@
    68.27999877929688,
    69.76000213623047
   ],
-  "m1h": -0.6206041424881074,
+  "m1h": -0.6206041424880675,
   "m3h": -1.8494910702293996,
   "pos1h": 49.180778947895035,
   "span_h": 3.0,
@@ -37279,7 +37283,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -37329,10 +37333,10 @@
   "dayLow": 375.54998779296875,
   "vwap": 380.6965003050562,
   "rsi": 47.76201647720792,
-  "atrPct": 2.12617767298826,
+  "atrPct": 2.1261522281786926,
   "support": 379.78333536783856,
   "resistance": 383.95001220703125,
-  "rvol": 0.7818010674624235,
+  "rvol": 0.7646606563076939,
   "sma20": 382.9075012207031,
   "sma50": 382.70000061035154,
   "earnings": false,
@@ -39390,11 +39394,11 @@
   ],
   "rizika": {
    "blogiausia": -3.099957436536227,
-   "bloga_5": -2.0277793049086,
+   "bloga_5": -2.0441131995838635,
    "suolis_bloga": -2.7562263778681984,
-   "suolis_5": -1.2514394604405592,
+   "suolis_5": -1.1313523060031483,
    "virs_stop": 1,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -6.318719123642236
   },
   "vol5m": 0.1051579088554423,
@@ -39434,7 +39438,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -39480,10 +39484,10 @@
   "dayLow": 43.150001525878906,
   "vwap": 43.314698028897126,
   "rsi": 39.968668960107344,
-  "atrPct": 1.6375954728160582,
+  "atrPct": 1.6376452542835591,
   "support": 43.04666646321614,
   "resistance": 43.29333368937174,
-  "rvol": 1.0656998635758308,
+  "rvol": 1.1087629784517663,
   "sma20": 43.759999656677245,
   "sma50": 44.298999633789066,
   "earnings": false,
@@ -41541,11 +41545,11 @@
   ],
   "rizika": {
    "blogiausia": -3.752438794280555,
-   "bloga_5": -1.911176517458079,
+   "bloga_5": -1.9171319621906813,
    "suolis_bloga": -5.263157405522579,
-   "suolis_5": -1.0006288787032636,
+   "suolis_5": -1.0036954906444628,
    "virs_stop": 1,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -8.728290706790387
   },
   "vol5m": 0.09215739068118968,
@@ -41556,7 +41560,7 @@
    43.540000915527344,
    45.04999923706055
   ],
-  "m1h": -0.13734191070629895,
+  "m1h": -0.13734191070632992,
   "m3h": -0.65280266636982,
   "pos1h": 26.665140764476998,
   "span_h": 3.0,
@@ -41566,7 +41570,7 @@
   "dd5": 3.2482096388103754,
   "chg3d": -1.0765030287350854,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 55.21757790362515,
+  "score": 55.21757790362497,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -41589,7 +41593,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -41635,10 +41639,10 @@
   "dayLow": 145.8000030517578,
   "vwap": 146.8454440725373,
   "rsi": 53.73935235687094,
-  "atrPct": 2.956552350198077,
+  "atrPct": 2.9565835886759975,
   "support": 146.81666564941406,
   "resistance": 147.8333282470703,
-  "rvol": 0.6946354637073336,
+  "rvol": 0.6441879389431674,
   "sma20": 157.2599998474121,
   "sma50": 163.88699920654298,
   "earnings": false,
@@ -43696,11 +43700,11 @@
   ],
   "rizika": {
    "blogiausia": -4.813894267117713,
-   "bloga_5": -3.4682122912558015,
+   "bloga_5": -3.534630655919042,
    "suolis_bloga": -5.0868486352357305,
-   "suolis_5": -1.5786852940799394,
+   "suolis_5": -1.6171357268107411,
    "virs_stop": 9,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -32.382935481212485
   },
   "vol5m": 0.13645204060096325,
@@ -43740,7 +43744,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -43790,10 +43794,10 @@
   "dayLow": 35.45500183105469,
   "vwap": 35.656450084985394,
   "rsi": 54.55800419115115,
-  "atrPct": 2.5408608237087305,
+  "atrPct": 2.5409390465267667,
   "support": 35.45500183105469,
   "resistance": 35.871665954589844,
-  "rvol": 0.9999231475459689,
+  "rvol": 0.9953417055954646,
   "sma20": 37.261749839782716,
   "sma50": 38.614999771118164,
   "earnings": false,
@@ -45851,12 +45855,12 @@
   ],
   "rizika": {
    "blogiausia": -7.356888013337137,
-   "bloga_5": -4.383005159696684,
+   "bloga_5": -4.5400879790701065,
    "suolis_bloga": -4.297854075535012,
-   "suolis_5": -2.2349249833915636,
+   "suolis_5": -2.240964582620717,
    "virs_stop": 10,
-   "dienu": 128,
-   "max_dd": -24.28403540045482
+   "dienu": 125,
+   "max_dd": -24.202729067191186
   },
   "vol5m": 0.12646335478540036,
   "res_intra": 35.91999816894531,
@@ -45895,7 +45899,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -45937,7 +45941,7 @@
   "dayLow": 141.1999969482422,
   "vwap": 142.42334853297174,
   "rsi": 42.36142137218678,
-  "atrPct": 2.969457932395615,
+  "atrPct": 2.969566079692115,
   "support": 141.43332926432294,
   "resistance": 143.60000610351562,
   "rvol": 0.9384627148127617,
@@ -47982,11 +47986,11 @@
   ],
   "rizika": {
    "blogiausia": -11.52263374485597,
-   "bloga_5": -3.145312966428418,
+   "bloga_5": -3.1458382774771865,
    "suolis_bloga": -13.717421124828533,
-   "suolis_5": -1.6679421558767649,
+   "suolis_5": -1.676733986472163,
    "virs_stop": 11,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -24.055347746920752
   },
   "vol5m": 0.10568535151849481,
@@ -48026,7 +48030,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -48072,10 +48076,10 @@
   "dayLow": 23.850000381469727,
   "vwap": 24.04454267884956,
   "rsi": 52.426039137773856,
-  "atrPct": 2.2309291516167455,
+  "atrPct": 2.2309873762848595,
   "support": 23.850000381469727,
   "resistance": 24.083333333333332,
-  "rvol": 0.9360042649682213,
+  "rvol": 0.8702560208787344,
   "sma20": 24.71949996948242,
   "sma50": 26.00239990234375,
   "earnings": false,
@@ -50133,11 +50137,11 @@
   ],
   "rizika": {
    "blogiausia": -3.769484993749783,
-   "bloga_5": -2.44090006098041,
+   "bloga_5": -2.4984827526008435,
    "suolis_bloga": -1.433425367161012,
-   "suolis_5": -0.6579209409464565,
+   "suolis_5": -0.5692447520617594,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -18.527396253627714
   },
   "vol5m": 0.12417502829049615,
@@ -50177,7 +50181,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -50223,10 +50227,10 @@
   "dayLow": 15.475000381469727,
   "vwap": 15.56179537772282,
   "rsi": 39.56992959679025,
-  "atrPct": 1.9262447380594097,
+  "atrPct": 1.9261761332229206,
   "support": 15.475000381469727,
   "resistance": 15.661666870117188,
-  "rvol": 1.0474880414262409,
+  "rvol": 1.1537187735683894,
   "sma20": 15.683500003814697,
   "sma50": 16.05959991455078,
   "earnings": false,
@@ -52280,11 +52284,11 @@
   ],
   "rizika": {
    "blogiausia": -5.277700801023211,
-   "bloga_5": -2.3161552253812254,
+   "bloga_5": -2.3878520448193785,
    "suolis_bloga": -4.040998554771569,
-   "suolis_5": -0.6477977171059152,
+   "suolis_5": -0.6539942339837101,
    "virs_stop": 5,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -19.423689616359308
   },
   "vol5m": 0.06440757135726195,
@@ -52328,7 +52332,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -52370,10 +52374,10 @@
   "dayLow": 18.510000228881836,
   "vwap": 18.650461233046652,
   "rsi": 49.520420856569466,
-  "atrPct": 1.563216832025385,
+  "atrPct": 1.5632543134608945,
   "support": 18.510000228881836,
   "resistance": 18.74333381652832,
-  "rvol": 0.9310865898228845,
+  "rvol": 0.8714532286661195,
   "sma20": 18.936749839782713,
   "sma50": 18.69709991455078,
   "earnings": false,
@@ -54431,11 +54435,11 @@
   ],
   "rizika": {
    "blogiausia": -6.04584675673141,
-   "bloga_5": -2.299360968841641,
+   "bloga_5": -2.2118028288463165,
    "suolis_bloga": -5.673361806203337,
-   "suolis_5": -1.1962171665158583,
+   "suolis_5": -1.180609793311691,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -9.628720439166061
   },
   "vol5m": 0.08026430536039239,
@@ -54479,7 +54483,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -54525,10 +54529,10 @@
   "dayLow": 54.86000061035156,
   "vwap": 55.17027084114821,
   "rsi": 45.65685657396004,
-  "atrPct": 1.5967776672067928,
+  "atrPct": 1.5967266034784,
   "support": 54.86000061035156,
   "resistance": 55.15999984741211,
-  "rvol": 1.022004880429478,
+  "rvol": 1.0000964713456224,
   "sma20": 55.55399990081787,
   "sma50": 56.144400100708005,
   "earnings": false,
@@ -56558,11 +56562,11 @@
   ],
   "rizika": {
    "blogiausia": -7.284640543537558,
-   "bloga_5": -1.9002743900520895,
+   "bloga_5": -1.8208227876591487,
    "suolis_bloga": -2.399474353499087,
-   "suolis_5": -1.4451352472805306,
+   "suolis_5": -1.373604784300837,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -8.177853630871635
   },
   "vol5m": 0.07246542567839934,
@@ -56606,7 +56610,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -56648,10 +56652,10 @@
   "dayLow": 235.10000610351562,
   "vwap": 239.13148144137037,
   "rsi": 39.20327101531685,
-  "atrPct": 3.4696503699577197,
+  "atrPct": 3.4697193559320647,
   "support": 235.10000610351562,
   "resistance": 242.53333536783856,
-  "rvol": 0.9949337817952492,
+  "rvol": 0.9896426505335498,
   "sma20": 249.84249877929688,
   "sma50": 257.45099884033203,
   "earnings": false,
@@ -58709,11 +58713,11 @@
   ],
   "rizika": {
    "blogiausia": -9.285714285714286,
-   "bloga_5": -4.19529788446398,
+   "bloga_5": -4.224583690435935,
    "suolis_bloga": -4.785712105887274,
-   "suolis_5": -1.9215661741378698,
+   "suolis_5": -1.9216856800509818,
    "virs_stop": 17,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -20.693189291618097
   },
   "vol5m": 0.16780362432028095,
@@ -58755,7 +58759,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -58805,7 +58809,7 @@
   "dayLow": 96.4000015258789,
   "vwap": 97.05149091259965,
   "rsi": 44.838635690161006,
-  "atrPct": 2.4609103707447675,
+  "atrPct": 2.460908653277513,
   "support": 96.4000015258789,
   "resistance": 96.95333607991536,
   "rvol": 0.5643378900651386,
@@ -60850,12 +60854,12 @@
   ],
   "rizika": {
    "blogiausia": -4.266662597656246,
-   "bloga_5": -2.525101700714136,
+   "bloga_5": -2.5375802596351638,
    "suolis_bloga": -4.580151661352295,
-   "suolis_5": -0.8354420459676276,
+   "suolis_5": -0.8372115925872903,
    "virs_stop": 5,
-   "dienu": 128,
-   "max_dd": -9.336160977999153
+   "dienu": 125,
+   "max_dd": -8.92667551762929
   },
   "vol5m": 0.08231495090873057,
   "res_intra": 97.66000366210938,
@@ -60865,7 +60869,7 @@
    97.66000366210938,
    104.8499984741211
   ],
-  "m1h": 0.3504370151771786,
+  "m1h": 0.35043701517720055,
   "m3h": -0.8122068019603422,
   "pos1h": 60.71389645776567,
   "span_h": 3.0,
@@ -60898,7 +60902,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -60948,10 +60952,10 @@
   "dayLow": 18.0049991607666,
   "vwap": 18.120733191800454,
   "rsi": 52.501317123103796,
-  "atrPct": 2.312848121180726,
+  "atrPct": 2.312669113463306,
   "support": 18.0049991607666,
   "resistance": 18.208332697550453,
-  "rvol": 0.8322024512421683,
+  "rvol": 0.916483703082848,
   "sma20": 19.440999698638915,
   "sma50": 20.491799812316895,
   "earnings": false,
@@ -63009,11 +63013,11 @@
   ],
   "rizika": {
    "blogiausia": -12.118745521531471,
-   "bloga_5": -2.7672202393300145,
+   "bloga_5": -2.775175526236311,
    "suolis_bloga": -4.4414609143293315,
-   "suolis_5": -1.9221075376848638,
+   "suolis_5": -1.9717684525827783,
    "virs_stop": 5,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -27.465643246393746
   },
   "vol5m": 0.10997803355563579,
@@ -63025,7 +63029,7 @@
    21.049999237060547
   ],
   "m1h": 0.46460271126930697,
-  "m3h": -0.3147577554950286,
+  "m3h": -0.314757755495073,
   "pos1h": 60.87006999038047,
   "span_h": 3.0,
   "mom_partial": false,
@@ -63053,7 +63057,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -63095,10 +63099,10 @@
   "dayLow": 31.309999465942383,
   "vwap": 31.48429177845013,
   "rsi": 53.85688650118596,
-  "atrPct": 1.787735129807602,
+  "atrPct": 1.787716855349937,
   "support": 31.309999465942383,
   "resistance": 31.483333587646484,
-  "rvol": 1.7629854349270127,
+  "rvol": 1.6712386360691238,
   "sma20": 32.93549976348877,
   "sma50": 34.80999992370605,
   "earnings": false,
@@ -65156,11 +65160,11 @@
   ],
   "rizika": {
    "blogiausia": -3.9221410272548884,
-   "bloga_5": -2.0851256029135,
+   "bloga_5": -2.086554114060166,
    "suolis_bloga": -4.857615518128966,
-   "suolis_5": -0.8289851292169692,
+   "suolis_5": -0.8436799790874194,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -16.204690430508716
   },
   "vol5m": 0.09524027506510416,
@@ -65204,7 +65208,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -65246,7 +65250,7 @@
   "dayLow": 201.5,
   "vwap": 206.09925138193418,
   "rsi": 21.387810559000712,
-  "atrPct": 3.0182728640844405,
+  "atrPct": 3.017947977019865,
   "support": 201.5,
   "resistance": 209.90000406901044,
   "rvol": 1.194543988423394,
@@ -67291,11 +67295,11 @@
   ],
   "rizika": {
    "blogiausia": -13.51135700324917,
-   "bloga_5": -3.3933641560275714,
+   "bloga_5": -3.4602311998987645,
    "suolis_bloga": -4.46392874479824,
-   "suolis_5": -1.426194696253813,
+   "suolis_5": -1.4279252755072802,
    "virs_stop": 8,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -26.65454656427557
   },
   "vol5m": 0.09876392505787036,
@@ -67306,7 +67310,7 @@
    210.0,
    226.1999969482422
   ],
-  "m1h": -0.8906026694349678,
+  "m1h": -0.8906026694350323,
   "m3h": -1.5131372720785268,
   "pos1h": 0.0,
   "span_h": 3.0,
@@ -67316,7 +67320,7 @@
   "dd5": 7.387384638056024,
   "chg3d": -0.6283169798541204,
   "asOf": "2026-09-11 17:35:00+02:00",
-  "score": 31.603760175018156,
+  "score": 31.60376017501813,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
@@ -67337,7 +67341,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -67391,10 +67395,10 @@
   "dayLow": 44.53499984741211,
   "vwap": 45.417775527047404,
   "rsi": 35.88033858081364,
-  "atrPct": 2.1988407991038046,
+  "atrPct": 2.198782719561239,
   "support": 45.141666412353516,
   "resistance": 45.74833297729492,
-  "rvol": 1.475654049021287,
+  "rvol": 1.404466050056795,
   "sma20": 45.58225040435791,
   "sma50": 44.65650032043457,
   "earnings": false,
@@ -69452,12 +69456,12 @@
   ],
   "rizika": {
    "blogiausia": -3.9405425709132635,
-   "bloga_5": -2.308829399720769,
+   "bloga_5": -2.3164663655264772,
    "suolis_bloga": -1.6816391264738662,
-   "suolis_5": -1.1128497925360408,
+   "suolis_5": -1.1198606226114283,
    "virs_stop": 4,
-   "dienu": 128,
-   "max_dd": -24.894067394223175
+   "dienu": 125,
+   "max_dd": -24.445860728096626
   },
   "vol5m": 0.13227839503450142,
   "res_intra": 45.849998474121094,
@@ -69467,7 +69471,7 @@
    45.849998474121094,
    47.97999954223633
   ],
-  "m1h": 0.03416255230373195,
+  "m1h": 0.034162552303761445,
   "m3h": -0.886299926958759,
   "pos1h": 7.692420552246252,
   "span_h": 3.0,
@@ -69477,7 +69481,7 @@
   "dd5": 1.275897718519761,
   "chg3d": 1.2979702328130542,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 36.275994920113455,
+  "score": 36.27599492011361,
   "grade": "D",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
@@ -69496,7 +69500,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -69538,10 +69542,10 @@
   "dayLow": 22.329999923706055,
   "vwap": 22.50134009635615,
   "rsi": 53.32817106783177,
-  "atrPct": 2.7330756278756696,
+  "atrPct": 2.7331577560421927,
   "support": 22.39333407084147,
   "resistance": 22.55666669209798,
-  "rvol": 1.2125994473104897,
+  "rvol": 1.1671545262094891,
   "sma20": 23.174999809265138,
   "sma50": 24.556399841308593,
   "earnings": false,
@@ -71575,11 +71579,11 @@
   ],
   "rizika": {
    "blogiausia": -6.347965557110968,
-   "bloga_5": -3.3326059345485293,
+   "bloga_5": -3.3396100187116593,
    "suolis_bloga": -3.7750368905925424,
-   "suolis_5": -2.1120591408479603,
+   "suolis_5": -2.1238652895539474,
    "virs_stop": 10,
-   "dienu": 127,
+   "dienu": 124,
    "max_dd": -18.623192847663873
   },
   "vol5m": 0.1329818690809821,
@@ -71619,7 +71623,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -71665,10 +71669,10 @@
   "dayLow": 7.869999885559082,
   "vwap": 7.913155921613449,
   "rsi": 49.994051519725964,
-  "atrPct": 1.669089123904042,
+  "atrPct": 1.6691103968301233,
   "support": 7.869999885559082,
   "resistance": 7.905999819437663,
-  "rvol": 0.5581851106462802,
+  "rvol": 0.5574966724193758,
   "sma20": 7.95629997253418,
   "sma50": 7.986239976882935,
   "earnings": false,
@@ -73714,11 +73718,11 @@
   ],
   "rizika": {
    "blogiausia": -2.914068953149407,
-   "bloga_5": -1.6891198463314172,
+   "bloga_5": -1.5913428979890076,
    "suolis_bloga": -3.2627598480534314,
-   "suolis_5": -1.0057384825325681,
+   "suolis_5": -1.0117837082996872,
    "virs_stop": 0,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -6.418919618649943
   },
   "vol5m": 0.07566257366397652,
@@ -73762,7 +73766,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -73812,7 +73816,7 @@
   "dayLow": 249.8000030517578,
   "vwap": 251.70216469883886,
   "rsi": 55.138002669388705,
-  "atrPct": 1.7049643201285178,
+  "atrPct": 1.7050348272395561,
   "support": 251.06666564941406,
   "resistance": 252.3333282470703,
   "rvol": 0.9135002121340687,
@@ -75697,11 +75701,11 @@
   ],
   "rizika": {
    "blogiausia": -5.065238640780356,
-   "bloga_5": -2.3061992308611705,
+   "bloga_5": -2.319601195964307,
    "suolis_bloga": -4.838706274983773,
-   "suolis_5": -0.9119277486281112,
+   "suolis_5": -0.9268054689764504,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -19.338611053154775
   },
   "vol5m": 0.07914403479923607,
@@ -75713,7 +75717,7 @@
    263.3999938964844
   ],
   "m1h": 0.21502185103546373,
-  "m3h": -0.5512224309902366,
+  "m3h": -0.5512224309902494,
   "pos1h": 80.00030517578125,
   "span_h": 3.0,
   "mom_partial": false,
@@ -75745,7 +75749,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -75791,7 +75795,7 @@
   "dayLow": 54.2400016784668,
   "vwap": 54.639345852102835,
   "rsi": 39.99236457839678,
-  "atrPct": 2.603528421797809,
+  "atrPct": 2.6035420695271205,
   "support": 54.18000030517578,
   "resistance": 54.52000045776367,
   "rvol": 1.5862799700336971,
@@ -77840,11 +77844,11 @@
   ],
   "rizika": {
    "blogiausia": -5.444397924740086,
-   "bloga_5": -3.044981540551393,
+   "bloga_5": -3.09254611284703,
    "suolis_bloga": -2.753676106879155,
-   "suolis_5": -1.3774263494770789,
+   "suolis_5": -1.3371798837283233,
    "virs_stop": 7,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -13.39317591075554
   },
   "vol5m": 0.1098891348336226,
@@ -77884,7 +77888,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -77926,10 +77930,10 @@
   "dayLow": 7.689000129699707,
   "vwap": 7.733099197810443,
   "rsi": 39.398348449926154,
-  "atrPct": 2.36466912229498,
+  "atrPct": 2.3647687666803514,
   "support": 7.690000057220459,
   "resistance": 7.732666651407878,
-  "rvol": 0.9331694709524615,
+  "rvol": 0.9630018796955715,
   "sma20": 7.82550003528595,
   "sma50": 8.50278000831604,
   "earnings": false,
@@ -79963,11 +79967,11 @@
   ],
   "rizika": {
    "blogiausia": -8.20524335057855,
-   "bloga_5": -3.503080858827917,
+   "bloga_5": -3.426550861488351,
    "suolis_bloga": -7.404200275737615,
-   "suolis_5": -2.6571630865021794,
-   "virs_stop": 12,
-   "dienu": 128,
+   "suolis_5": -2.662170356428135,
+   "virs_stop": 11,
+   "dienu": 125,
    "max_dd": -24.58106179648789
   },
   "vol5m": 0.10354822447719819,
@@ -79978,7 +79982,7 @@
    7.785999774932861,
    8.23799991607666
   ],
-  "m1h": -0.28686439517973406,
+  "m1h": -0.28686439517967993,
   "m3h": -0.22872149471433148,
   "pos1h": 0.0,
   "span_h": 3.0,
@@ -79988,7 +79992,7 @@
   "dd5": 2.1844034766600204,
   "chg3d": -1.3323096137906238,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 48.37270278490342,
+  "score": 48.37270278490355,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -80007,7 +80011,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -80053,10 +80057,10 @@
   "dayLow": 27.889999389648438,
   "vwap": 28.068735847391704,
   "rsi": 40.3637146553519,
-  "atrPct": 2.1066302021344114,
+  "atrPct": 2.106658381623809,
   "support": 27.789999643961586,
   "resistance": 28.03000005086263,
-  "rvol": 0.8769777618805434,
+  "rvol": 0.8492312188469094,
   "sma20": 28.279000091552735,
   "sma50": 27.53880012512207,
   "earnings": false,
@@ -82094,11 +82098,11 @@
   ],
   "rizika": {
    "blogiausia": -5.05642867346957,
-   "bloga_5": -2.510420028739998,
+   "bloga_5": -2.524363376389809,
    "suolis_bloga": -5.05642867346957,
-   "suolis_5": -1.2608122877437578,
+   "suolis_5": -1.274917816775536,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -8.539824215039548
   },
   "vol5m": 0.07122670163110233,
@@ -82142,7 +82146,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -82192,7 +82196,7 @@
   "dayLow": 5.489999771118164,
   "vwap": 5.523267797040444,
   "rsi": 49.924581204514865,
-  "atrPct": 1.7999214432470003,
+  "atrPct": 1.7999284013519956,
   "support": 5.513333320617676,
   "resistance": 5.5366668701171875,
   "rvol": 0.8832117820938086,
@@ -84233,11 +84237,11 @@
   ],
   "rizika": {
    "blogiausia": -2.9795145747236185,
-   "bloga_5": -1.9215566672438749,
+   "bloga_5": -1.9447548038717488,
    "suolis_bloga": -2.8553622760080666,
-   "suolis_5": -0.7636482726761801,
+   "suolis_5": -0.7334211244534905,
    "virs_stop": 0,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -19.623971040687984
   },
   "vol5m": 0.07250224068994823,
@@ -84281,7 +84285,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -84327,7 +84331,7 @@
   "dayLow": 24.540000915527344,
   "vwap": 24.740035130883477,
   "rsi": 31.870679410289384,
-  "atrPct": 1.8346197962653452,
+  "atrPct": 1.834616565340907,
   "support": 24.540000915527344,
   "resistance": 24.846665700276695,
   "rvol": 0.7585854877024328,
@@ -86172,11 +86176,11 @@
   ],
   "rizika": {
    "blogiausia": -5.169753659890752,
-   "bloga_5": -2.523030978475902,
+   "bloga_5": -2.549835708101664,
    "suolis_bloga": -4.3209908793855885,
-   "suolis_5": -1.027273772154229,
+   "suolis_5": -1.0347158888779295,
    "virs_stop": 3,
-   "dienu": 129,
+   "dienu": 126,
    "max_dd": -15.754438182861119
   },
   "vol5m": 0.08058202260108256,
@@ -86220,7 +86224,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -86262,7 +86266,7 @@
   "dayLow": 5.723999977111816,
   "vwap": 5.7593812725095,
   "rsi": 32.05471909582336,
-  "atrPct": 1.9044743119403624,
+  "atrPct": 1.9045567941869563,
   "support": 5.7220001220703125,
   "resistance": 5.75000015894572,
   "rvol": 0.6326378582680573,
@@ -88295,11 +88299,11 @@
   ],
   "rizika": {
    "blogiausia": -14.451574986722349,
-   "bloga_5": -2.364414557651542,
+   "bloga_5": -2.2804063619954706,
    "suolis_bloga": -8.340971639115713,
-   "suolis_5": -0.9202417117786338,
+   "suolis_5": -0.924704786901489,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -19.933954261855458
   },
   "vol5m": 0.10422168098808966,
@@ -88310,7 +88314,7 @@
    5.806000232696533,
    6.052000045776367
   ],
-  "m1h": -0.6653404460035006,
+  "m1h": -0.6653404460034775,
   "m3h": -0.4879253724281738,
   "pos1h": 13.043568400211466,
   "span_h": 3.0,
@@ -88320,7 +88324,7 @@
   "dd5": 1.308994326163666,
   "chg3d": -0.6588090496217338,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 52.268742592304264,
+  "score": 52.268742592304314,
   "grade": "C",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -88339,7 +88343,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -88389,7 +88393,7 @@
   "dayLow": 57.86000061035156,
   "vwap": 58.33737513106574,
   "rsi": 47.630538377768886,
-  "atrPct": 2.1678471736492306,
+  "atrPct": 2.167831622804641,
   "support": 58.21333440144857,
   "resistance": 58.540000915527344,
   "rvol": 0.5107178063451828,
@@ -90422,11 +90426,11 @@
   ],
   "rizika": {
    "blogiausia": -17.21854608824742,
-   "bloga_5": -2.8151676116556255,
+   "bloga_5": -2.8585305623069113,
    "suolis_bloga": -19.626731541780696,
-   "suolis_5": -1.9366332375905413,
+   "suolis_5": -1.9890026445634001,
    "virs_stop": 6,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -17.21854608824742
   },
   "vol5m": 0.06861220591906232,
@@ -90437,7 +90441,7 @@
    58.540000915527344,
    62.720001220703125
   ],
-  "m1h": -0.29132773085223057,
+  "m1h": -0.2913277308521504,
   "m3h": 0.06784711033381419,
   "pos1h": 23.077261656738752,
   "span_h": 3.0,
@@ -90447,7 +90451,7 @@
   "dd5": 5.199871165637326,
   "chg3d": -4.203614629144411,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 35.67945103097391,
+  "score": 35.67945103097414,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -90470,7 +90474,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -90516,7 +90520,7 @@
   "dayLow": 119.19999694824219,
   "vwap": 120.8860884475729,
   "rsi": 48.53376848588965,
-  "atrPct": 1.7691744130059306,
+  "atrPct": 1.7691917642694437,
   "support": 120.74666595458984,
   "resistance": 121.87999725341797,
   "rvol": 0.7314345136970152,
@@ -92385,12 +92389,12 @@
   ],
   "rizika": {
    "blogiausia": -6.024536706686745,
-   "bloga_5": -2.557174199387915,
+   "bloga_5": -2.568413137604969,
    "suolis_bloga": -7.95766466721306,
-   "suolis_5": -1.5236441886913488,
+   "suolis_5": -1.5292497657034692,
    "virs_stop": 4,
-   "dienu": 129,
-   "max_dd": -21.474830329512706
+   "dienu": 126,
+   "max_dd": -19.149698811755133
   },
   "vol5m": 0.03321783903376204,
   "res_intra": 121.87999725341797,
@@ -92400,7 +92404,7 @@
    121.87999725341797,
    129.0
   ],
-  "m1h": -0.19875812884670385,
+  "m1h": -0.19875812884667066,
   "m3h": 0.10481835867529579,
   "pos1h": 47.91620307085863,
   "span_h": 3.0,
@@ -92410,7 +92414,7 @@
   "dd5": 1.086336541484482,
   "chg3d": -0.5338821567793891,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 31.285014923228744,
+  "score": 31.28501492322894,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -92433,7 +92437,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -92475,10 +92479,10 @@
   "dayLow": 36.20500183105469,
   "vwap": 36.563729775687456,
   "rsi": 51.781000783241446,
-  "atrPct": 3.052737308885835,
+  "atrPct": 3.0526157420128217,
   "support": 36.20500183105469,
   "resistance": 36.865000406901046,
-  "rvol": 0.8285430549358818,
+  "rvol": 0.7312265013718118,
   "sma20": 37.238000106811526,
   "sma50": 36.56209999084473,
   "earnings": false,
@@ -94468,12 +94472,12 @@
   ],
   "rizika": {
    "blogiausia": -10.755319448621625,
-   "bloga_5": -2.8726707801135447,
+   "bloga_5": -2.8795409896478374,
    "suolis_bloga": -4.5962867160977865,
-   "suolis_5": -1.8962988924858808,
+   "suolis_5": -1.9355742951204058,
    "virs_stop": 6,
-   "dienu": 128,
-   "max_dd": -22.20531199242043
+   "dienu": 125,
+   "max_dd": -21.717947781081527
   },
   "vol5m": 0.05480180916888878,
   "res_intra": 36.875,
@@ -94516,7 +94520,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -94566,10 +94570,10 @@
   "dayLow": 52.0,
   "vwap": 52.06045295047651,
   "rsi": 50.5321351170849,
-  "atrPct": 0.6188963267205371,
+  "atrPct": 0.6189583557833883,
   "support": 52.0,
   "resistance": 52.20000076293945,
-  "rvol": 3.100637087169405,
+  "rvol": 3.878619332746862,
   "sma20": 52.43500022888183,
   "sma50": 52.01200012207031,
   "earnings": false,
@@ -96090,13 +96094,13 @@
    ]
   ],
   "rizika": {
-   "blogiausia": -2.2776135634697936,
-   "bloga_5": -1.1501815176592733,
+   "blogiausia": -1.972623865169798,
+   "bloga_5": -1.121186076563525,
    "suolis_bloga": -1.5533965768166014,
-   "suolis_5": -0.595763022195604,
+   "suolis_5": -0.5811810906175685,
    "virs_stop": 0,
-   "dienu": 128,
-   "max_dd": -4.426302820728411
+   "dienu": 125,
+   "max_dd": -2.680000305175778
   },
   "vol5m": null,
   "res_intra": 52.20000076293945,
@@ -96106,7 +96110,7 @@
    52.20000076293945,
    53.20000076293945
   ],
-  "m1h": -0.04426681060244945,
+  "m1h": -0.044266810602441926,
   "m3h": 0.28437811785198874,
   "pos1h": 33.33248563145313,
   "span_h": 3.0,
@@ -96116,7 +96120,7 @@
   "dd5": 0.1915752631355481,
   "chg3d": 0.28873476223054706,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 26.71015961071363,
+  "score": 26.71019765520555,
   "grade": "D",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
@@ -96139,7 +96143,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -96170,7 +96174,7 @@
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 0.30944816336026854
+  "move_ratio": 0.30947917789169416
  },
  {
   "tag": "SRT3",
@@ -96181,10 +96185,10 @@
   "dayLow": 230.3000030517578,
   "vwap": 232.2776166440093,
   "rsi": 56.033716183158134,
-  "atrPct": 3.1964086988750853,
+  "atrPct": 3.196388541721821,
   "support": 232.46666463216147,
   "resistance": 234.1999969482422,
-  "rvol": 0.8594741613780599,
+  "rvol": 0.8552974225430089,
   "sma20": 241.5849983215332,
   "sma50": 235.31799926757813,
   "earnings": false,
@@ -98174,11 +98178,11 @@
   ],
   "rizika": {
    "blogiausia": -9.017782949601482,
-   "bloga_5": -4.033966076060736,
+   "bloga_5": -4.035318423624135,
    "suolis_bloga": -2.327838565857332,
-   "suolis_5": -1.6031770465828126,
-   "virs_stop": 12,
-   "dienu": 128,
+   "suolis_5": -1.603755857216127,
+   "virs_stop": 11,
+   "dienu": 125,
    "max_dd": -15.955704950100069
   },
   "vol5m": 0.12850526255512834,
@@ -98218,7 +98222,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -98268,10 +98272,10 @@
   "dayLow": 38.40999984741211,
   "vwap": 38.776074437713206,
   "rsi": 56.716847158613646,
-  "atrPct": 2.885026299214506,
+  "atrPct": 2.884984356922122,
   "support": 38.40999984741211,
   "resistance": 38.890000661214195,
-  "rvol": 0.8829280778090607,
+  "rvol": 0.8951025724857675,
   "sma20": 40.180000114440915,
   "sma50": 41.583800048828124,
   "earnings": false,
@@ -100281,11 +100285,11 @@
   ],
   "rizika": {
    "blogiausia": -4.836942768435016,
-   "bloga_5": -3.0538429722033493,
+   "bloga_5": -2.892929111076621,
    "suolis_bloga": -2.191778769850683,
-   "suolis_5": -1.7772543325706047,
-   "virs_stop": 7,
-   "dienu": 128,
+   "suolis_5": -1.7808793099553188,
+   "virs_stop": 6,
+   "dienu": 125,
    "max_dd": -23.122763914115808
   },
   "vol5m": 0.10400654310855978,
@@ -100296,7 +100300,7 @@
    39.380001068115234,
    42.13999938964844
   ],
-  "m1h": 0.7791864789690338,
+  "m1h": 0.7791864789690855,
   "m3h": 0.003091050333353939,
   "pos1h": 78.94694574110325,
   "span_h": 3.0,
@@ -100306,7 +100310,7 @@
   "dd5": 5.878062367199051,
   "chg3d": -3.8461520258172657,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 52.99560029426441,
+  "score": 52.99560029426437,
   "grade": "C",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -100325,7 +100329,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -100371,7 +100375,7 @@
   "dayLow": 28.579999923706055,
   "vwap": 29.81221124272241,
   "rsi": 34.41121785252429,
-  "atrPct": 4.086872720016419,
+  "atrPct": 4.087034737792841,
   "support": 28.579999923706055,
   "resistance": 29.336666742960613,
   "rvol": 2.3470752241916757,
@@ -102423,12 +102427,12 @@
    ]
   ],
   "rizika": {
-   "blogiausia": -8.771930005194372,
-   "bloga_5": -5.5954016886645634,
+   "blogiausia": -8.451356896772532,
+   "bloga_5": -5.365902904536835,
    "suolis_bloga": -4.142859322684156,
-   "suolis_5": -1.1623975222133847,
-   "virs_stop": 18,
-   "dienu": 128,
+   "suolis_5": -1.1658070473480664,
+   "virs_stop": 17,
+   "dienu": 125,
    "max_dd": -36.1377112651679
   },
   "vol5m": 0.3354013300808223,
@@ -102439,7 +102443,7 @@
    30.329999923706055,
    34.400001525878906
   ],
-  "m1h": -0.5924173658839786,
+  "m1h": -0.5924173658839559,
   "m3h": -2.534551971770508,
   "pos1h": 7.143019332337273,
   "span_h": 3.0,
@@ -102449,7 +102453,7 @@
   "dd5": 3.5608306179451135,
   "chg3d": -0.9146356828482453,
   "asOf": "2026-09-11 17:25:00+02:00",
-  "score": 41.24646536994537,
+  "score": 41.2464653699454,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
@@ -102470,7 +102474,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -102520,10 +102524,10 @@
   "dayLow": 185.3000030517578,
   "vwap": 187.23463907914817,
   "rsi": 43.37711277176091,
-  "atrPct": 3.160615692613152,
+  "atrPct": 3.1606691009033487,
   "support": 187.0,
   "resistance": 188.6999969482422,
-  "rvol": 0.8847803220325269,
+  "rvol": 0.8068324356231092,
   "sma20": 191.1599998474121,
   "sma50": 182.52999938964842,
   "earnings": false,
@@ -104441,11 +104445,11 @@
   ],
   "rizika": {
    "blogiausia": -14.184785925823707,
-   "bloga_5": -3.8194576001518463,
+   "bloga_5": -3.920846910655114,
    "suolis_bloga": -2.207039874350325,
-   "suolis_5": -1.3623303780908906,
+   "suolis_5": -1.3784231172875328,
    "virs_stop": 9,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -19.713830180106275
   },
   "vol5m": 0.053733729630009226,
@@ -104489,7 +104493,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -104535,7 +104539,7 @@
   "dayLow": 60.279998779296875,
   "vwap": 60.588054261496964,
   "rsi": 54.39860968397188,
-  "atrPct": 2.350827472878778,
+  "atrPct": 2.3507300373454765,
   "support": 60.279998779296875,
   "resistance": 60.826666514078774,
   "rvol": 0.8023207240659086,
@@ -106428,11 +106432,11 @@
   ],
   "rizika": {
    "blogiausia": -3.4507026598581514,
-   "bloga_5": -1.8553355912216596,
+   "bloga_5": -1.870582090199917,
    "suolis_bloga": -3.0601823298189057,
-   "suolis_5": -1.4759343754017662,
+   "suolis_5": -1.3697036287492814,
    "virs_stop": 1,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -15.399300367779045
   },
   "vol5m": 0.06610629064381729,
@@ -106476,7 +106480,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -106518,7 +106522,7 @@
   "dayLow": 279.0,
   "vwap": 281.0217563571215,
   "rsi": 40.422118755412356,
-  "atrPct": 1.9508891994504483,
+  "atrPct": 1.9509242300140042,
   "support": 278.79998779296875,
   "resistance": 280.13332112630206,
   "rvol": 0.951415387345816,
@@ -108475,12 +108479,12 @@
   ],
   "rizika": {
    "blogiausia": -4.461934426052238,
-   "bloga_5": -3.0588030497600034,
+   "bloga_5": -3.07492343758774,
    "suolis_bloga": -2.181566481606878,
-   "suolis_5": -1.0414453018899272,
+   "suolis_5": -1.0415418577588342,
    "virs_stop": 7,
-   "dienu": 128,
-   "max_dd": -21.100911170221426
+   "dienu": 125,
+   "max_dd": -20.91953672211746
   },
   "vol5m": 0.07096582615895869,
   "res_intra": 282.79998779296875,
@@ -108523,7 +108527,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -108569,7 +108573,7 @@
   "dayLow": 14.8100004196167,
   "vwap": 14.891006918268774,
   "rsi": 35.0315108691715,
-  "atrPct": 1.2673168247474964,
+  "atrPct": 1.267371188221198,
   "support": 14.800000190734863,
   "resistance": 14.866666793823242,
   "rvol": 1.4586914423069677,
@@ -110462,11 +110466,11 @@
   ],
   "rizika": {
    "blogiausia": -3.492279689549238,
-   "bloga_5": -1.4094735171726336,
+   "bloga_5": -1.4224646272375874,
    "suolis_bloga": -3.5667975876369162,
-   "suolis_5": -0.6417489930144238,
+   "suolis_5": -0.5846234118303761,
    "virs_stop": 2,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -7.002615926199085
   },
   "vol5m": 0.06729308395498118,
@@ -110510,7 +110514,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -110564,10 +110568,10 @@
   "dayLow": 9.800000190734863,
   "vwap": 9.866655611213547,
   "rsi": 30.8535922938365,
-  "atrPct": 2.013884804210227,
+  "atrPct": 2.0138622652708937,
   "support": 9.800000190734863,
   "resistance": 9.847333272298178,
-  "rvol": 0.6790802981827582,
+  "rvol": 0.651149480509172,
   "sma20": 9.922749948501586,
   "sma50": 9.73737995147705,
   "earnings": false,
@@ -112549,11 +112553,11 @@
   ],
   "rizika": {
    "blogiausia": -5.93219799613216,
-   "bloga_5": -2.819341630404897,
+   "bloga_5": -2.8195487705278777,
    "suolis_bloga": -2.4153515581471607,
-   "suolis_5": -1.0747176986222045,
+   "suolis_5": -1.0892190157730464,
    "virs_stop": 4,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -9.807175079420126
   },
   "vol5m": 0.06075376827937326,
@@ -112597,7 +112601,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -112647,7 +112651,7 @@
   "dayLow": 32.439998626708984,
   "vwap": 32.68972294704175,
   "rsi": 52.33062632570161,
-  "atrPct": 1.875629468270136,
+  "atrPct": 1.8755901636920722,
   "support": 32.439998626708984,
   "resistance": 32.87999852498372,
   "rvol": 0.8867484869034933,
@@ -114524,11 +114528,11 @@
   ],
   "rizika": {
    "blogiausia": -6.683477231325852,
-   "bloga_5": -1.9104757576849678,
+   "bloga_5": -1.9567532712965185,
    "suolis_bloga": -5.989910654664965,
-   "suolis_5": -0.7699262037046517,
+   "suolis_5": -0.7713297996518209,
    "virs_stop": 2,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -10.574012851957704
   },
   "vol5m": 0.06116347797257361,
@@ -114572,7 +114576,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -114614,7 +114618,7 @@
   "dayLow": 6.309999942779541,
   "vwap": 6.383968834683633,
   "rsi": 57.91078641165036,
-  "atrPct": 2.282919066620403,
+  "atrPct": 2.282901295267849,
   "support": 6.359999974568685,
   "resistance": 6.410000006357828,
   "rvol": 1.877232059596191,
@@ -116371,11 +116375,11 @@
   ],
   "rizika": {
    "blogiausia": -5.743001961296567,
-   "bloga_5": -2.214688814566762,
+   "bloga_5": -2.168413412121908,
    "suolis_bloga": -8.39446331066589,
-   "suolis_5": -1.1697779663632013,
+   "suolis_5": -1.177913347470818,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -9.957022489430168
   },
   "vol5m": 0.07830285707969849,
@@ -116419,7 +116423,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -116469,7 +116473,7 @@
   "dayLow": 55.599998474121094,
   "vwap": 56.33714560032817,
   "rsi": 64.07943637739496,
-  "atrPct": 1.781523299079291,
+  "atrPct": 1.7814182861689767,
   "support": 56.233333587646484,
   "resistance": 56.866668701171875,
   "rvol": 1.3549021191803323,
@@ -118058,11 +118062,11 @@
   ],
   "rizika": {
    "blogiausia": -10.599911472181489,
-   "bloga_5": -2.302805273445102,
+   "bloga_5": -2.364135842651527,
    "suolis_bloga": -14.298602008953443,
-   "suolis_5": -0.9289800878400623,
+   "suolis_5": -0.9454247527066317,
    "virs_stop": 3,
-   "dienu": 128,
+   "dienu": 125,
    "max_dd": -16.3707261224156
   },
   "vol5m": 0.0884159818481119,
@@ -118105,7 +118109,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -118151,10 +118155,10 @@
   "dayLow": 11.520000457763672,
   "vwap": 11.637388676584058,
   "rsi": 43.92797121606092,
-  "atrPct": 2.9553662895082957,
+  "atrPct": 2.9553866609807735,
   "support": 11.520000457763672,
   "resistance": 11.65000025431315,
-  "rvol": 0.7210170679213174,
+  "rvol": 0.675155738626929,
   "sma20": 11.734999990463256,
   "sma50": 12.195400009155273,
   "earnings": false,
@@ -120156,11 +120160,11 @@
   ],
   "rizika": {
    "blogiausia": -6.550215673380844,
-   "bloga_5": -3.81159625275266,
+   "bloga_5": -3.8147361113187928,
    "suolis_bloga": -5.106198832204156,
-   "suolis_5": -2.6840170845477966,
-   "virs_stop": 19,
-   "dienu": 128,
+   "suolis_5": -2.708980893247366,
+   "virs_stop": 18,
+   "dienu": 125,
    "max_dd": -19.635192957380987
   },
   "vol5m": 0.12897973495398377,
@@ -120200,7 +120204,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -120209,6 +120213,10 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
+   ],
+   [
+    "warn",
+    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
   "dip": 1.6532403015082366,
@@ -120242,10 +120250,10 @@
   "dayLow": 72.69999694824219,
   "vwap": 73.39889380963564,
   "rsi": 54.26155652823684,
-  "atrPct": 2.248325098462657,
+  "atrPct": 2.2479803621079286,
   "support": 73.33333333333333,
   "resistance": 73.9000015258789,
-  "rvol": 1.0487845704614354,
+  "rvol": 0.9234800409416581,
   "sma20": 75.08000030517579,
   "sma50": 72.500400390625,
   "earnings": false,
@@ -122103,12 +122111,12 @@
   ],
   "rizika": {
    "blogiausia": -12.76662422197614,
-   "bloga_5": -3.256543526613692,
+   "bloga_5": -3.2823651634347195,
    "suolis_bloga": -13.739019059187696,
-   "suolis_5": -2.032644795449779,
+   "suolis_5": -2.043190870299878,
    "virs_stop": 9,
-   "dienu": 128,
-   "max_dd": -14.325322703889466
+   "dienu": 125,
+   "max_dd": -13.874268574054627
   },
   "vol5m": 0.08234636026783929,
   "res_intra": 73.9000015258789,
@@ -122118,8 +122126,8 @@
    73.9000015258789,
    77.5
   ],
-  "m1h": 0.671581879924229,
-  "m3h": -0.8585401003271295,
+  "m1h": 0.671581879924302,
+  "m3h": -0.8585401003271844,
   "pos1h": 97.29674000453636,
   "span_h": 3.0,
   "mom_partial": false,
@@ -122151,7 +122159,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -122201,7 +122209,7 @@
   "dayLow": 21.920000076293945,
   "vwap": 22.395837238907628,
   "rsi": 48.79755520539711,
-  "atrPct": 3.575864864507455,
+  "atrPct": 3.5758605163275337,
   "support": 22.320000330607098,
   "resistance": 22.6200008392334,
   "rvol": 4.951978091838232,
@@ -124142,11 +124150,11 @@
   ],
   "rizika": {
    "blogiausia": -7.937455248127945,
-   "bloga_5": -4.128781448992488,
+   "bloga_5": -4.147829245085659,
    "suolis_bloga": -3.4981901470142462,
-   "suolis_5": -1.9311987806177515,
-   "virs_stop": 18,
-   "dienu": 128,
+   "suolis_5": -1.953984408509113,
+   "virs_stop": 17,
+   "dienu": 125,
    "max_dd": -27.283017140514442
   },
   "vol5m": 0.09082859831013419,
@@ -124190,7 +124198,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.7 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.4 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
