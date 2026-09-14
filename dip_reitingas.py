@@ -852,10 +852,18 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     stop_dist = (price - stop) / price * 100 if price > 0 else 99
     if EXIT_MODE == "salyginis":
         exp_mv = num(d.get("exp_move")) or 0.0
+        # PATAISYTA 2026-09. Anksciau reikalauta exp_move >= stop_dist * 0.8,
+        # t. y. ~2.4% prie 3% stop'o. Tai slaptai virto JUDRUMO filtru: akcijos
+        # su ATR zemiau ~2.5% (SAP, MC, ASML — butent tos, kur vartotojo
+        # rezultatai geriausi) buvo atmetamos, nors nieko blogo nedare.
+        # Riba nebuvo ismatuota — ja sugalvojau taisydamas R:R filtra.
+        # Dabar reikalaujam tik to, kad akcija galetu nueiti prasminga atstuma
+        # iki isejimo salygos: bent 1% arba pusе stop atstumo.
+        minimalus_judesys = max(1.0, stop_dist * 0.4)
         tradeable = (
             (not blocking)
             and stop_dist <= EXIT_STOP_PCT * 1.25
-            and (exp_mv <= 0 or exp_mv >= stop_dist * 0.8)
+            and (exp_mv <= 0 or exp_mv >= minimalus_judesys)
             and (room_far is None or room_far >= stop_dist)
         )
     else:
