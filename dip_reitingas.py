@@ -588,8 +588,13 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # Zemas z = kaina toli zemiau pastaruju baru vidurkio
         "zbal": curve(z_v, [(-3.0, 100), (-1.5, 95), (-0.7, 80), (0.0, 55),
                             (0.7, 35), (1.5, 18), (3.0, 8)]),
-        "ibs":  curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
-                              (0.6, 40), (0.8, 20), (1.0, 8)]),
+        # IBS kreive PERDARYTA po 2026-09 vartotojo 84 pirkimu analizes.
+        # Anksciau buvo "kuo zemiau, tuo geriau" (0.0 -> 100 balu). Matavimas
+        # rodo kita: IBS 0.20-0.50 dave +1.0% kita diena, o zemiau 0.20 tik
+        # -0.1% — pats dugnas reiskia, kad kritimas dar vyksta. Todel virsune
+        # perkelta i 0.20-0.50 juosta, o kraštai baudziami is abieju pusiu.
+        "ibs":  curve(ibs_v, [(0.0, 45), (0.12, 62), (0.20, 92), (0.35, 100),
+                              (0.50, 88), (0.60, 52), (0.75, 26), (1.0, 8)]),
         "dip":  dip_part,
         "stab": stab,
         "multiday": multiday_part,
@@ -1118,13 +1123,23 @@ def preatranka(daily_all, symbols, n=None):
                     serija += 1
                 else:
                     break
-            if px > sma20 * 1.01 or ibs_v > 0.75 or serija >= 3:
+            # Preatrankos ribos po 2026-09 vartotojo sandoriu analizes (84 pirkimai):
+            #   IBS 0.20-0.50 -> kita diena +1.0%
+            #   IBS < 0.20    -> -0.1% (peilis dar krinta, dugno gaudyti neapsimoka)
+            #   IBS > 0.50    -> nuo -2.7 iki -2.8%
+            # Todel virsutine riba grieztesne (0.60 vietoj 0.75), o akcijos su
+            # labai zemu IBS nebeatmetamos, bet ir nebelaikomos geriausiomis.
+            if px > sma20 * 1.01 or ibs_v > 0.60 or serija >= 3:
                 continue
             # atstumas nuo 20 d. vidurkio — kuo zemiau, tuo idomiau
-            kand.append((sym, (px - sma20) / sma20, apyv))
+            # Rikiavimo raktas: pirma tos, kuriu IBS ismatuotoje 0.20-0.50 juostoje,
+            # paskui likusios. Anksciau pirmumas buvo giliausiai atsitraukusioms,
+            # bet matavimas rodo, kad giliausias kritimas NERA geriausias.
+            juostoje = 0 if 0.20 <= ibs_v <= 0.50 else 1
+            kand.append((sym, (juostoje, (px - sma20) / sma20), apyv))
         except Exception:
             continue
-    kand.sort(key=lambda x: x[1])          # labiausiai atsitrauke pirmi
+    kand.sort(key=lambda x: x[1])
     return [s for s, _, _ in kand[:n]]
 
 
@@ -1630,6 +1645,26 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         return (f"<div class='rzh'>Rizika: kas su šia akcija vyko per 6 mėn.</div>"
                 f"<table class='rizika'>{''.join(eil)}</table>")
 
+    def vietos_juosta(ibs_v):
+        """Kur kaina dienos diapazone. Zalia sritis 0.20-0.50 — ismatuota is
+        vartotojo 84 pirkimu: ten graza kita diena +1.0%, zemiau 0.20 -0.1%
+        (peilis dar krinta), virs 0.50 nuo -2.7 iki -2.8%."""
+        if ibs_v is None:
+            return "—"
+        v = max(0.0, min(1.0, float(ibs_v)))
+        W, H = 132, 13
+        x = 2 + v * (W - 4)
+        gera = 0.20 <= v <= 0.50
+        sp = "#2F7A57" if gera else "var(--ink2)"
+        return (f"<span class='vj'><svg viewBox='0 0 {W} {H}' class='vjs'>"
+                f"<rect x='1' y='4' width='{W - 2}' height='5' rx='2.5' "
+                f"fill='#E8E6E1'/>"
+                f"<rect x='{2 + 0.20 * (W - 4):.1f}' y='4' "
+                f"width='{0.30 * (W - 4):.1f}' height='5' rx='2.5' "
+                f"fill='#4C9A78' opacity='.45'/>"
+                f"<circle cx='{x:.1f}' cy='6.5' r='4' fill='{sp}'/></svg>"
+                f"<u style='color:{sp}'>{v:.2f}</u></span>")
+
     def nws(d):
         """Antrastes su apytiksliu atspalviu. Zalsvas / rausvas fonas — tik
         raktazodziu paieskos rezultatas, todel antraste rodoma visa."""
@@ -1767,12 +1802,13 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         be_kliuciu = [(d, s) for d, s in rows if not s.get("blocking")]
         rodomi = (be_kliuciu or rows)[:RODOMA]
 
+    # Kai niekas nepraejo filtru, BUTINA tai pasakyti: kitaip vartotojas mato
+    # penkis krintancius peilius ir gali palaikyti juos rekomendacijomis.
     info_html = ""
     if tik_informacijai and rodomi:
-        info_html = ("<div class='rally flat'><div class='rh'>Šiandien nė viena "
-                     "nepraėjo filtrų</div><div class='rb'>Žemiau — artimiausios "
-                     "pagal apyvartą, tik informacijai. Kiekvienos kortelėje "
-                     "nurodyta, kas netinka.</div></div>")
+        info_html = ("<div class='nerek'>Nė viena akcija šiandien nepraėjo filtrų. "
+                     "Žemiau rodomos artimiausios — <b>tai ne rekomendacijos</b>, "
+                     "o vaizdas, kas šiandien rinkoje.</div>")
     # Naujienos siunciamos TIK rodomoms pozicijoms — penkios uzklausos, ne 270
     for d, _ in rodomi:
         if "naujienos" not in d:
@@ -1809,12 +1845,11 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
               <div><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
               <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
-              <div><span>Vieta dienoje</span><b>{(d.get('ibs') or 0):.2f}{' ⬇' if (d.get('ibs') or 1) <= 0.43 else ''}</b></div>
+              <div><span>Vieta dienoje</span><b>{vietos_juosta(d.get('ibs'))}</b></div>
               <div><span>Nuo VWAP</span><b>{((d['price'] / d['vwap'] - 1) * 100) if d.get('vwap') else 0:+.2f}%</b></div></div>
-            <div class="ivykd">Šie du rodikliai yra apie <b>įvykdymo kainą</b>, ne apie
-            tikimybę. Tavo matavimas (84 pirkimai): perki vidutiniškai ties 0,43 dienos
-            diapazono ir dėl to gauni +0,5 p. p. geriau nei tos dienos vidurkis.
-            Žemiau 0,43 — geresnė kaina nei tavo įprastinė.</div>
+            <div class="ivykd">Žalia juosta — <b>0,20–0,50</b>, išmatuota iš tavo 84
+            pirkimų: ten grąža kitą dieną buvo +1,0 %, o žemiau 0,20 tik −0,1 %
+            (dar krintantis peilis) ir virš 0,50 nuo −2,7 iki −2,8 %.</div>
             {bars(d, s)}
             {rizika_html(d, s)}
             {nws(d)}
@@ -1826,6 +1861,9 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {refresh_tag}
 <title>Dip reitingas</title><style>
+.vj{{display:inline-flex;align-items:center;gap:6px}}
+.vjs{{width:132px;height:13px;display:block}}
+.vj u{{text-decoration:none;font-variant-numeric:tabular-nums;font-weight:600}}
 .ivykd{{font-size:11px;color:var(--ink2);line-height:1.45;margin:6px 0 2px;
 padding:7px 9px;background:var(--card);border:1px solid var(--line);border-radius:6px}}
 .rzh{{font-size:11px;color:var(--ink2);margin:10px 0 4px;font-weight:600}}
@@ -1929,6 +1967,8 @@ display:flex;align-items:center;justify-content:center}}
 .verdict{{font-size:12px;font-weight:600;padding:7px 10px;border-radius:5px;margin-bottom:12px}}
 .verdict.ok{{background:#E6F2EC;color:#14543E}}
 .verdict.no{{background:#F3F0EC;color:#6B5E4E}}
+.nerek{{font-size:12.5px;padding:10px 14px;border-radius:8px;margin-bottom:14px;
+background:#FBEBEA;border:1px solid var(--stop);color:#7A2320}}
 .langas{{font-size:12px;padding:9px 14px;border-radius:8px;margin-bottom:18px;
 background:var(--card);border:1px solid var(--line);color:var(--ink2)}}
 .langas.on{{background:#E6F2EC;border-color:#4C9A78;color:#14543E;font-weight:600}}
@@ -2014,7 +2054,8 @@ MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-salyginis-isejimas"   # keiciant sv
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "sortai", "sortu_pokytis",
-                  "tinkamas", "ibs", "rinka", "sektorius", "atr", "ijejimas", "stop",
+                  "tinkamas", "ibs", "ibs_juostoje", "vwap_nuot", "rsi2",
+                  "rinka", "sektorius", "atr", "ijejimas", "stop",
                   "min_tikslas", "busena", "rezultatas", "baigties_laikas",
                   "baigties_kaina", "pelnas_pct", "virsune_pct"]
 JOURNAL_TOP_N = 3          # kiek geriausiu irasyti kiekviena diena
@@ -2197,6 +2238,13 @@ def update_journal(path, rows, intraday_all, now, market="neutral"):
                 scenarijus=s.get("fraze", s.get("setup", "")),
                 tinkamas="taip" if s.get("tradeable") else "ne",
                 ibs=f"{d['ibs']:.3f}" if d.get("ibs") is not None else "",
+                # Ar ijejimas pateko i ismatuota 0.20-0.50 juosta — po 40-60
+                # sandoriu galesim patikrinti, ar ji veikia ir realiai
+                ibs_juostoje=("taip" if (d.get("ibs") is not None
+                                         and 0.20 <= d["ibs"] <= 0.50) else "ne"),
+                vwap_nuot=(f"{(d['price'] / d['vwap'] - 1) * 100:+.2f}"
+                           if d.get("vwap") else ""),
+                rsi2=(f"{s['rsi2']:.0f}" if s.get("rsi2") is not None else ""),
                 sortai=f"{(d.get('sortai') or {}).get('suma', '')}",
                 sortu_pokytis=f"{(d.get('sortai') or {}).get('pokytis', '')}",
                 rinka=market, sektorius=d.get("sector", ""),
