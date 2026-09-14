@@ -163,6 +163,34 @@ def main():
               f"[{r['lo']:+.3f} .. {r['hi']:+.3f}]")
         print("    neigiamas ir intervalas po nuliu = perki pigiau nei vidutiniskai")
 
+    # ---------- A2. AR ZEMIAU PERKANT PRANASUMAS DIDESNIS ----------
+    print("\n" + "=" * 100)
+    print("A2. AR ZEMIAU PERKANT PRANASUMAS DIDESNIS")
+    print("Jei taip, 0.43 nera vien orientyras — yra konkreti riba, kuria verta")
+    print("rodyti modulyje kaip 'dabar geras momentas pavedimui'.")
+    print("=" * 100)
+    df["pranasumas"] = df["mano_1d"] - df["vid_1d"]
+    print(f"{'VIETA DIENOJE':<20} {'N':>5} {'PRANASUMAS':>12} {'95% INTERVALAS':>22} "
+          f"{'+1 d. GRAZA':>13}")
+    print("-" * 100)
+    for lo, hi, lab in [(0.0, 0.20, "0.00-0.20 (dugnas)"), (0.20, 0.35, "0.20-0.35"),
+                        (0.35, 0.50, "0.35-0.50"), (0.50, 0.70, "0.50-0.70"),
+                        (0.70, 1.01, "0.70-1.00 (virsune)")]:
+        sub = df[(df["vieta"] >= lo) & (df["vieta"] < hi)]
+        if len(sub) < 5:
+            print(f"{lab:<20} {len(sub):>5}   per maza imtis")
+            continue
+        r = boot(sub["pranasumas"].dropna())
+        ci = f"{r['lo']:+.3f} .. {r['hi']:+.3f}" if r else "—"
+        print(f"{lab:<20} {len(sub):>5} {sub['pranasumas'].mean():>+11.3f}% {ci:>22} "
+              f"{sub['mano_1d'].mean():>+12.2f}%")
+    kor = float(df[["vieta", "pranasumas"]].corr().iloc[0, 1])
+    print(f"\n  Koreliacija tarp vietos diapazone ir pranasumo: {kor:+.3f}")
+    print("  Neigiama reikstu: kuo zemiau perki, tuo didesnis pranasumas.")
+    print("  DEMESIO: dalis sio rysio yra mechanine — pirkti zemiau visada")
+    print("  reiskia geresne kaina TOS DIENOS atzvilgiu. Klausimas, ar tai")
+    print("  islieka kitomis dienomis, matomas '+1 d. GRAZA' stulpelyje.")
+
     # ---------- B. ISEJIMO KOKYBE ----------
     print("\n" + "=" * 100)
     print("B. ISEJIMO KOKYBE — ar tavo pardavimas geresnis uz fiksuotas taisykles")
