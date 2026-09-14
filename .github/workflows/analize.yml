@@ -1,0 +1,26 @@
+name: Mano sandoriu analize
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti faila
+        run: |
+          test -f analize_sandoriu.py || (echo "KLAIDA - failas nerastas" && exit 1)
+      - name: Paleisti analize
+        run: python analize_sandoriu.py | tee analize_rezultatas.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sandoriu-analize
+          path: analize_rezultatas.txt
+          if-no-files-found: ignore
