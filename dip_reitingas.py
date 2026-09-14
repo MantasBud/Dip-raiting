@@ -81,7 +81,7 @@ EXIT_STOP_PCT = 3.0       # apsauginis stop (be jo Europoje +27 EUR, su juo +11 
                           # bet be jo YDX tipo epizodas neturi pabaigos)
 
 TARGET_PCT = 2.0        # orientacinis tikslas rodmenims; isejima lemia EXIT_MODE
-TRAIL_PCT = 1.5
+TRAIL_PCT = 1.5           # naudojamas tik EXIT_MODE = "fiksuotas"
 ACCOUNT = 18000.0       # sąskaitos dydis, EUR
 RISK_PCT = 1.0          # rizika vienam sandoriui, % nuo sąskaitos
 MAX_POSITION_PCT = 100.0  # daugiausia % portfelio i viena pozicija (100 = visas)
@@ -633,8 +633,9 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         stop = min(stop, sup_stop)      # jei atrama dar žemiau, stop dedam po ja
     if (price - stop) / price * 100 > target * 1.8:
         stop = price * (1 - target * 1.8 / 100)
-    tp = price * (1 + target / 100)          # orientacinis, rodmenims
-    trail_from = tp * (1 - TRAIL_PCT / 100)
+    # tp lieka tik R:R skaiciavimui fiksuotame rezime; prie salyginio isejimo
+    # fiksuoto tikslo nera, todel jis niekur nerodomas.
+    tp = price * (1 + target / 100)
     rr = (tp - price) / (price - stop) if price > stop else 0.0
 
     # Salyginio isejimo stop platesnis: 1.5% yra triuksmo lygyje ir uzbaigia
@@ -934,7 +935,7 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
                 room=room, sup_d=sup_d, vw_d=vw_d, stop=stop, tp=tp, rr=rr, shares=shares,
                 down_days=down_days, dd5=dd5, chg3d=chg3d, sector_chg=sector_chg,
                 pos_value=pos_value, gross=gross, net=net, real_risk=real_risk,
-                trail_from=trail_from, trail_pct=TRAIL_PCT,
+
                 exit_mode=EXIT_MODE, exit_rsi=EXIT_RSI, exit_ibs=EXIT_IBS,
                 exit_dienu=EXIT_MAX_DIENU, rsi2=num(d.get("rsi2")),
                 exp_move=exp_mv, move_ratio=move_ratio)
@@ -1985,7 +1986,6 @@ line-height:1.25;overflow-wrap:anywhere}}
 .fzal,.fgelt{{color:var(--ink)}}
 .fraus{{color:var(--stop)}}
 .card.craus{{border-left:3px solid var(--stop)}}
-.sc_nenaudojamas{{font-size:13px;width:26px;text-align:right;font-variant-numeric:tabular-nums}}
 .gr{{width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:12px;
 display:flex;align-items:center;justify-content:center}}
 .gA{{background:var(--up)}}.gB{{background:#3F7FA8}}.gC{{background:var(--warn)}}.gD{{background:var(--stop)}}
@@ -2086,7 +2086,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-08 z35-ibs25-vwap15-salyginis-isejimas"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-14 ibs-juosta20-50 naktis sma200 u254"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "sortai", "sortu_pokytis",
