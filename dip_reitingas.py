@@ -130,7 +130,10 @@ INTRADAY_KANDIDATU = 60      # tiek geriausiai atitinkanciu tikrinama detaliai
                              # (universas isaugo iki 266, tad ir kandidatu daugiau)
 MIN_APYVARTA_EUR = 5e6
 
-MARKET_INDEX = "^STOXX50E"   # rinkos kryptis
+# Rinkos indeksas. SUVIENODINTA 2026-09-14 su backtestais: anksciau modulis
+# naudojo ^STOXX50E su 5 d. pokyciu ir SMA20, o visi matavimai — EXSA.DE su
+# SMA50 ir 20 d. graza. Buvo matuojama viena, naudojama kita.
+MARKET_INDEX = "EXSA.DE"     # iShares STOXX Europe 600, kaip backtestuose
 
 # Valiuta pagal biržos galūnę. Portfelis laikomas ACCOUNT_CURRENCY valiuta.
 ACCOUNT_CURRENCY = "EUR"
@@ -588,13 +591,20 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # Zemas z = kaina toli zemiau pastaruju baru vidurkio
         "zbal": curve(z_v, [(-3.0, 100), (-1.5, 95), (-0.7, 80), (0.0, 55),
                             (0.7, 35), (1.5, 18), (3.0, 8)]),
-        # IBS kreive PERDARYTA po 2026-09 vartotojo 84 pirkimu analizes.
-        # Anksciau buvo "kuo zemiau, tuo geriau" (0.0 -> 100 balu). Matavimas
-        # rodo kita: IBS 0.20-0.50 dave +1.0% kita diena, o zemiau 0.20 tik
-        # -0.1% — pats dugnas reiskia, kad kritimas dar vyksta. Todel virsune
-        # perkelta i 0.20-0.50 juosta, o kraštai baudziami is abieju pusiu.
-        "ibs":  curve(ibs_v, [(0.0, 45), (0.12, 62), (0.20, 92), (0.35, 100),
-                              (0.50, 88), (0.60, 52), (0.75, 26), (1.0, 8)]),
+        # GRAZINTA MONOTONISKA 2026-09-14.
+        # Buvau perdares kreive pagal 84 vartotojo pirkimu analize (virsune
+        # ties 0.20-0.50). Tai buvo klaida: trys langeliai po ~28 sandorius,
+        # o vieno sandorio sklaida ~2% — skirtumas +1.0% pries -0.1% telpa i
+        # atsitiktinuma. Be to, tie sandoriai turi atrankos salisma (pelningi
+        # parduodami anksti, nuostolingi laikomi).
+        # Svarbiausia: tai priestaravo dviem DIDELEMS imtims tame paciame
+        # projekte — "IBS zemas" patvirtintas 4 466 ivykiu teste, o nakties
+        # lango matavimas rode MONOTONISKA tvarka per penkis kvintilius,
+        # kur zemiausias geriausias. Maza imtis negali nuversti dvieju dideliu.
+        # Juosta 0.20-0.50 lieka kaip hipoteze zurnalo stulpelyje ibs_juostoje;
+        # i bala ji grizs tik jei pasitvirtins su 100+ realiu sandoriu.
+        "ibs":  curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
+                              (0.6, 40), (0.8, 20), (1.0, 8)]),
         "dip":  dip_part,
         "stab": stab,
         "multiday": multiday_part,
@@ -1088,7 +1098,10 @@ def _earnings_soon_uncached(yf, symbol):
         upcoming = cal[cal.index >= now]
         if upcoming.empty:
             return False
-        return (upcoming.index[0] - now).days <= 2
+        # Langas turi dengti VISA laikyma: prie EXIT_MAX_DIENU=10 pozicija
+        # galedavo "ivaziuoti" i ataskaita trecia diena. Kalendorines dienos,
+        # todel 10 sesiju ~ 14 kalendoriniu.
+        return (upcoming.index[0] - now).days <= max(2, int(EXIT_MAX_DIENU * 1.4))
     except Exception:
         return False
 
@@ -1138,14 +1151,10 @@ def preatranka(daily_all, symbols, n=None):
             #   IBS > 0.50    -> nuo -2.7 iki -2.8%
             # Todel virsutine riba grieztesne (0.60 vietoj 0.75), o akcijos su
             # labai zemu IBS nebeatmetamos, bet ir nebelaikomos geriausiomis.
-            if px > sma20 * 1.01 or ibs_v > 0.60 or serija >= 3:
+            if ibs_v > 0.75 or serija >= 3:
                 continue
             # atstumas nuo 20 d. vidurkio — kuo zemiau, tuo idomiau
-            # Rikiavimo raktas: pirma tos, kuriu IBS ismatuotoje 0.20-0.50 juostoje,
-            # paskui likusios. Anksciau pirmumas buvo giliausiai atsitraukusioms,
-            # bet matavimas rodo, kad giliausias kritimas NERA geriausias.
-            juostoje = 0 if 0.20 <= ibs_v <= 0.50 else 1
-            kand.append((sym, (juostoje, (px - sma20) / sma20), apyv))
+            kand.append((sym, (px - sma20) / sma20, apyv))
         except Exception:
             continue
     kand.sort(key=lambda x: x[1])
@@ -1588,7 +1597,10 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
             for g, b in sorted(stats.items(), key=lambda x: -x[1]["n"]):
                 if not b["n"]:
                     continue
-                pct = b["tikslas"] / b["n"] * 100
+                # Rodom PATAIKYMA (pelnas > 0), ne "isejo pagal salyga" —
+                # salyga gali suveikti ir su minusu, todel senas skaicius
+                # atrode kaip sekmes matas, nors juo nebuvo.
+                pct = b.get("pelningi", 0) / b["n"] * 100
                 pel = b.get("pelnai") or []
                 vid = (f"{sum(pel) / len(pel):+.2f}%" if pel else "—")
                 atv = b.get("atviros", 0)
@@ -1875,9 +1887,11 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div class="pl2"><span>Vieta dienoje</span><b>{vietos_juosta(d.get('ibs'))}</b></div>
               <div><span>Ilgas trendas</span><b>{'kyla' if d.get('sma200_kyla') else ('krenta' if d.get('sma200') else '—')}</b></div>
               <div><span>Nuo VWAP</span><b>{((d['price'] / d['vwap'] - 1) * 100) if d.get('vwap') else 0:+.2f}%</b></div></div>
-            <div class="ivykd">Žalia juosta — <b>0,20–0,50</b>, išmatuota iš tavo 84
-            pirkimų: ten grąža kitą dieną buvo +1,0 %, o žemiau 0,20 tik −0,1 %
-            (dar krintantis peilis) ir virš 0,50 nuo −2,7 iki −2,8 %.</div>
+            <div class="ivykd">Žalia juosta — <b>0,20–0,50</b>. Tai <b>hipotezė</b> iš
+            tavo 84 pirkimų (31 sandoris toje srityje), o ne patvirtinta taisyklė:
+            didelėse imtyse žemesnis IBS buvo geresnis monotoniškai. Balui juosta
+            įtakos nedaro; žurnalas ją kaupia stulpelyje, ir po 100+ sandorių
+            bus aišku, kuris matavimas teisingas.</div>
             {bars(d, s)}
             {rizika_html(d, s)}
             {nws(d)}
@@ -2121,9 +2135,16 @@ def resolve_entry(entry, intraday_all):
         intra = flatten(intraday_all, entry["sym"]).dropna(subset=["Close"])
         if intra.empty:
             return entry
+        # KLAIDA, ISTAISYTA 2026-09-14: laikas i zurnala buvo rasomas VILNIAUS
+        # laiku, o cia lokalizuojamas kaip BIRZOS (Berlyno) — pozicija
+        # "prasidedavo" valanda veliau, nei is tikruju. Dabar konvertuojam.
         start = pd.Timestamp(f"{entry['data']} {entry['laikas']}")
         if intra.index.tz is not None:
-            start = start.tz_localize(intra.index.tz) if start.tzinfo is None else start
+            if start.tzinfo is None:
+                start = (start.tz_localize(_DTZ).tz_convert(intra.index.tz)
+                         if _DTZ else start.tz_localize(intra.index.tz))
+            else:
+                start = start.tz_convert(intra.index.tz)
         after = intra[intra.index > start]
         if after.empty:
             return entry
@@ -2139,8 +2160,20 @@ def resolve_entry(entry, intraday_all):
             entry_px = float(entry["ijejimas"])
             stop_k = entry_px * (1 - EXIT_STOP_PCT / 100)
             peak = entry_px
+            # KLAIDA, ISTAISYTA 2026-09-14: IBS buvo skaiciuojamas is VIENO 5 min.
+            # baro aukscio ir zemio. Toks "IBS" virsija 0.8 beveik kiekviename
+            # zaliame bare, todel zurnalas matavo taisykle "pirkti ir parduoti
+            # kita ryta", o ne ta, kuria rodo kortele. Dabar kaupiam tos dienos
+            # diapazona nuo sesijos pradzios iki dabartinio baro.
+            dienos_hi = dienos_lo = None
+            pr_data = None
             for ts, bar in after.iterrows():
                 hi, lo, cl = float(bar["High"]), float(bar["Low"]), float(bar["Close"])
+                if pr_data != ts.date():          # nauja sesija — diapazonas is naujo
+                    dienos_hi, dienos_lo, pr_data = hi, lo, ts.date()
+                else:
+                    dienos_hi = max(dienos_hi, hi)
+                    dienos_lo = min(dienos_lo, lo)
                 peak = max(peak, hi)
                 if lo <= stop_k:
                     pnl = (stop_k - entry_px) / entry_px * 100
@@ -2149,8 +2182,8 @@ def resolve_entry(entry, intraday_all):
                                  pelnas_pct=f"{pnl:+.2f}",
                                  virsune_pct=f"{(peak - entry_px) / entry_px * 100:+.2f}")
                     return entry
-                d_rng = hi - lo
-                ibs_now = (cl - lo) / d_rng if d_rng > 0 else 0.5
+                d_rng = dienos_hi - dienos_lo
+                ibs_now = ((cl - dienos_lo) / d_rng) if d_rng > 0 else 0.5
                 # RSI(2) is dienos uzdarymu iki sio baro imtinai. Anksciau zurnalas
                 # tikrino TIK IBS, nors kortele zada "RSI(2) virs 70 ARBA IBS virs
                 # 0.8" — live testas matavo kita taisykle, nei rodo puslapis.
@@ -2343,13 +2376,23 @@ def journal_stats(entries):
         g = (g[0].upper() + g[1:]) if g else f"(sena pakopa {e.get('pakopa', '?')})"
         g = SENOS_FRAZES.get(g, g)
         b = out.setdefault(g, {"n": 0, "tikslas": 0, "stop": 0, "kita": 0,
-                               "pelnai": [], "atviros": 0})
+                               "pelnai": [], "atviros": 0, "pelningi": 0})
         b["n"] += 1
         # Salyginio isejimo rezultatai: "salyga (IBS)" = isejimas ivykus salygai,
         # "laikas" = pasibaige laikymo langas, "stop" = apsauginis stop.
         # Be sio atnaujinimo nauji irasai butu skaiciuojami kaip "kita" ir
         # statistika rodytu nuli.
         r = e.get("rezultatas", "")
+        # PATIKSLINTA 2026-09-14: "tikslas" reiske "isejo pagal salyga", bet
+        # buvo rodomas kaip sekmes matas, nors salyga gali suveikti ir su
+        # minusu. Dabar skaiciuojam ATSKIRAI: isejimo buda ir pataikyma.
+        pel = None
+        try:
+            pel = float(str(e.get("pelnas_pct", "")).replace("+", ""))
+        except Exception:
+            pass
+        if pel is not None and pel > 0:
+            b["pelningi"] = b.get("pelningi", 0) + 1
         if r in ("salyga (IBS)", "salyga (RSI)", "ryto atidarymas",
                  "slenkantis stop", "uzdaryta pabaigoje"):
             b["tikslas"] += 1
