@@ -1808,7 +1808,13 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>RSI(2)</span><b>{(s.get('rsi2') or 0):.0f} → {s.get('exit_rsi', 70):.0f}</b></div>
               <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
               <div><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
-              <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div></div>
+              <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
+              <div><span>Vieta dienoje</span><b>{(d.get('ibs') or 0):.2f}{' ⬇' if (d.get('ibs') or 1) <= 0.43 else ''}</b></div>
+              <div><span>Nuo VWAP</span><b>{((d['price'] / d['vwap'] - 1) * 100) if d.get('vwap') else 0:+.2f}%</b></div></div>
+            <div class="ivykd">Šie du rodikliai yra apie <b>įvykdymo kainą</b>, ne apie
+            tikimybę. Tavo matavimas (84 pirkimai): perki vidutiniškai ties 0,43 dienos
+            diapazono ir dėl to gauni +0,5 p. p. geriau nei tos dienos vidurkis.
+            Žemiau 0,43 — geresnė kaina nei tavo įprastinė.</div>
             {bars(d, s)}
             {rizika_html(d, s)}
             {nws(d)}
@@ -1820,6 +1826,8 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 <meta name="viewport" content="width=device-width,initial-scale=1">
 {refresh_tag}
 <title>Dip reitingas</title><style>
+.ivykd{{font-size:11px;color:var(--ink2);line-height:1.45;margin:6px 0 2px;
+padding:7px 9px;background:var(--card);border:1px solid var(--line);border-radius:6px}}
 .rzh{{font-size:11px;color:var(--ink2);margin:10px 0 4px;font-weight:600}}
 .rizika{{width:100%;border-collapse:collapse;background:#fff;
 border:1px solid var(--line);border-radius:6px;overflow:hidden}}
