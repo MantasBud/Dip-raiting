@@ -1660,7 +1660,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
         if ibs_v is None:
             return "—"
         v = max(0.0, min(1.0, float(ibs_v)))
-        W, H = 132, 13
+        W, H = 118, 13
         x = 2 + v * (W - 4)
         gera = 0.20 <= v <= 0.50
         sp = "#2F7A57" if gera else "var(--ink2)"
@@ -1851,9 +1851,9 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
               <div><span>Stop</span><b>{cs}{s['stop']:.2f}</b></div>
               <div><span>RSI(2)</span><b>{(s.get('rsi2') or 0):.0f} → {s.get('exit_rsi', 70):.0f}</b></div>
               <div><span>IBS</span><b>{(d.get('ibs') or 0):.2f} → {s.get('exit_ibs', 0.8):.2f}</b></div>
-              <div><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
+              <div class="pl2"><span>Parduoti</span><b>{'kitą rytą, atidarymu' if EXIT_RYTO_ATIDARYMAS else 'iš karto'}</b></div>
               <div><span>Judrumas (ATR)</span><b>{(d.get('atrPct') or 0):.1f}%</b></div>
-              <div><span>Vieta dienoje</span><b>{vietos_juosta(d.get('ibs'))}</b></div>
+              <div class="pl2"><span>Vieta dienoje</span><b>{vietos_juosta(d.get('ibs'))}</b></div>
               <div><span>Nuo VWAP</span><b>{((d['price'] / d['vwap'] - 1) * 100) if d.get('vwap') else 0:+.2f}%</b></div></div>
             <div class="ivykd">Žalia juosta — <b>0,20–0,50</b>, išmatuota iš tavo 84
             pirkimų: ten grąža kitą dieną buvo +1,0 %, o žemiau 0,20 tik −0,1 %
@@ -1870,7 +1870,7 @@ def write_html(rows, market, path, refresh_seconds=None, sector_state=None,
 {refresh_tag}
 <title>Dip reitingas</title><style>
 .vj{{display:inline-flex;align-items:center;gap:6px}}
-.vjs{{width:132px;height:13px;display:block}}
+.vjs{{width:118px;height:13px;display:block;flex:none}}
 .vj u{{text-decoration:none;font-variant-numeric:tabular-nums;font-weight:600}}
 .ivykd{{font-size:11px;color:var(--ink2);line-height:1.45;margin:6px 0 2px;
 padding:7px 9px;background:var(--card);border:1px solid var(--line);border-radius:6px}}
@@ -1989,11 +1989,20 @@ padding:9px 11px;border-radius:5px;margin:0 0 12px}}
 .tags{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}}
 .tags span{{font-size:11px;background:var(--bg);padding:4px 7px;border-radius:4px;color:var(--ink2);
 font-variant-numeric:tabular-nums}}
-.plan{{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;background:var(--ink);color:#F4F7FB;
-padding:12px;border-radius:7px;margin-bottom:14px}}
-.plan div{{display:flex;flex-direction:column;gap:2px}}
-.plan span{{font-size:10px;opacity:.65}}
-.plan b{{font-size:14px;font-variant-numeric:tabular-nums}}
+.plan{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 14px;
+background:var(--ink);color:#F4F7FB;padding:13px;border-radius:7px;margin-bottom:12px}}
+.plan div{{display:flex;flex-direction:column;gap:3px;min-width:0}}
+.plan span{{font-size:10px;opacity:.6;letter-spacing:.02em;white-space:nowrap;
+overflow:hidden;text-overflow:ellipsis}}
+.plan b{{font-size:15px;font-variant-numeric:tabular-nums;line-height:1.15;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+/* Ilgi laukai — per visa plota, kad netilptu i puse ir nelauztu tinklelio */
+.plan .pl2{{grid-column:1 / -1}}
+.plan .pl2 b{{white-space:normal}}
+@media (min-width:620px){{
+  .plan{{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .plan .pl2{{grid-column:auto}}
+}}
 .br{{display:flex;align-items:center;gap:8px;margin-bottom:5px}}
 .br span{{font-size:12px;color:var(--ink2);width:150px}}
 .br i{{flex:1;height:4px;background:#E4E9F1;border-radius:2px;overflow:hidden}}
