@@ -55,3 +55,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-14,09:48,TLX.DE,TLX,41.7,D,Kritimas sustojo,,,taip,0.273,,,,,bear_soft,Draudimas,1.87,121.50,117.85,123.93,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-14,09:48,IPN.PA,IPN,43.0,D,Neapibrėžtas kritimas,,,taip,0.553,,,,,bear_soft,Sveikata,2.64,157.35,152.63,160.50,atviras,,,,,
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-14,09:48,RAA.DE,RAA,49.9,D,Neapibrėžtas kritimas,,,taip,0.278,,,,,bear_soft,Pramone,2.03,585.50,567.93,597.21,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:23,ASML.AS,ASML,44.6,D,Neapibrėžtas kritimas,,,taip,0.277,taip,ne,-0.53,43,bear_soft,Technologijos,3.52,1386.20,1344.61,1413.92,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:23,MC.PA,MC,24.1,D,Atsigavimas su sektoriumi,,,taip,0.900,ne,ne,+0.97,55,bear_soft,Vartojimas ir prabanga,2.66,416.90,404.39,425.24,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:23,RMS.PA,RMS,28.0,D,Atsigavimas su sektoriumi,,,taip,0.870,ne,ne,+0.56,0,bear_soft,Vartojimas ir prabanga,2.81,1418.00,1375.46,1446.36,atviras,,,,,
