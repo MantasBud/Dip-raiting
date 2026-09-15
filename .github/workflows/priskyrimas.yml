@@ -1,0 +1,26 @@
+name: Faktorinis priskyrimas
+
+on:
+  workflow_dispatch:
+
+jobs:
+  priskyrimas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti faila
+        run: |
+          test -f analize_priskyrimo.py || (echo "KLAIDA - failas nerastas" && exit 1)
+      - name: Paleisti
+        run: python analize_priskyrimo.py | tee priskyrimas.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: faktorinis-priskyrimas
+          path: priskyrimas.txt
+          if-no-files-found: ignore
