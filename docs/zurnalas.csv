@@ -61,3 +61,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:47,ENEL.MI,ENEL,64.7,B,Kryptis stabilizavosi,,,taip,0.125,ne,ne,-0.51,58,bear_soft,Energetika,1.71,8.75,8.49,8.93,atviras,,,,,
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:47,RHM.DE,RHM,56.0,C,Neapibrėžtas kritimas,,,taip,0.206,taip,ne,-0.68,10,bear_soft,Gynyba ir aviacija,4.30,992.90,963.11,1012.76,atviras,,,,,
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,09:47,GLE.PA,GLE,53.2,C,Kritimas sustojo,,,taip,0.417,taip,ne,+0.09,82,bear_soft,Bankai ir finansai,2.30,73.44,71.24,74.91,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,MUV2.DE,MUV2,30.9,D,Atsigavimas su sektoriumi,,,taip,0.744,ne,ne,+0.04,58,bear_soft,Draudimas,1.90,509.80,494.51,520.00,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,CS.PA,CS,24.6,D,"Kyla, prie viršūnės",,,taip,0.945,ne,ne,+0.32,49,bear_soft,Draudimas,1.64,43.72,42.41,44.59,atviras,,,,,
+2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,EL.PA,EL,22.3,D,Atsigavimas su sektoriumi,,,taip,0.896,ne,ne,+0.76,21,bear_soft,Sveikata,2.96,148.35,143.90,151.32,atviras,,,,,
