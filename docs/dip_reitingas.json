@@ -4263,7 +4263,7 @@
    [
     "Stocks to Watch: UBS, Dave & Buster’s, Coinbase, CrowdStrike",
     "The Wall Street Journal",
-    1.9356530988888887,
+    2.2450710116666666,
     "neig",
     "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-15-2026/card/stocks-to-watch-ubs-dave-buster-s-coinbase-jtr1rDqgMUIB3BssUa1U?siteid=yhoof2&yptr=yahoo"
    ]
@@ -6421,14 +6421,14 @@
    [
     "Abu Dhabi’s Oil Giant Inks Partnerships With German Energy, Industry Groups as Part of UAE’s $46.5 Billion Investment",
     "The Wall Street Journal",
-    95.14791398083334,
+    95.45732655222223,
     "teig",
     "https://www.wsj.com/business/energy-oil/abu-dhabis-oil-giant-inks-partnerships-with-german-energy-industry-groups-as-part-of-uaes-46-5-billion-investment-03dc5ace?siteid=yhoof2&yptr=yahoo"
    ],
    [
     "ORLEN and partners launch Baltic Energy Initiative",
     "Energy Monitor",
-    269.0251362138889,
+    269.3345487836111,
     "teig",
     "https://www.energymonitor.ai/news/orlen-launch-baltic-energy-initiative/"
    ]
@@ -8586,7 +8586,7 @@
    [
     "DWT secures Riffgat offshore wind farm maintenance contract",
     "Power Technology",
-    127.95155869777778,
+    128.26097773083333,
     "teig",
     "https://www.power-technology.com/news/dwt-secures-riffgat-maintenance-contract/"
    ]
@@ -10753,7 +10753,7 @@
    [
     "He Built Products at Beats, Apple and LVMH. Here’s How He Ended Up at a $1.5 Billion Startup That’s Making Your Data Safer.",
     "Entrepreneur",
-    116.8016143625,
+    117.11102666055555,
     "teig",
     "https://www.entrepreneur.com/building-a-business/he-built-apple-music-now-he-leads-a-startup-sold-over-8-million-security-devices"
    ]
@@ -118718,12 +118718,12 @@
   "price": 12.279999732971191,
   "dayHigh": 12.40999984741211,
   "dayLow": 12.079999923706055,
-  "vwap": 12.283109800007201,
+  "vwap": 12.282641387331553,
   "rsi": 41.67716361988136,
   "atrPct": 2.912395767323452,
   "support": 12.109999656677246,
   "resistance": 12.396666526794434,
-  "rvol": 1.3801306164167841,
+  "rvol": 1.3838042774202366,
   "sma20": 13.40300006866455,
   "sma50": 13.612800045013428,
   "sma200": null,
@@ -120512,7 +120512,7 @@
   "dd5": 8.76671843857016,
   "chg3d": -6.544905539432364,
   "asOf": "2026-09-15 17:35:00+02:00",
-  "score": 33.58997076736329,
+  "score": 33.57853281864978,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -120556,7 +120556,7 @@
   "rng": 60.60601681935093,
   "room": 0.9500553449524728,
   "sup_d": 1.6286629773138117,
-  "vw_d": -0.02531986676540333,
+  "vw_d": -0.021507217194231865,
   "stop": 11.911599740982055,
   "tp": 12.525599727630615,
   "rr": 0.6666666666666651,
