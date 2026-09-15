@@ -1,0 +1,27 @@
+name: Kokybes patikra
+
+on:
+  workflow_dispatch:
+
+jobs:
+  patikra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          test -f kokybes_patikra.py || (echo "KLAIDA - failas nerastas" && exit 1)
+          test -f universas.py || (echo "KLAIDA - universas.py nerastas" && exit 1)
+      - name: Paleisti
+        run: python kokybes_patikra.py | tee kokybes_patikra.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kokybes-patikra
+          path: kokybes_patikra.txt
+          if-no-files-found: ignore
