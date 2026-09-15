@@ -17,6 +17,13 @@ Nera .L (GBP), .SW (CHF), .ST (SEK), .CO (DKK), .OL (NOK).
 # DFTK -627. Todel universe paliekamos TIK dideles likvidzios bendroves.
 # Jei ju neuztektu, riba kelti geriau nei grazinti mazas.
 
+# ISVALYTA 2026-09-15. Paleidus kainu patikra paaiskejo, kad 42 tikeriai is 254
+# negrazina duomenu — dalis ju buvo mano speti, dalis pasenе (bendroves nupirktos,
+# perkeltos i kita birza arba pervadintos). Jie pasalinti arba pakeisti:
+#   ARKEMA.PA -> AKE.PA,  URW.AS -> URW.PA,  DPW.DE -> DHL.DE (jau buvo)
+# Likusiems veikianciu EUR atitikmenu nerasta.
+# NAUJUS TIKERIUS PRIDETI TIK PATIKRINUS — speti negalima, tai jau kartojosi.
+
 EUR_GALUNES = {"DE", "PA", "AS", "BR", "LS", "MI", "MC", "VI", "HE", "IR"}
 
 # Birzos prekybos valandos (Berlyno laiku) — skirtingos birzos, skirtingi grafikai
@@ -31,11 +38,11 @@ UNIVERSAS = {
     "Technologijos": [
         "ASML.AS", "ASM.AS", "BESI.AS", "IFX.DE", "STMPA.PA", "AIXA.DE", "SOI.PA",
         "SAP.DE", "DSY.PA", "CAP.PA", "TEP.PA", "ADYEN.AS", "PRX.AS", "NOKIA.HE",
-        "NEM.DE", "SU.PA", "ATE.PA", "EVO.MI", "TKA.DE",
+        "NEM.DE", "SU.PA", "ATE.PA", "TKA.DE",
     ],
     "Pramone": [
         "SIE.DE", "KGX.DE", "LR.PA", "PRY.MI", "NEX.PA", "ENR.DE", "VIE.PA",
-        "BNR.DE", "GEA.DE", "DUE.DE", "KRZ.IR", "IFX.DE", "ZAL.DE", "NDA.DE",
+        "BNR.DE", "DUE.DE", "KRZ.IR", "IFX.DE", "ZAL.DE", "NDA.DE",
         "AIXA.DE", "JUN3.DE", "RAA.DE", "PUM.DE", "WCH.DE", "SRT3.DE",
     ],
     "Gynyba ir aviacija": [
@@ -44,12 +51,12 @@ UNIVERSAS = {
     ],
     "Automobiliai": [
         "MBG.DE", "BMW.DE", "VOW3.DE", "P911.DE", "STLAM.MI", "CON.DE", "RNO.PA",
-        "PAH3.DE", "FRVIA.PA", "ML.PA", "PIRC.MI", "BRE.MI", "LEO.MI",
+        "PAH3.DE", "FRVIA.PA", "ML.PA", "PIRC.MI", "BRE.MI",
     ],
     "Bankai ir finansai": [
         "BNP.PA", "ACA.PA", "GLE.PA", "DBK.DE", "CBK.DE", "UCG.MI", "ISP.MI",
         "SAN.MC", "BBVA.MC", "CABK.MC", "INGA.AS", "ABN.AS", "KBC.BR", "BAMI.MI",
-        "BPE.MI", "SAB.MC", "UNI.MI", "BIRG.IR", "AIBG.IR", "DBAN.DE",
+        "BPE.MI", "SAB.MC", "UNI.MI", "BIRG.IR", "DBAN.DE",
     ],
     "Draudimas": [
         "ALV.DE", "CS.PA", "MUV2.DE", "HNR1.DE", "G.MI", "NN.AS", "AGN.AS",
@@ -57,38 +64,36 @@ UNIVERSAS = {
     ],
     "Energetika": [
         "TTE.PA", "ENI.MI", "REP.MC", "OMV.VI", "RWE.DE", "EOAN.DE", "ENEL.MI",
-        "IBE.MC", "ENGI.PA", "VER.VI", "ELE.MC", "TRN.MI", "SRG.MI", "RED.MC",
-        "NEOEN.PA", "EDP.LS", "EDPR.LS", "GALP.LS", "FORTUM.HE", "NESTE.HE",
+        "IBE.MC", "ENGI.PA", "VER.VI", "ELE.MC", "TRN.MI", "SRG.MI", "RED.MC", "EDP.LS", "EDPR.LS", "GALP.LS", "FORTUM.HE", "NESTE.HE",
     ],
     "Medziagos": [
         "BAS.DE", "AI.PA", "MT.AS", "SY1.DE", "LXS.DE", "EVK.DE", "AKZA.AS",
-        "DSFIR.AS", "UPM.HE", "STERV.HE", "SOF.BR", "UMI.BR", "ARKEMA.PA",
-        "IMCD.AS", "K1R.DE", "SGO.PA", "HEI.DE", "CRH.IR", "BZU.MI",
+        "DSFIR.AS", "UPM.HE", "STERV.HE", "SOF.BR", "UMI.BR", "AKE.PA",
+        "IMCD.AS", "SGO.PA", "HEI.DE", "BZU.MI",
     ],
     "Sveikata": [
         "SAN.PA", "BAYN.DE", "FRE.DE", "FME.DE", "MRK.DE", "EL.PA", "UCB.BR",
-        "PHIA.AS", "DIM.PA", "QIA.DE", "SHL.DE", "GN1.DE", "RCO.PA", "ORNBV.HE",
+        "PHIA.AS", "DIM.PA", "QIA.DE", "SHL.DE", "RCO.PA", "ORNBV.HE",
         "REC.MI", "DIA.MI", "GRF.MC", "ALM.MC", "ROVI.MC", "IPN.PA",
     ],
     "Vartojimas ir prabanga": [
         "MC.PA", "KER.PA", "RMS.PA", "MONC.MI", "ADS.DE", "PUM.DE", "ITX.MC",
-        "CPR.MI", "TOD.MI", "SFER.MI", "BRBY.PA", "EO.PA", "RI.PA", "OR.PA",
+        "CPR.MI", "SFER.MI", "RI.PA", "OR.PA",
     ],
     "Maistas ir kasdienes prekes": [
-        "ABI.BR", "HEIA.AS", "BN.PA", "AD.AS", "CA.PA", "DANOY.PA", "LDO.MI",
-        "CARL.DE", "BEI.DE", "HEN3.DE", "SW.PA", "VIV.PA", "JDEP.AS", "COLR.BR",
+        "ABI.BR", "HEIA.AS", "BN.PA", "AD.AS", "CA.PA", "LDO.MI", "BEI.DE", "HEN3.DE", "SW.PA", "VIV.PA", "COLR.BR",
     ],
     "Telekomai ir ziniasklaida": [
         "DTE.DE", "ORA.PA", "TEF.MC", "TIT.MI", "KPN.AS", "PUB.PA", "PROX.BR",
-        "TEL.VI", "ELISA.HE", "MEO.LS", "NOS.LS", "RCS.MI", "MDG.PA", "TKWY.AS",
+        "TEL.VI", "ELISA.HE", "NOS.LS", "RCS.MI",
     ],
     "Keliones ir laisvalaikis": [
-        "LHA.DE", "AF.PA", "RYA.IR", "AC.PA", "EVD.DE", "TUI1.DE", "FDJ.PA",
-        "IAG.MC", "AENA.MC", "MEL.MC", "AMS.MC", "FLTR.IR",
+        "LHA.DE", "AF.PA", "RYA.IR", "AC.PA", "EVD.DE", "TUI1.DE",
+        "IAG.MC", "AENA.MC", "MEL.MC", "AMS.MC",
     ],
     "Nekilnojamas turtas ir statyba": [
-        "VNA.DE", "URW.AS", "LEG.DE", "TEG.DE", "DIC.DE", "COL.MC", "MRL.MC",
-        "IGD.MI", "GFC.PA", "ICAD.PA", "KOJAMO.HE", "SPS.MI",
+        "VNA.DE", "URW.PA", "LEG.DE", "TEG.DE", "COL.MC", "MRL.MC",
+        "IGD.MI", "GFC.PA", "ICAD.PA",
     ],
     # JAV akciju antriniai listingai Frankfurte (kotiruojami EUR). Judrumas
     # didziausias visame sarase, bet: europietiska sesija daugiausia atkartoja
@@ -96,9 +101,8 @@ UNIVERSAS = {
     # virsija stop atstuma. Modulis juos rodo su ispejimais, sprendzia vartotojas.
     "JAV antriniai listingai": [
         "NVD.DE", "AMD.DE", "APC.DE", "MSF.DE", "ABEA.DE", "AMZ.DE", "TL0.DE",
-        "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "TXN.DE", "AVG.DE",
-        "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
-        "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
+        "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "AVG.DE",
+        "MUB.DE", "AMD.DE",
     ],
     # Zaliavos — fiziniais metalais padengti ETC ir naftos instrumentai, visi
     # Xetra, EUR. Jie juda pagal palukanu normas ir geopolitika, t. y. pagal
@@ -109,19 +113,15 @@ UNIVERSAS = {
     "Zaliavos": [
         # Visi tikeriai patikrinti (2026-09). Xetra, EUR.
         "4GLD.DE",    # Xetra-Gold, fizinis auksas, fondas ~21.8 mlrd EUR
-        "VZLC.DE",    # WisdomTree fizinis sidabras, ~2.31 mlrd EUR
         "XAD6.DE",    # Xtrackers fizinis sidabras (alternatyva)
-        "8PSB.DE",    # Invesco fizinis sidabras (alternatyva)
-        "VZLA.DE",    # WisdomTree fizine platina, ~452 mln EUR
-        "VZLB.DE",    # WisdomTree fizinis paladis
-        "00XL.DE",    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
+        "8PSB.DE",    # Invesco fizinis sidabras (alternatyva)    # WisdomTree fizine platina, ~452 mln EUR    # WisdomTree fizinis paladis    # WisdomTree varis, EUR apsidraudes, ~127 mln EUR
         # MEDIENOS: Europoje eurais kotiruojamo medienos ETC nera. Artimiausia
         # alternatyva butu popieriaus ir medienos bendroves (UPM.HE, STERV.HE),
         # kurios jau yra Medziagu sektoriuje.
     ],
     "Logistika ir mazmena": [
-        "DHL.DE", "DPW.DE", "GLPG.AS", "PST.MI", "BIM.PA", "ATO.PA", "SES.PA",
-        "ZAL.DE", "HFG.DE", "TKWY.AS",
+        "DHL.DE", "PST.MI", "BIM.PA", "ATO.PA",
+        "ZAL.DE", "HFG.DE",
     ],
 }
 
@@ -176,12 +176,6 @@ UNIVERSAS_US = {
     # didziausias visame sarase, bet: europietiska sesija daugiausia atkartoja
     # tai, kas jau ivyko JAV; likvidumas plonesnis; naktiniai suoliai dazniau
     # virsija stop atstuma. Modulis juos rodo su ispejimais, sprendzia vartotojas.
-    "JAV antriniai listingai": [
-        "NVD.DE", "AMD.DE", "APC.DE", "MSF.DE", "ABEA.DE", "AMZ.DE", "TL0.DE",
-        "FB2A.DE", "NFC.DE", "IBM.DE", "INL.DE", "QCI.DE", "TXN.DE", "AVG.DE",
-        "MUB.DE", "AMD.DE", "PLTR.DE", "COIN.DE", "MRNA.DE", "RIVN.DE",
-        "SMCI.DE", "ARM.DE", "SNOW.DE", "CRWD.DE", "NOW.DE", "UBER.DE",
-    ],
     "Logistika ir mazmena": ["UPS", "FDX", "CSX", "UNP", "NSC", "ODFL", "AMZN"],
 }
 US_ETF = {
