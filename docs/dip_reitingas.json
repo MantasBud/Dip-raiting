@@ -4263,7 +4263,7 @@
    [
     "Stocks to Watch: UBS, Dave & Buster’s, Coinbase, CrowdStrike",
     "The Wall Street Journal",
-    1.5798516291666667,
+    1.9356530988888887,
     "neig",
     "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-09-15-2026/card/stocks-to-watch-ubs-dave-buster-s-coinbase-jtr1rDqgMUIB3BssUa1U?siteid=yhoof2&yptr=yahoo"
    ]
@@ -6421,14 +6421,14 @@
    [
     "Abu Dhabi’s Oil Giant Inks Partnerships With German Energy, Industry Groups as Part of UAE’s $46.5 Billion Investment",
     "The Wall Street Journal",
-    94.7921219038889,
+    95.14791398083334,
     "teig",
     "https://www.wsj.com/business/energy-oil/abu-dhabis-oil-giant-inks-partnerships-with-german-energy-industry-groups-as-part-of-uaes-46-5-billion-investment-03dc5ace?siteid=yhoof2&yptr=yahoo"
    ],
    [
     "ORLEN and partners launch Baltic Energy Initiative",
     "Energy Monitor",
-    268.66934413583334,
+    269.0251362138889,
     "teig",
     "https://www.energymonitor.ai/news/orlen-launch-baltic-energy-initiative/"
    ]
@@ -8586,7 +8586,7 @@
    [
     "DWT secures Riffgat offshore wind farm maintenance contract",
     "Power Technology",
-    127.595787855,
+    127.95155869777778,
     "teig",
     "https://www.power-technology.com/news/dwt-secures-riffgat-maintenance-contract/"
    ]
@@ -10753,7 +10753,7 @@
    [
     "He Built Products at Beats, Apple and LVMH. Here’s How He Ended Up at a $1.5 Billion Startup That’s Making Your Data Safer.",
     "Entrepreneur",
-    116.44584010083334,
+    116.8016143625,
     "teig",
     "https://www.entrepreneur.com/building-a-business/he-built-apple-music-now-he-leads-a-startup-sold-over-8-million-security-devices"
    ]
@@ -30156,7 +30156,7 @@
    ],
    [
     "info",
-    "Izoliuotas atsitraukimas: akcija -1.5%, sektorius -0.5% — būtent toks triukšmas, kurio ieškai"
+    "Izoliuotas atsitraukimas: akcija -1.5%, sektorius -0.4% — būtent toks triukšmas, kurio ieškai"
    ]
   ],
   "dip": 1.1315309803477083,
@@ -30168,7 +30168,7 @@
   "tp": 75.75539657592773,
   "rr": 0.6666666666666666,
   "shares": 242,
-  "sector_chg": -0.5396304642109087,
+  "sector_chg": -0.37336040524601843,
   "pos_value": 17973.33918762207,
   "gross": 359.4667837524414,
   "net": 355.4667837524414,
@@ -34467,7 +34467,7 @@
    ],
    [
     "info",
-    "Izoliuotas atsitraukimas: akcija -1.7%, sektorius -0.5% — būtent toks triukšmas, kurio ieškai"
+    "Izoliuotas atsitraukimas: akcija -1.7%, sektorius -0.4% — būtent toks triukšmas, kurio ieškai"
    ],
    [
     "warn",
@@ -34487,7 +34487,7 @@
   "tp": 148.05299377441406,
   "rr": 0.6666666666666666,
   "shares": 124,
-  "sector_chg": -0.5396304642109087,
+  "sector_chg": -0.37336040524601843,
   "pos_value": 17998.599243164062,
   "gross": 359.97198486328125,
   "net": 355.97198486328125,
@@ -64599,29 +64599,29 @@
   "tag": "UCB",
   "sym": "UCB.BR",
   "name": "UCB.BR",
-  "price": 209.1999969482422,
+  "price": 209.89999389648438,
   "dayHigh": 212.89999389648438,
   "dayLow": 207.1999969482422,
-  "vwap": 209.45124819797115,
-  "rsi": 55.31883503716505,
+  "vwap": 209.78525580232855,
+  "rsi": 66.24843858138297,
   "atrPct": 2.916990285624966,
-  "support": 207.56667073567706,
+  "support": 209.23333231608072,
   "resistance": 210.89999389648438,
-  "rvol": 0.753550770721662,
+  "rvol": 2.641581390298852,
   "sma20": 215.425,
   "sma50": 227.21600006103515,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Sveikata",
-  "day_chg": -0.6175786469158254,
+  "day_chg": -0.2850385289860451,
   "avgVolume": 224304.55,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.35947523100542883,
-  "ibs": 0.35087738084084,
+  "ibs": 0.47368392873873993,
   "gap_ret": -0.23752969121140144,
-  "zscore": -0.13160241956854307,
+  "zscore": 0.3681864305409614,
   "rsi2": 81.44581725286959,
   "grafikas": [
    [
@@ -66667,6 +66667,10 @@
    [
     "2026-09-15 17:25:00+02:00",
     209.1999969482422
+   ],
+   [
+    "2026-09-15 17:35:00+02:00",
+    209.89999389648438
    ]
   ],
   "rizika": {
@@ -66686,17 +66690,17 @@
    212.89999389648438,
    226.1999969482422
   ],
-  "m1h": 0.2271505083766634,
-  "m3h": -0.16141254242336,
-  "pos1h": 87.49928474699117,
+  "m1h": 0.33426682314653133,
+  "m3h": -0.020024781579290326,
+  "pos1h": 100.0,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.6596383787002078,
   "down_days": 0,
-  "dd5": 0.8060678034332204,
-  "chg3d": 2.2482848032757325,
-  "asOf": "2026-09-15 17:25:00+02:00",
-  "score": 37.33213102501007,
+  "dd5": 0.47415838261751114,
+  "chg3d": 2.590414288789056,
+  "asOf": "2026-09-15 17:35:00+02:00",
+  "score": 30.609122537615278,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -66713,7 +66717,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.5% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -66728,20 +66732,20 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ]
   ],
-  "dip": 1.7379037361744545,
-  "rng": 35.087738084084,
-  "room": 0.8126180559470949,
-  "sup_d": 0.9560229584968956,
-  "vw_d": -0.11995691211707948,
-  "stop": 202.92399703979493,
-  "tp": 213.38399688720705,
-  "rr": 0.6666666666666697,
-  "shares": 86,
-  "sector_chg": -0.5396304642109087,
-  "pos_value": 17991.199737548828,
-  "gross": 359.82399475097657,
-  "net": 355.82399475097657,
-  "real_risk": 539.7359921264645,
+  "dip": 1.4091122996737386,
+  "rng": 47.368392873873994,
+  "room": 0.4764173554445963,
+  "sup_d": 1.2863254057900235,
+  "vw_d": 0.054693116404681004,
+  "stop": 203.60299407958985,
+  "tp": 214.09799377441408,
+  "rr": 0.6666666666666696,
+  "shares": 85,
+  "sector_chg": -0.37336040524601843,
+  "pos_value": 17841.499481201172,
+  "gross": 356.8299896240234,
+  "net": 352.8299896240234,
+  "real_risk": 535.2449844360348,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
@@ -73172,29 +73176,29 @@
   "tag": "RYA",
   "sym": "RYA.IR",
   "name": "RYA.IR",
-  "price": 22.040000915527344,
+  "price": 22.030000686645508,
   "dayHigh": 22.579999923706055,
   "dayLow": 21.940000534057617,
-  "vwap": 22.178739642270294,
-  "rsi": 33.10839607218213,
+  "vwap": 22.173577680509364,
+  "rsi": 32.98468200264901,
   "atrPct": 2.7631221822725425,
   "support": null,
   "resistance": 22.236666361490887,
-  "rvol": 0.9392470345538938,
+  "rvol": 0.8614257919196222,
   "sma20": 23.067499828338622,
   "sma50": 24.462399826049804,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Keliones ir laisvalaikis",
-  "day_chg": -0.9438161099894662,
+  "day_chg": -0.9887609588965941,
   "avgVolume": 1671730.85,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5384039397029027,
-  "ibs": 0.15625074505877024,
+  "ibs": 0.14062537252938512,
   "gap_ret": 0.0,
-  "zscore": -1.4204863676971073,
+  "zscore": -1.4784355189551481,
   "rsi2": 17.31957677310338,
   "grafikas": [
    [
@@ -75231,7 +75235,11 @@
    ],
    [
     "2026-09-15 17:20:00+02:00",
-    22.040000915527344
+    22.049999237060547
+   ],
+   [
+    "2026-09-15 17:25:00+02:00",
+    22.030000686645508
    ]
   ],
   "rizika": {
@@ -75243,7 +75251,7 @@
    "dienu": 125,
    "max_dd": -19.38405908523699
   },
-  "vol5m": 0.13429134485494845,
+  "vol5m": 0.13447216641517423,
   "res_intra": 22.579999923706055,
   "sup_intra": 21.940000534057617,
   "res_list": [
@@ -75251,24 +75259,24 @@
    22.579999923706055,
    24.760000228881836
   ],
-  "m1h": -0.38022068340513715,
-  "m3h": -2.924452664702996,
-  "pos1h": 55.55567329292587,
+  "m1h": -0.2335558307835342,
+  "m3h": -2.9714110002148337,
+  "pos1h": 50.0,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 2.349139115229856,
+  "exp_move": 2.352302200687538,
   "down_days": 1,
-  "dd5": 3.965140815514099,
-  "chg3d": -2.477873701283384,
-  "asOf": "2026-09-15 17:20:00+02:00",
-  "score": 43.68382648238381,
+  "dd5": 4.008714796121475,
+  "chg3d": -2.5221225008986057,
+  "asOf": "2026-09-15 17:25:00+02:00",
+  "score": 44.284017035815495,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
   "tradeable": false,
   "blocking": [
    "Rinka krenta ir šiandien. Per 2 metus tokiomis dienomis net geriausiai įvertinti įėjimai vidutiniškai prarado 0,35%",
-   "Krintantis peilis: per 3 val. -2.9%, per pastarąją valandą -0.4% — dugno ženklo dar nėra. Nepirkti, stebėti."
+   "Krintantis peilis: per 3 val. -3.0%, per pastarąją valandą -0.2% — dugno ženklo dar nėra. Nepirkti, stebėti."
   ],
   "setup": "Krintantis peilis",
   "recovering": false,
@@ -75283,7 +75291,7 @@
    ],
    [
     "info",
-    "IBS 0.16 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
+    "IBS 0.14 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
    ],
    [
     "warn",
@@ -75295,32 +75303,32 @@
    ],
    [
     "stop",
-    "Krintantis peilis: per 3 val. -2.9%, per pastarąją valandą -0.4% — dugno ženklo dar nėra. Nepirkti, stebėti."
+    "Krintantis peilis: per 3 val. -3.0%, per pastarąją valandą -0.2% — dugno ženklo dar nėra. Nepirkti, stebėti."
    ],
    [
     "info",
     "Ko laukti, kad taptų pirkimo kandidatu: kad pastaroji valanda taptų teigiama"
    ]
   ],
-  "dip": 2.3914925155149467,
-  "rng": 15.625074505877024,
-  "room": 0.8923114237485834,
-  "sup_d": 0.4537222201260235,
-  "vw_d": -0.6255482907537685,
-  "stop": 21.378800888061523,
-  "tp": 22.48080093383789,
+  "dip": 2.435780508941098,
+  "rng": 14.062537252938512,
+  "room": 0.9381101607076148,
+  "sup_d": 0.4085344974249063,
+  "vw_d": -0.6475138831117049,
+  "stop": 21.36910066604614,
+  "tp": 22.47060070037842,
   "rr": 0.6666666666666666,
-  "shares": 816,
-  "sector_chg": -0.9097380935308581,
-  "pos_value": 17984.640747070312,
-  "gross": 359.69281494140625,
-  "net": 355.69281494140625,
-  "real_risk": 539.5392224121097,
+  "shares": 817,
+  "sector_chg": -0.932210517984422,
+  "pos_value": 17998.51056098938,
+  "gross": 359.9702112197876,
+  "net": 355.9702112197876,
+  "real_risk": 539.9553168296832,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.174569557614928
+  "move_ratio": 1.176151100343769
  },
  {
   "tag": "DSY",
@@ -79602,7 +79610,7 @@
   "tp": 7.696920003890991,
   "rr": 0.6666666666666666,
   "shares": 2385,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17997.210009098053,
   "gross": 359.94420018196104,
   "net": 355.94420018196104,
@@ -81739,7 +81747,7 @@
   "tp": 55.2636003112793,
   "rr": 0.6666666666666652,
   "shares": 332,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17987.76010131836,
   "gross": 359.7552020263672,
   "net": 355.7552020263672,
@@ -83876,7 +83884,7 @@
   "tp": 21.99119945526123,
   "rr": 0.6666666666666666,
   "shares": 834,
-  "sector_chg": -0.5396304642109087,
+  "sector_chg": -0.37336040524601843,
   "pos_value": 17981.039554595947,
   "gross": 359.62079109191893,
   "net": 355.62079109191893,
@@ -85949,7 +85957,7 @@
   "tp": 133.72200622558594,
   "rr": 0.6666666666666666,
   "shares": 137,
-  "sector_chg": -0.5396304642109087,
+  "sector_chg": -0.37336040524601843,
   "pos_value": 17960.70083618164,
   "gross": 359.2140167236328,
   "net": 355.2140167236328,
@@ -88099,7 +88107,7 @@
   "tp": 46.13459953308106,
   "rr": 0.6666666666666702,
   "shares": 397,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17956.309818267822,
   "gross": 359.12619636535646,
   "net": 355.12619636535646,
@@ -90137,7 +90145,7 @@
   "tp": 25.765200233459474,
   "rr": 0.6666666666666666,
   "shares": 712,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17985.120162963867,
   "gross": 359.70240325927733,
   "net": 355.70240325927733,
@@ -91903,7 +91911,7 @@
   "tp": 56.61,
   "rr": 0.6666666666666666,
   "shares": 324,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17982.0,
   "gross": 359.64,
   "net": 355.64,
@@ -94065,7 +94073,7 @@
   "tp": 4.845,
   "rr": 0.6666666666666646,
   "shares": 3789,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17997.75,
   "gross": 359.955,
   "net": 355.955,
@@ -116655,7 +116663,7 @@
   "tp": 164.62799377441408,
   "rr": 0.6666666666666686,
   "shares": 111,
-  "sector_chg": -0.5396304642109087,
+  "sector_chg": -0.37336040524601843,
   "pos_value": 17915.399322509766,
   "gross": 358.3079864501953,
   "net": 354.3079864501953,
@@ -118710,12 +118718,12 @@
   "price": 12.279999732971191,
   "dayHigh": 12.40999984741211,
   "dayLow": 12.079999923706055,
-  "vwap": 12.287309996423827,
+  "vwap": 12.283109800007201,
   "rsi": 41.67716361988136,
   "atrPct": 2.912395767323452,
   "support": 12.109999656677246,
   "resistance": 12.396666526794434,
-  "rvol": 0.5871606082755424,
+  "rvol": 1.3801306164167841,
   "sma20": 13.40300006866455,
   "sma50": 13.612800045013428,
   "sma200": null,
@@ -120504,7 +120512,7 @@
   "dd5": 8.76671843857016,
   "chg3d": -6.544905539432364,
   "asOf": "2026-09-15 17:35:00+02:00",
-  "score": 33.69249441819602,
+  "score": 33.58997076736329,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -120542,17 +120550,13 @@
    [
     "warn",
     "Nuo 5 d. maksimumo nukritusi 8.8% — kritimas prasidėjo ne šiandien"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
   "dip": 1.0475432396401458,
   "rng": 60.60601681935093,
   "room": 0.9500553449524728,
   "sup_d": 1.6286629773138117,
-  "vw_d": -0.059494417042979315,
+  "vw_d": -0.02531986676540333,
   "stop": 11.911599740982055,
   "tp": 12.525599727630615,
   "rr": 0.6666666666666651,
@@ -124591,7 +124595,7 @@
   "tp": 11.546399688720703,
   "rr": 0.666666666666665,
   "shares": 1590,
-  "sector_chg": -0.9097380935308581,
+  "sector_chg": -0.932210517984422,
   "pos_value": 17998.799514770508,
   "gross": 359.97599029541016,
   "net": 355.97599029541016,
