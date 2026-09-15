@@ -2100,7 +2100,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-14b ibs-monoton naktis sma200 u254 exsa"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-15 ibs-monoton naktis sma200 u214 exsa"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "sortai", "sortu_pokytis",
