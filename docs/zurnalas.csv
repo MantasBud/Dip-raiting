@@ -97,3 +97,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:10,KER.PA,KER,35.1,D,Atsigavimas su sektoriumi,,,taip,0.606,ne,ne,-0.06,22,bear_soft,Vartojimas ir prabanga,3.36,237.45,230.33,242.20,atviras,,,,,
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:10,SGO.PA,SGO,35.8,D,Neapibrėžtas kritimas,,,taip,0.500,taip,ne,-0.15,5,bear_soft,Medziagos,2.73,69.56,67.47,70.95,atviras,,,,,
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:10,BN.PA,BN,55.4,C,Neapibrėžtas kritimas,,,taip,0.207,taip,ne,-0.09,31,bear_soft,Maistas ir kasdienes prekes,1.79,60.84,59.01,62.06,atviras,,,,,
+2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:29,PUB.PA,PUB,51.4,C,Neapibrėžtas kritimas,,,taip,0.422,taip,ne,-0.16,50,bear_soft,Telekomai ir ziniasklaida,2.51,97.54,94.61,99.49,atviras,,,,,
+2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:29,CAP.PA,CAP,46.7,D,Neapibrėžtas kritimas,,,taip,0.208,taip,ne,-0.15,74,bear_soft,Technologijos,3.50,105.80,102.63,107.92,atviras,,,,,
+2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,19:29,VNA.DE,VNA,42.9,D,Kritimas sustojo,,,taip,0.436,taip,ne,-0.09,32,bear_soft,Nekilnojamas turtas ir statyba,2.29,17.89,17.35,18.25,atviras,,,,,
