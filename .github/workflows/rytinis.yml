@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install yfinance pandas numpy tzdata
+      - run: pip install yfinance pandas numpy tzdata scipy
       - name: Patikrinti failus
         run: |
           test -f backtest_rytinis_tesinys.py || (echo "KLAIDA - failas nerastas" && exit 1)
