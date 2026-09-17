@@ -64,7 +64,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,MUV2.DE,MUV2,30.9,D,Atsigavimas su sektoriumi,,,taip,0.744,ne,ne,+0.04,58,bear_soft,Draudimas,1.90,509.80,494.51,520.00,baigta,ryto atidarymas,2026-09-16 09:00:00+02:00,512.00,+0.43,+0.00
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,CS.PA,CS,24.6,D,"Kyla, prie viršūnės",,,taip,0.945,ne,ne,+0.32,49,bear_soft,Draudimas,1.64,43.72,42.41,44.59,atviras,,,,,
 2026-09-14b ibs-monoton naktis sma200 u254 exsa,2026-09-15,10:03,EL.PA,EL,22.3,D,Atsigavimas su sektoriumi,,,taip,0.896,ne,ne,+0.76,21,bear_soft,Sveikata,2.96,148.35,143.90,151.32,baigta,stop,2026-09-16 09:05:00+02:00,143.90,-3.00,+0.00
-2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,14:00,UCG.MI,UCG,42.9,D,Kritimas sustojo,,,taip,0.476,taip,ne,-0.16,14,bear_soft,Bankai ir finansai,2.12,83.31,80.81,84.98,atviras,,,,,
+2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,14:00,UCG.MI,UCG,42.9,D,Kritimas sustojo,,,taip,0.476,taip,ne,-0.16,14,bear_soft,Bankai ir finansai,2.12,83.31,80.81,84.98,baigta,ryto atidarymas,2026-09-17 09:00:00+02:00,83.63,+0.38,+0.19
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,14:00,SIE.DE,SIE,32.9,D,Kritimas sustojo,,,taip,0.485,taip,ne,+0.15,22,bear_soft,Pramone,2.39,260.85,253.02,266.07,baigta,ryto atidarymas,2026-09-17 09:00:00+02:00,262.90,+0.79,+0.12
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,14:00,IFX.DE,IFX,26.0,D,Neapibrėžtas kritimas,,,taip,0.449,taip,ne,-0.04,30,bear_soft,Technologijos,4.92,55.17,53.51,56.27,baigta,ryto atidarymas,2026-09-17 09:00:00+02:00,54.00,-2.12,+0.20
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-16,14:22,SAP.DE,SAP,34.5,D,Ramus atsitraukimas,,,taip,0.598,ne,ne,+0.42,86,bear_soft,Technologijos,3.20,184.50,178.97,188.19,atviras,,,,,
@@ -163,3 +163,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,LR.PA,LR,34.8,D,Neapibrėžtas kritimas,,,taip,0.333,taip,ne,-0.14,54,bear_soft,Pramone,3.14,135.75,131.68,138.47,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,CAP.PA,CAP,39.7,D,Atsigavimas po kritimo,,,taip,0.667,ne,ne,-0.03,34,bear_soft,Technologijos,3.57,106.20,103.01,108.32,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,NEX.PA,NEX,27.2,D,Atsigavimas su sektoriumi,,,taip,0.706,ne,ne,+0.27,63,bear_soft,Pramone,3.44,137.10,132.99,139.84,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:09,AIXA.DE,AIXA,25.2,D,"Kyla, prie viršūnės",,,taip,0.667,ne,ne,+0.43,46,bear_soft,Technologijos,5.61,34.46,33.40,35.15,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:09,TEP.PA,TEP,28.4,D,Neapibrėžtas kritimas,,,taip,0.700,ne,ne,+0.59,54,bear_soft,Technologijos,3.33,69.68,67.59,71.07,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:09,PUM.DE,PUM,39.0,D,Kritimas sustojo,,,taip,0.304,taip,ne,+0.15,83,bear_soft,Pramone,3.51,22.36,21.69,22.81,atviras,,,,,
