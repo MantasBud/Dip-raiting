@@ -172,3 +172,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:53,SAP.DE,SAP,47.0,D,Ramus atsitraukimas,,,taip,0.064,ne,ne,-0.66,73,bear_soft,Technologijos,3.17,186.28,180.69,190.01,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:53,CBK.DE,CBK,46.8,D,Atsigavimas po kritimo,,,taip,0.660,ne,ne,+0.10,8,bear_soft,Bankai ir finansai,2.30,41.64,40.39,42.47,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,15:53,HO.PA,HO,43.5,D,Kritimas sustojo,,,taip,0.278,taip,ne,-0.49,96,bear_soft,Gynyba ir aviacija,2.23,240.70,233.48,245.51,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,16:13,DSFIR.AS,DSFIR,31.3,D,Kritimas sustojo,,,taip,0.677,ne,ne,+0.18,79,bear_soft,Medziagos,2.24,91.90,89.14,93.74,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,16:13,RI.PA,RI,36.2,D,Kritimas sustojo,,,taip,0.436,taip,ne,+0.28,46,bear_soft,Vartojimas ir prabanga,2.56,60.64,58.82,61.85,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,16:13,UNI.MI,UNI,34.2,D,Ramus atsitraukimas,,,taip,0.395,taip,ne,+0.06,84,bear_soft,Bankai ir finansai,2.02,28.25,27.40,28.82,atviras,,,,,
