@@ -222,6 +222,17 @@ def main():
     df = pd.concat(dalys, ignore_index=True).dropna(subset=["r_uzd", "r_nuo_uzd", "ibs1"])
     print(f"  po likvidumo filtro: {df['tag'].nunique()} akcijų (atmesta {atmesta}); "
           f"eilučių {len(df):,}; dienų {df['data'].nunique()}")
+    # SVARBU: Yahoo valandiniu duomenu grazina gerokai maziau nei 730 d.
+    # Jei vienai akcijai tenka mazai dienu, kryzminiai pjuviai bus ploni.
+    per_akcija = df.groupby("tag")["data"].nunique()
+    per_diena = df.groupby("data")["tag"].nunique()
+    print(f"  dienu vienai akcijai: mediana {per_akcija.median():.0f}, "
+          f"nuo {per_akcija.min()} iki {per_akcija.max()}")
+    print(f"  akciju vienai dienai: mediana {per_diena.median():.0f}, "
+          f"nuo {per_diena.min()} iki {per_diena.max()}")
+    if per_diena.median() < 15:
+        print("  DEMESIO: maziau nei 15 akciju dienai — TOP-5 rinkiniai bus")
+        print("  beveik visas tos dienos sarasas, o ne atranka is daugelio.")
 
     # savas judesys: minus rinkos / sektoriaus mediana tą dieną
     df["resid"] = df["r_nuo_uzd"] - df.groupby("data")["r_nuo_uzd"].transform("median")
@@ -234,7 +245,9 @@ def main():
     for poz in ["r_nuo_uzd", "resid", "sekt_resid", "r_1h", "tarpas", "rvol", "ibs1", "vakar_ret"]:
         eil = f"{poz:<12}"
         for col in ["r_uzd_dm", "r_14_dm", "r_pask_dm"]:
-            per_d = df.groupby("data").apply(lambda g: g[poz].corr(g[col], method="spearman"))
+            # Spearman be scipy: rangai + iprasta koreliacija duoda ta pati.
+            per_d = df.groupby("data").apply(
+                lambda g: g[poz].rank().corr(g[col].rank()))
             lo, hi = boot_ci(per_d)
             eil += f"   {col:<10} {per_d.mean():+.3f} [{lo:+.3f}..{hi:+.3f}]"
         print(eil)
