@@ -2100,7 +2100,7 @@
    [
     "European Indexes Higher as Oil Falls Back",
     "The Wall Street Journal",
-    8.934049875833333,
+    9.231927885555557,
     "neig",
     "https://www.wsj.com/finance/stocks/nikkei-rises-1-0-led-by-pharma-machinery-stocks-2d9b558c?siteid=yhoof2&yptr=yahoo"
    ]
@@ -8540,7 +8540,7 @@
    [
     "Europe Is Stronger Than Investors Think. What to Own Now.",
     "Barrons.com",
-    154.28419174277778,
+    154.58208294805556,
     "teig",
     "https://www.barrons.com/articles/europe-stocks-investments-earnings-aed79c13?siteid=yhoof2&yptr=yahoo"
    ]
@@ -10692,7 +10692,7 @@
    [
     "Stellantis to invest over €1bn in French van plant upgrade – report",
     "Just Auto",
-    52.85757093861111,
+    53.15546268972222,
     "teig",
     "https://www.just-auto.com/news/stellantis-e1bn-french-van-plant-upgrade/"
    ]
@@ -23632,12 +23632,12 @@
   "price": 52.5,
   "dayHigh": 53.119998931884766,
   "dayLow": 52.41999816894531,
-  "vwap": 52.619128521415384,
+  "vwap": 52.61893664529488,
   "rsi": 39.48842238347982,
   "atrPct": 2.038212739880239,
   "support": 52.400001525878906,
   "resistance": 52.72666676839193,
-  "rvol": 0.9635124484213454,
+  "rvol": 0.9652631090917521,
   "sma20": 56.48199996948242,
   "sma50": 56.291999893188475,
   "sma200": null,
@@ -25718,7 +25718,7 @@
   "dd5": 5.0632898294581965,
   "chg3d": -2.813773500339206,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 56.77946305999569,
+  "score": 56.777671541111275,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -25756,7 +25756,7 @@
   "rng": 11.428820551386641,
   "room": 0.43174622550843705,
   "sup_d": 0.15238444010416666,
-  "vw_d": -0.2263977469085215,
+  "vw_d": -0.22603392025314809,
   "stop": 50.925,
   "tp": 53.550000000000004,
   "rr": 0.6666666666666682,
@@ -55529,12 +55529,12 @@
   "price": 4.926000118255615,
   "dayHigh": 4.961999893188477,
   "dayLow": 4.875999927520752,
-  "vwap": 4.92672138102659,
+  "vwap": 4.926716531279206,
   "rsi": 39.17048434933276,
   "atrPct": 2.358450019353274,
   "support": 4.8493332862854,
   "resistance": 4.933666706085205,
-  "rvol": 1.0547153539131529,
+  "rvol": 1.0680615567952532,
   "sma20": 4.955000019073486,
   "sma50": 5.09503999710083,
   "sma200": null,
@@ -57619,7 +57619,7 @@
   "dd5": -0.2442019503357704,
   "chg3d": 0.8393016878765647,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 26.90099867424561,
+  "score": 26.90053795075672,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -57649,7 +57649,7 @@
   "rng": 58.13977987857282,
   "room": 0.1556351531778834,
   "sup_d": 1.0150261781270367,
-  "vw_d": -0.014639812467432085,
+  "vw_d": -0.014541389159344033,
   "stop": 4.778220114707946,
   "tp": 5.0245201206207275,
   "rr": 0.6666666666666646,
