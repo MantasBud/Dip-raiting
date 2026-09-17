@@ -419,6 +419,24 @@ def rsi2_daily(daily_close, n=2):
         return None
 
 
+def ibs_su_kontekstu(ibs_v, rng_pct, atr_pct):
+    """IBS balas, pasvertas pagal dienos diapazono plati.
+
+    IBS sako, KUR kaina dienos ruoze, bet nesako, ar tas ruozas prasmingas.
+    Akcija su 0.3% dienos diapazonu ir IBS 0.05 nera "pigi" — ji stovi vietoje.
+    Todel kai diapazonas mazas palyginti su ATR, balas traukiamas link 50.
+    """
+    bazinis = curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
+                            (0.6, 40), (0.8, 20), (1.0, 8)])
+    if rng_pct is None or atr_pct is None or atr_pct <= 0:
+        return bazinis
+    # Kiek dienos diapazonas siekia iprasto judrumo: 1.0 = tipine diena
+    dalis = max(0.0, min(1.5, rng_pct / atr_pct))
+    # svoris 0 kai diapazonas nulinis, 1 kai jis >= 0.6 ATR
+    svoris = min(1.0, dalis / 0.6)
+    return 50.0 + (bazinis - 50.0) * svoris
+
+
 def price_zscore(cont_close, price, n=None):
     """Kiek standartiniu nuokrypiu kaina nutolusi nuo pastaruju sesiju vidurkio.
 
@@ -486,6 +504,8 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     a_pct = d.get("atrPct")
 
     dip = (high - price) / high * 100 if high else None
+    dienos_rng_pct = ((high - low) / price * 100
+                      if (high and low and price and high > low) else None)
     rng = (price - low) / (high - low) * 100 if high and low and high > low else None
     sup_d = (price - support) / price * 100 if support else None
     room = (resistance - price) / price * 100 if resistance else None
@@ -527,11 +547,17 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
     overextended = (day_chg is not None and day_chg > MAX_RECOVERY_GAIN
                     and dip is not None and dip < 1.0)
 
-    dip_part = curve(dip, [(0, 5), (0.5, 35), (1.2, 85), (1.8, 100), (4, 100),
-                           (6, 55), (9, 18), (15, 5)])
+    # Kritimo gylis irgi ATR dalimis, o ne fiksuotais procentais (2026-09-16):
+    # 1.5% kritimas ramioje akcijoje yra gilus, judrioje — kasdienybe.
+    _atr_n = max(1.0, a_pct or 2.0)
+    dip_part = curve(None if dip is None else dip / _atr_n,
+                     [(0, 5), (0.17, 35), (0.4, 85), (0.6, 100), (1.3, 100),
+                      (2.0, 55), (3.0, 18), (5.0, 5)])
     if recovering:
         # Čia "nuolaida" matuojama ne nuo šios dienos maksimumo, o nuo 5 d. viršūnės
-        rec_part = curve(dd5, [(0.5, 30), (1.5, 80), (3, 100), (5, 92), (8, 55), (12, 20)])
+        rec_part = curve(None if dd5 is None else dd5 / _atr_n,
+                         [(0.17, 30), (0.5, 80), (1.0, 100), (1.7, 92),
+                          (2.7, 55), (4.0, 20)])
         dip_part = max(dip_part, rec_part)
         setup = "Atsigavimas"
     elif overextended:
@@ -603,8 +629,14 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # kur zemiausias geriausias. Maza imtis negali nuversti dvieju dideliu.
         # Juosta 0.20-0.50 lieka kaip hipoteze zurnalo stulpelyje ibs_juostoje;
         # i bala ji grizs tik jei pasitvirtins su 100+ realiu sandoriu.
-        "ibs":  curve(ibs_v, [(0.0, 100), (0.15, 96), (0.3, 78), (0.45, 58),
-                              (0.6, 40), (0.8, 20), (1.0, 8)]),
+        # IBS SU DIAPAZONO KONTEKSTU (2026-09-16).
+        # IBS yra SANTYKINIS matas. Jei akcijos dienos diapazonas 0.4%, o IBS
+        # 0.05, kaina yra vos 0.02% nuo dugno — ji praktiskai stovi vietoje,
+        # bet balas duodavo 99 is 100, tarsi ji butu giliai atsitraukusi.
+        # Dabar IBS itaka mazinama, kai dienos diapazonas mazas palyginti su
+        # akcijos iprastu judrumu (ATR): esant 0.3 ATR diapazonui, balas
+        # traukiamas link neutralaus 50.
+        "ibs":  ibs_su_kontekstu(ibs_v, dienos_rng_pct, a_pct),
         "dip":  dip_part,
         "stab": stab,
         "multiday": multiday_part,
@@ -623,8 +655,13 @@ def score_stock(d, target=TARGET_PCT, market="neutral", sector_chg=None, tb=None
         # Patvirtinta nematytoje imties dalyje: kaina ZEMIAU VWAP +0.121%
         # (+0.025..+0.211), neto +0.051%. Anksciau kreive maksimuma dave ties
         # -0.2%, t. y. matavo ne ta, kas pasitvirtino.
-        "vwap": curve(vw_d, [(-5, 100), (-2, 92), (-1, 82), (-0.3, 62),
-                             (0.3, 42), (1.0, 28), (3, 12)]),
+        # VWAP NORMALIZUOTAS PAGAL ATR (2026-09-16). Ta pati klaida kaip su IBS:
+        # -0.50% nuo VWAP ramioje akcijoje (ATR 1.5%) yra didelis nuokrypis, o
+        # judrioje (ATR 6%) — triuksmas. Anksciau abiem buvo duodamas tas pats
+        # balas. Dabar atstumas matuojamas ATR dalimis.
+        "vwap": curve(None if (vw_d is None or not a_pct) else vw_d / max(1.0, a_pct),
+                      [(-1.2, 100), (-0.6, 92), (-0.32, 82), (-0.1, 62),
+                       (0.1, 42), (0.33, 28), (1.0, 12)]),
         "_nenaudojamas_rvol": curve(rv,   [(0.3, 15), (0.7, 45), (1, 70), (1.4, 95), (2.5, 100), (4, 80), (7, 55), (12, 35)]),
         "trend": trend,
         "_nenaudojamas_support": 15.0 if (sup_d is not None and sup_d < 0) else
@@ -2100,7 +2137,7 @@ tikslas {TARGET_PCT}% · rinka: {market_lt} · {len(rows)} akcijos</div>
 
 # ----------------------------- REZULTATU ZURNALAS -----------------------------
 
-MODEL_VERSION = "2026-09-15 ibs-monoton naktis sma200 u214 exsa"   # keiciant svorius ar isejima — atnaujink
+MODEL_VERSION = "2026-09-16 atr-normalizuota ibs-vwap-dip u214"   # keiciant svorius ar isejima — atnaujink
 
 JOURNAL_FIELDS = ["versija", "data", "laikas", "sym", "tag", "balas", "pakopa", "scenarijus",
                   "sortai", "sortu_pokytis",
