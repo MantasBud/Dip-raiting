@@ -126,7 +126,11 @@ def siusti_60m(tickers, chunk=25):
         for t in dalis:
             if t in df.columns.get_level_values(0):
                 sub = df[t].dropna(subset=["Close"])
-                if len(sub) > 500:
+                # PATAISYTA: buvo > 500 baru, o tai vos ~55 sesijos. Yahoo
+                # valandiniu duomenu grazina gerokai maziau nei 730 d., todel
+                # su zema riba i imti patekdavo akcijos su keliais menesiais
+                # istorijos, ir "704 dienos" reiske po ~54 dienas akcijai.
+                if len(sub) > 1000:          # ~110 sesiju
                     out[t] = sub
         print(f"  {min(i + chunk, len(tickers))}/{len(tickers)}", file=sys.stderr)
     return out
@@ -137,5 +141,3 @@ def siusti_dieninius(ticker):
     if isinstance(df.columns, pd.MultiIndex):
         df.columns = df.columns.get_level_values(0)
     return df.dropna(subset=["Close"])
-
-
