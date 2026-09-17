@@ -154,3 +154,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,13:57,URW.PA,URW,50.0,C,Ramus atsitraukimas,,,taip,0.182,ne,ne,-0.24,80,bear_soft,Nekilnojamas turtas ir statyba,1.49,93.94,91.12,95.82,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,13:57,NDA.DE,NDA,44.4,D,Neapibrėžtas kritimas,,,taip,0.300,taip,ne,-0.18,30,bear_soft,Pramone,3.95,165.10,160.15,168.40,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,13:57,EVK.DE,EVK,56.4,C,Neapibrėžtas kritimas,,,taip,0.222,taip,ne,-0.40,33,bear_soft,Medziagos,2.11,17.36,16.84,17.71,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:18,BZU.MI,BZU,32.8,D,Neapibrėžtas kritimas,,,taip,0.484,taip,ne,+0.05,63,bear_soft,Medziagos,2.90,38.39,37.24,39.16,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:18,AVIO.MI,AVIO,29.5,D,Atsigavimas su sektoriumi,,,taip,0.696,ne,ne,+0.37,55,bear_soft,Gynyba ir aviacija,4.15,28.82,27.96,29.40,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:18,TUI1.DE,TUI1,51.0,C,Neapibrėžtas kritimas,,,taip,0.186,ne,ne,-0.48,39,bear_soft,Keliones ir laisvalaikis,2.42,6.53,6.34,6.66,atviras,,,,,
