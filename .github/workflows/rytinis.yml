@@ -1,0 +1,46 @@
+name: Rytinio tesinio backtestas
+
+on:
+  workflow_dispatch:
+    inputs:
+      taskas:
+        description: "0 = sprendimas 10:00, 1 = 11:00"
+        required: false
+        default: "0"
+      tikslas:
+        description: "Tikslas procentais"
+        required: false
+        default: "1.0"
+      stop:
+        description: "Stop procentais"
+        required: false
+        default: "1.0"
+
+jobs:
+  rytinis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install yfinance pandas numpy tzdata
+      - name: Patikrinti failus
+        run: |
+          test -f backtest_rytinis_tesinys.py || (echo "KLAIDA - failas nerastas" && exit 1)
+          test -f bendra_60m.py || (echo "KLAIDA - bendra_60m.py nerastas" && exit 1)
+      - name: Paleisti
+        env:
+          T: ${{ github.event.inputs.taskas || '0' }}
+          TK: ${{ github.event.inputs.tikslas || '1.0' }}
+          ST: ${{ github.event.inputs.stop || '1.0' }}
+        run: |
+          python backtest_rytinis_tesinys.py --taskas "$T" --tikslas "$TK" \
+            --stop "$ST" | tee rytinis.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rytinio-tesinio-rezultatai
+          path: rytinis.txt
+          if-no-files-found: ignore
