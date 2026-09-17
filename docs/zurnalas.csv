@@ -160,3 +160,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:35,VIE.PA,VIE,28.7,D,Ramus atsitraukimas,,,taip,0.536,ne,ne,-0.00,91,bear_soft,Pramone,1.70,32.06,31.10,32.70,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:35,EVD.DE,EVD,47.8,D,Ramus atsitraukimas,,,taip,0.250,taip,ne,-0.23,75,bear_soft,Keliones ir laisvalaikis,3.21,56.25,54.56,57.38,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:35,AKZA.AS,AKZA,49.1,D,Kritimas sustojo,,,taip,0.388,taip,ne,+0.09,39,bear_soft,Medziagos,2.06,57.38,55.66,58.53,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,LR.PA,LR,34.8,D,Neapibrėžtas kritimas,,,taip,0.333,taip,ne,-0.14,54,bear_soft,Pramone,3.14,135.75,131.68,138.47,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,CAP.PA,CAP,39.7,D,Atsigavimas po kritimo,,,taip,0.667,ne,ne,-0.03,34,bear_soft,Technologijos,3.57,106.20,103.01,108.32,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,14:51,NEX.PA,NEX,27.2,D,Atsigavimas su sektoriumi,,,taip,0.706,ne,ne,+0.27,63,bear_soft,Pramone,3.44,137.10,132.99,139.84,atviras,,,,,
