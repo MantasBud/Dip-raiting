@@ -183,7 +183,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,16:50,KGX.DE,KGX,29.9,D,Neapibrėžtas kritimas,,,taip,0.407,taip,ne,-0.02,42,bear_soft,Pramone,4.34,42.06,40.80,42.90,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,41.69,-0.88,+0.19
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:06,TLX.DE,TLX,33.2,D,Kritimas dar tęsiasi,,,taip,0.333,taip,ne,-0.06,81,bear_soft,Draudimas,1.77,123.80,120.09,126.28,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:06,BNR.DE,BNR,27.3,D,Kritimas sustojo,,,taip,0.655,ne,ne,+0.38,77,bear_soft,Pramone,2.27,61.38,59.54,62.61,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:06,IPN.PA,IPN,50.4,C,Kritimas sustojo,,,taip,0.439,taip,ne,+0.35,38,bear_soft,Sveikata,2.47,156.40,151.71,159.53,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:06,IPN.PA,IPN,50.4,C,Kritimas sustojo,,,taip,0.439,taip,ne,+0.35,38,bear_soft,Sveikata,2.47,156.40,151.71,159.53,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,156.20,-0.13,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:28,GFC.PA,GFC,25.4,D,"Kyla, prie viršūnės",,,taip,0.600,ne,ne,+0.01,78,bear_soft,Nekilnojamas turtas ir statyba,1.55,66.55,64.55,67.88,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,66.15,-0.60,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:28,MRL.MC,MRL,33.4,D,Neapibrėžtas kritimas,,,taip,0.438,taip,ne,+0.10,49,bear_soft,Nekilnojamas turtas ir statyba,2.26,12.55,12.17,12.80,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,12.41,-1.12,+0.08
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-17,17:28,PIRC.MI,PIRC,26.9,D,"Kyla, prie viršūnės",,,taip,0.649,ne,ne,-0.03,47,bear_soft,Automobiliai,2.15,6.38,6.18,6.50,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,6.36,-0.31,+0.00
@@ -213,3 +213,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:52,OR.PA,OR,57.1,C,Ramus atsitraukimas,,,taip,0.282,taip,ne,-0.32,54,bear_soft,Vartojimas ir prabanga,2.08,378.60,367.24,386.17,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:52,EL.PA,EL,39.8,D,Neapibrėžtas kritimas,,,taip,0.516,ne,ne,-0.01,36,bear_soft,Sveikata,2.82,139.85,135.65,142.65,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:52,PRX.AS,PRX,43.7,D,Neapibrėžtas kritimas,,,taip,0.030,ne,ne,-0.31,29,bear_soft,Technologijos,2.49,35.48,34.42,36.19,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ENGI.PA,ENGI,26.6,D,Kritimas sustojo,,,taip,0.611,ne,ne,+0.19,77,bear_soft,Energetika,2.18,24.15,23.43,24.63,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ITX.MC,ITX,50.5,C,Neapibrėžtas kritimas,,,taip,0.444,taip,ne,-0.07,21,bear_soft,Vartojimas ir prabanga,2.04,52.16,50.60,53.20,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ACA.PA,ACA,37.9,D,Ramus atsitraukimas,,,taip,0.407,taip,ne,+0.05,33,bear_soft,Bankai ir finansai,1.60,18.50,17.95,18.88,atviras,,,,,
