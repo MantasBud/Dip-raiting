@@ -228,3 +228,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,LDO.MI,LDO,46.0,D,Kritimas sustojo,,,taip,0.280,taip,ne,-0.14,78,bear_soft,Gynyba ir aviacija,2.97,50.41,48.90,51.42,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,CAP.PA,CAP,49.6,D,Neapibrėžtas kritimas,,,taip,0.195,ne,ne,-0.33,34,bear_soft,Technologijos,3.57,106.05,102.87,108.17,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,UCB.BR,UCB,28.5,D,"Kyla, prie viršūnės",,,taip,0.650,ne,ne,-0.06,28,bear_soft,Sveikata,2.94,210.10,203.80,214.30,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,BAS.DE,BAS,51.5,C,Kritimas sustojo,,,taip,0.484,taip,ne,+0.04,49,bear_soft,Medziagos,2.15,51.99,50.43,53.03,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,VNA.DE,VNA,35.8,D,Kritimas sustojo,,,taip,0.712,ne,ne,+0.45,16,bear_soft,Nekilnojamas turtas ir statyba,2.30,17.91,17.37,18.27,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,ML.PA,ML,33.0,D,"Kyla, prie viršūnės",,,taip,0.724,ne,ne,+0.08,37,bear_soft,Automobiliai,1.92,33.36,32.36,34.03,atviras,,,,,
