@@ -198,7 +198,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:22,ASML.AS,ASML,44.1,D,Neapibrėžtas kritimas,,,taip,0.211,taip,ne,-0.22,39,bear_soft,Technologijos,3.91,1417.80,1375.27,1446.16,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:22,SIE.DE,SIE,23.9,D,"Kyla, prie viršūnės",,,taip,0.700,ne,ne,+0.24,47,bear_soft,Pramone,2.31,266.20,258.21,271.52,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:22,SU.PA,SU,21.8,D,Trendo tęsinys,,,taip,0.794,ne,ne,+0.46,55,bear_soft,Technologijos,2.86,287.75,279.12,293.50,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:43,DBK.DE,DBK,23.7,D,Trendo tęsinys,,,taip,0.981,ne,ne,+0.95,33,bear_soft,Bankai ir finansai,2.40,34.17,33.14,34.85,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:43,DBK.DE,DBK,23.7,D,Trendo tęsinys,,,taip,0.981,ne,ne,+0.95,33,bear_soft,Bankai ir finansai,2.40,34.17,33.14,34.85,baigta,stop,2026-09-18 15:30:00+02:00,33.14,-3.00,+0.12
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:43,AIR.PA,AIR,58.9,C,Ramus atsitraukimas,,,taip,0.066,ne,ne,-0.50,59,bear_soft,Gynyba ir aviacija,2.17,195.82,189.95,199.74,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:43,RHM.DE,RHM,45.3,D,Ramus atsitraukimas,,,taip,0.389,taip,ne,+0.03,47,bear_soft,Gynyba ir aviacija,4.03,1018.20,987.65,1038.56,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:58,SAF.PA,SAF,26.2,D,"Kyla, prie viršūnės",,,taip,0.611,ne,ne,+0.04,68,bear_soft,Gynyba ir aviacija,2.30,331.60,321.65,338.23,atviras,,,,,
