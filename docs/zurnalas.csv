@@ -216,3 +216,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ENGI.PA,ENGI,26.6,D,Kritimas sustojo,,,taip,0.611,ne,ne,+0.19,77,bear_soft,Energetika,2.18,24.15,23.43,24.63,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ITX.MC,ITX,50.5,C,Neapibrėžtas kritimas,,,taip,0.444,taip,ne,-0.07,21,bear_soft,Vartojimas ir prabanga,2.04,52.16,50.60,53.20,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:10,ACA.PA,ACA,37.9,D,Ramus atsitraukimas,,,taip,0.407,taip,ne,+0.05,33,bear_soft,Bankai ir finansai,1.60,18.50,17.95,18.88,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:30,KER.PA,KER,49.4,D,Kritimas dar tęsiasi,,,taip,0.128,ne,ne,-0.26,64,bear_soft,Vartojimas ir prabanga,3.27,237.55,230.42,242.30,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:30,HEI.DE,HEI,40.7,D,Neapibrėžtas kritimas,,,taip,0.231,taip,ne,-0.17,28,bear_soft,Medziagos,3.19,145.45,141.09,148.36,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,11:30,SGO.PA,SGO,37.0,D,Atsigavimas po kritimo,,,taip,0.652,ne,ne,+0.11,15,bear_soft,Medziagos,2.63,70.10,68.00,71.50,atviras,,,,,
