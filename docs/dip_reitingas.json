@@ -4250,14 +4250,14 @@
    [
     "Eiffage consortium secures second contract for German offshore converter",
     "World Construction Network",
-    6.337024836666666,
+    6.6577671925,
     "teig",
     "https://www.worldconstructionnetwork.com/news/eiffage-consortium-contract-offshore-converter/"
    ],
    [
     "Abu Dhabi’s Oil Giant Inks Partnerships With German Energy, Industry Groups as Part of UAE’s $46.5 Billion Investment",
     "The Wall Street Journal",
-    166.78535818666666,
+    167.1061005386111,
     "teig",
     "https://www.wsj.com/business/energy-oil/abu-dhabis-oil-giant-inks-partnerships-with-german-energy-industry-groups-as-part-of-uaes-46-5-billion-investment-03dc5ace?siteid=yhoof2&yptr=yahoo"
    ]
@@ -6415,21 +6415,21 @@
    [
     "Fluence Energy Stock Plunges After Guidance Cut Raises Production Concerns",
     "Barrons.com",
-    25.35211574638889,
+    25.67280534333333,
     "neig",
     "https://www.barrons.com/articles/fluence-energy-stock-guidance-production-241f49af?siteid=yhoof2&yptr=yahoo"
    ],
    [
     "Siemens (XTRA:SIE) Stock Could Be 34% Undervalued Following Fresh Industrial AI News",
     "Simply Wall St.",
-    67.80739353333333,
+    68.12808312722223,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/siemens-xtra-sie-stock-could-200641003.html"
    ],
    [
     "DWT secures Riffgat offshore wind farm maintenance contract",
     "Power Technology",
-    199.58906020666666,
+    199.9097498,
     "teig",
     "https://www.power-technology.com/news/dwt-secures-riffgat-maintenance-contract/"
    ]
@@ -10741,7 +10741,7 @@
    [
     "Agentforce Triggers Renewal Surge, Sparking Salesforce AI Boom: Analyst",
     "Benzinga",
-    5.564166276666667,
+    5.884844063055556,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/agentforce-triggers-renewal-surge-sparking-102117886.html"
    ]
@@ -53866,29 +53866,29 @@
   "tag": "UCB",
   "sym": "UCB.BR",
   "name": "UCB.BR",
-  "price": 209.60000610351562,
+  "price": 208.10000610351562,
   "dayHigh": 211.3000030517578,
-  "dayLow": 208.60000610351562,
-  "vwap": 210.03244901028444,
-  "rsi": 49.79316500970058,
+  "dayLow": 208.10000610351562,
+  "vwap": 208.28089252986734,
+  "rsi": 32.932511056229444,
   "atrPct": 2.890407166393205,
-  "support": 207.9000040690104,
-  "resistance": 211.5,
-  "rvol": 0.26595662695171013,
+  "support": 206.10000610351562,
+  "resistance": 209.7000020345052,
+  "rvol": 2.4667686653047025,
   "sma20": 214.2150001525879,
   "sma50": 224.60400024414062,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Sveikata",
-  "day_chg": 1.6982047046821012,
+  "day_chg": 0.9704026883897722,
   "avgVolume": 220181.3,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.3251653996410818,
-  "ibs": 0.3703707889933144,
+  "ibs": 0.0,
   "gap_ret": 1.35855784087771,
-  "zscore": 0.6036451699878977,
+  "zscore": -0.2696318519220975,
   "rsi2": 27.84042622651019,
   "grafikas": [
    [
@@ -55922,6 +55922,10 @@
    [
     "2026-09-18 17:25:00+02:00",
     209.60000610351562
+   ],
+   [
+    "2026-09-18 17:35:00+02:00",
+    208.10000610351562
    ]
   ],
   "rizika": {
@@ -55933,25 +55937,25 @@
    "dienu": 127,
    "max_dd": -26.65454656427557
   },
-  "vol5m": 0.14251955397504582,
+  "vol5m": 0.14231643615496184,
   "res_intra": 211.3000030517578,
-  "sup_intra": 208.60000610351562,
+  "sup_intra": null,
   "res_list": [
+   209.7000020345052,
    211.3000030517578,
-   211.5,
    226.1999969482422
   ],
-  "m1h": -0.10702318079890832,
-  "m3h": -0.49584035892190115,
-  "pos1h": 76.92379923940092,
+  "m1h": -0.35588126305597567,
+  "m3h": -0.6781560498704393,
+  "pos1h": 0.0,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 2.4930739899099015,
+  "exp_move": 2.4895208791962147,
   "down_days": 2,
-  "dd5": 1.5500177959484869,
-  "chg3d": 1.9455252340732314,
-  "asOf": "2026-09-18 17:25:00+02:00",
-  "score": 30.65390245446943,
+  "dd5": 2.254573945785356,
+  "chg3d": 1.2159532712957695,
+  "asOf": "2026-09-18 17:35:00+02:00",
+  "score": 40.39218246900142,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -55971,6 +55975,10 @@
     "Kelyje kliūtis (0.8% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
+    "info",
+    "IBS 0.00 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
+   ],
+   [
     "warn",
     "Vienas nesėkmingas sandoris kainuotų 3.0% portfelio — tiek pat, kiek duotų 1 sėkmingi"
    ],
@@ -55984,28 +55992,28 @@
    ],
    [
     "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
+    "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
-  "dip": 0.8045418474630947,
-  "rng": 37.03707889933144,
-  "room": 0.8110672226806168,
-  "sup_d": 0.4770992227481748,
-  "vw_d": -0.2058933792404801,
-  "stop": 203.31200592041014,
-  "tp": 213.79200622558594,
-  "rr": 0.6666666666666652,
-  "shares": 85,
+  "dip": 1.5144329872339612,
+  "rng": 0.0,
+  "room": 0.7688591465940059,
+  "sup_d": 0.9610763773861379,
+  "vw_d": -0.08684734550279516,
+  "stop": 201.85700592041016,
+  "tp": 212.26200622558594,
+  "rr": 0.6666666666666666,
+  "shares": 86,
   "sector_chg": -0.8637901864540949,
-  "pos_value": 17816.000518798828,
-  "gross": 356.32001037597655,
-  "net": 352.32001037597655,
-  "real_risk": 534.4800155639659,
+  "pos_value": 17896.600524902344,
+  "gross": 357.93201049804685,
+  "net": 353.93201049804685,
+  "real_risk": 536.8980157470701,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 1.2465369949549507
+  "move_ratio": 1.2447604395981073
  },
  {
   "tag": "ML",
@@ -102062,12 +102070,12 @@
   "price": 12.699999809265137,
   "dayHigh": 12.84000015258789,
   "dayLow": 12.699999809265137,
-  "vwap": 12.771671386441472,
+  "vwap": 12.714997712693206,
   "rsi": 37.800168027956595,
   "atrPct": 2.78858891144226,
   "support": 12.43333371480306,
   "resistance": 14.0600004196167,
-  "rvol": 0.24852060333617904,
+  "rvol": 1.187623569343981,
   "sma20": 13.285500097274781,
   "sma50": 13.533800048828125,
   "sma200": null,
@@ -103848,7 +103856,7 @@
   "dd5": 4.797603718157358,
   "chg3d": -2.457762190843262,
   "asOf": "2026-09-18 17:35:00+02:00",
-  "score": 35.957574772676054,
+  "score": 34.60993661442858,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -103885,10 +103893,6 @@
    ],
    [
     "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
-   ],
-   [
-    "warn",
     "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
@@ -103896,7 +103900,7 @@
   "rng": 0.0,
   "room": 1.1023649246090406,
   "sup_d": 2.0997330587952696,
-  "vw_d": -0.5611761766155576,
+  "vw_d": -0.11795443276483795,
   "stop": 12.318999814987182,
   "tp": 12.95399980545044,
   "rr": 0.6666666666666666,
@@ -119141,12 +119145,12 @@
   "price": 21.68000030517578,
   "dayHigh": 22.280000686645508,
   "dayLow": 21.479999542236328,
-  "vwap": 21.72022952726629,
+  "vwap": 21.720174154165655,
   "rsi": 57.43691726579512,
   "atrPct": 3.6271752889983904,
   "support": 21.020000457763672,
   "resistance": 21.986666361490887,
-  "rvol": 8.52630713001375,
+  "rvol": 8.538059254210198,
   "sma20": 22.832000255584717,
   "sma50": 22.059400100708007,
   "sma200": null,
@@ -120991,7 +120995,7 @@
   "dd5": 6.309417126111851,
   "chg3d": -3.300623410347851,
   "asOf": "2026-09-18 17:35:00+02:00",
-  "score": 40.80212176954494,
+  "score": 40.80158507979085,
   "grade": "D",
   "fraze": "Rinka krenta",
   "spalva": "raus",
@@ -121035,7 +121039,7 @@
   "rng": 25.00005960455951,
   "room": 1.4145113099555324,
   "sup_d": 0.9225127312000354,
-  "vw_d": -0.18521545566545797,
+  "vw_d": -0.18496098928455632,
   "stop": 21.029600296020508,
   "tp": 22.113600311279296,
   "rr": 0.6666666666666649,
