@@ -208,7 +208,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,MC.PA,MC,44.5,D,Neapibrėžtas kritimas,,,taip,0.178,ne,ne,-0.11,49,bear_soft,Vartojimas ir prabanga,2.66,408.40,396.15,416.57,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,ENEL.MI,ENEL,36.0,D,Ramus atsitraukimas,,,taip,0.070,ne,ne,-0.18,74,bear_soft,Energetika,1.82,8.99,8.72,9.17,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:37,BNP.PA,BNP,43.4,D,Ramus atsitraukimas,,,taip,0.156,ne,ne,-0.13,53,neutral,Bankai ir finansai,2.00,102.74,99.66,104.79,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:37,RMS.PA,RMS,52.9,C,Kritimas sustojo,,,taip,0.571,ne,ne,+0.15,34,neutral,Vartojimas ir prabanga,2.78,1369.00,1327.93,1396.38,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:37,RMS.PA,RMS,52.9,C,Kritimas sustojo,,,taip,0.571,ne,ne,+0.15,34,neutral,Vartojimas ir prabanga,2.78,1369.00,1327.93,1396.38,baigta,stop,2026-09-18 16:15:00+02:00,1327.93,-3.00,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:37,MUV2.DE,MUV2,56.5,C,Kritimas sustojo,,,taip,0.444,taip,ne,-0.04,67,neutral,Draudimas,1.76,507.00,491.79,517.14,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:52,OR.PA,OR,57.1,C,Ramus atsitraukimas,,,taip,0.282,taip,ne,-0.32,54,bear_soft,Vartojimas ir prabanga,2.08,378.60,367.24,386.17,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:52,EL.PA,EL,39.8,D,Neapibrėžtas kritimas,,,taip,0.516,ne,ne,-0.01,36,bear_soft,Sveikata,2.82,139.85,135.65,142.65,atviras,,,,,
