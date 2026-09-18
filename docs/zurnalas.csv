@@ -243,3 +243,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:46,AENA.MC,AENA,41.2,D,Ramus atsitraukimas,,,taip,0.200,taip,ne,-0.16,72,bear_soft,Keliones ir laisvalaikis,2.02,25.34,24.58,25.85,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:46,SRG.MI,SRG,37.8,D,Ramus atsitraukimas,,,taip,0.333,taip,ne,-0.02,80,bear_soft,Energetika,1.78,5.58,5.41,5.69,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:46,EVD.DE,EVD,44.7,D,Neapibrėžtas kritimas,,,taip,0.333,taip,ne,-0.22,75,bear_soft,Keliones ir laisvalaikis,3.21,55.55,53.88,56.66,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:59,SY1.DE,SY1,48.8,D,Neapibrėžtas kritimas,,,taip,0.625,ne,ne,+0.02,93,bear_soft,Medziagos,2.04,89.50,86.81,91.29,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:59,BEI.DE,BEI,44.9,D,Kritimas sustojo,,,taip,0.538,ne,ne,+0.13,66,bear_soft,Maistas ir kasdienes prekes,2.21,74.66,72.42,76.15,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:59,HEN3.DE,HEN3,55.4,C,Kritimas dar tęsiasi,,,taip,0.000,ne,ne,-0.28,74,bear_soft,Maistas ir kasdienes prekes,1.68,73.46,71.26,74.93,atviras,,,,,
