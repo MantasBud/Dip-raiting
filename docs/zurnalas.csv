@@ -231,3 +231,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,BAS.DE,BAS,51.5,C,Kritimas sustojo,,,taip,0.484,taip,ne,+0.04,49,bear_soft,Medziagos,2.15,51.99,50.43,53.03,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,VNA.DE,VNA,35.8,D,Kritimas sustojo,,,taip,0.712,ne,ne,+0.45,16,bear_soft,Nekilnojamas turtas ir statyba,2.30,17.91,17.37,18.27,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:38,ML.PA,ML,33.0,D,"Kyla, prie viršūnės",,,taip,0.724,ne,ne,+0.08,37,bear_soft,Automobiliai,1.92,33.36,32.36,34.03,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:53,RNO.PA,RNO,53.8,C,Neapibrėžtas kritimas,,,taip,0.129,ne,ne,-0.36,13,bear_soft,Automobiliai,3.28,28.28,27.43,28.85,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:53,RYA.IR,RYA,35.5,D,Ramus atsitraukimas,,,taip,0.348,taip,ne,-0.19,59,bear_soft,Keliones ir laisvalaikis,2.71,22.59,21.91,23.04,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:53,TRN.MI,TRN,44.9,D,Ramus atsitraukimas,,,taip,0.053,ne,ne,-0.36,71,bear_soft,Energetika,1.83,9.32,9.04,9.51,atviras,,,,,
