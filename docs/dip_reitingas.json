@@ -2086,7 +2086,7 @@
    1435.800048828125,
    1562.199951171875
   ],
-  "m1h": -0.09303383947334583,
+  "m1h": -0.09303383947339113,
   "m3h": -1.2696191334417402,
   "pos1h": 53.334554036458336,
   "span_h": 3.0,
@@ -2100,19 +2100,19 @@
    [
     "Chasing ASML’s Dominance: Canon and Nikon Are Doing Something The Market Misses",
     "24/7 Wall St.",
-    13.724487518888889,
+    13.987763843333333,
     "neig",
     "https://247wallst.com/investing/2026/09/17/chasing-asmls-dominance-canon-and-nikon-are-doing-something-the-market-misses/"
    ],
    [
     "European Indexes Higher as Oil Falls Back",
     "The Wall Street Journal",
-    23.370876415833333,
+    23.634152741666664,
     "neig",
     "https://www.wsj.com/finance/stocks/nikkei-rises-1-0-led-by-pharma-machinery-stocks-2d9b558c?siteid=yhoof2&yptr=yahoo"
    ]
   ],
-  "score": 44.0988461824041,
+  "score": 44.09884618240384,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -2131,7 +2131,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -4249,7 +4249,7 @@
    291.70001220703125,
    291.70001220703125
   ],
-  "m1h": -0.3542809693225436,
+  "m1h": -0.3542809693225595,
   "m3h": -0.2201880279580762,
   "pos1h": 5.714634486607143,
   "span_h": 3.0,
@@ -4263,26 +4263,26 @@
    [
     "Fluence Energy Stock Plunges After Guidance Cut Raises Production Concerns",
     "Barrons.com",
-    16.15425703777778,
+    16.417516705,
     "neig",
     "https://www.barrons.com/articles/fluence-energy-stock-guidance-production-241f49af?siteid=yhoof2&yptr=yahoo"
    ],
    [
     "Siemens (XTRA:SIE) Stock Could Be 34% Undervalued Following Fresh Industrial AI News",
     "Simply Wall St.",
-    58.60953482388889,
+    58.87279449222222,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/siemens-xtra-sie-stock-could-200641003.html"
    ],
    [
     "DWT secures Riffgat offshore wind farm maintenance contract",
     "Power Technology",
-    190.39120149583331,
+    190.65446116527778,
     "teig",
     "https://www.power-technology.com/news/dwt-secures-riffgat-maintenance-contract/"
    ]
   ],
-  "score": 23.913164505886346,
+  "score": 23.913164505886304,
   "grade": "D",
   "fraze": "Kyla, prie viršūnės",
   "spalva": "gelt",
@@ -4301,7 +4301,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -6433,7 +6433,7 @@
    [
     "AI Power Stocks Rally After Generac's Deal For Amazon Data Centers",
     "Investor's Business Daily",
-    9.369866215,
+    9.633108893333334,
     "teig",
     "https://www.investors.com/news/generac-stock-recharged-amazon-deal-unlocks-data-center-opportunity/?src=A00220&yptr=yahoo"
    ]
@@ -6457,7 +6457,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -8588,14 +8588,14 @@
    [
     "Update: Market Chatter: Banco Santander, BBVA, Deutsche Bank Working on Several Significant Risk Transfer Deals",
     "MT Newswires",
-    87.51963793222221,
+    87.7828641713889,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/market-chatter-banco-santander-bbva-151205093.html"
    ],
    [
     "Google Cloud Launches AI Agents for Banking, With Deutsche Bank as Its Proving Ground",
     "Insider Monkey",
-    161.44852682555558,
+    161.71175306527778,
     "teig",
     "https://finance.yahoo.com/technology/ai/articles/google-cloud-launches-ai-agents-131621660.html"
    ]
@@ -8615,7 +8615,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -10751,28 +10751,28 @@
    [
     "“Delayed Isn’t as Good”: Why Boeing’s $10 Billion Cash Flow Target Just Got More Expensive",
     "24/7 Wall St.",
-    13.876074406666667,
+    14.139288185555555,
     "neig",
     "https://247wallst.com/investing/2026/09/17/delayed-isnt-as-good-why-boeings-10-billion-cash-flow-target-just-got-more-expensive/"
    ],
    [
     "Update: Market Chatter: US, Vietnam Firms Set to Announce Deals During To Lam Visit",
     "MT Newswires",
-    19.168296633055554,
+    19.431510411944444,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/market-chatter-us-vietnam-firms-113310368.html"
    ],
    [
     "What Does Airbus (ENXTPA:AIR) Hydrogen Push Mean For Its Long Term Growth?",
     "Simply Wall St.",
-    22.51718552388889,
+    22.780399303333333,
     "teig",
     "https://finance.yahoo.com/technology/ai/articles/does-airbus-enxtpa-air-hydrogen-081214790.html"
    ],
    [
     "United Airlines Sees Strong Demand, Fare Power as Fuel Costs Rise",
     "MarketBeat",
-    24.686907747777777,
+    24.950121527500002,
     "teig",
     "https://www.marketbeat.com/instant-alerts/event-united-airlines-sees-strong-demand-fare-power-as-fuel-costs-rise-2026-09-17/?utm_source=yahoofinance&utm_medium=yahoofinance"
    ]
@@ -10796,7 +10796,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -12923,7 +12923,7 @@
    1220.5999755859375
   ],
   "m1h": -0.40540645274208853,
-  "m3h": 0.5094010570503854,
+  "m3h": 0.5094010570503602,
   "pos1h": 4.545738283661282,
   "span_h": 3.0,
   "mom_partial": false,
@@ -12951,7 +12951,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -15073,7 +15073,7 @@
    358.3999938964844,
    358.3999938964844
   ],
-  "m1h": -0.2593084972834437,
+  "m1h": -0.2593084972834966,
   "m3h": 0.32635905018899763,
   "pos1h": 0.0,
   "span_h": 3.0,
@@ -15083,7 +15083,7 @@
   "dd5": 0.18061591856345074,
   "chg3d": 0.42398359925153384,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 26.17408902891827,
+  "score": 26.17408902891814,
   "grade": "D",
   "fraze": "Kyla, prie viršūnės",
   "spalva": "gelt",
@@ -15102,7 +15102,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -17220,7 +17220,7 @@
    79.36000061035156,
    79.36000061035156
   ],
-  "m1h": -0.17399618865042368,
+  "m1h": -0.1739961886504415,
   "m3h": 0.6520701240577487,
   "pos1h": 41.377495988003474,
   "span_h": 3.0,
@@ -17230,7 +17230,7 @@
   "dd5": 1.2374966465717092,
   "chg3d": 2.4023948341731467,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 21.367861829425454,
+  "score": 21.36786182942535,
   "grade": "D",
   "fraze": "Kyla, prie viršūnės",
   "spalva": "gelt",
@@ -17249,7 +17249,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -19400,7 +19400,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -21518,7 +21518,7 @@
    859.0,
    859.0
   ],
-  "m1h": 0.14487532253329344,
+  "m1h": 0.144875322533272,
   "m3h": -0.1985459988206985,
   "pos1h": 59.99908447265625,
   "span_h": 3.0,
@@ -21528,7 +21528,7 @@
   "dd5": 6.495040244786441,
   "chg3d": -4.6253943446686545,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 26.07095986500099,
+  "score": 26.070959865000955,
   "grade": "D",
   "fraze": "Atsigavimas su sektoriumi",
   "spalva": "gelt",
@@ -21547,7 +21547,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -23698,7 +23698,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -25820,7 +25820,7 @@
    922.0999755859375,
    1095.0
   ],
-  "m1h": -0.23959857621775665,
+  "m1h": -0.2395985762177918,
   "m3h": 0.0009343177639047559,
   "pos1h": 25.806991464939312,
   "span_h": 3.0,
@@ -25830,7 +25830,7 @@
   "dd5": 4.104984313484252,
   "chg3d": -1.6474628611890216,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 36.42405406177681,
+  "score": 36.4240540617767,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -25849,7 +25849,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -28004,7 +28004,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -30155,7 +30155,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -32310,7 +32310,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -34432,7 +34432,7 @@
    243.5,
    261.0
   ],
-  "m1h": -0.8436171223132662,
+  "m1h": -0.8436171223132883,
   "m3h": -0.6584623014825345,
   "pos1h": 11.764811479382708,
   "span_h": 3.0,
@@ -34442,7 +34442,7 @@
   "dd5": 1.4418125643666324,
   "chg3d": 0.272419899353388,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 40.39052638398904,
+  "score": 40.39052638398903,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -34461,7 +34461,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -36608,7 +36608,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -38751,7 +38751,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -40865,7 +40865,7 @@
    98.04000091552734,
    104.8499984741211
   ],
-  "m1h": 0.1944797061272873,
+  "m1h": 0.1944797061272516,
   "m3h": -0.8603272185481462,
   "pos1h": 100.0,
   "span_h": 3.0,
@@ -40875,7 +40875,7 @@
   "dd5": 3.4722221170993954,
   "chg3d": 0.5165289093355255,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 46.943228515667116,
+  "score": 46.943228515667045,
   "grade": "D",
   "fraze": "Kritimas sustojo",
   "spalva": "gelt",
@@ -40894,7 +40894,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -43045,7 +43045,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -45192,7 +45192,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -47347,7 +47347,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -49494,7 +49494,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -51645,7 +51645,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -53763,7 +53763,7 @@
    61.2599983215332,
    69.19999694824219
   ],
-  "m1h": -0.5601084026211883,
+  "m1h": -0.5601084026211441,
   "m3h": -0.261285068204203,
   "pos1h": 26.08677624268157,
   "span_h": 3.0,
@@ -53773,7 +53773,7 @@
   "dd5": 2.3300948939906108,
   "chg3d": 1.5819630938620992,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 50.78810228279748,
+  "score": 50.78810228279762,
   "grade": "C",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -53796,7 +53796,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -55955,7 +55955,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -58038,7 +58038,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -60173,7 +60173,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -62300,7 +62300,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -64399,7 +64399,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -66470,7 +66470,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -68580,8 +68580,8 @@
    5.874000072479248,
    5.874000072479248
   ],
-  "m1h": 0.4135045855271071,
-  "m3h": 0.4979074883854761,
+  "m1h": 0.4135045855271518,
+  "m3h": 0.49790748838552995,
   "pos1h": 76.47083572921196,
   "span_h": 3.0,
   "mom_partial": false,
@@ -68590,7 +68590,7 @@
   "dd5": -0.7524237799434869,
   "chg3d": 2.2545467723499644,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 17.273053181850536,
+  "score": 17.273053181850614,
   "grade": "D",
   "fraze": "Kyla, prie viršūnės",
   "spalva": "gelt",
@@ -68613,7 +68613,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -70764,7 +70764,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -72827,7 +72827,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -74926,7 +74926,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -76937,7 +76937,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -79076,7 +79076,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -81182,7 +81182,7 @@
    41.255001068115234,
    50.18000030517578
   ],
-  "m1h": 0.1911381259390284,
+  "m1h": 0.1911381259389951,
   "m3h": -0.18309205942426623,
   "pos1h": 42.37314436455801,
   "span_h": 3.0,
@@ -81192,7 +81192,7 @@
   "dd5": 6.362152300033097,
   "chg3d": -3.7374252768557095,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 48.57097856012592,
+  "score": 48.570978560125866,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -81207,7 +81207,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -82902,7 +82902,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -84645,7 +84645,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -86663,7 +86663,7 @@
    96.58000183105469,
    101.25
   ],
-  "m1h": -0.6564686273323723,
+  "m1h": -0.6564686273324144,
   "m3h": 0.03278197447384619,
   "pos1h": 28.57142857142857,
   "span_h": 3.0,
@@ -86673,7 +86673,7 @@
   "dd5": 3.9677767576226715,
   "chg3d": -1.953528155610778,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 45.73319263714723,
+  "score": 45.733192637147106,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -86692,7 +86692,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -88587,7 +88587,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -90578,7 +90578,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -92731,7 +92731,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -94888,7 +94888,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -97018,7 +97018,7 @@
    145.3000030517578,
    164.4499969482422
   ],
-  "m1h": -0.7892287089992648,
+  "m1h": -0.7892287089992893,
   "m3h": -1.2758485080391722,
   "pos1h": 24.99976158005665,
   "span_h": 3.0,
@@ -97028,7 +97028,7 @@
   "dd5": 5.107530878794457,
   "chg3d": -3.5519106318535574,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 44.00326275241285,
+  "score": 44.00326275241282,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
@@ -97045,7 +97045,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -99180,7 +99180,7 @@
    46.400001525878906
   ],
   "m1h": -0.44234023012709534,
-  "m3h": -1.4902489894950082,
+  "m3h": -1.4902489894949704,
   "pos1h": 45.455085904524104,
   "span_h": 3.0,
   "mom_partial": false,
@@ -99210,7 +99210,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -101363,7 +101363,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -103534,7 +103534,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -105621,7 +105621,7 @@
    23.829999923706055
   ],
   "m1h": -0.2447173931755342,
-  "m3h": -0.17667729079893105,
+  "m3h": -0.176677290798987,
   "pos1h": 4.999141696389403,
   "span_h": 3.0,
   "mom_partial": false,
@@ -105653,7 +105653,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -107736,7 +107736,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -109879,7 +109879,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -111976,7 +111976,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -113971,7 +113971,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -116081,8 +116081,8 @@
    34.88999938964844,
    38.88999938964844
   ],
-  "m1h": -0.3438694506673385,
-  "m3h": -0.9868120050585495,
+  "m1h": -0.34386945066735397,
+  "m3h": -0.9868120050585026,
   "pos1h": 15.99884033203125,
   "span_h": 3.0,
   "mom_partial": false,
@@ -116091,7 +116091,7 @@
   "dd5": 10.196600389929038,
   "chg3d": -8.737353526908045,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 31.466886629388444,
+  "score": 31.466886629388426,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
@@ -116112,7 +116112,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -118170,7 +118170,7 @@
    72.25,
    72.25
   ],
-  "m1h": -0.6373403403720895,
+  "m1h": -0.6373403403720616,
   "m3h": -1.0752898361070464,
   "pos1h": 29.999923706054688,
   "span_h": 3.0,
@@ -118180,7 +118180,7 @@
   "dd5": -0.1627314448812878,
   "chg3d": 5.393831556298463,
   "asOf": "2026-09-17 17:25:00+02:00",
-  "score": 29.363189381535328,
+  "score": 29.36318938153537,
   "grade": "D",
   "fraze": "Krintantis peilis",
   "spalva": "raus",
@@ -118201,7 +118201,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -120136,7 +120136,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -122219,7 +122219,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
@@ -123978,7 +123978,7 @@
    59.349998474121094
   ],
   "m1h": -1.1181603490504102,
-  "m3h": -1.224855104522845,
+  "m3h": -1.2248551045228726,
   "pos1h": 13.333638509114584,
   "span_h": 3.0,
   "mom_partial": false,
@@ -124012,7 +124012,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "info",
@@ -125855,7 +125855,7 @@
    ],
    [
     "info",
-    "Iki pirkimo lango ~7.8 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
+    "Iki pirkimo lango ~7.5 val. (16:30–17:25). Dabartinis IBS dar keisis, nes dienos diapazonas nebaigtas"
    ],
    [
     "warn",
