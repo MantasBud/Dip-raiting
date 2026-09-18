@@ -225,3 +225,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:00,BAMI.MI,BAMI,59.1,C,Neapibrėžtas kritimas,,,taip,0.167,ne,ne,-0.30,53,bear_soft,Bankai ir finansai,1.83,16.00,15.52,16.33,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:00,HO.PA,HO,61.6,C,Kritimas dar tęsiasi,,,taip,0.125,ne,ne,-0.35,96,bear_soft,Gynyba ir aviacija,2.23,237.40,230.28,242.15,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:00,MONC.MI,MONC,54.3,C,Neapibrėžtas kritimas,,,taip,0.123,ne,ne,-0.30,40,bear_soft,Vartojimas ir prabanga,2.73,43.95,42.63,44.83,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,LDO.MI,LDO,46.0,D,Kritimas sustojo,,,taip,0.280,taip,ne,-0.14,78,bear_soft,Gynyba ir aviacija,2.97,50.41,48.90,51.42,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,CAP.PA,CAP,49.6,D,Neapibrėžtas kritimas,,,taip,0.195,ne,ne,-0.33,34,bear_soft,Technologijos,3.57,106.05,102.87,108.17,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,12:21,UCB.BR,UCB,28.5,D,"Kyla, prie viršūnės",,,taip,0.650,ne,ne,-0.06,28,bear_soft,Sveikata,2.94,210.10,203.80,214.30,atviras,,,,,
