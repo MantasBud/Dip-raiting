@@ -237,3 +237,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:12,ENR.DE,ENR,37.7,D,Kritimas dar tęsiasi,,,taip,0.096,ne,ne,-0.29,59,bear_soft,Pramone,4.22,141.82,137.57,144.66,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:12,ORA.PA,ORA,63.0,C,Neapibrėžtas kritimas,,,taip,0.198,ne,ne,-0.50,96,bear_soft,Telekomai ir ziniasklaida,1.83,15.20,14.74,15.50,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:12,MTX.DE,MTX,30.5,D,Kritimas sustojo,,,taip,0.600,ne,ne,+0.14,66,bear_soft,Gynyba ir aviacija,2.80,344.40,334.07,351.29,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:30,FME.DE,FME,42.7,D,Neapibrėžtas kritimas,,,taip,0.400,taip,ne,-0.12,96,bear_soft,Sveikata,2.02,38.73,37.57,39.50,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:30,PHIA.AS,PHIA,49.3,D,Ramus atsitraukimas,,,taip,0.368,taip,ne,-0.14,71,bear_soft,Sveikata,2.07,21.55,20.90,21.98,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,13:30,SHL.DE,SHL,36.5,D,Kritimas sustojo,,,taip,0.743,ne,ne,+0.14,24,bear_soft,Sveikata,1.89,38.51,37.35,39.28,atviras,,,,,
