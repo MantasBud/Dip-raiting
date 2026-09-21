@@ -4252,14 +4252,14 @@
    [
     "US Diesel Tops Record as Global Crunch Feeds Inflation",
     "Bloomberg",
-    1.034665305,
+    1.3897846897222221,
     "teig",
     "https://finance.yahoo.com/video/us-diesel-tops-record-global-150000350.html"
    ],
    [
     "Agentforce Triggers Renewal Surge, Sparking Salesforce AI Boom: Analyst",
     "Benzinga",
-    77.67994309027777,
+    78.03506247444443,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/agentforce-triggers-renewal-surge-sparking-102117886.html"
    ]
@@ -6411,7 +6411,7 @@
    [
     "Is Boeing's Recovery Creating a New Multi-Year Growth Opportunity?",
     "Zacks",
-    74.73469977111111,
+    75.08981816722222,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/boeings-recovery-creating-multi-growth-131800875.html"
    ]
@@ -8567,7 +8567,7 @@
    [
     "Deutsche Bank (XTRA:DBK) Stock May Be 45% Undervalued Despite Risk Transfer Deal Chatter",
     "Simply Wall St.",
-    57.8719649775,
+    58.22707610083333,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/deutsche-bank-xtra-dbk-stock-060946777.html"
    ]
@@ -10723,7 +10723,7 @@
    [
     "Germany's missile stockpiles 'worryingly low', Rheinmetall CEO tells Euronews",
     "Euronews",
-    100.36700227722221,
+    100.72211359722223,
     "neig",
     "https://www.euronews.com/2026/09/17/rheinmetall-ceo-papperger-robots-are-coming"
    ]
@@ -83111,12 +83111,12 @@
   "price": 12.84000015258789,
   "dayHigh": 12.9399995803833,
   "dayLow": 12.739999771118164,
-  "vwap": 12.8498133425106,
+  "vwap": 12.842675403311251,
   "rsi": 41.66055720190359,
   "atrPct": 2.616348852645208,
   "support": 12.74666659037272,
   "resistance": 14.0600004196167,
-  "rvol": 0.5321245141214347,
+  "rvol": 1.9519063667589074,
   "sma20": 13.209000062942504,
   "sma50": 13.493600044250488,
   "sma200": null,
@@ -84885,7 +84885,7 @@
   "dd5": 0.0,
   "chg3d": 4.560264102556336,
   "asOf": "2026-09-21 17:35:00+02:00",
-  "score": 28.750986804524388,
+  "score": 28.51664003503123,
   "grade": "D",
   "fraze": "Kritimas dar tęsiasi",
   "spalva": "gelt",
@@ -84913,17 +84913,13 @@
    [
     "warn",
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
    ]
   ],
   "dip": 0.7727931301250323,
   "rng": 50.000238418806475,
   "room": 0.778811733699671,
   "sup_d": 0.7788191610696482,
-  "vw_d": -0.07636834606962896,
+  "vw_d": -0.020830945572840015,
   "stop": 12.454800148010253,
   "tp": 13.096800155639649,
   "rr": 0.6666666666666666,
@@ -92470,12 +92466,12 @@
   "price": 9.609999656677246,
   "dayHigh": 9.654000282287598,
   "dayLow": 9.489999771118164,
-  "vwap": 9.578648379618526,
+  "vwap": 9.578988056485912,
   "rsi": 44.61226373253323,
   "atrPct": 2.042554510134181,
   "support": 9.598666508992514,
   "resistance": 9.66933314005534,
-  "rvol": 0.535325439084479,
+  "rvol": 0.5408336532746507,
   "sma20": 9.849550008773804,
   "sma50": 9.816059970855713,
   "sma200": null,
@@ -94492,7 +94488,7 @@
   "dd5": 2.4167336149681162,
   "chg3d": -0.5793576185808033,
   "asOf": "2026-09-21 17:25:00+02:00",
-  "score": 33.5366646353065,
+  "score": 33.54836935717921,
   "grade": "D",
   "fraze": "Atsigavimas su sektoriumi",
   "spalva": "gelt",
@@ -94534,7 +94530,7 @@
   "rng": 73.17043386231079,
   "room": 0.4578629259344346,
   "sup_d": 1.248698125350123,
-  "vw_d": 0.3273037678826295,
+  "vw_d": 0.3237460993631412,
   "stop": 9.321699666976928,
   "tp": 9.802199649810792,
   "rr": 0.6666666666666666,
@@ -96653,29 +96649,29 @@
   "tag": "UMI",
   "sym": "UMI.BR",
   "name": "UMI.BR",
-  "price": 21.559999465942383,
+  "price": 21.579999923706055,
   "dayHigh": 22.0,
   "dayLow": 21.479999542236328,
-  "vwap": 21.762230388417485,
-  "rsi": 39.36464216058384,
+  "vwap": 21.62153719649645,
+  "rsi": 42.08711619601973,
   "atrPct": 3.615002805018761,
   "support": 21.479999542236328,
   "resistance": 21.81333351135254,
-  "rvol": 0.4256383874286783,
+  "rvol": 1.7480690719505565,
   "sma20": 22.757000350952147,
   "sma50": 22.13540012359619,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Medziagos",
-  "day_chg": -0.5535093982667058,
+  "day_chg": -0.4612563656000177,
   "avgVolume": 410466.75,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5457245305075036,
-  "ibs": 0.1538458716942376,
+  "ibs": 0.19230825661152479,
   "gap_ret": 0.9225039334666131,
-  "zscore": -1.3633672747398993,
+  "zscore": -1.2616250373695517,
   "rsi2": 27.169395794932413,
   "grafikas": [
    [
@@ -98465,6 +98461,10 @@
    [
     "2026-09-21 17:25:00+02:00",
     21.559999465942383
+   ],
+   [
+    "2026-09-21 17:35:00+02:00",
+    21.579999923706055
    ]
   ],
   "rizika": {
@@ -98484,17 +98484,17 @@
    22.0,
    24.0
   ],
-  "m1h": 0.17081659586036052,
-  "m3h": -1.3723135073545758,
-  "pos1h": 0.0,
+  "m1h": 0.11592822122412626,
+  "m3h": -1.3279244889365973,
+  "pos1h": 14.285908911322734,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.6019465148360408,
   "down_days": 1,
-  "dd5": 3.9215732939918606,
-  "chg3d": -0.27752715523549976,
-  "asOf": "2026-09-21 17:25:00+02:00",
-  "score": 63.103574027660876,
+  "dd5": 3.832444696453207,
+  "chg3d": -0.18501810349033318,
+  "asOf": "2026-09-21 17:35:00+02:00",
+  "score": 59.42690816679809,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -98509,7 +98509,7 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.2% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (1.1% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
@@ -98517,7 +98517,7 @@
    ],
    [
     "info",
-    "IBS 0.15 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
+    "IBS 0.19 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
    ],
    [
     "warn",
@@ -98529,31 +98529,27 @@
    ],
    [
     "info",
-    "Izoliuotas atsitraukimas: akcija -0.6%, sektorius +0.1% — būtent toks triukšmas, kurio ieškai"
-   ],
-   [
-    "warn",
-    "Apyvarta mažesnė nei įprasta — atšokimas gali neįvykti"
+    "Izoliuotas atsitraukimas: akcija -0.5%, sektorius +0.1% — būtent toks triukšmas, kurio ieškai"
    ],
    [
     "info",
-    "Kritimas sustojo: po -1.4% per 3 val. pastarąją valandą jau +0.2%"
+    "Kritimas sustojo: po -1.3% per 3 val. pastarąją valandą jau +0.1%"
    ]
   ],
-  "dip": 2.0000024275346235,
-  "rng": 15.38458716942376,
-  "room": 1.175018792604052,
-  "sup_d": 0.37105716923800447,
-  "vw_d": -0.9292747979671057,
-  "stop": 20.91319948196411,
-  "tp": 21.99119945526123,
-  "rr": 0.6666666666666666,
+  "dip": 1.9090912558815696,
+  "rng": 19.23082566115248,
+  "room": 1.0812492514893979,
+  "sup_d": 0.46339379899568106,
+  "vw_d": -0.19211063678269424,
+  "stop": 20.93259992599487,
+  "tp": 22.011599922180178,
+  "rr": 0.6666666666666685,
   "shares": 834,
   "sector_chg": 0.08686588276711099,
-  "pos_value": 17981.039554595947,
-  "gross": 359.62079109191893,
-  "net": 355.62079109191893,
-  "real_risk": 539.4311866378795,
+  "pos_value": 17997.71993637085,
+  "gross": 359.954398727417,
+  "net": 355.954398727417,
+  "real_risk": 539.9315980911267,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
