@@ -321,3 +321,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:13,ITX.MC,ITX,40.2,D,Atsigavimas po kritimo,,,taip,0.684,ne,ne,+0.10,5,neutral,Vartojimas ir prabanga,1.99,52.12,50.56,53.16,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:13,RNO.PA,RNO,61.8,C,Neapibrėžtas kritimas,,,taip,0.153,ne,ne,-0.60,17,neutral,Automobiliai,3.62,27.34,26.52,27.89,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:13,TEF.MC,TEF,57.9,C,Neapibrėžtas kritimas,,,taip,0.326,taip,ne,-0.29,15,neutral,Telekomai ir ziniasklaida,2.00,3.56,3.45,3.63,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:35,RYA.IR,RYA,42.4,D,Ramus atsitraukimas,,,taip,0.187,ne,ne,-0.17,80,neutral,Keliones ir laisvalaikis,2.42,22.74,22.06,23.19,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:35,AMS.MC,AMS,44.9,D,Trendo tęsinys,,,taip,0.679,ne,ne,+0.11,37,neutral,Keliones ir laisvalaikis,2.45,55.36,53.70,56.47,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,15:35,SHL.DE,SHL,59.9,C,Neapibrėžtas kritimas,,,taip,0.148,ne,ne,-0.18,9,neutral,Sveikata,1.90,37.71,36.58,38.46,atviras,,,,,
