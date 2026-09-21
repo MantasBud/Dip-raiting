@@ -4252,14 +4252,14 @@
    [
     "US Diesel Tops Record as Global Crunch Feeds Inflation",
     "Bloomberg",
-    1.6889730674999999,
+    1.9494780119444444,
     "teig",
     "https://finance.yahoo.com/video/us-diesel-tops-record-global-150000350.html"
    ],
    [
     "Agentforce Triggers Renewal Surge, Sparking Salesforce AI Boom: Analyst",
     "Benzinga",
-    78.33425085194445,
+    78.59475579694444,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/agentforce-triggers-renewal-surge-sparking-102117886.html"
    ]
@@ -6411,7 +6411,7 @@
    [
     "Is Boeing's Recovery Creating a New Multi-Year Growth Opportunity?",
     "Zacks",
-    75.38903748638889,
+    75.64953366277778,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/boeings-recovery-creating-multi-growth-131800875.html"
    ]
@@ -8567,7 +8567,7 @@
    [
     "Deutsche Bank (XTRA:DBK) Stock May Be 45% Undervalued Despite Risk Transfer Deal Chatter",
     "Simply Wall St.",
-    58.52630248611111,
+    58.78681138388889,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/deutsche-bank-xtra-dbk-stock-060946777.html"
    ]
@@ -10723,7 +10723,7 @@
    [
     "Germany's missile stockpiles 'worryingly low', Rheinmetall CEO tells Euronews",
     "Euronews",
-    101.02134452194444,
+    101.28186439000001,
     "neig",
     "https://www.euronews.com/2026/09/17/rheinmetall-ceo-papperger-robots-are-coming"
    ]
@@ -25814,12 +25814,12 @@
   "price": 51.939998626708984,
   "dayHigh": 52.36000061035156,
   "dayLow": 51.599998474121094,
-  "vwap": 52.04800322948951,
+  "vwap": 52.04840038785545,
   "rsi": 41.080697784365,
   "atrPct": 1.9902207509473187,
   "support": 51.540000915527344,
   "resistance": 52.24666849772136,
-  "rvol": 0.6592618998870265,
+  "rvol": 0.6557739616472298,
   "sma20": 55.863000106811526,
   "sma50": 56.235599975585934,
   "sma200": null,
@@ -27900,7 +27900,7 @@
   "dd5": 4.6272502756654665,
   "chg3d": -1.2171989008332553,
   "asOf": "2026-09-21 17:25:00+02:00",
-  "score": 46.55252384801107,
+  "score": 46.55636383123872,
   "grade": "D",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -27942,7 +27942,7 @@
   "rng": 44.736736435275816,
   "room": 0.5904310341176566,
   "sup_d": 0.6546017743116634,
-  "vw_d": -0.20750959898367763,
+  "vw_d": -0.20827107142328424,
   "stop": 50.38179866790772,
   "tp": 52.97879859924316,
   "rr": 0.6666666666666666,
