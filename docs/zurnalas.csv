@@ -342,3 +342,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:22,BAS.DE,BAS,40.2,D,Kritimas dar tęsiasi,,,taip,0.604,ne,ne,-0.17,22,bear_soft,Medziagos,2.09,51.77,50.22,52.81,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:22,NDA.DE,NDA,37.2,D,Kritimas dar tęsiasi,,,taip,0.455,taip,ne,-0.55,50,bear_soft,Pramone,3.62,169.70,164.61,173.09,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:22,PAH3.DE,PAH3,36.7,D,Neapibrėžtas kritimas,,,taip,0.533,ne,ne,-0.01,27,bear_soft,Automobiliai,2.89,27.54,26.71,28.09,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:40,HEN3.DE,HEN3,42.2,D,Kritimas sustojo,,,taip,0.698,ne,ne,+0.31,25,bear_soft,Maistas ir kasdienes prekes,1.66,72.74,70.56,74.19,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:40,BZU.MI,BZU,42.9,D,Neapibrėžtas kritimas,,,taip,0.517,ne,ne,+0.16,13,bear_soft,Medziagos,2.92,37.47,36.35,38.22,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,17:40,TUI1.DE,TUI1,32.1,D,Atsigavimas su sektoriumi,,,taip,0.625,ne,ne,+0.47,17,bear_soft,Keliones ir laisvalaikis,2.49,6.57,6.37,6.70,atviras,,,,,
