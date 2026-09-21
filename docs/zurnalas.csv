@@ -357,3 +357,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,18:48,RI.PA,RI,34.2,D,Atsigavimas su sektoriumi,,,taip,0.744,ne,ne,+0.33,10,bear_soft,Vartojimas ir prabanga,2.45,59.60,57.81,60.79,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,18:48,IMCD.AS,IMCD,45.3,D,Neapibrėžtas kritimas,,,taip,0.536,ne,ne,-0.16,3,bear_soft,Medziagos,2.59,94.18,91.35,96.06,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,18:48,GRF.MC,GRF,32.8,D,Atsigavimas su sektoriumi,,,taip,0.756,ne,ne,+0.37,27,bear_soft,Sveikata,2.04,9.61,9.33,9.81,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,19:01,MRL.MC,MRL,24.4,D,Atsigavimas po kritimo,,,taip,0.875,ne,ne,+0.38,27,bear_soft,Nekilnojamas turtas ir statyba,2.12,12.58,12.20,12.83,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,19:01,AF.PA,AF,26.9,D,"Kyla, prie viršūnės",,,taip,0.720,ne,ne,+0.34,51,bear_soft,Keliones ir laisvalaikis,2.81,11.52,11.17,11.75,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-21,19:01,UMI.BR,UMI,63.1,C,Neapibrėžtas kritimas,,,taip,0.154,ne,ne,-0.93,27,bear_soft,Medziagos,3.62,21.56,20.91,21.99,atviras,,,,,
