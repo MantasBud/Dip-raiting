@@ -414,3 +414,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:11,HNR1.DE,HNR1,41.1,D,Kritimas sustojo,,,taip,0.478,taip,ne,+0.23,61,neutral,Draudimas,1.59,253.40,245.80,258.47,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:11,SHL.DE,SHL,55.1,C,Neapibrėžtas kritimas,,,taip,0.205,taip,ne,-0.04,37,neutral,Sveikata,1.85,37.80,36.67,38.56,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:11,CA.PA,CA,56.3,C,Neapibrėžtas kritimas,,,taip,0.316,taip,ne,+0.02,12,neutral,Maistas ir kasdienes prekes,1.73,16.37,15.88,16.70,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:29,URW.PA,URW,24.7,D,"Kyla, prie viršūnės",,,taip,0.667,ne,ne,+0.31,46,neutral,Nekilnojamas turtas ir statyba,1.42,93.98,91.16,95.86,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:29,SRG.MI,SRG,36.2,D,Kritimas sustojo,,,taip,0.500,taip,ne,+0.22,85,neutral,Energetika,1.65,5.62,5.45,5.73,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:29,NDA.DE,NDA,26.3,D,"Kyla, prie viršūnės",,,taip,0.612,ne,ne,+0.27,72,neutral,Pramone,3.56,172.00,166.84,175.44,atviras,,,,,
