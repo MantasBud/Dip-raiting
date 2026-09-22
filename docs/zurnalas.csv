@@ -366,3 +366,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:21,ENR.DE,ENR,22.9,D,"Kyla, prie viršūnės",,,taip,0.903,ne,ne,+0.49,59,bear_soft,Pramone,3.94,143.10,138.81,145.96,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:21,MC.PA,MC,33.2,D,Atsigavimas su sektoriumi,,,taip,0.754,ne,ne,+0.17,17,bear_soft,Vartojimas ir prabanga,2.62,406.90,394.69,415.04,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:21,BNP.PA,BNP,54.0,C,Neapibrėžtas kritimas,,,taip,0.284,taip,ne,-0.41,24,bear_soft,Bankai ir finansai,2.13,101.10,98.07,103.12,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:43,ENEL.MI,ENEL,25.8,D,"Kyla, prie viršūnės",,,taip,0.860,ne,ne,+0.33,37,bear_soft,Energetika,1.84,8.92,8.65,9.10,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:43,AIR.PA,AIR,41.4,D,Atsigavimas su sektoriumi,,,taip,0.625,ne,ne,+0.24,15,bear_soft,Gynyba ir aviacija,2.16,194.86,189.01,198.76,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,09:43,DBK.DE,DBK,58.3,C,Neapibrėžtas kritimas,,,taip,0.138,ne,ne,-0.39,22,bear_soft,Bankai ir finansai,2.51,33.22,32.23,33.89,atviras,,,,,
