@@ -435,3 +435,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,G.MI,G,68.5,B,Neapibrėžtas kritimas,,,taip,0.098,ne,ne,-0.43,58,neutral,Draudimas,1.55,44.88,43.53,45.78,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,DIA.MI,DIA,70.2,B,Neapibrėžtas kritimas,,,taip,0.223,taip,ne,-0.76,100,neutral,Sveikata,2.12,76.22,73.93,77.74,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,TEP.PA,TEP,26.1,D,Trendo tęsinys,,,taip,0.722,ne,ne,+0.68,53,neutral,Technologijos,3.02,70.50,68.39,71.91,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:41,HO.PA,HO,32.5,D,Atsigavimas po kritimo,,,taip,0.724,ne,ne,+0.43,28,neutral,Gynyba ir aviacija,2.22,237.70,230.57,242.45,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:41,SW.PA,SW,48.5,D,Neapibrėžtas kritimas,,,taip,0.538,ne,ne,-0.18,44,neutral,Maistas ir kasdienes prekes,1.83,57.30,55.58,58.45,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:41,COL.MC,COL,38.3,D,Ramus atsitraukimas,,,taip,0.444,taip,ne,+0.05,70,neutral,Nekilnojamas turtas ir statyba,1.49,5.09,4.94,5.20,atviras,,,,,
