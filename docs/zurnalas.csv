@@ -423,3 +423,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,ZAL.DE,ZAL,25.8,D,"Kyla, prie viršūnės",,,taip,0.712,ne,ne,+0.74,34,neutral,Pramone,3.09,22.35,21.55,22.80,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,PUM.DE,PUM,38.5,D,Ramus atsitraukimas,,,taip,0.477,taip,ne,+0.04,78,neutral,Pramone,3.34,22.33,21.66,22.78,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,BNR.DE,BNR,51.4,C,Atsigavimas su sektoriumi,,,taip,0.553,ne,ne,-0.02,9,neutral,Pramone,2.35,59.66,57.87,60.85,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,ML.PA,ML,23.3,D,"Kyla, prie viršūnės",,,taip,0.698,ne,ne,+0.22,59,neutral,Automobiliai,1.80,33.79,32.78,34.47,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,EVD.DE,EVD,30.9,D,Neapibrėžtas kritimas,,,taip,0.680,ne,ne,+0.22,59,neutral,Keliones ir laisvalaikis,3.10,56.05,54.37,57.17,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,R3NK.DE,R3NK,57.6,C,Kritimas dar tęsiasi,,,taip,0.331,taip,ne,-0.35,63,neutral,Gynyba ir aviacija,3.99,41.53,40.28,42.36,atviras,,,,,
