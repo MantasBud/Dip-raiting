@@ -402,3 +402,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,12:56,BN.PA,BN,31.2,D,Atsigavimas su sektoriumi,,,taip,0.706,ne,ne,+0.12,15,neutral,Maistas ir kasdienes prekes,1.71,60.64,58.82,61.85,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,12:56,EOAN.DE,EOAN,42.2,D,Kritimas sustojo,,,taip,0.531,ne,ne,+0.13,25,neutral,Energetika,1.94,17.41,16.89,17.76,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,12:56,PUB.PA,PUB,31.8,D,Trendo tęsinys,,,taip,0.702,ne,ne,+0.19,35,neutral,Telekomai ir ziniasklaida,2.26,98.20,95.25,100.16,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,13:19,NOKIA.HE,NOKIA,50.9,C,Ramus atsitraukimas,,,taip,0.402,taip,ne,-0.09,93,neutral,Technologijos,4.95,9.44,9.16,9.63,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,13:19,UCB.BR,UCB,36.4,D,Kritimas dar tęsiasi,,,taip,0.333,taip,ne,-0.04,86,neutral,Sveikata,2.67,211.50,205.16,215.73,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,13:19,RI.PA,RI,32.8,D,Atsigavimas po kritimo,,,taip,0.552,ne,ne,-0.01,33,neutral,Vartojimas ir prabanga,2.36,60.00,58.20,61.20,atviras,,,,,
