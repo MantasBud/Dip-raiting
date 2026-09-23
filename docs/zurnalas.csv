@@ -1,6 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,12:49,SIE.DE,SIE,40.8,D,Atsigavimas su sektoriumi,,,taip,0.643,,,,,bear_soft,Pramone,2.40,261.85,253.99,267.09,baigta,salyga (IBS),2026-09-11 13:40:00+02:00,263.40,+0.59,+0.73
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,12:49,PRX.AS,PRX,34.5,D,Atsigavimas su sektoriumi,,,taip,0.760,,,,,bear_soft,Technologijos,2.62,35.67,34.60,36.38,baigta,salyga (IBS),2026-09-11 12:50:00+02:00,35.87,+0.56,+0.56
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,12:49,DSY.PA,DSY,56.0,C,Neapibrėžtas kritimas,,,taip,0.038,,,,,bear_soft,Technologijos,3.22,20.06,19.46,20.46,baigta,salyga (IBS),2026-09-11 12:50:00+02:00,19.98,-0.40,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:04,HEI.DE,HEI,44.1,D,Atsigavimas po kritimo,,,taip,0.604,,,,,bear_soft,Medziagos,3.09,155.20,150.54,158.30,baigta,salyga (IBS),2026-09-11 13:25:00+02:00,154.90,-0.19,+0.03
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:04,AMS.MC,AMS,36.3,D,Neapibrėžtas kritimas,,,taip,0.542,,,,,bear_soft,Keliones ir laisvalaikis,2.62,54.76,53.12,55.86,baigta,salyga (IBS),2026-09-11 13:25:00+02:00,54.84,+0.15,+0.29
@@ -499,3 +497,5 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,15:51,FRVIA.PA,FRVIA,68.3,B,Neapibrėžtas kritimas,,,taip,0.015,ne,ne,-1.39,50,neutral,Automobiliai,4.54,8.89,8.57,9.07,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,15:51,RAA.DE,RAA,29.7,D,Kritimas sustojo,,,taip,0.692,ne,ne,+0.14,76,neutral,Pramone,2.03,577.50,560.17,589.05,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,15:51,COL.MC,COL,64.9,B,Kritimas dar tęsiasi,,,taip,0.000,ne,ne,-0.22,35,neutral,Nekilnojamas turtas ir statyba,1.46,5.06,4.91,5.16,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,16:10,RHM.DE,RHM,40.3,D,Atsigavimas po kritimo,,,taip,0.654,ne,ne,+0.40,6,neutral,Gynyba ir aviacija,3.70,1006.00,975.82,1026.12,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,16:10,R3NK.DE,R3NK,51.4,C,Kritimas sustojo,,,taip,0.465,taip,ne,+0.31,32,neutral,Gynyba ir aviacija,3.97,41.24,40.00,42.06,atviras,,,,,
