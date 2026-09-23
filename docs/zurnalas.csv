@@ -419,7 +419,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:29,NDA.DE,NDA,26.3,D,"Kyla, prie viršūnės",,,taip,0.612,ne,ne,+0.27,72,neutral,Pramone,3.56,172.00,166.84,175.44,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,172.00,+0.00,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:45,AIXA.DE,AIXA,42.0,D,Ramus atsitraukimas,,,taip,0.393,taip,ne,-0.12,94,neutral,Technologijos,5.10,36.55,35.45,37.28,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:45,AVIO.MI,AVIO,48.8,D,Ramus atsitraukimas,,,taip,0.233,taip,ne,-0.02,95,neutral,Gynyba ir aviacija,3.70,28.93,28.06,29.51,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:45,EDPR.LS,EDPR,28.3,D,Ramus atsitraukimas,,,taip,0.500,taip,ne,-0.11,77,neutral,Energetika,2.55,13.04,12.65,13.30,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:45,EDPR.LS,EDPR,28.3,D,Ramus atsitraukimas,,,taip,0.500,taip,ne,-0.11,77,neutral,Energetika,2.55,13.04,12.65,13.30,baigta,ryto atidarymas,2026-09-23 10:00:00+02:00,13.10,+0.46,+0.15
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,ZAL.DE,ZAL,25.8,D,"Kyla, prie viršūnės",,,taip,0.712,ne,ne,+0.74,34,neutral,Pramone,3.09,22.35,21.55,22.80,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,22.37,+0.09,+0.40
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,PUM.DE,PUM,38.5,D,Ramus atsitraukimas,,,taip,0.477,taip,ne,+0.04,78,neutral,Pramone,3.34,22.33,21.66,22.78,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,22.85,+2.33,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,BNR.DE,BNR,51.4,C,Atsigavimas su sektoriumi,,,taip,0.553,ne,ne,-0.02,9,neutral,Pramone,2.35,59.66,57.87,60.85,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,60.06,+0.67,+0.54
@@ -484,3 +484,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:53,ITX.MC,ITX,37.4,D,Ramus atsitraukimas,,,taip,0.381,taip,ne,-0.04,11,neutral,Vartojimas ir prabanga,1.95,53.24,51.64,54.30,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:53,BAS.DE,BAS,44.9,D,Ramus atsitraukimas,,,taip,0.089,ne,ne,-0.22,15,neutral,Medziagos,2.08,51.87,50.31,52.91,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:53,HEI.DE,HEI,41.5,D,Ramus atsitraukimas,,,taip,0.184,ne,ne,-0.40,18,neutral,Medziagos,3.02,147.90,143.46,150.86,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:11,ADS.DE,ADS,45.2,D,Kritimas dar tęsiasi,,,taip,0.184,ne,ne,-0.28,62,neutral,Vartojimas ir prabanga,2.70,145.65,141.28,148.56,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:11,SGO.PA,SGO,44.5,D,Kritimas dar tęsiasi,,,taip,0.119,ne,ne,-0.40,63,neutral,Medziagos,2.43,71.08,68.95,72.50,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:11,ACA.PA,ACA,36.0,D,Neapibrėžtas kritimas,,,taip,0.545,ne,ne,+0.05,27,neutral,Bankai ir finansai,1.67,18.29,17.74,18.66,atviras,,,,,
