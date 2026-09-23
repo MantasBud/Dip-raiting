@@ -432,7 +432,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:01,LR.PA,LR,27.9,D,Trendo tęsinys,,,taip,0.678,ne,ne,+0.49,86,neutral,Pramone,2.80,140.85,136.62,143.67,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:01,VIE.PA,VIE,33.4,D,Neapibrėžtas kritimas,,,taip,0.686,ne,ne,+0.20,26,neutral,Pramone,1.62,31.66,30.71,32.29,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:01,BIM.PA,BIM,36.6,D,Kritimas dar tęsiasi,,,taip,0.714,ne,ne,+0.24,67,neutral,Logistika ir mazmena,2.14,72.40,70.23,73.85,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,G.MI,G,68.5,B,Neapibrėžtas kritimas,,,taip,0.098,ne,ne,-0.43,58,neutral,Draudimas,1.55,44.88,43.53,45.78,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,G.MI,G,68.5,B,Neapibrėžtas kritimas,,,taip,0.098,ne,ne,-0.43,58,neutral,Draudimas,1.55,44.88,43.53,45.78,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,44.20,-1.52,+0.09
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,DIA.MI,DIA,70.2,B,Neapibrėžtas kritimas,,,taip,0.223,taip,ne,-0.76,100,neutral,Sveikata,2.12,76.22,73.93,77.74,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:22,TEP.PA,TEP,26.1,D,Trendo tęsinys,,,taip,0.722,ne,ne,+0.68,53,neutral,Technologijos,3.02,70.50,68.39,71.91,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,16:41,HO.PA,HO,32.5,D,Atsigavimas po kritimo,,,taip,0.724,ne,ne,+0.43,28,neutral,Gynyba ir aviacija,2.22,237.70,230.57,242.45,atviras,,,,,
@@ -444,7 +444,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:18,CAP.PA,CAP,55.8,C,Neapibrėžtas kritimas,,,taip,0.343,taip,ne,-0.84,49,neutral,Technologijos,3.47,106.15,102.97,108.27,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:18,PHIA.AS,PHIA,26.4,D,"Kyla, prie viršūnės",,,taip,0.667,ne,ne,+0.11,78,neutral,Sveikata,1.92,21.83,21.18,22.27,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,21.85,+0.09,+0.18
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:18,NEM.DE,NEM,38.0,D,Kritimas dar tęsiasi,,,taip,0.539,ne,ne,-0.80,43,neutral,Technologijos,4.22,62.40,60.17,63.65,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,62.30,-0.16,+0.00
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:37,CABK.MC,CABK,62.7,C,Kritimas dar tęsiasi,,,taip,0.170,ne,ne,-0.58,79,neutral,Bankai ir finansai,1.90,13.10,12.71,13.37,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:37,CABK.MC,CABK,62.7,C,Kritimas dar tęsiasi,,,taip,0.170,ne,ne,-0.58,79,neutral,Bankai ir finansai,1.90,13.10,12.71,13.37,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,13.19,+0.65,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:37,LEG.DE,LEG,41.5,D,Neapibrėžtas kritimas,,,taip,0.593,ne,ne,+0.43,50,neutral,Nekilnojamas turtas ir statyba,2.00,45.98,44.60,46.90,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,46.50,+1.13,+0.13
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:37,GFC.PA,GFC,39.5,D,Neapibrėžtas kritimas,,,taip,0.571,ne,ne,-0.07,15,neutral,Nekilnojamas turtas ir statyba,1.48,65.55,63.58,66.86,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,66.15,+0.92,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,17:54,AKE.PA,AKE,29.1,D,Atsigavimas su sektoriumi,,,taip,0.720,ne,ne,+0.18,41,neutral,Medziagos,2.49,56.80,55.10,57.94,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,57.55,+1.32,+0.00
@@ -478,3 +478,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:18,MC.PA,MC,49.9,D,Ramus atsitraukimas,,,taip,0.480,taip,ne,-0.30,41,neutral,Vartojimas ir prabanga,2.58,406.00,393.82,414.12,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:18,ABI.BR,ABI,51.0,C,Neapibrėžtas kritimas,,,taip,0.474,taip,ne,+0.12,35,neutral,Maistas ir kasdienes prekes,2.05,67.88,65.84,69.24,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:18,EL.PA,EL,40.5,D,Kritimas dar tęsiasi,,,taip,0.054,ne,ne,-0.49,50,neutral,Sveikata,2.78,145.00,140.16,147.90,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:36,G.MI,G,60.4,C,Neapibrėžtas kritimas,,,taip,0.386,taip,ne,-0.30,58,neutral,Draudimas,1.55,44.37,43.04,45.26,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:36,TIT.MI,TIT,46.9,D,Neapibrėžtas kritimas,,,taip,0.522,ne,ne,+0.03,59,neutral,Telekomai ir ziniasklaida,1.90,7.53,7.30,7.68,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,11:36,ADYEN.AS,ADYEN,58.9,C,Neapibrėžtas kritimas,,,taip,0.162,ne,ne,-0.43,38,neutral,Technologijos,3.35,883.60,857.09,901.27,atviras,,,,,
