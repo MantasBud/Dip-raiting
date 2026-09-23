@@ -424,7 +424,7 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,PUM.DE,PUM,38.5,D,Ramus atsitraukimas,,,taip,0.477,taip,ne,+0.04,78,neutral,Pramone,3.34,22.33,21.66,22.78,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,22.85,+2.33,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,14:58,BNR.DE,BNR,51.4,C,Atsigavimas su sektoriumi,,,taip,0.553,ne,ne,-0.02,9,neutral,Pramone,2.35,59.66,57.87,60.85,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,60.06,+0.67,+0.54
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,ML.PA,ML,23.3,D,"Kyla, prie viršūnės",,,taip,0.698,ne,ne,+0.22,59,neutral,Automobiliai,1.80,33.79,32.78,34.47,atviras,,,,,
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,EVD.DE,EVD,30.9,D,Neapibrėžtas kritimas,,,taip,0.680,ne,ne,+0.22,59,neutral,Keliones ir laisvalaikis,3.10,56.05,54.37,57.17,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,EVD.DE,EVD,30.9,D,Neapibrėžtas kritimas,,,taip,0.680,ne,ne,+0.22,59,neutral,Keliones ir laisvalaikis,3.10,56.05,54.37,57.17,baigta,stop,2026-09-23 11:35:00+02:00,54.37,-3.00,+0.09
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:24,R3NK.DE,R3NK,57.6,C,Kritimas dar tęsiasi,,,taip,0.331,taip,ne,-0.35,63,neutral,Gynyba ir aviacija,3.99,41.53,40.28,42.36,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,41.06,-1.13,+0.85
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:46,UNI.MI,UNI,39.7,D,Kritimas dar tęsiasi,,,taip,0.548,ne,ne,+0.22,63,neutral,Bankai ir finansai,2.04,27.95,27.11,28.51,baigta,ryto atidarymas,2026-09-23 09:00:00+02:00,27.85,-0.36,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-22,15:46,TLX.DE,TLX,47.9,D,Neapibrėžtas kritimas,,,taip,0.609,ne,ne,+0.09,37,neutral,Draudimas,1.68,120.80,117.18,123.22,atviras,,,,,
@@ -493,3 +493,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:47,VNA.DE,VNA,35.6,D,Kritimas sustojo,,,taip,0.553,ne,ne,+0.34,7,neutral,Nekilnojamas turtas ir statyba,2.27,17.51,16.98,17.86,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:47,MONC.MI,MONC,40.3,D,Neapibrėžtas kritimas,,,taip,0.378,taip,ne,-0.23,43,neutral,Vartojimas ir prabanga,2.94,44.18,42.85,45.06,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,12:47,RI.PA,RI,39.1,D,Kritimas dar tęsiasi,,,taip,0.304,taip,ne,-0.13,33,neutral,Vartojimas ir prabanga,2.36,60.12,58.32,61.32,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,RNO.PA,RNO,49.5,D,Neapibrėžtas kritimas,,,taip,0.219,taip,ne,-0.28,13,neutral,Automobiliai,3.60,27.07,26.26,27.61,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,KPN.AS,KPN,48.3,D,Neapibrėžtas kritimas,,,taip,0.357,taip,ne,+0.05,39,neutral,Telekomai ir ziniasklaida,1.97,3.94,3.82,4.02,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,TRN.MI,TRN,65.5,B,Kritimas sustojo,,,taip,0.254,taip,ne,-0.17,70,neutral,Energetika,1.70,9.27,8.99,9.46,atviras,,,,,
