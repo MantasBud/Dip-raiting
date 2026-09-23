@@ -1,5 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:04,HEI.DE,HEI,44.1,D,Atsigavimas po kritimo,,,taip,0.604,,,,,bear_soft,Medziagos,3.09,155.20,150.54,158.30,baigta,salyga (IBS),2026-09-11 13:25:00+02:00,154.90,-0.19,+0.03
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:04,AMS.MC,AMS,36.3,D,Neapibrėžtas kritimas,,,taip,0.542,,,,,bear_soft,Keliones ir laisvalaikis,2.62,54.76,53.12,55.86,baigta,salyga (IBS),2026-09-11 13:25:00+02:00,54.84,+0.15,+0.29
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:04,NDA.DE,NDA,49.9,D,Neapibrėžtas kritimas,,,taip,0.400,,,,,bear_soft,Pramone,3.89,171.40,166.26,174.83,baigta,salyga (IBS),2026-09-11 13:20:00+02:00,171.20,-0.12,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,13:24,BAS.DE,BAS,52.1,C,Neapibrėžtas kritimas,,,taip,0.100,,,,,bear_soft,Medziagos,2.04,51.92,50.36,52.96,baigta,salyga (IBS),2026-09-11 13:25:00+02:00,51.83,-0.17,+0.00
@@ -499,3 +498,4 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,16:10,RHM.DE,RHM,40.3,D,Atsigavimas po kritimo,,,taip,0.654,ne,ne,+0.40,6,neutral,Gynyba ir aviacija,3.70,1006.00,975.82,1026.12,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,16:10,R3NK.DE,R3NK,51.4,C,Kritimas sustojo,,,taip,0.465,taip,ne,+0.31,32,neutral,Gynyba ir aviacija,3.97,41.24,40.00,42.06,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,17:01,MAP.MC,MAP,57.8,C,Neapibrėžtas kritimas,,,taip,0.164,ne,ne,-0.53,32,neutral,Draudimas,1.69,4.34,4.21,4.43,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,17:23,BNR.DE,BNR,60.2,C,Kryptis stabilizavosi,,,taip,0.120,ne,ne,-0.64,60,neutral,Pramone,2.30,59.12,57.35,60.30,atviras,,,,,
