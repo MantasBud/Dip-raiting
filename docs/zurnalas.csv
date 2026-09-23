@@ -496,3 +496,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,RNO.PA,RNO,49.5,D,Neapibrėžtas kritimas,,,taip,0.219,taip,ne,-0.28,13,neutral,Automobiliai,3.60,27.07,26.26,27.61,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,KPN.AS,KPN,48.3,D,Neapibrėžtas kritimas,,,taip,0.357,taip,ne,+0.05,39,neutral,Telekomai ir ziniasklaida,1.97,3.94,3.82,4.02,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:00,TRN.MI,TRN,65.5,B,Kritimas sustojo,,,taip,0.254,taip,ne,-0.17,70,neutral,Energetika,1.70,9.27,8.99,9.46,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:21,DSY.PA,DSY,50.7,C,Kritimas sustojo,,,taip,0.320,taip,ne,-0.15,75,neutral,Technologijos,3.06,20.99,20.36,21.41,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:21,TEF.MC,TEF,67.0,B,Kryptis stabilizavosi,,,taip,0.171,ne,ne,-0.30,17,neutral,Telekomai ir ziniasklaida,1.96,3.40,3.30,3.47,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,13:21,MRK.DE,MRK,33.2,D,Kritimas sustojo,,,taip,0.586,ne,ne,-0.12,76,neutral,Sveikata,2.02,133.30,129.30,135.97,atviras,,,,,
