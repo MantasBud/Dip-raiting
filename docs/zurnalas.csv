@@ -463,3 +463,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:22,SAP.DE,SAP,49.9,D,Kryptis stabilizavosi,,,taip,0.208,taip,ne,-0.63,20,bear_soft,Technologijos,3.04,182.76,177.28,186.42,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:22,BNP.PA,BNP,42.3,D,Atsigavimas po kritimo,,,taip,0.553,ne,ne,-0.10,35,bear_soft,Bankai ir finansai,2.09,101.68,98.63,103.71,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:22,AIR.PA,AIR,47.3,D,Neapibrėžtas kritimas,,,taip,0.289,taip,ne,-0.46,54,bear_soft,Gynyba ir aviacija,2.10,194.20,188.37,198.08,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:44,DBK.DE,DBK,65.0,B,Neapibrėžtas kritimas,,,taip,0.146,ne,ne,-0.85,33,bear_soft,Bankai ir finansai,2.47,32.74,31.76,33.40,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:44,DTE.DE,DTE,48.8,D,Kryptis stabilizavosi,,,taip,0.226,taip,ne,-0.28,21,bear_soft,Telekomai ir ziniasklaida,2.37,27.07,26.26,27.61,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,09:44,ENGI.PA,ENGI,36.5,D,Kritimas sustojo,,,taip,0.420,taip,ne,+0.21,19,bear_soft,Energetika,2.19,23.81,23.10,24.29,atviras,,,,,
