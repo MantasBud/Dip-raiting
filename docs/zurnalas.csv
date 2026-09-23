@@ -1,7 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:19,ENR.DE,ENR,36.9,D,Kritimas sustojo,,,taip,0.721,,,,,bear_soft,Pramone,3.88,143.08,138.79,145.94,baigta,salyga (IBS),2026-09-11 11:40:00+02:00,143.68,+0.42,+0.43
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:19,GLE.PA,GLE,34.9,D,Ramus atsitraukimas,,,taip,0.306,,,,,bear_soft,Bankai ir finansai,2.45,74.39,72.16,75.88,baigta,salyga (RSI),2026-09-11 11:25:00+02:00,74.39,-0.00,+0.01
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:19,AIR.PA,AIR,30.0,D,Ramus atsitraukimas,,,taip,0.500,,,,,bear_soft,Gynyba ir aviacija,2.31,198.28,192.33,202.25,baigta,salyga (RSI),2026-09-11 11:20:00+02:00,198.50,+0.11,+0.20
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:37,MUV2.DE,MUV2,29.6,D,Atsigavimas su sektoriumi,,,taip,0.714,,,,,bear_soft,Draudimas,1.92,504.40,489.27,514.49,baigta,salyga (IBS),2026-09-11 11:45:00+02:00,506.00,+0.32,+0.40
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:37,STMPA.PA,STMPA,35.5,D,Neapibrėžtas kritimas,,,taip,0.685,,,,,bear_soft,Technologijos,4.12,43.90,42.59,44.78,baigta,salyga (IBS),2026-09-11 11:45:00+02:00,44.26,+0.83,+0.83
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,11:37,ASM.AS,ASM,41.3,D,Neapibrėžtas kritimas,,,taip,0.556,,,,,bear_soft,Technologijos,3.98,817.80,793.27,834.16,baigta,salyga (IBS),2026-09-11 11:40:00+02:00,822.20,+0.54,+0.54
@@ -499,3 +496,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:16,EVD.DE,EVD,60.0,C,Kryptis stabilizavosi,,,taip,0.097,ne,ne,-0.77,25,neutral,Keliones ir laisvalaikis,3.12,54.35,52.72,55.44,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:16,BZU.MI,BZU,65.6,B,Kryptis stabilizavosi,,,taip,0.072,ne,ne,-0.67,32,neutral,Medziagos,3.04,36.85,35.74,37.59,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:16,NEM.DE,NEM,55.6,C,Neapibrėžtas kritimas,,,taip,0.143,ne,ne,-0.82,83,neutral,Technologijos,4.28,61.35,59.51,62.58,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:33,AKZA.AS,AKZA,45.1,D,Kritimas dar tęsiasi,,,taip,0.172,ne,ne,-0.24,84,neutral,Medziagos,2.10,57.32,55.60,58.47,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:33,TUI1.DE,TUI1,54.9,C,Neapibrėžtas kritimas,,,taip,0.056,ne,ne,-0.70,55,neutral,Keliones ir laisvalaikis,2.73,6.52,6.32,6.65,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-23,14:33,TLX.DE,TLX,47.5,D,Kritimas sustojo,,,taip,0.714,ne,ne,+0.23,13,neutral,Draudimas,1.73,119.90,116.30,122.30,atviras,,,,,
