@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-PIRMO PRISILIETIMO BACKTESTAS  (v2 - pataisyta pagal gyva zurnala 2026-09-21)
+PIRMO PRISILIETIMO BACKTESTAS  (v3 - pataisyta po pirmo paleidimo 2026-09-21)
 =============================================================================
 
 KODEL SIS TESTAS KITOKS NEI VISI ANKSTESNI
@@ -85,6 +85,14 @@ H2: geriausias ATR ruozas skiriasi nuo blogiausio bent 8 p.p. abiejose
     tai irgi rezultatas, ir ji reikia fiksuoti.
 H3: tie patys reikalavimai kaip H1, palyginus su atsitiktine kontrole.
 
+NAUJA v3: LAIKYMAS KOL ATSIGAUS
+-------------------------------
+Iki siol matavome tik variantus su kietu stop'u. Bet tavo tikroji taisykle
+stop'o neturi - tu laikai, kol atsistato. Tai matuojama pirma karta:
+stulpeliai "atsigavo", "dienu" ir "EUR laukiant" plius uodegos suvestine.
+Butent uodega (kiek neatsigavo ir kaip giliai nusileido laukiant) yra
+tikroji sios taisykles kaina - YDX -639 EUR tipo epizodai.
+
 PAPILDOMAS FILTRAS, kurio anksciau nebuvo: jei kuriai nors grupei
 P_min(virsune >= tikslas) < 15%, ta grupe tavo taisyklei netinka,
 nesvarbu koks jos vidurkis - nes tikslo ji beveik niekada nepasiekia.
@@ -123,30 +131,64 @@ BOOT_N = 2000
 Z_LANGAS = 20
 HL_MIN_OBS = 250
 MIN_PASIEKIAMUMAS = 0.15      # zemiau sios ribos grupe tavo taisyklei netinka
+MAX_LAIKYMAS = 20             # sesiju, "laikyti kol atsigaus" variantui
 
 
 def universas(rinka):
+    """Imame ta pati universa, kuri naudoja skeneris.
+
+    SVARBU: jei universas.py neprieinamas arba grazina per mazai tikeriu,
+    testas NUTRAUKIAMAS. Ankstesneje versijoje cia tyliai buvo naudojamas
+    16 akciju atsarginis sarasas, ir visas paleidimas tapo bevertis.
+    """
+    saltinis, t = None, []
     try:
         import universas as U
         if rinka == "eu":
-            if hasattr(U, "visi_tickeriai"):
-                t = U.visi_tickeriai()
+            for nm in ("visi_tickeriai", "visi_tikeriai", "VISI", "EUROPOS_UNIVERSAS",
+                       "UNIVERSAS", "europos_universas", "TICKERIAI"):
+                if not hasattr(U, nm):
+                    continue
+                o = getattr(U, nm)
+                o = o() if callable(o) else o
+                if isinstance(o, dict):
+                    t = [x for v in o.values() for x in (v if isinstance(v, (list, tuple, set)) else [v])]
+                elif isinstance(o, (list, tuple, set)):
+                    t = list(o)
                 if t:
-                    return sorted(set(t))
+                    saltinis = f"universas.{nm}"
+                    break
         else:
-            for nm in ("JAV_UNIVERSAS", "US_UNIVERSAS", "jav_universas"):
-                if hasattr(U, nm):
-                    o = getattr(U, nm)
-                    if isinstance(o, dict):
-                        return sorted({t for v in o.values() for t in v})
-                    return sorted(set(o))
+            for nm in ("JAV_UNIVERSAS", "US_UNIVERSAS", "jav_universas",
+                       "jav_tickeriai", "JAV"):
+                if not hasattr(U, nm):
+                    continue
+                o = getattr(U, nm)
+                o = o() if callable(o) else o
+                if isinstance(o, dict):
+                    t = [x for v in o.values() for x in (v if isinstance(v, (list, tuple, set)) else [v])]
+                elif isinstance(o, (list, tuple, set)):
+                    t = list(o)
+                if t:
+                    saltinis = f"universas.{nm}"
+                    break
+        if not t:
+            print("  universas.py rasta, bet tinkamo saraso nera. Turimi vardai:")
+            print("   ", [n for n in dir(U) if not n.startswith("_")][:40])
     except Exception as e:
-        print(f"  (universas.py neprieinamas: {e})")
-    if rinka == "eu":
-        return ["SAP.DE", "ASML.AS", "MC.PA", "SIE.DE", "ALV.DE", "AIR.PA",
-                "BAS.DE", "BAYN.DE", "DTE.DE", "IFX.DE", "OR.PA", "SU.PA",
-                "BESI.AS", "RHM.DE", "CAP.PA", "PUM.DE"]
-    return ["AAPL", "MSFT", "NVDA", "AMD", "INTC", "JPM", "XOM", "KO"]
+        print(f"  universas.py neimportuojamas: {e}")
+
+    t = sorted({str(x).strip() for x in t if x and isinstance(x, str)})
+    if len(t) < 40:
+        sys.exit(
+            f"\nNUTRAUKTA: is universas.py gauta tik {len(t)} tikeriu (reikia >=40).\n"
+            f"Be tikro universo testas bevertis - buvusiame paleidime del to\n"
+            f"buvo naudojamos vos 16 akciju ir visos pateko i viena pusejimo\n"
+            f"kvintili. Pataisyk universas.py arba nurodyk teisinga funkcijos\n"
+            f"varda sio failo 'universas()' funkcijoje."
+        )
+    print(f"  universo saltinis: {saltinis}  ({len(t)} tikeriu)")
+    return t
 
 
 def parsiusti(tickers, metai):
@@ -241,8 +283,26 @@ def baigtys(r, i, horizontas=HORIZONTAS):
     if i + 2 < n:
         naktis = float(r["open"].iloc[i + 2] / ieina - 1.0)
 
+    # TAVO TIKROJI TAISYKLE: jokio stop'o, laikom kol paliecia tiksla,
+    # bet ne ilgiau kaip MAX_LAIKYMAS sesiju. Tai matuojama pirma karta.
+    lauk_d, lauk_g, blog = np.nan, np.nan, np.nan
+    kiek = min(MAX_LAIKYMAS, n - i - 1)
+    if kiek > 0:
+        lan_h = r["high"].iloc[i + 1: i + 1 + kiek].values
+        lan_l = r["low"].iloc[i + 1: i + 1 + kiek].values
+        pas = np.nonzero(lan_h >= hi_b)[0]
+        if len(pas):
+            d = int(pas[0]) + 1
+            lauk_d, lauk_g = d, TIKSLAS
+            blog = float(lan_l[:d].min() / ieina - 1.0)
+        else:
+            lauk_d = np.nan                       # neatsigavo per langa
+            lauk_g = float(r["close"].iloc[i + kiek] / ieina - 1.0)
+            blog = float(lan_l.min() / ieina - 1.0)
+
     return dict(kmin=kmin, kmax=kmax, galut=galut, virsune=virsune,
-                dugnas=dugnas, naktis=naktis)
+                dugnas=dugnas, naktis=naktis,
+                lauk_d=lauk_d, lauk_g=lauk_g, lauk_blog=blog)
 
 
 def eur(g):
@@ -290,37 +350,66 @@ def surinkti(duom, rezimas):
                 kmin=b["kmin"], kmax=b["kmax"],
                 pasieke=float(b["virsune"] >= TIKSLAS),
                 virsune=b["virsune"] * 100,
+                dugnas_pct=b["dugnas"] * 100,
+                galut_pct=(b["galut"] * 100 if np.isfinite(b["galut"]) else 0.0),
                 eur_taikinys=eur(b["galut"] if np.isfinite(b["galut"])
                                  else (TIKSLAS if b["kmin"] else SKAUSMAS)),
                 eur_naktis=eur(b["naktis"]),
+                lauk_eur=eur(b["lauk_g"]),
+                lauk_dienos=b["lauk_d"],
+                lauk_atsigavo=float(np.isfinite(b["lauk_d"])),
+                lauk_blog=b["lauk_blog"] * 100 if np.isfinite(b["lauk_blog"]) else np.nan,
             ))
     return pd.DataFrame(eil)
 
 
-def lentele(df, stulpelis, ribos, pavadinimai, antraste):
+def lentele(df, stulpelis, ribos, pavadinimai, antraste, kvantiliai=False):
+    """kvantiliai=True: ruozai sudaromi is PACIU duomenu kvintiliu.
+
+    Buvo butina, nes realiu akciju grizimo pusejimas telpa i siaura ruoza
+    (3-6 sesijos) ir su fiksuotomis ribomis VISOS akcijos patekdavo i viena
+    langeli - H1 tapdavo neismatuojama.
+    """
+    if kvantiliai:
+        v = df[stulpelis].dropna()
+        if len(v) < MIN_IVYKIU * 2:
+            print(f"\n{antraste}\n  per maza imtis kvintiliams ({len(v)})")
+            return
+        q = np.unique(np.percentile(v, [0, 20, 40, 60, 80, 100]))
+        if len(q) < 3:
+            print(f"\n{antraste}\n  {stulpelis} beveik pastovus - kvintiliu nera")
+            return
+        ribos = list(q[:-1]) + [q[-1] + 1e-9]
+        pavadinimai = [f"{i+1}. {ribos[i]:.2f}-{ribos[i+1]:.2f}"
+                       for i in range(len(ribos) - 1)]
+
     print()
-    print("=" * 108)
+    print("=" * 126)
     print(antraste)
-    print("=" * 108)
-    print(f"{'GRUPE':<20}{'N':>7}{'P(tiksl)min':>12}{'P(tiksl)max':>12}"
-          f"{'P(virs>=1%)':>12}{'EUR taikinys':>26}{'EUR naktis':>15}")
-    print("-" * 108)
+    print("=" * 126)
+    print(f"{'GRUPE':<20}{'N':>7}{'P(tiksl)min':>12}{'P(virs>=1%)':>12}"
+          f"{'EUR taikinys':>24}{'EUR naktis':>12}"
+          f"{'atsigavo':>10}{'dienu':>7}{'EUR laukiant':>22}")
+    print("-" * 126)
     for lo, hi, nm in zip(ribos[:-1], ribos[1:], pavadinimai):
         m = df[(df[stulpelis] >= lo) & (df[stulpelis] < hi)]
         if len(m) < MIN_IVYKIU:
             print(f"{nm:<20}{len(m):>7}   per maza imtis")
             continue
         v, a, b = boot_dienomis(m, "eur_taikinys")
-        vn, an, bn = boot_dienomis(m, "eur_naktis")
+        vn, _, _ = boot_dienomis(m, "eur_naktis")
+        vl, al, bl = boot_dienomis(m, "lauk_eur")
         pas = m["pasieke"].mean()
+        ats = m["lauk_atsigavo"].mean()
+        dien = m["lauk_dienos"].median()
         zyme = ""
-        if np.isfinite(a) and a > 0 and pas >= MIN_PASIEKIAMUMAS:
+        if np.isfinite(al) and al > 0:
+            zyme = "  <<< laukiant teigiama"
+        elif np.isfinite(a) and a > 0 and pas >= MIN_PASIEKIAMUMAS:
             zyme = "  <<<"
-        elif pas < MIN_PASIEKIAMUMAS:
-            zyme = "  (netinka: tikslo nepasiekia)"
-        print(f"{nm:<20}{len(m):>7}{m['kmin'].mean()*100:>11.1f}%"
-              f"{m['kmax'].mean()*100:>11.1f}%{pas*100:>11.1f}%"
-              f"{v:>10.2f} [{a:>7.2f},{b:>7.2f}]{vn:>15.2f}{zyme}")
+        print(f"{nm:<20}{len(m):>7}{m['kmin'].mean()*100:>11.1f}%{pas*100:>11.1f}%"
+              f"{v:>9.2f} [{a:>6.2f},{b:>6.2f}]{vn:>12.2f}"
+              f"{ats*100:>9.1f}%{dien:>7.1f}{vl:>8.2f} [{al:>6.2f},{bl:>6.2f}]{zyme}")
 
 
 def paleisti(rinka, metai):
@@ -330,6 +419,13 @@ def paleisti(rinka, metai):
     print(f"  akciju su duomenimis: {len(duom)}")
     print(f"  tikslas {TIKSLAS*100:+.1f}%  skausmo riba {SKAUSMAS*100:+.1f}%  "
           f"horizontas {HORIZONTAS} sesijos")
+
+    sanaudos_pct = SANAUDOS_EUR / POZICIJA * 100
+    luzis = (sanaudos_pct + abs(SKAUSMAS) * 100) / (TIKSLAS * 100 + abs(SKAUSMAS) * 100)
+    print()
+    print("  LUZIO TASKAS: prie siu parametru taisykle teigiama tik jei")
+    print(f"  P(tikslas pirmiau) > {luzis*100:.1f}%.  Zemiau - struktūriskai nuostolinga,")
+    print("  ir jokia atranka to nepakeis, jei P lieka po sia riba.")
 
     for rezimas, pav in (("dip", "A. DIPAS (dabartinis modelis: IBS<=0.25, Z<=-0.5)"),
                          ("kyla", "B. KYLANTI (tavo hipoteze: +0.5% ir IBS>=0.6)"),
@@ -353,6 +449,18 @@ def paleisti(rinka, metai):
         print(f"  virsunes mediana {df['virsune'].median():+.3f}%   "
               f"(gyvame zurnale buvo +0.105% - jei cia panasiai, "
               f"problema ne isejime, o atrankoje)")
+        nea = df[df["lauk_atsigavo"] < 0.5]
+        print(f"  LAIKYMAS KOL ATSIGAUS (max {MAX_LAIKYMAS} sesiju): "
+              f"atsigavo {df['lauk_atsigavo'].mean()*100:.1f}%, "
+              f"mediana {df['lauk_dienos'].median():.0f} d.")
+        print(f"    blogiausias nuosmukis laukiant: mediana "
+              f"{df['lauk_blog'].median():+.2f}%, "
+              f"5% blogiausiu {np.nanpercentile(df['lauk_blog'], 5):+.2f}%, "
+              f"blogiausias {np.nanmin(df['lauk_blog']):+.2f}%")
+        if len(nea):
+            print(f"    NEATSIGAVO {len(nea)} ({len(nea)/len(df)*100:.1f}%): "
+                  f"vid. rezultatas {nea['galut_pct'].mean():+.2f}%, "
+                  f"blogiausias {nea['lauk_blog'].min():+.2f}%  <- cia tavo YDX rizika")
 
         if rezimas == "rnd":
             continue
@@ -360,10 +468,9 @@ def paleisti(rinka, metai):
         for dalis, pv in ((p1, "1-A PUSE (paieska)"), (p2, "2-A PUSE (NEMATYTA)")):
             print()
             print(f"--- {pv}  n={len(dalis)} ---")
-            lentele(dalis, "hl", [0, 0.75, 1.5, 3.0, 6.0, 1e9],
-                    ["labai greitas <0.75", "greitas 0.75-1.5", "vidutinis 1.5-3",
-                     "letas 3-6", "beveik nera >6"],
-                    "H1: GRIZIMO PUSEJIMAS (sesijomis, vertintas TIK 1-oje puseje)")
+            lentele(dalis, "hl", None, None,
+                    "H1: GRIZIMO PUSEJIMAS - KVINTILIAI (vertinta TIK 1-oje puseje)",
+                    kvantiliai=True)
             lentele(dalis, "atr", [0, 1.5, 2.5, 3.5, 99],
                     ["ramios <1.5%", "1.5-2.5%", "2.5-3.5%", "judrios >3.5%"],
                     "H2: ATR RUOZAS (kryptis NEUZDUOTA - zr. 'EUR naktis' stulpeli)")
@@ -371,8 +478,38 @@ def paleisti(rinka, metai):
                     ["SMA200 nekyla", "SMA200 kyla"],
                     "KONTROLE: SMA200 filtras")
 
+    # ------- parametru tinklelis: kur taisykle apskritai gali buti teigiama
+    df = surinkti(duom, "dip")
+    if len(df) >= MIN_IVYKIU:
+        print()
+        print("#" * 126)
+        print("D. PARAMETRU TINKLELIS (dipas, visa imtis)")
+        print("   Kiekvienam tikslo/skausmo deriniui: stebeta P, reikalinga P, ir EUR.")
+        print("#" * 126)
+        print(f"{'tikslas':>8}{'skausmas':>10}{'stebeta P':>12}{'reikia P':>10}"
+              f"{'atsarga':>9}{'EUR':>10}")
+        print("-" * 126)
+        for t in (0.005, 0.008, 0.010, 0.015, 0.020):
+            for pain in (-0.010, -0.015, -0.020, -0.028, -0.040):
+                pas_t = (df["virsune"] >= t * 100)
+                pas_s = (df["dugnas_pct"] <= pain * 100) if "dugnas_pct" in df else None
+                if pas_s is None:
+                    continue
+                aisku_t = pas_t & (~pas_s)
+                aisku_s = pas_s & (~pas_t)
+                neaisku = pas_t & pas_s
+                nei = (~pas_t) & (~pas_s)
+                P = (aisku_t.sum() + 0.5 * neaisku.sum()) / max(1, (aisku_t | aisku_s | neaisku).sum())
+                reikia = (SANAUDOS_EUR / POZICIJA + abs(pain)) / (t + abs(pain))
+                e = (aisku_t.sum() * t + neaisku.sum() * 0.5 * (t + pain)
+                     + aisku_s.sum() * pain + df.loc[nei, "galut_pct"].sum() / 100.0)
+                e = e / max(1, len(df)) * POZICIJA - SANAUDOS_EUR
+                zyme = "  <<<" if P > reikia else ""
+                print(f"{t*100:>7.1f}%{pain*100:>9.1f}%{P*100:>11.1f}%{reikia*100:>9.1f}%"
+                      f"{(P-reikia)*100:>+8.1f}{e:>10.2f}{zyme}")
+
     print()
-    print("=" * 108)
+    print("=" * 126)
     print("KAIP SKAITYTI")
     print("=" * 108)
     print("  1. Pirma ziurek i P(virs>=1%). Jei grupeje jis zemiau 15%, ta grupe")
