@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-PIRMO PRISILIETIMO BACKTESTAS  (v3 - pataisyta po pirmo paleidimo 2026-09-21)
+PIRMO PRISILIETIMO BACKTESTAS  (v4 - 2026-09-23, tinklelis tikrinamas per dvi puses)
 =============================================================================
 
 KODEL SIS TESTAS KITOKS NEI VISI ANKSTESNI
@@ -159,8 +159,8 @@ def universas(rinka):
                     saltinis = f"universas.{nm}"
                     break
         else:
-            for nm in ("JAV_UNIVERSAS", "US_UNIVERSAS", "jav_universas",
-                       "jav_tickeriai", "JAV"):
+            for nm in ("UNIVERSAS_US", "JAV_UNIVERSAS", "US_UNIVERSAS",
+                       "jav_universas", "jav_tickeriai", "JAV"):
                 if not hasattr(U, nm):
                     continue
                 o = getattr(U, nm)
@@ -478,35 +478,48 @@ def paleisti(rinka, metai):
                     ["SMA200 nekyla", "SMA200 kyla"],
                     "KONTROLE: SMA200 filtras")
 
-    # ------- parametru tinklelis: kur taisykle apskritai gali buti teigiama
+    # ------- parametru tinklelis SU PATIKRINIMU NEMATYTOJE PUSEJE
     df = surinkti(duom, "dip")
     if len(df) >= MIN_IVYKIU:
+        riba = df["data"].quantile(0.5)
+        d1, d2 = df[df["data"] <= riba], df[df["data"] > riba]
+
+        def ivertink(d, t, pain):
+            pas_t = d["virsune"] >= t * 100
+            pas_s = d["dugnas_pct"] <= pain * 100
+            aisku_t = pas_t & (~pas_s)
+            aisku_s = pas_s & (~pas_t)
+            neaisku = pas_t & pas_s
+            nei = (~pas_t) & (~pas_s)
+            baze = (aisku_t | aisku_s | neaisku).sum()
+            P = (aisku_t.sum() + 0.5 * neaisku.sum()) / max(1, baze)
+            e = (aisku_t.sum() * t + neaisku.sum() * 0.5 * (t + pain)
+                 + aisku_s.sum() * pain + d.loc[nei, "galut_pct"].sum() / 100.0)
+            return P, e / max(1, len(d)) * POZICIJA - SANAUDOS_EUR
+
         print()
         print("#" * 126)
-        print("D. PARAMETRU TINKLELIS (dipas, visa imtis)")
-        print("   Kiekvienam tikslo/skausmo deriniui: stebeta P, reikalinga P, ir EUR.")
+        print("D. PARAMETRU TINKLELIS - SU PATIKRINIMU NEMATYTOJE PUSEJE")
+        print("   Derinys imamas tik jei teigiamas ABIEJOSE pusese. Vienos puses")
+        print("   rezultatas yra tas pats slenksciu parinkimas pamacius duomenis,")
+        print("   kuris siame projekte jau kelis kartus klaidino.")
         print("#" * 126)
-        print(f"{'tikslas':>8}{'skausmas':>10}{'stebeta P':>12}{'reikia P':>10}"
-              f"{'atsarga':>9}{'EUR':>10}")
+        print(f"{'tikslas':>8}{'skausmas':>10}{'reikia P':>10}"
+              f"{'P 1-a':>8}{'EUR 1-a':>10}{'P 2-a':>8}{'EUR 2-a':>10}{'verdiktas':>14}")
         print("-" * 126)
-        for t in (0.005, 0.008, 0.010, 0.015, 0.020):
-            for pain in (-0.010, -0.015, -0.020, -0.028, -0.040):
-                pas_t = (df["virsune"] >= t * 100)
-                pas_s = (df["dugnas_pct"] <= pain * 100) if "dugnas_pct" in df else None
-                if pas_s is None:
-                    continue
-                aisku_t = pas_t & (~pas_s)
-                aisku_s = pas_s & (~pas_t)
-                neaisku = pas_t & pas_s
-                nei = (~pas_t) & (~pas_s)
-                P = (aisku_t.sum() + 0.5 * neaisku.sum()) / max(1, (aisku_t | aisku_s | neaisku).sum())
+        for t in (0.005, 0.008, 0.010, 0.015, 0.020, 0.030):
+            for pain in (-0.008, -0.010, -0.015, -0.020, -0.028, -0.040):
                 reikia = (SANAUDOS_EUR / POZICIJA + abs(pain)) / (t + abs(pain))
-                e = (aisku_t.sum() * t + neaisku.sum() * 0.5 * (t + pain)
-                     + aisku_s.sum() * pain + df.loc[nei, "galut_pct"].sum() / 100.0)
-                e = e / max(1, len(df)) * POZICIJA - SANAUDOS_EUR
-                zyme = "  <<<" if P > reikia else ""
-                print(f"{t*100:>7.1f}%{pain*100:>9.1f}%{P*100:>11.1f}%{reikia*100:>9.1f}%"
-                      f"{(P-reikia)*100:>+8.1f}{e:>10.2f}{zyme}")
+                P1, e1 = ivertink(d1, t, pain)
+                P2, e2 = ivertink(d2, t, pain)
+                if e1 > 0 and e2 > 0:
+                    v = "ABI TEIGIAMOS"
+                elif e1 > 0 or e2 > 0:
+                    v = "tik viena"
+                else:
+                    v = ""
+                print(f"{t*100:>7.1f}%{pain*100:>9.1f}%{reikia*100:>9.1f}%"
+                      f"{P1*100:>7.1f}%{e1:>10.2f}{P2*100:>7.1f}%{e2:>10.2f}{v:>14}")
 
     print()
     print("=" * 126)
