@@ -1,6 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-17,10:57,SU.PA,SU,28.4,D,Neapibrėžtas kritimas,,,taip,0.532,ne,ne,-0.17,30,bear_soft,Technologijos,2.98,282.85,274.36,288.51,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,287.80,+1.75,+0.07
-2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-17,10:57,SAF.PA,SAF,25.7,D,Ramus atsitraukimas,,,taip,0.522,ne,ne,-0.07,35,bear_soft,Gynyba ir aviacija,2.38,330.40,320.49,337.01,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,330.90,+0.15,+0.00
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-17,10:57,LDO.MI,LDO,23.1,D,Ramus atsitraukimas,,,taip,0.547,ne,ne,-0.05,61,bear_soft,Gynyba ir aviacija,3.06,50.99,49.46,52.01,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,50.99,+0.00,+0.00
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-17,11:21,ENEL.MI,ENEL,23.4,D,"Kyla, prie viršūnės",,,taip,0.713,ne,ne,+0.02,9,bear_soft,Energetika,1.84,8.96,8.69,9.14,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,9.03,+0.75,+0.00
 2026-09-15 ibs-monoton naktis sma200 u214 exsa,2026-09-17,11:21,PRX.AS,PRX,45.3,D,Neapibrėžtas kritimas,,,taip,0.286,taip,ne,-0.53,87,bear_soft,Technologijos,2.39,35.54,34.47,36.25,baigta,ryto atidarymas,2026-09-18 09:00:00+02:00,35.54,+0.01,+0.00
@@ -499,3 +497,5 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,18:20,FRVIA.PA,FRVIA,63.3,C,Neapibrėžtas kritimas,,,taip,0.090,ne,ne,-0.70,22,neutral,Automobiliai,4.63,8.75,8.48,8.92,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,18:38,ASRNL.AS,ASRNL,33.7,D,Neapibrėžtas kritimas,,,taip,0.714,ne,ne,+0.26,10,bear_soft,Draudimas,1.43,72.54,70.36,73.99,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,18:38,UNI.MI,UNI,29.8,D,Atsigavimas po kritimo,,,taip,0.739,ne,ne,+0.31,13,bear_soft,Bankai ir finansai,2.24,27.03,26.22,27.57,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,18:54,PST.MI,PST,26.1,D,Atsigavimas po kritimo,,,taip,0.750,ne,ne,+0.40,8,bear_soft,Logistika ir mazmena,2.42,25.72,24.95,26.23,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,18:54,URW.PA,URW,58.6,C,Neapibrėžtas kritimas,,,taip,0.254,taip,ne,-0.25,25,bear_soft,Nekilnojamas turtas ir statyba,1.59,92.14,89.38,93.98,atviras,,,,,
