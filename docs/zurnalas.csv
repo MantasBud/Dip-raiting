@@ -1,7 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,16:58,KER.PA,KER,26.8,D,Atsigavimas su sektoriumi,,,taip,0.725,,,,,bear_soft,Vartojimas ir prabanga,3.53,240.65,233.43,245.46,baigta,salyga (IBS),2026-09-11 17:15:00+02:00,238.95,-0.71,+0.00
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-11,17:39,SAF.PA,SAF,26.5,D,"Kyla, prie viršūnės",,,taip,0.716,,,,,bear_soft,Gynyba ir aviacija,2.32,329.90,320.00,336.50,baigta,stop,2026-09-14 15:40:00+02:00,320.00,-3.00,+0.03
-2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-13,16:31,ASML.AS,ASML,43.3,D,Kritimas sustojo,,,taip,0.439,,,,,bear_soft,Technologijos,3.52,1478.00,1433.66,1507.56,baigta,stop,2026-09-14 09:00:00+02:00,1433.66,-3.00,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-13,16:31,MC.PA,MC,32.1,D,Kritimas sustojo,,,taip,0.578,,,,,bear_soft,Vartojimas ir prabanga,2.66,414.80,402.36,423.10,baigta,ryto atidarymas,2026-09-15 09:00:00+02:00,413.15,-0.40,+0.00
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-13,16:31,LDO.MI,LDO,45.5,D,Kritimas dar tęsiasi,,,taip,0.258,,,,,bear_soft,Gynyba ir aviacija,2.99,50.08,48.58,51.08,baigta,ryto atidarymas,2026-09-15 09:00:00+02:00,49.00,-2.16,+0.84
 2026-09-08 z35-ibs25-vwap15-salyginis-isejimas,2026-09-14,01:49,ASML.AS,ASML,43.3,D,Kritimas sustojo,,,taip,0.439,,,,,bear_soft,Technologijos,3.52,1478.00,1433.66,1507.56,baigta,stop,2026-09-14 09:00:00+02:00,1433.66,-3.00,+0.00
@@ -499,3 +496,6 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,09:44,ALV.DE,ALV,53.1,C,Neapibrėžtas kritimas,,,taip,0.021,ne,ne,-1.22,8,neutral,Draudimas,1.49,413.30,400.90,421.57,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,09:44,ENEL.MI,ENEL,65.2,B,Neapibrėžtas kritimas,,,taip,0.150,ne,ne,-0.39,47,neutral,Energetika,1.82,8.86,8.59,9.03,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,09:44,AIR.PA,AIR,41.9,D,Kritimas sustojo,,,taip,0.516,ne,ne,+0.35,48,neutral,Gynyba ir aviacija,2.12,195.20,189.34,199.10,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,10:00,RMS.PA,RMS,62.6,C,Kritimas sustojo,,,taip,0.274,taip,ne,-0.35,58,neutral,Vartojimas ir prabanga,2.95,1345.50,1305.13,1372.41,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,10:00,DBK.DE,DBK,52.2,C,Neapibrėžtas kritimas,,,taip,0.172,ne,ne,-0.72,16,neutral,Bankai ir finansai,2.55,31.77,30.82,32.41,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-24,10:00,MUV2.DE,MUV2,52.9,C,Neapibrėžtas kritimas,,,taip,0.452,taip,ne,-0.30,17,neutral,Draudimas,1.67,504.20,489.07,514.28,atviras,,,,,
