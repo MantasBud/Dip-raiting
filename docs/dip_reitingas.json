@@ -6404,7 +6404,7 @@
    [
     "Europe Is Stronger Than Investors Think. What to Own Now.",
     "Barrons.com",
-    321.91493026805557,
+    322.2537633041667,
     "teig",
     "https://www.barrons.com/articles/europe-stocks-investments-earnings-aed79c13?siteid=yhoof2&yptr=yahoo"
    ]
@@ -8556,7 +8556,7 @@
    [
     "Germany's missile stockpiles 'worryingly low', Rheinmetall CEO tells Euronews",
     "Euronews",
-    172.24721160388887,
+    172.58603059805554,
     "neig",
     "https://www.euronews.com/2026/09/17/rheinmetall-ceo-papperger-robots-are-coming"
    ]
@@ -10712,7 +10712,7 @@
    [
     "Kangaroo, Panda, Dim Sum: Foreign Bond Sales Hit Records Across Asia",
     "BeInCrypto",
-    921.5586670333333,
+    921.8974717397222,
     "teig",
     "https://beincrypto.com/kangaroo-panda-dim-sum-bonds-asia/"
    ]
@@ -32234,7 +32234,7 @@
   "tp": 71.33880249023437,
   "rr": 0.6666666666666666,
   "shares": 257,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17974.580627441406,
   "gross": 359.49161254882813,
   "net": 355.49161254882813,
@@ -74126,7 +74126,7 @@
   "tp": 95.94119750976563,
   "rr": 0.6666666666666666,
   "shares": 191,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17965.459533691406,
   "gross": 359.30919067382814,
   "net": 355.30919067382814,
@@ -76093,7 +76093,7 @@
   "tp": 58.03800155639649,
   "rr": 0.6666666666666681,
   "shares": 316,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17980.400482177734,
   "gross": 359.6080096435547,
   "net": 355.6080096435547,
@@ -76108,29 +76108,29 @@
   "tag": "UMI",
   "sym": "UMI.BR",
   "name": "UMI.BR",
-  "price": 21.239999771118164,
+  "price": 21.040000915527344,
   "dayHigh": 21.8799991607666,
-  "dayLow": 21.200000762939453,
-  "vwap": 21.345632204180927,
-  "rsi": 43.084795035334004,
+  "dayLow": 21.040000915527344,
+  "vwap": 21.112381031625716,
+  "rsi": 27.359097067762335,
   "atrPct": 3.4169911257782535,
-  "support": 21.020000457763672,
+  "support": null,
   "resistance": 21.586666742960613,
-  "rvol": 1.1807153558597216,
+  "rvol": 4.8463082883239545,
   "sma20": 22.495000267028807,
   "sma50": 22.207400131225587,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Medziagos",
-  "day_chg": -1.117317394007622,
+  "day_chg": -2.048410782522648,
   "avgVolume": 403551.45,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5654463816406208,
-  "ibs": 0.05882220944420291,
+  "ibs": 0.0,
   "gap_ret": 0.744878262671748,
-  "zscore": -1.6213680086842828,
+  "zscore": -2.8830073832181453,
   "rsi2": 21.548117045118616,
   "grafikas": [
    [
@@ -77964,6 +77964,10 @@
    [
     "2026-09-24 17:25:00+02:00",
     21.239999771118164
+   ],
+   [
+    "2026-09-24 17:35:00+02:00",
+    21.040000915527344
    ]
   ],
   "rizika": {
@@ -77975,25 +77979,25 @@
    "dienu": 128,
    "max_dd": -27.283017140514442
   },
-  "vol5m": 0.09397814741420271,
+  "vol5m": 0.09393850675889331,
   "res_intra": 21.8799991607666,
-  "sup_intra": 21.200000762939453,
+  "sup_intra": null,
   "res_list": [
    21.586666742960613,
    21.8799991607666,
    24.0
   ],
-  "m1h": -0.4091071237914629,
-  "m3h": -0.4863196119288061,
-  "pos1h": 28.5708446866485,
+  "m1h": -0.7445855153402754,
+  "m3h": -0.6059735727826827,
+  "pos1h": 0.0,
   "span_h": 3.0,
   "mom_partial": false,
-  "exp_move": 1.6439461702166887,
+  "exp_move": 1.643252741954121,
   "down_days": 1,
-  "dd5": 5.34759685552676,
-  "chg3d": -2.0295227300000245,
-  "asOf": "2026-09-24 17:25:00+02:00",
-  "score": 60.41214782847728,
+  "dd5": 6.238857331600626,
+  "chg3d": -2.9520266634666377,
+  "asOf": "2026-09-24 17:35:00+02:00",
+  "score": 60.41393153401281,
   "grade": "C",
   "fraze": "Neapibrėžtas kritimas",
   "spalva": "gelt",
@@ -78008,15 +78012,11 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (1.6% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
-   ],
-   [
-    "warn",
     "Per 25.5 val. tikėtinas judesys ~1.6%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
    ],
    [
     "info",
-    "IBS 0.06 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
+    "IBS 0.00 — kaina prie dienos dugno. Tai stipriausias modulio kriterijus, bet paskutiniame patikrinime su šiuo sąrašu jis pranašumo nepatvirtino"
    ],
    [
     "warn",
@@ -78031,25 +78031,25 @@
     "Kaina prie pat dienos dugno — atsigavimo ženklo dar nėra"
    ]
   ],
-  "dip": 2.9250430264916614,
-  "rng": 5.8822209444202915,
-  "room": 1.6321420695768636,
-  "sup_d": 0.1883192495750447,
-  "vw_d": -0.4948667345728578,
-  "stop": 20.602799777984618,
-  "tp": 21.66479976654053,
+  "dip": 3.839114613612385,
+  "rng": 0.0,
+  "room": 2.598221500217876,
+  "sup_d": 0.0,
+  "vw_d": -0.3428325587244249,
+  "stop": 20.408800888061524,
+  "tp": 21.46080093383789,
   "rr": 0.6666666666666685,
-  "shares": 847,
-  "sector_chg": -1.0803965005873706,
-  "pos_value": 17990.279806137085,
-  "gross": 359.8055961227417,
-  "net": 355.8055961227417,
-  "real_risk": 539.7083941841134,
+  "shares": 855,
+  "sector_chg": -1.1002790350165041,
+  "pos_value": 17989.20078277588,
+  "gross": 359.7840156555176,
+  "net": 355.7840156555176,
+  "real_risk": 539.6760234832758,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
   "exit_dienu": 10,
-  "move_ratio": 0.8219730851083443
+  "move_ratio": 0.8216263709770605
  },
  {
   "tag": "FRVIA",
@@ -88771,7 +88771,7 @@
   "tp": 63.50519828796387,
   "rr": 0.666666666666668,
   "shares": 289,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17993.139514923096,
   "gross": 359.8627902984619,
   "net": 355.8627902984619,
@@ -90924,7 +90924,7 @@
   "tp": 145.605,
   "rr": 0.6666666666666644,
   "shares": 126,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17986.5,
   "gross": 359.73,
   "net": 355.73,
@@ -110213,7 +110213,7 @@
   "tp": 57.50760108947754,
   "rr": 0.6666666666666653,
   "shares": 319,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17985.22034072876,
   "gross": 359.7044068145752,
   "net": 355.7044068145752,
@@ -116540,7 +116540,7 @@
   "tp": 37.45440124511719,
   "rr": 0.6666666666666689,
   "shares": 490,
-  "sector_chg": -1.0803965005873706,
+  "sector_chg": -1.1002790350165041,
   "pos_value": 17992.80059814453,
   "gross": 359.85601196289065,
   "net": 355.85601196289065,
