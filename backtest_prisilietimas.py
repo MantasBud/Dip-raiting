@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-PIRMO PRISILIETIMO BACKTESTAS  (v4 - 2026-09-23, tinklelis tikrinamas per dvi puses)
+PIRMO PRISILIETIMO BACKTESTAS  (v5 - 2026-09-23, tinklelis su realistisku stop vykdymu)
 =============================================================================
 
 KODEL SIS TESTAS KITOKS NEI VISI ANKSTESNI
@@ -300,8 +300,18 @@ def baigtys(r, i, horizontas=HORIZONTAS):
             lauk_g = float(r["close"].iloc[i + kiek] / ieina - 1.0)
             blog = float(lan_l.min() / ieina - 1.0)
 
+    # dienu santykiai tinkleliui su REALISTISKU vykdymu (tarpai per nakti)
+    dienos = []
+    for j in range(i + 1, min(i + 1 + horizontas, n)):
+        dienos.append((
+            float(r["open"].iloc[j] / ieina - 1.0),
+            float(r["high"].iloc[j] / ieina - 1.0),
+            float(r["low"].iloc[j] / ieina - 1.0),
+            float(r["close"].iloc[j] / ieina - 1.0),
+        ))
+
     return dict(kmin=kmin, kmax=kmax, galut=galut, virsune=virsune,
-                dugnas=dugnas, naktis=naktis,
+                dugnas=dugnas, naktis=naktis, dienos=dienos,
                 lauk_d=lauk_d, lauk_g=lauk_g, lauk_blog=blog)
 
 
@@ -351,6 +361,7 @@ def surinkti(duom, rezimas):
                 pasieke=float(b["virsune"] >= TIKSLAS),
                 virsune=b["virsune"] * 100,
                 dugnas_pct=b["dugnas"] * 100,
+                dienos=b["dienos"],
                 galut_pct=(b["galut"] * 100 if np.isfinite(b["galut"]) else 0.0),
                 eur_taikinys=eur(b["galut"] if np.isfinite(b["galut"])
                                  else (TIKSLAS if b["kmin"] else SKAUSMAS)),
@@ -484,18 +495,44 @@ def paleisti(rinka, metai):
         riba = df["data"].quantile(0.5)
         d1, d2 = df[df["data"] <= riba], df[df["data"] > riba]
 
-        def ivertink(d, t, pain):
-            pas_t = d["virsune"] >= t * 100
-            pas_s = d["dugnas_pct"] <= pain * 100
-            aisku_t = pas_t & (~pas_s)
-            aisku_s = pas_s & (~pas_t)
-            neaisku = pas_t & pas_s
-            nei = (~pas_t) & (~pas_s)
-            baze = (aisku_t | aisku_s | neaisku).sum()
-            P = (aisku_t.sum() + 0.5 * neaisku.sum()) / max(1, baze)
-            e = (aisku_t.sum() * t + neaisku.sum() * 0.5 * (t + pain)
-                 + aisku_s.sum() * pain + d.loc[nei, "galut_pct"].sum() / 100.0)
-            return P, e / max(1, len(d)) * POZICIJA - SANAUDOS_EUR
+        def ivertink(d, t, pain, realistiskai=True):
+            """Vykdymas su nakties tarpais.
+
+            Tinklelis iki v5 laike, kad stop'as ivykdomas TIKSLIAI ties savo
+            lygiu. Siauriems stop'ams tai netiesa: 0.8% stop'as yra uz nakties
+            tarpo ribu ~24-66% atveju (priklausomai nuo ATR), tad realiai
+            ivykdomas atidarymo kaina, kuri gali buti daug blogesne.
+            Cia: jei diena ATSIDARO uz barjero - iseinam ATIDARYMO kaina.
+            """
+            rez, pataik = [], 0
+            for dienos in d["dienos"]:
+                g = None
+                for (o, h, l, c) in dienos:
+                    if realistiskai and o <= pain:
+                        g = o                      # tarpas zemyn - vykdymas blogesnis
+                        break
+                    if realistiskai and o >= t:
+                        g = o                      # tarpas aukstyn - vykdymas geresnis
+                        break
+                    hit_t, hit_s = h >= t, l <= pain
+                    if hit_t and hit_s:
+                        g = pain                   # neaisku -> konservatyviai
+                        break
+                    if hit_t:
+                        g = t
+                        break
+                    if hit_s:
+                        g = pain
+                        break
+                if g is None:
+                    g = dienos[-1][3] if dienos else 0.0
+                rez.append(g)
+                if g >= t - 1e-12:
+                    pataik += 1
+            if not rez:
+                return 0.0, 0.0
+            P = pataik / len(rez)
+            return P, float(np.mean(rez)) * POZICIJA - SANAUDOS_EUR
 
         print()
         print("#" * 126)
@@ -504,22 +541,27 @@ def paleisti(rinka, metai):
         print("   rezultatas yra tas pats slenksciu parinkimas pamacius duomenis,")
         print("   kuris siame projekte jau kelis kartus klaidino.")
         print("#" * 126)
+        print("   'idealus' = stop ivykdomas tiksliai ties lygiu (taip buvo iki v5)")
+        print("   'realus'   = jei diena atsidaro uz barjero, iseinam ATIDARYMO kaina")
         print(f"{'tikslas':>8}{'skausmas':>10}{'reikia P':>10}"
-              f"{'P 1-a':>8}{'EUR 1-a':>10}{'P 2-a':>8}{'EUR 2-a':>10}{'verdiktas':>14}")
+              f"{'ideal 1-a':>11}{'ideal 2-a':>11}"
+              f"{'REAL 1-a':>11}{'REAL 2-a':>11}{'verdiktas':>16}")
         print("-" * 126)
         for t in (0.005, 0.008, 0.010, 0.015, 0.020, 0.030):
             for pain in (-0.008, -0.010, -0.015, -0.020, -0.028, -0.040):
                 reikia = (SANAUDOS_EUR / POZICIJA + abs(pain)) / (t + abs(pain))
-                P1, e1 = ivertink(d1, t, pain)
-                P2, e2 = ivertink(d2, t, pain)
-                if e1 > 0 and e2 > 0:
+                _, i1 = ivertink(d1, t, pain, False)
+                _, i2 = ivertink(d2, t, pain, False)
+                _, r1 = ivertink(d1, t, pain, True)
+                _, r2 = ivertink(d2, t, pain, True)
+                if r1 > 0 and r2 > 0:
                     v = "ABI TEIGIAMOS"
-                elif e1 > 0 or e2 > 0:
-                    v = "tik viena"
+                elif i1 > 0 and i2 > 0:
+                    v = "tik idealiai"
                 else:
                     v = ""
                 print(f"{t*100:>7.1f}%{pain*100:>9.1f}%{reikia*100:>9.1f}%"
-                      f"{P1*100:>7.1f}%{e1:>10.2f}{P2*100:>7.1f}%{e2:>10.2f}{v:>14}")
+                      f"{i1:>11.2f}{i2:>11.2f}{r1:>11.2f}{r2:>11.2f}{v:>16}")
 
     print()
     print("=" * 126)
