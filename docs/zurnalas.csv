@@ -1,5 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,UCG.MI,UCG,52.0,C,Neapibrėžtas kritimas,,,taip,0.156,ne,ne,-0.09,31,bear_soft,Bankai ir finansai,2.07,83.06,80.57,84.72,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,82.18,-1.06,+0.59
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,MC.PA,MC,44.5,D,Neapibrėžtas kritimas,,,taip,0.178,ne,ne,-0.11,49,bear_soft,Vartojimas ir prabanga,2.66,408.40,396.15,416.57,baigta,ryto atidarymas,2026-09-22 09:00:00+02:00,404.80,-0.88,+0.18
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,ENEL.MI,ENEL,36.0,D,Ramus atsitraukimas,,,taip,0.070,ne,ne,-0.18,74,bear_soft,Energetika,1.82,8.99,8.72,9.17,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,8.87,-1.35,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:37,BNP.PA,BNP,43.4,D,Ramus atsitraukimas,,,taip,0.156,ne,ne,-0.13,53,neutral,Bankai ir finansai,2.00,102.74,99.66,104.79,baigta,ryto atidarymas,2026-09-22 09:00:00+02:00,101.58,-1.13,+0.00
@@ -499,3 +498,4 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,17:40,FRVIA.PA,FRVIA,38.6,D,Kritimas sustojo,,,taip,0.637,ne,ne,+0.42,8,bear_soft,Automobiliai,4.74,8.75,8.48,8.92,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,18:20,OR.PA,OR,63.8,C,Neapibrėžtas kritimas,,,taip,0.071,ne,ne,-0.76,58,bear_soft,Vartojimas ir prabanga,2.03,380.70,369.28,388.31,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,18:38,BNR.DE,BNR,30.9,D,Atsigavimas su sektoriumi,,,taip,0.714,ne,ne,+0.08,20,bear_soft,Pramone,2.31,59.44,57.66,60.63,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,18:53,PRY.MI,PRY,61.2,C,Neapibrėžtas kritimas,,,taip,0.240,taip,ne,-1.50,19,bear_soft,Pramone,3.77,122.40,118.73,124.85,atviras,,,,,
