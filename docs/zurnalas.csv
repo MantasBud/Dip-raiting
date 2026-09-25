@@ -1,5 +1,4 @@
 versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkamas,ibs,ibs_juostoje,sma200_kyla,vwap_nuot,rsi2,rinka,sektorius,atr,ijejimas,stop,min_tikslas,busena,rezultatas,baigties_laikas,baigties_kaina,pelnas_pct,virsune_pct
-2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:58,SAF.PA,SAF,26.2,D,"Kyla, prie viršūnės",,,taip,0.611,ne,ne,+0.04,68,bear_soft,Gynyba ir aviacija,2.30,331.60,321.65,338.23,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,325.50,-1.84,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:58,SAN.PA,SAN,21.4,D,"Kyla, prie viršūnės",,,taip,0.787,ne,ne,+0.24,48,bear_soft,Sveikata,1.99,75.02,72.77,76.52,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,74.25,-1.03,+0.07
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,09:58,AI.PA,AI,57.3,C,Neapibrėžtas kritimas,,,taip,0.233,taip,ne,-0.10,34,bear_soft,Medziagos,1.57,165.38,160.42,168.69,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,163.38,-1.21,+0.00
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-18,10:20,UCG.MI,UCG,52.0,C,Neapibrėžtas kritimas,,,taip,0.156,ne,ne,-0.09,31,bear_soft,Bankai ir finansai,2.07,83.06,80.57,84.72,baigta,ryto atidarymas,2026-09-21 09:00:00+02:00,82.18,-1.06,+0.59
@@ -499,3 +498,4 @@ versija,data,laikas,sym,tag,balas,pakopa,scenarijus,sortai,sortu_pokytis,tinkama
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,17:21,GRF.MC,GRF,24.7,D,"Kyla, prie viršūnės",,,taip,0.726,ne,ne,+0.18,30,bear_soft,Sveikata,2.12,9.58,9.29,9.77,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,17:21,AKE.PA,AKE,41.1,D,Ramus atsitraukimas,,,taip,0.696,ne,ne,+0.07,28,bear_soft,Medziagos,2.41,56.80,55.10,57.94,atviras,,,,,
 2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,17:21,RAA.DE,RAA,52.9,C,Kritimas dar tęsiasi,,,taip,0.125,ne,ne,-0.35,41,bear_soft,Pramone,1.98,570.50,553.38,581.91,atviras,,,,,
+2026-09-16 atr-normalizuota ibs-vwap-dip u214,2026-09-25,17:40,FRVIA.PA,FRVIA,38.6,D,Kritimas sustojo,,,taip,0.637,ne,ne,+0.42,8,bear_soft,Automobiliai,4.74,8.75,8.48,8.92,atviras,,,,,
