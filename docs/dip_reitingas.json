@@ -4248,21 +4248,21 @@
    [
     "Allianz (XTRA:ALV) Looks Fully Valued After A Strong Multi Year Run",
     "Simply Wall St.",
-    100.67432115694444,
+    101.00032239444444,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/allianz-xtra-alv-looks-fully-111308151.html"
    ],
    [
     "5 things nobody warns you about in the first year of retirement — don't let them derail your new life",
     "Moneywise",
-    126.89321004833334,
+    127.21921128583332,
     "neig",
     "https://finance.yahoo.com/small-business/articles/5-things-nobody-warns-first-090000200.html"
    ],
    [
     "EnBW and partners inaugurate 960MW He Dreiht offshore wind project",
     "Power Technology",
-    169.17987671861113,
+    169.5058779561111,
     "teig",
     "https://www.power-technology.com/news/enbw-inaugurate-960mw-he-dreiht-project/"
    ]
@@ -6422,21 +6422,21 @@
    [
     "Nebius Stock Surges: BNP Paribas Upgrades, Sees $22B ARR By 2027",
     "Stocktwits",
-    13.24436743361111,
+    13.570359261388887,
     "teig",
     "https://stocktwits.com/news-articles/markets/equity/nebius-stock-surges-bnp-paribas-upgrades-sees-22-b-arr-by-2027/cZMaMEpRBa4"
    ],
    [
     "This Analyst Just Upgraded Synopsys Stock. Here's Why.",
     "Barchart",
-    19.851589664166664,
+    20.177581491944448,
     "teig",
     "https://www.barchart.com/story/news/4786306/this-analyst-just-upgraded-synopsys-stock-here-s-why"
    ],
    [
     "Nebius Stock Soars 8% as BNP Paribas Delivers Massive Price Target Hike",
     "GuruFocus.com",
-    21.796034110555556,
+    22.12202593861111,
     "teig",
     "https://finance.yahoo.com/markets/stocks/articles/nebius-stock-soars-8-bnp-180550903.html"
    ]
@@ -8592,14 +8592,14 @@
    [
     "Boeing Unlikely To Get More China Orders During Trump-XI Summit; Stock Falls",
     "Investor's Business Daily",
-    23.85467895277778,
+    24.180681764444444,
     "neig",
     "https://www.investors.com/news/boeing-trumo-xi-summit-us-china-archer-aviation-airbus/?src=A00220&yptr=yahoo"
    ],
    [
     "Boeing Stock Falls as Hopes for a New China Jet Order Fade",
     "Barrons.com",
-    25.776623399444446,
+    26.102626211388888,
     "neig",
     "https://www.barrons.com/articles/boeing-stock-china-order-trump-xi-summit-d1b218b7?siteid=yhoof2&yptr=yahoo"
    ]
@@ -10751,7 +10751,7 @@
    [
     "Europe Is Stronger Than Investors Think. What to Own Now.",
     "Barrons.com",
-    345.89333187444447,
+    346.21934993722226,
     "teig",
     "https://www.barrons.com/articles/europe-stocks-investments-earnings-aed79c13?siteid=yhoof2&yptr=yahoo"
    ]
@@ -66263,12 +66263,12 @@
   "price": 12.989999771118164,
   "dayHigh": 13.119999885559082,
   "dayLow": 12.989999771118164,
-  "vwap": 13.05129396345904,
+  "vwap": 13.019304491362698,
   "rsi": 38.408038480535744,
   "atrPct": 2.497217474217197,
   "support": 12.929999987284342,
   "resistance": 13.019999821980793,
-  "rvol": 0.7631484683521352,
+  "rvol": 1.5962127812001115,
   "sma20": 13.066000032424927,
   "sma50": 13.417800045013427,
   "sma200": null,
@@ -68057,8 +68057,8 @@
   "dd5": 1.9622658783534788,
   "chg3d": 1.1682213142344953,
   "asOf": "2026-09-25 17:35:00+02:00",
-  "score": 50.22301492922732,
-  "grade": "C",
+  "score": 49.23024675563076,
+  "grade": "D",
   "fraze": "Ramus atsitraukimas",
   "spalva": "gelt",
   "tradeable": true,
@@ -68103,7 +68103,7 @@
   "rng": 0.0,
   "room": 0.23094727783853267,
   "sup_d": 0.4618921084758225,
-  "vw_d": -0.4696407307389373,
+  "vw_d": -0.22508668004481672,
   "stop": 12.600299777984619,
   "tp": 13.249799766540528,
   "rr": 0.6666666666666682,
@@ -77722,29 +77722,29 @@
   "tag": "UMI",
   "sym": "UMI.BR",
   "name": "UMI.BR",
-  "price": 21.520000457763672,
+  "price": 21.399999618530273,
   "dayHigh": 21.520000457763672,
   "dayLow": 21.15999984741211,
-  "vwap": 21.32500498427958,
-  "rsi": 69.36942625407602,
+  "vwap": 21.38732366388324,
+  "rsi": 54.2590453221197,
   "atrPct": 3.524331571476697,
   "support": 21.320000330607098,
   "resistance": 21.59999974568685,
-  "rvol": 0.7045723478653956,
+  "rvol": 4.815821205022848,
   "sma20": 22.376000308990477,
   "sma50": 22.242800140380858,
   "sma200": null,
   "sma200_kyla": false,
   "earnings": false,
   "sector": "Medziagos",
-  "day_chg": 2.281366546339323,
+  "day_chg": 1.711020377082083,
   "avgVolume": 396864.75,
   "cur": "EUR",
   "cur_sym": "€",
   "gap": 0.5654463816406208,
-  "ibs": 1.0,
+  "ibs": 0.6666649006061119,
   "gap_ret": 1.996188929038294,
-  "zscore": 1.0840530360028784,
+  "zscore": 0.19558797254458796,
   "rsi2": 6.811953362467449,
   "grafikas": [
    [
@@ -79530,6 +79530,10 @@
    [
     "2026-09-25 17:25:00+02:00",
     21.520000457763672
+   ],
+   [
+    "2026-09-25 17:35:00+02:00",
+    21.399999618530273
    ]
   ],
   "rizika": {
@@ -79542,30 +79546,31 @@
    "max_dd": -27.283017140514442
   },
   "vol5m": 0.09433278158177856,
-  "res_intra": null,
+  "res_intra": 21.520000457763672,
   "sup_intra": 21.15999984741211,
   "res_list": [
+   21.520000457763672,
    21.59999974568685,
    24.0
   ],
-  "m1h": 1.0047779793859104,
-  "m3h": 0.7882506888548665,
-  "pos1h": 100.0,
+  "m1h": 0.8195530585366347,
+  "m3h": 0.8169439338874371,
+  "pos1h": 57.142662515922915,
   "span_h": 3.0,
   "mom_partial": false,
   "exp_move": 1.6501497345308986,
   "down_days": 2,
-  "dd5": 3.41113198141585,
-  "chg3d": -0.27803274399677924,
-  "asOf": "2026-09-25 17:25:00+02:00",
-  "score": 23.86868250777642,
+  "dd5": 3.9497353725069746,
+  "chg3d": -0.8341070704919111,
+  "asOf": "2026-09-25 17:35:00+02:00",
+  "score": 38.68287015835754,
   "grade": "D",
-  "fraze": "Kyla, prie viršūnės",
+  "fraze": "Atsigavimas po kritimo",
   "spalva": "gelt",
   "tradeable": true,
   "blocking": [],
-  "setup": "Kyla, prie viršūnės",
-  "recovering": false,
+  "setup": "Atsigavimas",
+  "recovering": true,
   "flags": [
    [
     "warn",
@@ -79573,15 +79578,11 @@
    ],
    [
     "warn",
-    "Kelyje kliūtis (0.4% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
+    "Kelyje kliūtis (0.6% aukščiau) — jį reikės pramušti, kad tikslas būtų pasiektas"
    ],
    [
     "warn",
     "Per 25.5 val. tikėtinas judesys ~1.7%, o minimalus tikslas 2.0% — šiai akcijai jis ant ribos"
-   ],
-   [
-    "warn",
-    "IBS 1.00 — kaina prie dienos viršūnės. Istoriškai tokie įėjimai pasirodo prasčiau už dienos vidurkį"
    ],
    [
     "warn",
@@ -79592,24 +79593,24 @@
     "Rizika/nauda 0.67 — rizikuoji daugiau nei sieki"
    ],
    [
-    "warn",
-    "Antra kritimo diena iš eilės — palauk stabilizacijos ženklo"
+    "info",
+    "Atsigavimo faze: nukritusi 3.9% nuo 5 d. viršūnės, šiandien +1.7% ir laikosi dienos viršuje"
    ]
   ],
-  "dip": 0.0,
-  "rng": 100.0,
-  "room": 0.3717438950811847,
-  "sup_d": 1.6728652541533133,
-  "vw_d": 0.9143982551368159,
-  "stop": 20.874400444030762,
-  "tp": 21.950400466918946,
-  "rr": 0.6666666666666685,
-  "shares": 836,
+  "dip": 0.5576247057657765,
+  "rng": 66.6664900606112,
+  "room": 0.5607515951985795,
+  "sup_d": 1.1214942775529215,
+  "vw_d": 0.05926854077791449,
+  "stop": 20.757999629974364,
+  "tp": 21.82799961090088,
+  "rr": 0.6666666666666649,
+  "shares": 841,
   "sector_chg": 0.22627782409897482,
-  "pos_value": 17990.72038269043,
-  "gross": 359.8144076538086,
-  "net": 355.8144076538086,
-  "real_risk": 539.7216114807127,
+  "pos_value": 17997.39967918396,
+  "gross": 359.9479935836792,
+  "net": 355.9479935836792,
+  "real_risk": 539.9219903755197,
   "exit_mode": "salyginis",
   "exit_rsi": 70.0,
   "exit_ibs": 0.8,
@@ -85424,12 +85425,12 @@
   "price": 67.68000030517578,
   "dayHigh": 68.62000274658203,
   "dayLow": 67.66000366210938,
-  "vwap": 67.94426615370621,
+  "vwap": 67.94425210147669,
   "rsi": 27.8590415275236,
   "atrPct": 1.9845856536937871,
   "support": 66.58000183105469,
   "resistance": 68.26666768391927,
-  "rvol": 0.9113317236000134,
+  "rvol": 0.9113801858724617,
   "sma20": 68.25199966430664,
   "sma50": 69.64480026245117,
   "sma200": null,
@@ -87586,7 +87587,7 @@
   "rng": 2.082985639240557,
   "room": 0.8668253192939478,
   "sup_d": 1.6252932463964131,
-  "vw_d": -0.38894503317262336,
+  "vw_d": -0.38892443161526535,
   "stop": 65.64960029602051,
   "tp": 69.0336003112793,
   "rr": 0.666666666666669,
